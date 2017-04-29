@@ -1,4 +1,13 @@
 On the medication page of the SOAR definition, what do the three numbers represent? Morning, afternoon, and night dosage?
 
+Can there be more than one current caregiver per child?
 
+Regarding the "flag" concept, is this just a way to recall all flagged data? (e.g. find all flags for a given child or a given caregiver).
+
+
+How are "assessments" different from doctor visit history?
+
+What does the "seen by" field in assessment history mean?
+
+What elements need english names only (vs. chinese and pinyin).
 

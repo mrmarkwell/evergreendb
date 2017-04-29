@@ -1,3 +1,7 @@
+Notes:
+    - We need to deal with the concept of flagged notes.
+    - Attachments TBD
+    - Photo handling TBD
 
 Children {
 ID : Guid <pkey>,
@@ -8,7 +12,6 @@ Nickname : string,
 Sex : tinyint,
 DOB : date,
 Child Photo : pointer,
-Current Caregiver : Guid,
 Abandonment Date : date,
 Program Entry Date : date,
 Program Departure Date : date,
@@ -18,16 +21,90 @@ Is Active : bool,
 Medical History : bigstring,
 }
 
+AssessmentTypes {
+ID : Guid <pkey>,
+Assessment Name : string
+}
+
+ChildPartners {
+Child ID : Guid <fkey>,
+Partner ID : Guid <fkey>,
+Start Date : date,
+End Date : date,
+Notes : bigstring
+}
+
+Partners {
+ID : Guid <pkey>,
+Partner Name : string,
+email : string,
+Address : string,
+Phone : string,
+notes : bigstring
+}
+
+ChildNotes {
+Child ID : Guid <fkey>,
+Note date : date,
+Note : bigstring,
+}
+
+ChildCamps {
+Child ID : Guid <fkey>,
+Camp ID : Guid <fkey>,
+Camp Start Date : date,
+Notes : bigstring,
+}
+
+
+
+Camps {
+ID : Guid <pkey>,
+Camp Name : string,
+}
+
+ChildAssessments {
+Child ID : Guid <fkey>,
+Assessment ID : Guid <fkey>,
+Assessment date : date,
+Notes : bigstring,
+}
+
+ChildCaregiverHistory {
+Child ID : Guid <fkey>,
+Caregiver ID : Guid <fkey>,
+Start Date : date,
+End Date : date,
+Notes : bigstring,
+}
+
 ChildMeasurements {
 Child ID : Guid <fkey>,
 MeasurementID : Guid <fkey>,
 Measurement Date : date,
 Measurement Value : float,
-
-
 }
 
+ChildMilestones {
+Child ID : Guid <fkey>,
+Milestone ID : Guid <fkey>,
+Date Reached : date,
+}
 
+MilestoneTypes {
+ID : Guid <pkey>,
+Milestone Name : string,
+Milestone Chinese Name : string,
+Milestone Pinyin Name : string,
+Milestone Category : Guid <fkey>,
+}
+
+MilestoneTypeCategories {
+ID : Guid <pkey>,
+Milestone Category Name : string,
+Milestone Category Chinese Name : string,
+Milestone Category Pinyin Name : string,
+}
 
 ChildDoctorVisitHistory {
 Child ID : Guid <fkey>,
@@ -45,14 +122,18 @@ Doctors {
 ID : Guid <pkey>,
 Doctor Type : Guid <fkey>,
 Facility Name : string,
+Facility Chinese Name : string,
+Facility Pinyin Name : string,
 Doctor Name : string,
-Doctor Name Chinese : string,
-Doctor Name Pinyin : string,
+Doctor Chinese Name : string,
+Doctor Pinyin Name : string,
 }
 
 MeasurementTypes {
 ID : Guid <pkey>,
 Measurement Name : string,
+Measurement Chinese Name : string,
+Measurement Pinyin Name : string,
 Measurement Units : string,
 }
 
