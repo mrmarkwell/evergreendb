@@ -1,0 +1,99 @@
+
+Children {
+ID : Guid <pkey>,
+Chinese Name : string,
+Pinyin Name : string,
+English Name : string,
+Nickname : string,
+Sex : tinyint,
+DOB : date,
+Child Photo : pointer,
+Current Caregiver : Guid,
+Abandonment Date : date,
+Program Entry Date : date,
+Program Departure Date : date,
+Program Departure Reason : string,
+Child History : bigstring,
+Is Active : bool,
+Medical History : bigstring,
+}
+
+ChildMeasurements {
+Child ID : Guid <fkey>,
+MeasurementID : Guid <fkey>,
+Measurement Date : date,
+Measurement Value : float,
+
+
+}
+
+
+
+ChildDoctorVisitHistory {
+Child ID : Guid <fkey>,
+Doctor ID : Guid <fkey>,
+Visit Date : date,
+Notes : bigstring,
+}
+
+DoctorTypes {
+ID : Guid <pkey>,
+DoctorType : string,
+}
+
+Doctors {
+ID : Guid <pkey>,
+Doctor Type : Guid <fkey>,
+Facility Name : string,
+Doctor Name : string,
+Doctor Name Chinese : string,
+Doctor Name Pinyin : string,
+}
+
+MeasurementTypes {
+ID : Guid <pkey>,
+Measurement Name : string,
+Measurement Units : string,
+}
+
+Caregivers {
+ID : Guid <pkey>,
+Chinese Name : string,
+Pinyin Name : string,
+English Name : string,
+}
+
+ChildMedicalConditions {
+Child ID : Guid <fkey>,
+Condition ID : Guid <fkey>,
+}
+
+MedicalConditions {
+ID : Guid <pkey>,
+Condition : string,
+Condition Pinyin : string,
+Condition Chinese : string,
+}
+
+ChildMedications {
+Child ID : Guid <fkey>,
+Medication ID : Guid <fkey>,
+Is Active : bool,
+Start Date : date,
+End Date : date,
+Dosage1 : float,
+Dosage2 : float,
+Dosage3 : float
+
+}
+
+Medications {
+ID : Guid <pkey>,
+Condition Name : string,
+Condition Name Chinese : string,
+Condition Name English : string,
+Dose Size (mg) : float,
+}
+
+
+

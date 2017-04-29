@@ -1,0 +1,37 @@
+Meeting minutes
+
+This seems well suited for a standard SQL database. Tentative decision is to use that.
+Sounds like MySQL is a good free option.
+
+It seems like a web app is a good way to go. Electron seems like a good technology to leverage.
+
+The app should have a user management capability to add and remove users.
+
+Options for web server:
+    Common Gateway Interface (CGI)
+    Node.js
+    Flask (python) - This sound like the current front runner
+    Django (python)
+    Apache
+    
+Tools we won't use:
+    Perl
+    tcsh
+    csh
+
+
+Backend just sanitizes data that comes in before sending to database.
+
+We can use REST/json to transfer the data with simple CRUD operations.
+
+Action items:
+    1. Break down user requirements into user stories (backlog)
+    2. Architect database tables and relationships
+    3. Complete all required work
+
+
+
+
+
+
+
