@@ -1,14 +1,33 @@
-Notes:
-    - We need to deal with the concept of flagged notes.
-        - Answer from Andrew - they just want to be able to pull up all notes with "flags"
-          set on them from the "ChildAssessments", "ChildNotes", and "ChildPartners" tables.
-    - Attachments TBD
-    - Photo handling TBD
+# Author: Matthew Markwell
+# Date: 5/2/2017
+# 
+# This file creates a new MySQL database.
+# By default it will call the database 'testevergreendb'.
+# Optionally, a database name can be passed in from the command line.
+# The evergreendb tables are created in this new database.
+#
+# This is not production code - it is just a way to construct 
+# the database for testing. The production version should probably
+# use the flask mysql API and have much better error handling.
 
--- The databases are basically either entities or relationships.
+import MySQLdb as db
+import sys
 
----------- Entities ----------
+db_name = "testevergreendb"
+if (len(sys.argv) > 1):
+    db_name = sys.argv[1]
 
+
+# Create the database if it doesn't exist
+con = db.connect(user='aaaa', passwd='aaaa', use_unicode=True)
+cur = con.cursor()
+create_cmd = "CREATE DATABASE IF NOT EXISTS %s CHARACTER SET utf8 COLLATE utf8_general_ci" % db_name
+cur.execute(create_cmd)
+
+con = db.connect(user='aaaa', passwd='aaaa', db=db_name, use_unicode=True)
+cur = con.cursor()
+           
+cur.execute("""
 CREATE TABLE IF NOT EXISTS Child (
 ID CHAR(16),
 EnglishName VARCHAR(255),
@@ -27,7 +46,9 @@ IsActive BOOL,
 MedicalHistory TEXT,
 PRIMARY KEY (ID)
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS Partner (
 ID CHAR(16),
 EnglishName VARCHAR(255),
@@ -38,7 +59,9 @@ Address VARCHAR(255),
 Phone VARCHAR(255),
 PRIMARY KEY (ID)
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS Specialist (
 ID CHAR(16),
 AssessmentSpecialty VARCHAR(255),
@@ -47,7 +70,9 @@ ChineseName VARCHAR(255),
 PinyinName VARCHAR(255),
 PRIMARY KEY (ID)
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS AssessmentType (
 ID CHAR(16),
 EnglishName VARCHAR(255),
@@ -55,7 +80,9 @@ ChineseName VARCHAR(255),
 PinyinName VARCHAR(255),
 PRIMARY KEY (ID)
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS MilestoneTypeCategory (
 ID CHAR(16),
 EnglishName VARCHAR(255),
@@ -63,7 +90,9 @@ ChineseName VARCHAR(255),
 PinyinName VARCHAR(255),
 PRIMARY KEY (ID)
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS MilestoneType (
 ID CHAR(16),
 MilestoneCategory CHAR(16),
@@ -77,13 +106,17 @@ REFERENCES MilestoneTypeCategory(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS DoctorType (
 ID CHAR(16),
 DoctorType VARCHAR(255),
 PRIMARY KEY (ID)
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS Doctor (
 ID CHAR(16),
 DoctorType CHAR(16),
@@ -100,7 +133,9 @@ REFERENCES DoctorType(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS MeasurementType (
 ID CHAR(16),
 EnglishName VARCHAR(255),
@@ -109,7 +144,9 @@ PinyinName VARCHAR(255),
 Units VARCHAR(255),
 PRIMARY KEY (ID)
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS Caregiver (
 ID CHAR(16),
 EnglishName VARCHAR(255),
@@ -117,7 +154,9 @@ ChineseName VARCHAR(255),
 PinyinName VARCHAR(255),
 PRIMARY KEY (ID)
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS Camp (
 ID CHAR(16),
 EnglishCampName VARCHAR(255),
@@ -125,7 +164,9 @@ ChineseCampName VARCHAR(255),
 PinyinCampName VARCHAR(255),
 PRIMARY KEY (ID)
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS Medication (
 ID CHAR(16),
 EnglishName VARCHAR(255),
@@ -134,7 +175,9 @@ PinyinName VARCHAR(255),
 DoseInMilligrams FLOAT,
 PRIMARY KEY (ID)
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS MedicalCondition (
 ID CHAR(16),
 EnglishName VARCHAR(255),
@@ -142,9 +185,9 @@ PinyinName VARCHAR(255),
 ChineseName VARCHAR(255),
 PRIMARY KEY (ID)
 )
-
--------- Relationships ---------
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS ChildPartner (
 ChildID CHAR(16),
 PartnerID CHAR(16),
@@ -163,7 +206,9 @@ REFERENCES Partner(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS ChildNote (
 ChildID CHAR(16),
 NoteDate DATE,
@@ -175,7 +220,9 @@ REFERENCES Child(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS ChildCamp (
 ChildID CHAR(16),
 CampID CHAR(16),
@@ -192,7 +239,9 @@ REFERENCES Camp(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS ChildAssessment (
 ChildID CHAR(16),
 SpecialistID CHAR(16),
@@ -216,7 +265,9 @@ REFERENCES AssessmentType(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS ChildCaregiverHistory (
 ChildID CHAR(16),
 CaregiverID CHAR(16),
@@ -234,7 +285,9 @@ REFERENCES Caregiver(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS ChildMeasurement (
 ChildID CHAR(16),
 MeasurementTypeID CHAR(16),
@@ -251,7 +304,9 @@ REFERENCES MeasurementType(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS ChildMilestone (
 ChildID CHAR(16),
 MilestoneTypeID CHAR(16),
@@ -267,7 +322,9 @@ REFERENCES MilestoneType(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS ChildDoctorVisitHistory (
 ChildID CHAR(16),
 DoctorID CHAR(16),
@@ -284,11 +341,13 @@ REFERENCES Doctor(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS ChildMedicalCondition (
 ChildID CHAR(16),
 MedicalConditionID CHAR(16),
-CONSTRAINT fk_MedicalConditionChildID 
+CONSTRAINT fk_MecicalConditionChildID 
 FOREIGN KEY (ChildID)
 REFERENCES Child(ID)
 ON DELETE CASCADE
@@ -299,7 +358,9 @@ REFERENCES MedicalCondition(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
-
+"""
+)
+cur.execute("""
 CREATE TABLE IF NOT EXISTS ChildMedication (
 ChildID CHAR(16),
 MedicationID CHAR(16),
@@ -320,4 +381,5 @@ REFERENCES Medication(ID)
 ON DELETE CASCADE
 ON UPDATE CASCADE
 )
-
+"""
+)
