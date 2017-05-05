@@ -5,3 +5,10 @@ install:
   - pip install -r requirements.txt
 script:
   - python -c "print 'Hello world!'"
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/a2899ec6cc49151dbb9e
+    on_success: always  # options: [always|never|change] default: always
+    on_failure: always  # options: [always|never|change] default: always
+    on_start: never     # options: [always|never|change] default: always
