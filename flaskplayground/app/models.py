@@ -28,6 +28,8 @@ class Child(db.Model):
     assessments = db.relationship('ChildAssessment', back_populates='child', lazy='dynamic')
     caregivers = db.relationship('ChildCaregiver', back_populates='child', lazy='dynamic')
     measurement_types = db.relationship('ChildMeasurement', back_populates='child', lazy='dynamic')
+    milestone_types = db.relationship('ChildMilestone', back_populates='child', lazy='dynamic')
+    doctors = db.relationship('Doctor', back_populates='child', lazy='dynamic')
 
     def __repr__(self):
         return '<Child %r>' % (self.nickname)
@@ -108,6 +110,7 @@ class MilestoneType(db.Model):
         db.String(16),
         db.ForeignKey('milestone_category.id')
     )
+    children = db.relationship('ChildMilestone', back_populates='milestone_type', lazy='dynamic')
 
     def __repr__(self):
         return '<Milestone Type Category %r>' % (self.english_name)
@@ -133,6 +136,7 @@ class Doctor(db.Model):
     facility_chinese_name = db.Column(db.String(255))
     facility_pinyin_name = db.Column(db.String(255))
     doctor_type = db.Column(db.Integer, db.ForeignKey('doctor_type.id'))
+    children = db.relationship('Doctor', back_populates='doctor', lazy='dynamic')
 
     def __repr__(self):
         return '<Doctor %r>' % (self.english_name)
@@ -228,7 +232,24 @@ class ChildCaregiver(db.Model):
 class ChildMeasurement(db.Model):
     date = db.Column(db.DateTime)
     value = db.Column(db.Float)
-    measurement_type_id = db.Column(db.Integer, db.ForeignKey('measurement_type.id'))
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
-    child = db.relationship('Child', back_populates='caregivers', lazy='dynamic')
-    measurement_type = db.relationship('MeasurementType', back_populates='measurement_types', lazy='dynamic')
+    measurement_type_id = db.Column(db.Integer, db.ForeignKey('measurement_type.id'))
+    child = db.relationship('Child', back_populates='measurement_types', lazy='dynamic')
+    measurement_type = db.relationship('MeasurementType', back_populates='children', lazy='dynamic')
+
+
+class ChildMilestone(db.Model):
+    date = db.Column(db.DateTime)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
+    milestone_type_id = db.Column(db.Integer, db.ForeignKey('milestone_type.id'))
+    child = db.relationship('Child', back_populates='milestone_types', lazy='dynamic')
+    milestone_type = db.relationship('MilestoneType', back_populates='children', lazy='dynamic')
+
+
+class ChildDoctorVisit(db.Model):
+    date = db.Column(db.DateTime)
+    notes = db.Column(db.Text)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
+    doctor_id = db.Column(db.Integer, db.ForeignKey('milestone_type.id'))
+    child = db.relationship('Child', back_populates='doctors', lazy='dynamic')
+    doctor = db.relationship('Doctor', back_populates='children', lazy='dynamic')
