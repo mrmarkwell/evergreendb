@@ -5,6 +5,7 @@ from app import db
 # ------------------ Entities ------------------
 
 class Child(db.Model):
+    __tablename__ = 'child'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
@@ -38,6 +39,7 @@ class Child(db.Model):
 
 
 class ChildNote(db.Model):
+    __tablename__ = 'child_note'
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime)
     note = db.Column(db.UnicodeText)
@@ -46,6 +48,7 @@ class ChildNote(db.Model):
 
 
 class Partner(db.Model):
+    __tablename__ = 'partner'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
@@ -60,6 +63,7 @@ class Partner(db.Model):
 
 
 class Caregiver(db.Model):
+    __tablename__ = 'caregiver'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
@@ -71,6 +75,7 @@ class Caregiver(db.Model):
 
 
 class Specialist(db.Model):
+    __tablename__ = 'specialist'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
@@ -83,6 +88,7 @@ class Specialist(db.Model):
 
 
 class SpecialistType(db.Model):
+    __tablename__ = 'specialist_type'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
@@ -94,6 +100,7 @@ class SpecialistType(db.Model):
 
 
 class MilestoneTypeCategory(db.Model):
+    __tablename__ = 'milestone_type_category'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
@@ -105,6 +112,7 @@ class MilestoneTypeCategory(db.Model):
 
 
 class MilestoneType(db.Model):
+    __tablename__ = 'milestone_type'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
@@ -120,6 +128,7 @@ class MilestoneType(db.Model):
 
 
 class DoctorType(db.Model):
+    __tablename__ = 'doctor_type'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
@@ -131,6 +140,7 @@ class DoctorType(db.Model):
 
 
 class Doctor(db.Model):
+    __tablename__ = 'doctor'
     id = db.Column(db.Integer, primary_key=True)
     doctor_english_name = db.Column(db.Unicode(255))
     doctor_chinese_name = db.Column(db.Unicode(255))
@@ -146,6 +156,7 @@ class Doctor(db.Model):
 
 
 class MeasurementType(db.Model):
+    __tablename__ = 'measurement_type'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
@@ -162,6 +173,7 @@ class MeasurementType(db.Model):
 
 
 class Camp(db.Model):
+    __tablename__ = 'camp'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
@@ -170,6 +182,7 @@ class Camp(db.Model):
 
 
 class MedicalCondition(db.Model):
+    __tablename__ = 'medical_condition'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
@@ -178,6 +191,7 @@ class MedicalCondition(db.Model):
 
 
 class Medication(db.Model):
+    __tablename__ = 'medication'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
@@ -189,7 +203,8 @@ class Medication(db.Model):
 
 
 class ChildPartner(db.Model):
-    start_date = db.Column(db.DateTime)
+    __tablename__ = 'child_partner'
+    start_date = db.Column(db.DateTime, primary_key=True)
     end_date = db.Column(db.DateTime)
     notes = db.Column(db.UnicodeText)
     flag = db.Column(db.Boolean)
@@ -200,7 +215,8 @@ class ChildPartner(db.Model):
 
 
 class ChildCamp(db.Model):
-    date = db.Column(db.DateTime)
+    __tablename__ = 'child_camp'
+    date = db.Column(db.DateTime, primary_key=True)
     notes = db.Column(db.UnicodeText)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
     camp_id = db.Column(db.Integer, db.ForeignKey('camp.id'), primary_key=True)
@@ -209,7 +225,8 @@ class ChildCamp(db.Model):
 
 
 class ChildAssessment(db.Model):
-    date = db.Column(db.DateTime)
+    __tablename__ = 'child_assessment'
+    date = db.Column(db.DateTime, primary_key=True)
     notes = db.Column(db.UnicodeText)
     flag = db.Column(db.Boolean)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
@@ -219,7 +236,8 @@ class ChildAssessment(db.Model):
 
 
 class ChildCaregiver(db.Model):
-    start_date = db.Column(db.DateTime)
+    __tablename__ = 'child_caregiver'
+    start_date = db.Column(db.DateTime, primary_key=True)
     end_date = db.Column(db.DateTime)
     notes = db.Column(db.UnicodeText)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
@@ -229,45 +247,50 @@ class ChildCaregiver(db.Model):
 
 
 class ChildMeasurement(db.Model):
-    date = db.Column(db.DateTime)
+    __tablename__ = 'child_measurement'
+    date = db.Column(db.DateTime, primary_key=True)
     value = db.Column(db.Float)
-    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
-    measurement_type_id = db.Column(db.Integer, db.ForeignKey('measurement_type.id'))
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
+    measurement_type_id = db.Column(db.Integer, db.ForeignKey('measurement_type.id'), primary_key=True)
     child = db.relationship('Child', back_populates='measurement_types', lazy='dynamic')
     measurement_type = db.relationship('MeasurementType', back_populates='children', lazy='dynamic')
 
 
 class ChildMilestone(db.Model):
+    __tablename__ = 'child_milestone'
     date = db.Column(db.DateTime)
-    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
-    milestone_type_id = db.Column(db.Integer, db.ForeignKey('milestone_type.id'))
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
+    milestone_type_id = db.Column(db.Integer, db.ForeignKey('milestone_type.id'), primary_key=True)
     child = db.relationship('Child', back_populates='milestone_types', lazy='dynamic')
     milestone_type = db.relationship('MilestoneType', back_populates='children', lazy='dynamic')
 
 
 class ChildDoctorVisit(db.Model):
-    date = db.Column(db.DateTime)
+    __tablename__ = 'child_doctor_visit'
+    date = db.Column(db.DateTime, primary_key=True)
     notes = db.Column(db.UnicodeText)
-    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
-    doctor_id = db.Column(db.Integer, db.ForeignKey('doctor.id'))
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
+    doctor_id = db.Column(db.Integer, db.ForeignKey('doctor.id'), primary_key=True)
     child = db.relationship('Child', back_populates='doctors', lazy='dynamic')
     doctor = db.relationship('Doctor', back_populates='children', lazy='dynamic')
 
 class ChildMedicalCondition(db.Model):
-    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
-    medical_condition_id = db.Column(db.Integer, db.ForeignKey('medical_condition.id'))
+    __tablename__ = 'child_medical_condition'
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
+    medical_condition_id = db.Column(db.Integer, db.ForeignKey('medical_condition.id'), primary_key=True)
     child = db.relationship('Child', back_populates='medical_conditions', lazy='dynamic')
     medical_condition = db.relationship('MedicalCondition', back_populates='children', lazy='dynamic')
 
 
 class ChildMedication(db.Model):
+    __tablename__ = 'child_medication'
     is_active = db.Column(db.Boolean)
-    start_date = db.Column(db.DateTime)
+    start_date = db.Column(db.DateTime, primary_key=True)
     end_date = db.Column(db.DateTime)
     dosage1 = db.Column(db.Float)
     dosage2 = db.Column(db.Float)
     dosage3 = db.Column(db.Float)
-    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
-    medication = db.Column(db.Integer, db.ForeignKey('medication.id'))
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
+    medication = db.Column(db.Integer, db.ForeignKey('medication.id'), primary_key=True)
     child = db.relationship('Child', back_populates='medications', lazy='dynamic')
     medications = db.relationship('MedicalCondition', back_populates='children', lazy='dynamic')
