@@ -6,19 +6,19 @@ from app import db
 
 class Child(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.String(255))
-    chinese_name = db.Column(db.String(255))
-    pinyin_name = db.Column(db.String(255))
-    nickname = db.Column(db.String(255))
-    sex = db.Column(db.String(1))
+    english_name = db.Column(db.Unicode(255))
+    chinese_name = db.Column(db.Unicode(255))
+    pinyin_name = db.Column(db.Unicode(255))
+    nickname = db.Column(db.Unicode(255))
+    sex = db.Column(db.Unicode(1))
     birth_date = db.Column(db.DateTime)
     photo = db.Column(db.LargeBinary)
     abandonment_date = db.Column(db.DateTime)
     program_entry_date = db.Column(db.DateTime)
     program_departure_date = db.Column(db.DateTime)
-    program_departure_reason = db.Column(db.Text)
-    child_history = db.Column(db.Text)
-    medical_history = db.Column(db.Text)
+    program_departure_reason = db.Column(db.UnicodeText)
+    child_history = db.Column(db.UnicodeText)
+    medical_history = db.Column(db.UnicodeText)
     is_active = db.Column(db.Boolean)
     notes = db.relationship('ChildNote', back_populates='child', lazy='dynamic')
 
@@ -29,7 +29,9 @@ class Child(db.Model):
     caregivers = db.relationship('ChildCaregiver', back_populates='child', lazy='dynamic')
     measurement_types = db.relationship('ChildMeasurement', back_populates='child', lazy='dynamic')
     milestone_types = db.relationship('ChildMilestone', back_populates='child', lazy='dynamic')
-    doctors = db.relationship('Doctor', back_populates='child', lazy='dynamic')
+    doctors = db.relationship('ChildDoctorVisit', back_populates='child', lazy='dynamic')
+    medical_conditions = db.relationship('ChildMedicalCondition', back_populates='child', lazy='dynamic')
+    medications = db.relationship('ChildMedication', back_populates='child', lazy='dynamic')
 
     def __repr__(self):
         return '<Child %r>' % (self.nickname)
@@ -38,19 +40,19 @@ class Child(db.Model):
 class ChildNote(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime)
-    note = db.Column(db.Text)
+    note = db.Column(db.UnicodeText)
     flag = db.Column(db.Boolean)
     child = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
 
 
 class Partner(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.String(255))
-    chinese_name = db.Column(db.String(255))
-    pinyin_name = db.Column(db.String(255))
-    email = db.Column(db.String(255))
-    address = db.Column(db.String(255))
-    phone = db.Column(db.String(255))
+    english_name = db.Column(db.Unicode(255))
+    chinese_name = db.Column(db.Unicode(255))
+    pinyin_name = db.Column(db.Unicode(255))
+    email = db.Column(db.Unicode(255))
+    address = db.Column(db.Unicode(255))
+    phone = db.Column(db.Unicode(255))
     children = db.relationship('ChildPartner', back_populates='partner', lazy='dynamic')
 
     def __repr__(self):
@@ -59,9 +61,9 @@ class Partner(db.Model):
 
 class Caregiver(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.String(255))
-    chinese_name = db.Column(db.String(255))
-    pinyin_name = db.Column(db.String(255))
+    english_name = db.Column(db.Unicode(255))
+    chinese_name = db.Column(db.Unicode(255))
+    pinyin_name = db.Column(db.Unicode(255))
     children = db.relationship('ChildPartner', back_populates='partner', lazy='dynamic')
 
     def __repr__(self):
@@ -70,21 +72,22 @@ class Caregiver(db.Model):
 
 class Specialist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.String(255))
-    chinese_name = db.Column(db.String(255))
-    pinyin_name = db.Column(db.String(255))
-    assessment_specialty = db.Column(db.String(255))
+    english_name = db.Column(db.Unicode(255))
+    chinese_name = db.Column(db.Unicode(255))
+    pinyin_name = db.Column(db.Unicode(255))
+    specialist_type_id = db.Column(db.Integer, db.ForeignKey('specialist_type.id'))
     children = db.relationship('ChildAssessment', back_populates='specialist', lazy='dynamic')
 
     def __repr__(self):
         return '<Specialist %r>' % (self.english_name)
 
 
-class AssessmentType(db.Model):
+class SpecialistType(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.String(255))
-    chinese_name = db.Column(db.String(255))
-    pinyin_name = db.Column(db.String(255))
+    english_name = db.Column(db.Unicode(255))
+    chinese_name = db.Column(db.Unicode(255))
+    pinyin_name = db.Column(db.Unicode(255))
+    specialists = db.relationship('Specialist', back_populates='specialist_type', lazy='dynamic')
 
     def __repr__(self):
         return '<Assessment Type %r>' % (self.english_name)
@@ -92,9 +95,9 @@ class AssessmentType(db.Model):
 
 class MilestoneTypeCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.String(255))
-    chinese_name = db.Column(db.String(255))
-    pinyin_name = db.Column(db.String(255))
+    english_name = db.Column(db.Unicode(255))
+    chinese_name = db.Column(db.Unicode(255))
+    pinyin_name = db.Column(db.Unicode(255))
     milestone_types = db.relationship('MilestoneType', back_populates='category', lazy='dynamic')
 
     def __repr__(self):
@@ -103,11 +106,11 @@ class MilestoneTypeCategory(db.Model):
 
 class MilestoneType(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.String(255))
-    chinese_name = db.Column(db.String(255))
-    pinyin_name = db.Column(db.String(255))
+    english_name = db.Column(db.Unicode(255))
+    chinese_name = db.Column(db.Unicode(255))
+    pinyin_name = db.Column(db.Unicode(255))
     milestone_category = db.Column(
-        db.String(16),
+        db.Unicode(16),
         db.ForeignKey('milestone_category.id')
     )
     children = db.relationship('ChildMilestone', back_populates='milestone_type', lazy='dynamic')
@@ -118,9 +121,9 @@ class MilestoneType(db.Model):
 
 class DoctorType(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.String(255))
-    chinese_name = db.Column(db.String(255))
-    pinyin_name = db.Column(db.String(255))
+    english_name = db.Column(db.Unicode(255))
+    chinese_name = db.Column(db.Unicode(255))
+    pinyin_name = db.Column(db.Unicode(255))
     doctors = db.relationship('Doctor', back_populates='type', lazy='dynamic')
 
     def __repr__(self):
@@ -129,12 +132,12 @@ class DoctorType(db.Model):
 
 class Doctor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    doctor_english_name = db.Column(db.String(255))
-    doctor_chinese_name = db.Column(db.String(255))
-    doctor_pinyin_name = db.Column(db.String(255))
-    facility_english_name = db.Column(db.String(255))
-    facility_chinese_name = db.Column(db.String(255))
-    facility_pinyin_name = db.Column(db.String(255))
+    doctor_english_name = db.Column(db.Unicode(255))
+    doctor_chinese_name = db.Column(db.Unicode(255))
+    doctor_pinyin_name = db.Column(db.Unicode(255))
+    facility_english_name = db.Column(db.Unicode(255))
+    facility_chinese_name = db.Column(db.Unicode(255))
+    facility_pinyin_name = db.Column(db.Unicode(255))
     doctor_type = db.Column(db.Integer, db.ForeignKey('doctor_type.id'))
     children = db.relationship('Doctor', back_populates='doctor', lazy='dynamic')
 
@@ -144,10 +147,10 @@ class Doctor(db.Model):
 
 class MeasurementType(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.String(255))
-    chinese_name = db.Column(db.String(255))
-    pinyin_name = db.Column(db.String(255))
-    units = db.Column(db.String(255))
+    english_name = db.Column(db.Unicode(255))
+    chinese_name = db.Column(db.Unicode(255))
+    pinyin_name = db.Column(db.Unicode(255))
+    units = db.Column(db.Unicode(255))
     child_measurements = db.relationship(
         'ChildMeasurement',
         back_populates='measurement_type',
@@ -158,34 +161,29 @@ class MeasurementType(db.Model):
         return '<Measurement Type %r>' % (self.english_name)
 
 
-class CareGiver(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.String(255))
-    chinese_name = db.Column(db.String(255))
-    pinyin_name = db.Column(db.String(255))
-
-
 class Camp(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.String(255))
-    chinese_name = db.Column(db.String(255))
-    pinyin_name = db.Column(db.String(255))
+    english_name = db.Column(db.Unicode(255))
+    chinese_name = db.Column(db.Unicode(255))
+    pinyin_name = db.Column(db.Unicode(255))
     children = db.relationship('ChildCamp', back_populates='camp', lazy='dynamic')
-
-
-class Medication(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.String(255))
-    chinese_name = db.Column(db.String(255))
-    pinyin_name = db.Column(db.String(255))
-    milligram_dose = db.Column(db.Float)
 
 
 class MedicalCondition(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.String(255))
-    chinese_name = db.Column(db.String(255))
-    pinyin_name = db.Column(db.String(255))
+    english_name = db.Column(db.Unicode(255))
+    chinese_name = db.Column(db.Unicode(255))
+    pinyin_name = db.Column(db.Unicode(255))
+    children = db.relationship('ChildMedicalCondition', back_populates='medical_condition', lazy='dynamic')
+
+
+class Medication(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    english_name = db.Column(db.Unicode(255))
+    chinese_name = db.Column(db.Unicode(255))
+    pinyin_name = db.Column(db.Unicode(255))
+    milligram_dose = db.Column(db.Float)
+    children = db.relationship('ChildMedication', back_populates='medication', lazy='dynamic')
 
 # ------------------ Associations ------------------
 
@@ -193,7 +191,8 @@ class MedicalCondition(db.Model):
 class ChildPartner(db.Model):
     start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
-    notes = db.Column(db.Text)
+    notes = db.Column(db.UnicodeText)
+    flag = db.Column(db.Boolean)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
     partner_id = db.Column(db.Integer, db.ForeignKey('partner.id'), primary_key=True)
     child = db.relationship('Child', back_populates='partners', lazy='dynamic')
@@ -202,7 +201,7 @@ class ChildPartner(db.Model):
 
 class ChildCamp(db.Model):
     date = db.Column(db.DateTime)
-    notes = db.Column(db.Text)
+    notes = db.Column(db.UnicodeText)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
     camp_id = db.Column(db.Integer, db.ForeignKey('camp.id'), primary_key=True)
     child = db.relationship('Child', back_populates='camps', lazy='dynamic')
@@ -211,7 +210,7 @@ class ChildCamp(db.Model):
 
 class ChildAssessment(db.Model):
     date = db.Column(db.DateTime)
-    notes = db.Column(db.Text)
+    notes = db.Column(db.UnicodeText)
     flag = db.Column(db.Boolean)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
     specialist_id = db.Column(db.Integer, db.ForeignKey('specialist.id'), primary_key=True)
@@ -222,7 +221,7 @@ class ChildAssessment(db.Model):
 class ChildCaregiver(db.Model):
     start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
-    notes = db.Column(db.Text)
+    notes = db.Column(db.UnicodeText)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
     caregiver_id = db.Column(db.Integer, db.ForeignKey('caregiver.id'), primary_key=True)
     child = db.relationship('Child', back_populates='caregivers', lazy='dynamic')
@@ -248,8 +247,27 @@ class ChildMilestone(db.Model):
 
 class ChildDoctorVisit(db.Model):
     date = db.Column(db.DateTime)
-    notes = db.Column(db.Text)
+    notes = db.Column(db.UnicodeText)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
-    doctor_id = db.Column(db.Integer, db.ForeignKey('milestone_type.id'))
+    doctor_id = db.Column(db.Integer, db.ForeignKey('doctor.id'))
     child = db.relationship('Child', back_populates='doctors', lazy='dynamic')
     doctor = db.relationship('Doctor', back_populates='children', lazy='dynamic')
+
+class ChildMedicalCondition(db.Model):
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
+    medical_condition_id = db.Column(db.Integer, db.ForeignKey('medical_condition.id'))
+    child = db.relationship('Child', back_populates='medical_conditions', lazy='dynamic')
+    medical_condition = db.relationship('MedicalCondition', back_populates='children', lazy='dynamic')
+
+
+class ChildMedication(db.Model):
+    is_active = db.Column(db.Boolean)
+    start_date = db.Column(db.DateTime)
+    end_date = db.Column(db.DateTime)
+    dosage1 = db.Column(db.Float)
+    dosage2 = db.Column(db.Float)
+    dosage3 = db.Column(db.Float)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
+    medication = db.Column(db.Integer, db.ForeignKey('medication.id'))
+    child = db.relationship('Child', back_populates='medications', lazy='dynamic')
+    medications = db.relationship('MedicalCondition', back_populates='children', lazy='dynamic')
