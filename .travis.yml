@@ -1,10 +1,12 @@
 language: python
 python: 
   - "2.7"
+before_install:
+  - cd flaskplayground
 install: 
-  - flaskplayground/virtualize.sh
+  - ./virtualize.sh
 script:
-  - flaskplayground/venv/bin/python -m unittest discover
+  - venv/bin/python -m unittest discover
 notifications:
   webhooks:
     urls:
