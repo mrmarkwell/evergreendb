@@ -3,3 +3,4 @@
 *.pyc
 flaskplayground/venv/
 *.db
+db_repository
