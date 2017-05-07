@@ -9,7 +9,9 @@
 # This is not production code - it is just a way to construct 
 # the database for testing. The production version should probably
 # use the flask mysql API and have much better error handling.
-
+#
+# Update 5/6/2017: The current DB Schema is in flaskplayground/app/models.py
+#
 import MySQLdb as db
 import sys
 

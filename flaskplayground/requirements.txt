@@ -1,3 +1,4 @@
+aniso8601==1.2.1
 appdirs==1.4.3
 Babel==2.4.0
 blinker==1.4
@@ -9,6 +10,7 @@ Flask-Babel==0.11.2
 Flask-Login==0.4.0
 Flask-Mail==0.9.1
 Flask-OpenID==1.2.5
+Flask-RESTful==0.3.5
 Flask-SQLAlchemy==2.2
 Flask-WhooshAlchemy==0.56
 Flask-WTF==0.14.2
@@ -20,6 +22,7 @@ MarkupSafe==1.0
 packaging==16.8
 pbr==3.0.0
 pyparsing==2.2.0
+python-dateutil==2.6.0
 python-openid==2.2.5
 pytz==2017.2
 six==1.10.0

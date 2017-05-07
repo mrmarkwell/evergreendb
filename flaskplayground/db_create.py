@@ -1,4 +1,3 @@
-#!venv/bin/python
 """Database creation script. Also handles creation of migration repository
 if needed
 """

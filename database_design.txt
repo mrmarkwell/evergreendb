@@ -1,3 +1,7 @@
+
+WARNING: This file is the original design. It is now deprecated.
+WARNING: To see the actual schema in use, check out flaskplayground/app/models.py
+
 Notes:
     - We need to deal with the concept of flagged notes.
         - Answer from Andrew - they just want to be able to pull up all notes with "flags"

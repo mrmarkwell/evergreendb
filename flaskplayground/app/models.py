@@ -13,7 +13,6 @@ class Child(db.Model):
     nickname = db.Column(db.Unicode(255))
     sex = db.Column(db.Unicode(1))
     birth_date = db.Column(db.DateTime)
-    photo = db.Column(db.LargeBinary)
     abandonment_date = db.Column(db.DateTime)
     program_entry_date = db.Column(db.DateTime)
     program_departure_date = db.Column(db.DateTime)
@@ -22,7 +21,6 @@ class Child(db.Model):
     medical_history = db.Column(db.UnicodeText)
     is_active = db.Column(db.Boolean)
     notes = db.relationship('ChildNote')
-#    doctors = db.relationship('Doctor', back_populates='child')
 
     # Association mapping
     partners = db.relationship('ChildPartner', back_populates='child')

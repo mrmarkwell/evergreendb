@@ -1,4 +1,3 @@
-#!venv/bin/python
 """Migration script to be run whenever there changes in app database structure"""
 
 from __future__ import print_function
