@@ -1,0 +1,47 @@
+{
+	"variables": [],
+	"info": {
+		"name": "EvergreenDB",
+		"_postman_id": "9a59646c-4673-eab8-4f98-af5a248d2c00",
+		"description": "Collection of EvergreenDB API Calls.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Bobby",
+			"request": {
+				"url": "{{api_base_uri}}/child",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"english_name\": \"Bobby\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all children",
+			"request": {
+				"url": "{{api_base_uri}}/children",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

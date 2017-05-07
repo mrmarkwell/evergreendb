@@ -34,3 +34,14 @@ python create_db.py
 python run.py
 '''
 
+# Setting Up Postman
+
+To set up Postman:
+- Install Postman and open it
+- Select "Import" in the top left-hand corner.
+- Import all files in the "postman" folder of the repo.
+- Choose the "EvergreenDB" environment from the top right-hand corner of Postman
+- Run the backend run.py script on your local system (see Quick Start guide above)
+- Choose a Postman request from the EvergreenDB collection on the left side of Postman and click "Send" to execute the request.
+
+
