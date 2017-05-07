@@ -4,6 +4,7 @@ from app import db
 
 # ------------------ Entities ------------------
 
+
 class Child(db.Model):
     __tablename__ = 'child'
     id = db.Column(db.Integer, primary_key=True)
@@ -19,7 +20,6 @@ class Child(db.Model):
     program_departure_reason = db.Column(db.UnicodeText)
     child_history = db.Column(db.UnicodeText)
     medical_history = db.Column(db.UnicodeText)
-    is_active = db.Column(db.Boolean)
     notes = db.relationship('ChildNote')
 
     # Association mapping
@@ -43,7 +43,7 @@ class ChildNote(db.Model):
     date = db.Column(db.DateTime)
     note = db.Column(db.UnicodeText)
     flag = db.Column(db.Boolean)
-    child = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
+    child = db.Column(db.Integer, db.ForeignKey('child.id'))
 
 
 class Partner(db.Model):
@@ -132,7 +132,7 @@ class DoctorType(db.Model):
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
     pinyin_name = db.Column(db.Unicode(255))
-#    doctors = db.relationship('Doctor', back_populates='doctor_type')
+    doctors = db.relationship('Doctor')
 
     def __repr__(self):
         return '<Doctor Type %r>' % (self.english_name)
@@ -201,7 +201,7 @@ class ChildPartner(db.Model):
     __tablename__ = 'child_partner'
     start_date = db.Column(db.DateTime, primary_key=True)
     end_date = db.Column(db.DateTime)
-    notes = db.Column(db.UnicodeText)
+    note = db.Column(db.UnicodeText)
     flag = db.Column(db.Boolean)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
     partner_id = db.Column(db.Integer, db.ForeignKey('partner.id'), primary_key=True)
@@ -212,7 +212,7 @@ class ChildPartner(db.Model):
 class ChildCamp(db.Model):
     __tablename__ = 'child_camp'
     date = db.Column(db.DateTime, primary_key=True)
-    notes = db.Column(db.UnicodeText)
+    note = db.Column(db.UnicodeText)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
     camp_id = db.Column(db.Integer, db.ForeignKey('camp.id'), primary_key=True)
     child = db.relationship('Child', back_populates='camps')
@@ -222,7 +222,7 @@ class ChildCamp(db.Model):
 class ChildAssessment(db.Model):
     __tablename__ = 'child_assessment'
     date = db.Column(db.DateTime, primary_key=True)
-    notes = db.Column(db.UnicodeText)
+    note = db.Column(db.UnicodeText)
     flag = db.Column(db.Boolean)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
     specialist_id = db.Column(db.Integer, db.ForeignKey('specialist.id'), primary_key=True)
@@ -234,7 +234,7 @@ class ChildCaregiver(db.Model):
     __tablename__ = 'child_caregiver'
     start_date = db.Column(db.DateTime, primary_key=True)
     end_date = db.Column(db.DateTime)
-    notes = db.Column(db.UnicodeText)
+    note = db.Column(db.UnicodeText)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
     caregiver_id = db.Column(db.Integer, db.ForeignKey('caregiver.id'), primary_key=True)
     child = db.relationship('Child', back_populates='caregivers')
@@ -263,11 +263,12 @@ class ChildMilestone(db.Model):
 class ChildDoctorVisit(db.Model):
     __tablename__ = 'child_doctor_visit'
     date = db.Column(db.DateTime, primary_key=True)
-    notes = db.Column(db.UnicodeText)
+    note = db.Column(db.UnicodeText)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
     doctor_id = db.Column(db.Integer, db.ForeignKey('doctor.id'), primary_key=True)
     child = db.relationship('Child', back_populates='doctors')
     doctor = db.relationship('Doctor', back_populates='children')
+
 
 class ChildMedicalCondition(db.Model):
     __tablename__ = 'child_medical_condition'
