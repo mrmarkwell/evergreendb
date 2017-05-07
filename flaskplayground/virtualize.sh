@@ -3,8 +3,16 @@
 
 if [ ! -d "venv" ]; then
     virtualenv venv
-    source venv/Scripts/activate
+    if [ -d "Scripts" ]; then
+        source venv/Scripts/activate
+    else
+        source venv/bin/activate
+    fi
     pip install -r requirements.txt
 else
-    source venv/Scripts/activate
+    if [ -d "Scripts" ]; then
+        source venv/Scripts/activate
+    else
+        source venv/bin/activate
+    fi
 fi
