@@ -2,6 +2,8 @@
 
 from app import db
 
+
+
 # ------------------ Entities ------------------
 
 
@@ -290,3 +292,21 @@ class ChildMedication(db.Model):
     medication_id = db.Column(db.Integer, db.ForeignKey('medication.id'), primary_key=True)
     child = db.relationship('Child', back_populates='medications')
     medication = db.relationship('Medication', back_populates='children')
+    
+
+TableClasses = {    'child': Child,
+                    'childnote': ChildNote,
+                    'partner': Partner,
+                    'caregiver': Caregiver,
+                    'specialist': Specialist,
+                    'specialisttype': SpecialistType,
+                    'milestonetypecategory': MilestoneTypeCategory,
+                    'milestonetype': MilestoneType,
+                    'doctortype': DoctorType,
+                    'doctor': Doctor,
+                    'measurementtype': MeasurementType,
+                    'camp': Camp,
+                    'medicalcondition': MedicalCondition,
+                    'medication': Medication }
+
+

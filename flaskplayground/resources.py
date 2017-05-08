@@ -1,4 +1,4 @@
-from app.models import Child
+from app.models import *
 from db import session
 from datetime import datetime
 from werkzeug.datastructures import FileStorage
@@ -9,10 +9,14 @@ from flask_restful import abort
 from flask_restful import Resource
 from flask_restful import fields
 from flask_restful import marshal_with
+from flask_restful import marshal
 
 datetype = lambda x: datetime.strptime(x, '%Y-%m-%d')
 date_error_help = "Date fields should be entered as: YYYY-MM-DD"
-row2dict = lambda r: {c.name: str(getattr(r, c.name)) for c in r.__table__.columns}
+
+class Date(fields.Raw):
+    def format(self, value):
+        return value.strftime('%Y-%m-%d')
 
 child_fields = {
     'id': fields.Integer,
@@ -21,16 +25,17 @@ child_fields = {
     'pinyin_name': fields.String,
     'nickname': fields.String,
     'sex': fields.String,
-    'birth_date': fields.DateTime,
-    'abandonment_date': fields.DateTime,
-    'program_entry_date': fields.DateTime,
-    'program_departure_date': fields.DateTime,
+    'birth_date': Date,
+    'abandonment_date': Date,
+    'program_entry_date': Date,
+    'program_departure_date': Date,
     'program_departure_reason': fields.String,
     'child_history': fields.String,
     'medical_history': fields.String,
     'uri': fields.Url('child', absolute=True)
 }
 
+# Parser for input date related to a child object.
 child_parser = reqparse.RequestParser()
 child_parser.add_argument('english_name', required=True)
 child_parser.add_argument('chinese_name')
@@ -45,13 +50,19 @@ child_parser.add_argument('program_departure_reason')
 child_parser.add_argument('child_history')
 child_parser.add_argument('medical_history')
 
+# When updating a child, no argument is required
+# so replace arguments fields from the original child_parser.
+child_update_parser = child_parser.copy()
+child_update_parser.replace_argument('english_name', required=False)
+child_update_parser.replace_argument('sex', required=False)
+
+
 class ChildResource(Resource):
-    @marshal_with(child_fields)
     def get(self, id):
         child = session.query(Child).filter(Child.id == id).first()
         if not child:
             abort(404, message="Child {} doesn't exist".format(id))
-        return child, 200
+        return marshal(child, child_fields), 200
 
     def delete(self, id):
         child = session.query(Child).filter(Child.id == id).first()
@@ -63,9 +74,13 @@ class ChildResource(Resource):
 
     @marshal_with(child_fields)
     def put(self, id):
-        args = child_parser.parse_args()
+        args = child_update_parser.parse_args()
         child = session.query(Child).filter(Child.id == id).first()
-        child.english_name = args['english_name']
+        if not child:
+            abort(404, message="Child {} doesn't exist".format(id))
+        for key in args.keys():
+            setattr(child, key, args[key])
+        
         session.add(child)
         session.commit()
         return child, 201
@@ -80,7 +95,9 @@ class ChildListResource(Resource):
     @marshal_with(child_fields)
     def post(self):
         args = child_parser.parse_args()
-        child = Child(english_name=args['english_name'])
+        child = Child()
+        for key in args.keys():
+            setattr(child, key, args[key])
         session.add(child)
         session.commit()
         return child, 201
