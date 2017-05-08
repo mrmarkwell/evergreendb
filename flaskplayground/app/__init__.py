@@ -9,9 +9,14 @@ api = Api(app)
 
 import models
 
-from resources import ChildResource, ChildListResource
 from resources import QueryResource
+from resources import EntityResource
+from resources import EntityListResource
+from resources import HeartbeatResource
+from resources import RollbackResource
 
-api.add_resource(ChildListResource, "/children", endpoint="children")
-api.add_resource(ChildResource, "/child/<string:id>", endpoint="child")
 api.add_resource(QueryResource, "/query", endpoint="query")
+api.add_resource(EntityResource, "/entity/<string:id>", endpoint="entity")
+api.add_resource(EntityListResource, "/entity", endpoint="entities")
+api.add_resource(HeartbeatResource, "/heartbeat", endpoint="heartbeat")
+api.add_resource(RollbackResource, "/rollback", endpoint="rollback")

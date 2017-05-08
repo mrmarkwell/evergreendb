@@ -294,19 +294,4 @@ class ChildMedication(db.Model):
     medication = db.relationship('Medication', back_populates='children')
     
 
-TableClasses = {    'child': Child,
-                    'childnote': ChildNote,
-                    'partner': Partner,
-                    'caregiver': Caregiver,
-                    'specialist': Specialist,
-                    'specialisttype': SpecialistType,
-                    'milestonetypecategory': MilestoneTypeCategory,
-                    'milestonetype': MilestoneType,
-                    'doctortype': DoctorType,
-                    'doctor': Doctor,
-                    'measurementtype': MeasurementType,
-                    'camp': Camp,
-                    'medicalcondition': MedicalCondition,
-                    'medication': Medication }
-
 
