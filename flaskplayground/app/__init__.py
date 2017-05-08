@@ -9,9 +9,9 @@ api = Api(app)
 
 import models
 
-from resources import ChildResource
-from resources import ChildListResource
+from resources import ChildResource, ChildListResource
+from resources import QueryResource
 
 api.add_resource(ChildListResource, "/children", endpoint="children")
-api.add_resource(ChildResource, "/child", endpoint="child")
-
+api.add_resource(ChildResource, "/child/<string:id>", endpoint="child")
+api.add_resource(QueryResource, "/query", endpoint="query")
