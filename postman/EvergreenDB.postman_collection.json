@@ -10,7 +10,7 @@
 		{
 			"name": "Add Bobby",
 			"request": {
-				"url": "{{api_base_uri}}/child",
+				"url": "{{api_base_uri}}/children",
 				"method": "POST",
 				"header": [
 					{
@@ -26,7 +26,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"english_name\": \"Bobby\"\n}"
+					"raw": "{\n  \"abandonment_date\": \"2014-1-2\",\n  \"birth_date\": \"2014-1-1\",\n  \"child_history\": \"Bobby is from 充佛动囖\",\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Bobby\",\n  \"medical_history\": \"Bobby had a fever\",\n  \"nickname\": \"Little Bobby Tables\",\n  \"pinyin_name\": \"ch po en\",\n  \"program_departure_date\": null,\n  \"program_departure_reason\": null,\n  \"program_entry_date\": \"2014-1-3\",\n  \"sex\": \"M\"\n}"
 				},
 				"description": ""
 			},
@@ -39,6 +39,101 @@
 				"method": "GET",
 				"header": [],
 				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Child 1",
+			"request": {
+				"url": "{{api_base_uri}}/child/1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Child 2",
+			"request": {
+				"url": "{{api_base_uri}}/child/2",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"abandonment_date\": \"2014-1-2\",\n  \"birth_date\": \"2014-1-1\",\n  \"child_history\": \"Bobby is from 充佛动囖\",\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Bobby\",\n  \"medical_history\": \"Bobby had a fever \",\n  \"nickname\": \"Little Bobby Tables\",\n  \"pinyin_name\": \"ch po en\",\n  \"program_departure_date\": null,\n  \"program_departure_reason\": null,\n  \"program_entry_date\": \"2014-1-3\",\n  \"sex\": \"M\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Query Select * From Child",
+			"request": {
+				"url": "{{api_base_uri}}/query",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"query\": \"Select * from child\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update Child 2 Fields",
+			"request": {
+				"url": "{{api_base_uri}}/child/2",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"english_name\": \"Bobby DropTables\",\n  \"medical_history\": \"Bobby had a fever when he was 2 years old\"\n}"
+				},
 				"description": ""
 			},
 			"response": []
