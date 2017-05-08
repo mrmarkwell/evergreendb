@@ -4,7 +4,7 @@ python:
 before_install:
   - cd flaskplayground
 install: 
-  - ./virtualize.sh
+  - sh virtualize.sh
 script:
   - venv/bin/python -m unittest discover
 notifications:
