@@ -37,23 +37,61 @@ child_fields = {
     'uri': fields.Url('entity', absolute=True)
 }
 
+child_note_fields = {
+    'id': fields.Integer,
+    'date': Date,
+    'note': fields.String,
+    'flag': fields.Boolean,
+    'child': fields.Integer,
+    'uri': fields.Url('entity', absolute=True)
+}
+
+partner_fields = {
+    'id': fields.Integer,
+    'english_name': fields.String,
+    'chinese_name': fields.String,
+    'pinyin_name': fields.String,
+    'email': fields.String,
+    'phone': fields.String
+}
+
+caregiver_fields = {
+    'id': fields.Integer,
+    'english_name': fields.String,
+    'chinese_name': fields.String,
+    'pinyin_name': fields.String,
+}
+
+child_partner_fields = {
+    'id': fields.Integer,
+    'start_date': Date,
+    'end_date': Date,
+    'note': fields.String,
+    'flag': fields.Boolean,
+    'child_id': fields.Integer,
+    'partner_id': fields.Integer
+}
+
 
 ################ Parsers ####################
 
-entity_names = ['child', 
-                'childnote',
-                'partner',      
-                'caregiver',
-                'specialist',
-                'specialisttype',
-                'milestonetypecategory',
-                'milestonetype',
-                'doctortype',
-                'doctor',
-                'measurementtype',
-                'camp',
-                'medicalcondition',
-                'medication']
+entity_names = [
+    'child',
+    'childnote',
+    'partner',
+    'caregiver',
+    'specialist',
+    'specialisttype',
+    'milestonetypecategory',
+    'milestonetype',
+    'doctortype',
+    'doctor',
+    'measurementtype',
+    'camp',
+    'medicalcondition',
+    'medication',
+    'childpartner'
+]
 
 
 
@@ -83,28 +121,93 @@ child_update_parser = child_parser.copy()
 child_update_parser.replace_argument('english_name', required=False)
 child_update_parser.replace_argument('sex', required=False)
 
+# child_note
+child_note_parser = reqparse.RequestParser()
+child_note_parser.add_argument('date', type=datetype, help=date_error_help)
+child_note_parser.add_argument('note', required=True)
+child_note_parser.add_argument('flag')
+child_note_parser.add_argument('child', required=True)
+
+child_note_update_parser = child_note_parser.copy()
+child_note_update_parser.replace_argument('note', required=False)
+child_note_update_parser.replace_argument('child', required=False)
+
+# partner
+partner_parser = reqparse.RequestParser()
+partner_parser.add_argument('english_name', required=True)
+partner_parser.add_argument('chinese_name')
+partner_parser.add_argument('pinyin_name')
+partner_parser.add_argument('email')
+partner_parser.add_argument('phone')
+
+partner_update_parser = partner_parser.copy()
+partner_update_parser.replace_argument('english_name', required=False)
+
+# caregiver
+caregiver_parser = reqparse.RequestParser()
+caregiver_parser.add_argument('english_name', required=True)
+caregiver_parser.add_argument('chinese_name')
+caregiver_parser.add_argument('pinyin_name')
+
+caregiver_update_parser = caregiver_parser.copy()
+caregiver_update_parser.replace_argument('english_name', required=False)
+
+# try out id's with association tabls
+
+child_partner_parser = reqparse.RequestParser()
+child_partner_parser.add_argument('start_date', type=datetype, help=date_error_help)
+child_partner_parser.add_argument('end_date', type=datetype, help=date_error_help)
+child_partner_parser.add_argument('note')
+child_partner_parser.add_argument('flag')
+child_partner_parser.add_argument('child_id', required=True)
+child_partner_parser.add_argument('partner_id', required=True)
+
+child_partner_update_parser = child_partner_parser.copy()
+child_partner_update_parser.replace_argument('child_id', required=False)
+child_partner_update_parser.replace_argument('partner_id', required=False)
 ################ Look Up Tables ###############
 
-entity_create_parsers = {   'child': child_parser }
+entity_create_parsers = {
+    'child': child_parser,
+    'childnote': child_note_parser,
+    'partner': partner_parser,
+    'caregiver': caregiver_parser,
+    'childpartner': child_partner_parser
+}
 
-entity_update_parsers = {   'child': child_update_parser }
+entity_update_parsers = {
+    'child': child_update_parser,
+    'childnote': child_note_update_parser,
+    'partner': partner_update_parser,
+    'caregiver': caregiver_update_parser,
+    'childpartner': child_partner_update_parser
+}
 
-entity_marshallers = {      'child': child_fields }
+entity_marshallers = {
+    'child': child_fields,
+    'childnote': child_note_fields,
+    'partner': partner_fields,
+    'caregiver': caregiver_fields,
+    'childpartner': child_partner_fields
+}
 
-entity_classes = {  'child': Child,
-                    'childnote': ChildNote,
-                    'partner': Partner,
-                    'caregiver': Caregiver,
-                    'specialist': Specialist,
-                    'specialisttype': SpecialistType,
-                    'milestonetypecategory': MilestoneTypeCategory,
-                    'milestonetype': MilestoneType,
-                    'doctortype': DoctorType,
-                    'doctor': Doctor,
-                    'measurementtype': MeasurementType,
-                    'camp': Camp,
-                    'medicalcondition': MedicalCondition,
-                    'medication': Medication }
+entity_classes = {
+    'child': Child,
+    'childnote': ChildNote,
+    'partner': Partner,
+    'caregiver': Caregiver,
+    'specialist': Specialist,
+    'specialisttype': SpecialistType,
+    'milestonetypecategory': MilestoneTypeCategory,
+    'milestonetype': MilestoneType,
+    'doctortype': DoctorType,
+    'doctor': Doctor,
+    'measurementtype': MeasurementType,
+    'camp': Camp,
+    'medicalcondition': MedicalCondition,
+    'medication': Medication,
+    'childpartner': ChildPartner
+}
 
 ################ Resources ####################
 
@@ -147,7 +250,7 @@ class EntityResource(Resource):
             # Only update keys that are sent in the Json body
             if key in raw_json.keys():
                 setattr(entity, key, entity_args[key])
-        
+
         session.add(entity)
         session.commit()
         return marshal(entity, marshaller), 201

@@ -3,7 +3,6 @@
 from app import db
 
 
-
 # ------------------ Entities ------------------
 
 
@@ -201,12 +200,13 @@ class Medication(db.Model):
 
 class ChildPartner(db.Model):
     __tablename__ = 'child_partner'
-    start_date = db.Column(db.DateTime, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
     note = db.Column(db.UnicodeText)
     flag = db.Column(db.Boolean)
-    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
-    partner_id = db.Column(db.Integer, db.ForeignKey('partner.id'), primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
+    partner_id = db.Column(db.Integer, db.ForeignKey('partner.id'))
     child = db.relationship('Child', back_populates='partners')
     partner = db.relationship('Partner', back_populates='children')
 
@@ -292,6 +292,3 @@ class ChildMedication(db.Model):
     medication_id = db.Column(db.Integer, db.ForeignKey('medication.id'), primary_key=True)
     child = db.relationship('Child', back_populates='medications')
     medication = db.relationship('Medication', back_populates='children')
-    
-
-

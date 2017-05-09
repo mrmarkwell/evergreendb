@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "EvergreenDB",
-		"_postman_id": "9a59646c-4673-eab8-4f98-af5a248d2c00",
+		"_postman_id": "bdf2ce2f-f90a-0d9d-909f-5abcf83e901f",
 		"description": "Collection of EvergreenDB API Calls.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -13,7 +13,10 @@
 				"url": "{{api_base_uri}}/entity?entity_name=child",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
@@ -184,6 +187,67 @@
 					"mode": "raw",
 					"raw": ""
 				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Partner Susan",
+			"request": {
+				"url": "{{api_base_uri}}/entity?entity_name=partner",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Susan\",\n  \"pinyin_name\": \"ch po en\",\n  \"email\": \"susan@example.com\",\n  \"address\": null,\n  \"phone\": null\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Association Child,Bobby Partner,Susan",
+			"request": {
+				"url": "{{api_base_uri}}/entity?entity_name=childpartner",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"start_date\": \"2014-1-2\",\n  \"end_date\": null,\n  \"note\": null,\n  \"flag\": 0,\n  \"child_id\": 1,\n  \"partner_id\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all partners",
+			"request": {
+				"url": "{{api_base_uri}}/entity?entity_name=partner",
+				"method": "GET",
+				"header": [],
+				"body": {},
 				"description": ""
 			},
 			"response": []
