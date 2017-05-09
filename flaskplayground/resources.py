@@ -18,7 +18,7 @@ class Date(fields.Raw):
     def format(self, value):
         return value.strftime('%Y-%m-%d')
 
-################ Marshalers ####################
+################ Marshallers ####################
 
 child_fields = {
     'id': fields.Integer,
@@ -277,54 +277,6 @@ class EntityListResource(Resource):
         session.add(entity)
         session.commit()
         return marshal(entity, marshaller), 201
-
-# Deprecated... to be deleted
-
-#class ChildResource(Resource):
-#    def get(self, id):
-#        child = session.query(Child).filter(Child.id == id).first()
-#        if not child:
-#            abort(404, message="Child {} doesn't exist".format(id))
-#        return marshal(child, child_fields), 200
-#
-#    def delete(self, id):
-#        child = session.query(Child).filter(Child.id == id).first()
-#        if not child:
-#            abort(404, message="Child {} doesn't exist".format(id))
-#        session.delete(child)
-#        session.commit()
-#        return {}, 204
-#
-#    @marshal_with(child_fields)
-#    def put(self, id):
-#        args = child_update_parser.parse_args()
-#        child = session.query(Child).filter(Child.id == id).first()
-#        if not child:
-#            abort(404, message="Child {} doesn't exist".format(id))
-#        for key in args.keys():
-#            setattr(child, key, args[key])
-#        
-#        session.add(child)
-#        session.commit()
-#        return child, 201
-#    
-#    
-#class ChildListResource(Resource):
-#    @marshal_with(child_fields)
-#    def get(self):
-#        children = session.query(Child).all()
-#        return children, 200
-#
-#    @marshal_with(child_fields)
-#    def post(self):
-#        args = child_parser.parse_args()
-#        child = Child()
-#        for key in args.keys():
-#            setattr(child, key, args[key])
-#        session.add(child)
-#        session.commit()
-#        return child, 201
-
 
 query_parser = reqparse.RequestParser()
 query_parser.add_argument('query', required=True)

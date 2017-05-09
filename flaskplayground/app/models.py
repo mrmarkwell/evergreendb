@@ -1,7 +1,7 @@
 """Model the EvergreenDB"""
 
 from app import db
-
+from sqlalchemy import UniqueConstraint
 
 # ------------------ Entities ------------------
 
@@ -209,86 +209,105 @@ class ChildPartner(db.Model):
     partner_id = db.Column(db.Integer, db.ForeignKey('partner.id'))
     child = db.relationship('Child', back_populates='partners')
     partner = db.relationship('Partner', back_populates='children')
+    __table_args__ = (UniqueConstraint('child_id', 'partner_id', 'start_date'),)
 
 
 class ChildCamp(db.Model):
     __tablename__ = 'child_camp'
-    date = db.Column(db.DateTime, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime)
     note = db.Column(db.UnicodeText)
-    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
-    camp_id = db.Column(db.Integer, db.ForeignKey('camp.id'), primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
+    camp_id = db.Column(db.Integer, db.ForeignKey('camp.id'))
     child = db.relationship('Child', back_populates='camps')
     camp = db.relationship('Camp', back_populates='children')
 
+    __table_args__ = (UniqueConstraint('child_id', 'camp_id', 'date'),)
 
 class ChildAssessment(db.Model):
     __tablename__ = 'child_assessment'
-    date = db.Column(db.DateTime, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime)
     note = db.Column(db.UnicodeText)
     flag = db.Column(db.Boolean)
-    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
-    specialist_id = db.Column(db.Integer, db.ForeignKey('specialist.id'), primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
+    specialist_id = db.Column(db.Integer, db.ForeignKey('specialist.id'))
     child = db.relationship('Child', back_populates='specialists')
     specialist = db.relationship('Specialist', back_populates='children')
 
+    __table_args__ = (UniqueConstraint('child_id', 'specialist_id', 'date'),)
 
 class ChildCaregiver(db.Model):
     __tablename__ = 'child_caregiver'
-    start_date = db.Column(db.DateTime, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
     note = db.Column(db.UnicodeText)
-    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
-    caregiver_id = db.Column(db.Integer, db.ForeignKey('caregiver.id'), primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
+    caregiver_id = db.Column(db.Integer, db.ForeignKey('caregiver.id'))
     child = db.relationship('Child', back_populates='caregivers')
     caregiver = db.relationship('Caregiver', back_populates='children')
 
+    __table_args__ = (UniqueConstraint('child_id', 'caregiver_id', 'start_date'),)
 
 class ChildMeasurement(db.Model):
     __tablename__ = 'child_measurement'
-    date = db.Column(db.DateTime, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime)
     value = db.Column(db.Float)
-    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
-    measurement_type_id = db.Column(db.Integer, db.ForeignKey('measurement_type.id'), primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
+    measurement_type_id = db.Column(db.Integer, db.ForeignKey('measurement_type.id'))
     child = db.relationship('Child', back_populates='measurement_types')
     measurement_type = db.relationship('MeasurementType', back_populates='children')
 
+    __table_args__ = (UniqueConstraint('child_id', 'measurement_type_id', 'date'),)
 
 class ChildMilestone(db.Model):
     __tablename__ = 'child_milestone'
+    id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime)
-    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
-    milestone_type_id = db.Column(db.Integer, db.ForeignKey('milestone_type.id'), primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
+    milestone_type_id = db.Column(db.Integer, db.ForeignKey('milestone_type.id'))
     child = db.relationship('Child', back_populates='milestone_types')
     milestone_type = db.relationship('MilestoneType', back_populates='children')
 
+    __table_args__ = (UniqueConstraint('child_id', 'milestone_type_id'),)
 
 class ChildDoctorVisit(db.Model):
     __tablename__ = 'child_doctor_visit'
-    date = db.Column(db.DateTime, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime)
     note = db.Column(db.UnicodeText)
-    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
-    doctor_id = db.Column(db.Integer, db.ForeignKey('doctor.id'), primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
+    doctor_id = db.Column(db.Integer, db.ForeignKey('doctor.id'))
     child = db.relationship('Child', back_populates='doctors')
     doctor = db.relationship('Doctor', back_populates='children')
 
+    __table_args__ = (UniqueConstraint('child_id', 'doctor_id', 'date'),)
 
 class ChildMedicalCondition(db.Model):
     __tablename__ = 'child_medical_condition'
-    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
-    medical_condition_id = db.Column(db.Integer, db.ForeignKey('medical_condition.id'), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
+    medical_condition_id = db.Column(db.Integer, db.ForeignKey('medical_condition.id'))
     child = db.relationship('Child', back_populates='medical_conditions')
     medical_condition = db.relationship('MedicalCondition', back_populates='children')
 
+    __table_args__ = (UniqueConstraint('child_id', 'medical_condition_id'),)
 
 class ChildMedication(db.Model):
     __tablename__ = 'child_medication'
+    id = db.Column(db.Integer, primary_key=True)
     is_active = db.Column(db.Boolean)
-    start_date = db.Column(db.DateTime, primary_key=True)
+    start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
     dosage1 = db.Column(db.Float)
     dosage2 = db.Column(db.Float)
     dosage3 = db.Column(db.Float)
-    child_id = db.Column(db.Integer, db.ForeignKey('child.id'), primary_key=True)
-    medication_id = db.Column(db.Integer, db.ForeignKey('medication.id'), primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
+    medication_id = db.Column(db.Integer, db.ForeignKey('medication.id'))
     child = db.relationship('Child', back_populates='medications')
     medication = db.relationship('Medication', back_populates='children')
+
+    __table_args__ = (UniqueConstraint('child_id', 'medication_id', 'start_date'),)
+
