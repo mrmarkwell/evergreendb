@@ -266,27 +266,28 @@ class EntityFilterResource(ResourceBase):
         args = parser.parse_args()
         if args.attribute not in self.ed.marshaller.keys():
             abort(400, message="{} does not exist in {}".format(args.attribute, entity_name))
+        marshalled_entities = []
         if args.eq:
-            marshalled_entities = self._filter_eq(args.attribute)
+            eq_entities = self._filter_eq(args.attribute, args.eq)
         elif args.lt:
-            marshalled_entities = self._filter_lt(args.attribute)
+            lt_entities = self._filter_lt(args.attribute, args.lt)
         elif args.gt:
-            marshalled_entities = self._filter_gt(args.attribute)
+            gt_entities = self._filter_gt(args.attribute, args.gt)
         else:
             msg = "Attempted to filter {} by {} without specifying filter parameters".format(entity_name, args.attribute)
             abort(400, message=msg)
-        return {"filtered_entities": marshalled_entities}
+        return {"filtered_entities": list(set(eq_entities) & set(lt_entities) & set(gt_entities))}
 
-    def _filter_eq(self, attribute):
-        entities = session.query(self.ed.class_type).filter(self.ed.class_type == attribute)
+    def _filter_eq(self, attribute, val):
+        entities = session.query(self.ed.class_type).filter(getattr(self.ed.class_type, attribute) == val)
         return [marshal(entity, self.ed.marshaller) for entity in entities]
 
     def _filter_lt(self, attribute):
-        entities = session.query(self.ed.class_type).filter(self.ed.class_type < attribute)
+        entities = session.query(self.ed.class_type).filter(getattr(self.ed.class_type, attribute) < val)
         return [marshal(entity, self.ed.marshaller) for entity in entities]
 
     def _filter_gt(self, attribute):
-        entities = session.query(self.ed.class_type).filter(self.ed.class_type > attribute)
+        entities = session.query(self.ed.class_type).filter(getattr(self.ed.class_type, attribute) > val)
         return [marshal(entity, self.ed.marshaller) for entity in entities]
 
     def _make_filter_parser(self, entity_name):
