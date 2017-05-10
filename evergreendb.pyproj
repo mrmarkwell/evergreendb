@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{b1485866-6711-497c-b6d2-da50b76f7fbb}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>flaskplayground\run.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{789894c7-04a9-4a11-a6b5-3f4435165112};{1b580a1a-fdb3-4b32-83e1-6407eb2722e6};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Web launcher</LaunchProvider>
+    <InterpreterId>MSBuild|evergreendb|$(MSBuildProjectFullPath)</InterpreterId>
+    <WebBrowserUrl>http://localhost</WebBrowserUrl>
+    <PythonWsgiHandler>{StartupModule}.wsgi_app</PythonWsgiHandler>
+    <UseIISExpress>true</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="database_design.txt" />
+    <Content Include="flaskplayground\app\templates\base.html" />
+    <Content Include="flaskplayground\app\templates\index.html" />
+    <Content Include="flaskplayground\app\templates\login.html" />
+    <Content Include="flaskplayground\requirements.txt" />
+    <Content Include="mm_4_29_2017.txt" />
+    <Content Include="questions.txt" />
+    <Content Include="requirements.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="db_scripts\create_db.py" />
+    <Compile Include="db_scripts\drop_db.py" />
+    <Compile Include="flaskplayground\app\forms.py" />
+    <Compile Include="flaskplayground\app\models.py" />
+    <Compile Include="flaskplayground\app\views.py" />
+    <Compile Include="flaskplayground\app\__init__.py" />
+    <Compile Include="flaskplayground\config.py" />
+    <Compile Include="flaskplayground\db.py" />
+    <Compile Include="flaskplayground\db_create.py" />
+    <Compile Include="flaskplayground\db_downgrade.py" />
+    <Compile Include="flaskplayground\db_migrate.py" />
+    <Compile Include="flaskplayground\db_repository\manage.py" />
+    <Compile Include="flaskplayground\db_repository\versions\__init__.py" />
+    <Compile Include="flaskplayground\db_repository\__init__.py" />
+    <Compile Include="flaskplayground\db_upgrade.py" />
+    <Compile Include="flaskplayground\resources.py" />
+    <Compile Include="flaskplayground\run.py" />
+    <Compile Include="flaskplayground\tests\test_models.py" />
+    <Compile Include="flaskplayground\tests\test_rest.py" />
+    <Compile Include="flaskplayground\tests\__init__.py" />
+    <Compile Include="flaskplayground\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="db_scripts" />
+    <Folder Include="flaskplayground" />
+    <Folder Include="flaskplayground\app" />
+    <Folder Include="flaskplayground\app\templates" />
+    <Folder Include="flaskplayground\db_repository" />
+    <Folder Include="flaskplayground\db_repository\versions" />
+    <Folder Include="flaskplayground\tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="flaskplayground\venv\">
+      <Id>evergreendb</Id>
+      <Description>venv (Python 2.7 (32-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <Version>2.7</Version>
+      <Architecture>X86</Architecture>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+    </Interpreter>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:6408/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>True</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
