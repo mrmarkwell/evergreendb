@@ -181,7 +181,7 @@ class ResourceBase(Resource):
     # Call this right away to populate the entity data object.
     def get_entity_data(self, name):
         if name not in entity_names:
-            abort(404, message="Invalid entity name: " + name + " Legal entity names are: " + ", ".join(entity_names))
+            abort(404, message="Invalid entity name: '" + name + "'. Legal entity names are: " + ", ".join(entity_names))
         self.ed = entity_data[name]
  
     # For operations that can only be performed on one entity, get that entity by id
@@ -195,12 +195,18 @@ class ResourceBase(Resource):
             abort(404, message="Entity {}: {} doesn't exist".format(entity_name, id))
         return entity
 
+    def verify_filters(self):
+        for attr in request.args.to_dict().keys():
+            if not hasattr(self.ed.class_type, attr):
+                abort (404, message= "Class {} does not have filter attribute {}!".format(self.ed.class_type.__name__, attr))
+
 
 class EntityResource(ResourceBase):
     # GET to get instances by filter arguments (e.g. ?english_name=Bobby&sex=M).
     # No arguments returns all entities of that type.
     def get(self, entity_name):
         self.get_entity_data(entity_name)
+        self.verify_filters()
         entity = session.query(self.ed.class_type).filter_by(**request.args.to_dict()).all()
         if not entity:
             abort(404, message="Entity {}: {} doesn't exist".format(entity_name, request.args.to_dict()))
