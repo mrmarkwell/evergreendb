@@ -16,7 +16,9 @@ from resources import HeartbeatResource
 from resources import RollbackResource
 
 api.add_resource(QueryResource, "/query", endpoint="query")
-api.add_resource(EntityResource, "/entity/<string:id>", endpoint="entity")
+api.add_resource(EntityResource, "/entity/<string:entity_name>", endpoint="entity")
 api.add_resource(EntityListResource, "/entity", endpoint="entities")
 api.add_resource(HeartbeatResource, "/heartbeat", endpoint="heartbeat")
 api.add_resource(RollbackResource, "/rollback", endpoint="rollback")
+
+

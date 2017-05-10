@@ -3,6 +3,8 @@ from db import session
 from datetime import datetime
 from sqlalchemy import text
 from flask import request
+from flask import jsonify
+import json
 
 from flask_restful import reqparse
 from flask_restful import abort
@@ -10,6 +12,8 @@ from flask_restful import Resource
 from flask_restful import fields
 from flask_restful import marshal_with
 from flask_restful import marshal
+
+
 
 datetype = lambda x: datetime.strptime(x, '%Y-%m-%d')
 date_error_help = "Date fields should be entered as: YYYY-MM-DD"
@@ -34,7 +38,6 @@ child_fields = {
     'program_departure_reason': fields.String,
     'child_history': fields.String,
     'medical_history': fields.String,
-    'uri': fields.Url('entity', absolute=True)
 }
 
 child_note_fields = {
@@ -43,7 +46,6 @@ child_note_fields = {
     'note': fields.String,
     'flag': fields.Boolean,
     'child': fields.Integer,
-    'uri': fields.Url('entity', absolute=True)
 }
 
 partner_fields = {
@@ -74,31 +76,6 @@ child_partner_fields = {
 
 
 ################ Parsers ####################
-
-entity_names = [
-    'child',
-    'childnote',
-    'partner',
-    'caregiver',
-    'specialist',
-    'specialisttype',
-    'milestonetypecategory',
-    'milestonetype',
-    'doctortype',
-    'doctor',
-    'measurementtype',
-    'camp',
-    'medicalcondition',
-    'medication',
-    'childpartner'
-]
-
-
-
-# Entity base parsers, from which all other entity parsers will derive
-entity_parser_help = "Parameter entity_name must be provided! Legal values: " + ",".join(entity_names)
-entity_parser_base = reqparse.RequestParser()
-entity_parser_base.add_argument('entity_name', required=True, location='args', choices=entity_names, help=entity_parser_help)
 
 # Parser for input date related to a child object.
 child_parser = reqparse.RequestParser()
@@ -167,122 +144,114 @@ child_partner_update_parser.replace_argument('child_id', required=False)
 child_partner_update_parser.replace_argument('partner_id', required=False)
 ################ Look Up Tables ###############
 
-entity_create_parsers = {
-    'child': child_parser,
-    'childnote': child_note_parser,
-    'partner': partner_parser,
-    'caregiver': caregiver_parser,
-    'childpartner': child_partner_parser
+class EntityData:
+    def __init__(self, class_type, marshaller, create_parser, update_parser):
+        self.class_type = class_type
+        self.marshaller = marshaller
+        self.create_parser = create_parser
+        self.update_parser = update_parser
+
+entity_data = {
+    'child'                 : EntityData(Child, child_fields, child_parser, child_update_parser),
+    'child_note'             : EntityData(ChildNote, child_note_fields, child_note_parser, child_note_update_parser),
+    'partner'               : EntityData(Partner, partner_fields, partner_parser, partner_update_parser),
+    'caregiver'             : EntityData(Caregiver, caregiver_fields, caregiver_parser, caregiver_update_parser),
+#    'specialist'            : EntityData(Specialist, specialist_fields, specialist_parser, specialist_update_parser),
+#    'specialist_type'        : EntityData(SpecialistType, _fields, _parser, _update_parser),
+#    'milestone_type_category' : EntityData(MilestoneTypeCategory, _fields, _parser, _update_parser),
+#    'milestone_type'         : EntityData(MilestoneType, _fields, _parser, _update_parser),
+#    'doctor_type'            : EntityData(DoctorType, _fields, _parser, _update_parser),
+#    'doctor'                : EntityData(Doctor, _fields, _parser, _update_parser),
+#    'measurement_type'       : EntityData(MeasurementType, _fields, _parser, _update_parser),
+#    'camp'                  : EntityData(Camp, _fields, _parser, _update_parser),
+#    'medical_condition'      : EntityData(MedicalCondition, _fields, _parser, _update_parser),
+#    'medication'            : EntityData(Medication, _fields, _parser, _update_parser),
+    'child_partner'          : EntityData(ChildPartner, child_partner_fields, child_partner_parser, child_partner_update_parser)
 }
 
-entity_update_parsers = {
-    'child': child_update_parser,
-    'childnote': child_note_update_parser,
-    'partner': partner_update_parser,
-    'caregiver': caregiver_update_parser,
-    'childpartner': child_partner_update_parser
-}
-
-entity_marshallers = {
-    'child': child_fields,
-    'childnote': child_note_fields,
-    'partner': partner_fields,
-    'caregiver': caregiver_fields,
-    'childpartner': child_partner_fields
-}
-
-entity_classes = {
-    'child': Child,
-    'childnote': ChildNote,
-    'partner': Partner,
-    'caregiver': Caregiver,
-    'specialist': Specialist,
-    'specialisttype': SpecialistType,
-    'milestonetypecategory': MilestoneTypeCategory,
-    'milestonetype': MilestoneType,
-    'doctortype': DoctorType,
-    'doctor': Doctor,
-    'measurementtype': MeasurementType,
-    'camp': Camp,
-    'medicalcondition': MedicalCondition,
-    'medication': Medication,
-    'childpartner': ChildPartner
-}
+entity_names = entity_data.keys()
 
 ################ Resources ####################
 
+# Base resource class for resource data.
+class ResourceBase(Resource):
+    def __init__(self):
+        self.ed = None
 
-# TODO: Refactor duplicate code in this resource class.
-class EntityResource(Resource):
-    def get(self, id):
-        args = entity_parser_base.parse_args()
-        entity_name = args['entity_name']
-        entity_class = entity_classes[entity_name]
-        marshaller = entity_marshallers[entity_name]
-        entity = session.query(entity_class).filter(entity_class.id == id).first()
+    # Call this right away to populate the entity data object.
+    def get_entity_data(self, name):
+        if name not in entity_names:
+            abort(404, message="Invalid entity name: " + name + " Legal entity names are: " + ", ".join(entity_names))
+        self.ed = entity_data[name]
+ 
+    # For operations that can only be performed on one entity, get that entity by id
+    # Throw an error if 'id' was not specified in the request.
+    def get_entity_by_id(self):
+        id = request.args.to_dict().get("id", None)
+        if not id:
+            abort(404, message="This operation must be passed a specific entity ID!")
+        entity = session.query(self.ed.class_type).filter(self.ed.class_type.id == id).first()
         if not entity:
             abort(404, message="Entity {}: {} doesn't exist".format(entity_name, id))
-        return marshal(entity, marshaller), 200
+        return entity
 
-    def delete(self, id):
-        args = entity_parser_base.parse_args()
-        entity_name = args['entity_name']
-        entity_class = entity_classes[entity_name]
-        entity = session.query(entity_class).filter(entity_class.id == id).first()
+
+class EntityResource(ResourceBase):
+    # GET to get instances by filter arguments (e.g. ?english_name=Bobby&sex=M).
+    # No arguments returns all entities of that type.
+    def get(self, entity_name):
+        self.get_entity_data(entity_name)
+        entity = session.query(self.ed.class_type).filter_by(**request.args.to_dict()).all()
         if not entity:
-            abort(404, message="Entity {}: {} doesn't exist".format(entity_name, id))
+            abort(404, message="Entity {}: {} doesn't exist".format(entity_name, request.args.to_dict()))
+        return marshal(entity, self.ed.marshaller), 200
+
+    # DELETE to delete a single entity instance
+    def delete(self, entity_name):
+        self.get_entity_data(entity_name)
+        entity = self.get_entity_by_id()
         session.delete(entity)
         session.commit()
         return {}, 204
 
-    def put(self, id):
-        args = entity_parser_base.parse_args()
-        entity_name = args['entity_name']
-        entity_class = entity_classes[entity_name]
-        marshaller = entity_marshallers[entity_name]
-        entity_parser = entity_update_parsers[entity_name]
-        entity = session.query(entity_class).filter(entity_class.id == id).first()
-        if not entity:
-            abort(404, message="Entity {}: {} doesn't exist".format(entity_name, id))
-        entity_args = entity_parser.parse_args()
+    # PUT to update a single entity instance
+    def put(self, entity_name):
+        self.get_entity_data(entity_name)
+        entity = self.get_entity_by_id()
+        entity_args = self.ed.update_parser.parse_args()
         raw_json = request.get_json()
         for key in entity_args.keys():
             # Only update keys that are sent in the Json body
             if key in raw_json.keys():
                 setattr(entity, key, entity_args[key])
-
         session.add(entity)
         session.commit()
-        return marshal(entity, marshaller), 201
+        return marshal(entity, self.ed.marshaller), 201
 
-class EntityListResource(Resource):
-    def get(self):
-        args = entity_parser_base.parse_args()
-        entity_name = args['entity_name']
-        entity_class = entity_classes[entity_name]
-        marshaller = entity_marshallers[entity_name]
-        entities = session.query(entity_class).all()
-        return marshal(entities, marshaller), 200
-
-    def post(self):
-        args = entity_parser_base.parse_args()
-        entity_name = args['entity_name']
-        entity_class = entity_classes[entity_name]
-        marshaller = entity_marshallers[entity_name]
-        entity_parser = entity_create_parsers[entity_name]
-        entity_args = entity_parser.parse_args()
-        entity = entity_class()
+    # Post to create a new entity
+    def post(self, entity_name):
+        self.get_entity_data(entity_name)
+        entity_args = self.ed.create_parser.parse_args()
+        entity = self.ed.class_type()
         for key in entity_args.keys():
             setattr(entity, key, entity_args[key])
         session.add(entity)
         session.commit()
-        return marshal(entity, marshaller), 201
+        return marshal(entity, self.ed.marshaller), 201
+
+
+# Resource for getting valid entity names.
+class EntityListResource(ResourceBase):
+    def get(self):        
+        response = { "entity_names": entity_names }
+        return response, 200
+
 
 query_parser = reqparse.RequestParser()
 query_parser.add_argument('query', required=True)
 
 # A generic SQL query API
-class QueryResource(Resource):
+class QueryResource(ResourceBase):
     def post(self):
         args = query_parser.parse_args()
         query = args['query']
@@ -298,14 +267,14 @@ class QueryResource(Resource):
         return result_dict, 200
  
 # Resource for calling a session.rollback()
-class RollbackResource(Resource):
+class RollbackResource(ResourceBase):
     def post(self):
         session.rollback();
         response = { 'message': 'Successfully rolled back the session!' }
         return response, 200
 
 # Resource for checking online status
-class HeartbeatResource(Resource):
+class HeartbeatResource(ResourceBase):
     def get(self):
         response = { 'message': 'beat' }
         return response, 200
