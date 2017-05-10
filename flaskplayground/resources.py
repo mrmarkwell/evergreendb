@@ -77,6 +77,13 @@ child_partner_fields = {
 
 ################ Parsers ####################
 
+# EXP: filtering
+filter_parser = reqparse.RequestParser()
+filter_parser.add_argument('attribute', required=True)
+filter_parser.add_argument('eq')
+filter_parser.add_argument('lt')
+filter_parser.add_argument('gt')
+
 # Parser for input date related to a child object.
 child_parser = reqparse.RequestParser()
 child_parser.add_argument('english_name', required=True)
@@ -251,6 +258,46 @@ class EntityListResource(ResourceBase):
     def get(self):        
         response = { "entity_names": entity_names }
         return response, 200
+
+class EntityFilterResource(ResourceBase):
+
+    def get(self, entity_name):
+        parser = self._make_filter_parser(entity_name)
+        args = parser.parse_args()
+        if args.attribute not in self.ed.marshaller.keys():
+            abort(400, message="{} does not exist in {}".format(args.attribute, entity_name))
+        if args.eq:
+            marshalled_entities = self._filter_eq(args.attribute)
+        elif args.lt:
+            marshalled_entities = self._filter_lt(args.attribute)
+        elif args.gt:
+            marshalled_entities = self._filter_gt(args.attribute)
+        else:
+            msg = "Attempted to filter {} by {} without specifying filter parameters".format(entity_name, args.attribute)
+            abort(400, message=msg)
+        return {"filtered_entities": marshalled_entities}
+
+    def _filter_eq(self, attribute):
+        entities = session.query(self.ed.class_type).filter(self.ed.class_type == attribute)
+        return [marshal(entity, self.ed.marshaller) for entity in entities]
+
+    def _filter_lt(self, attribute):
+        entities = session.query(self.ed.class_type).filter(self.ed.class_type < attribute)
+        return [marshal(entity, self.ed.marshaller) for entity in entities]
+
+    def _filter_gt(self, attribute):
+        entities = session.query(self.ed.class_type).filter(self.ed.class_type > attribute)
+        return [marshal(entity, self.ed.marshaller) for entity in entities]
+
+    def _make_filter_parser(self, entity_name):
+        self.get_entity_data(entity_name)
+        parser = self.ed.create_parser.copy()
+        parser.add_argument('attribute', required=True)
+        parser.add_argument('eq')
+        parser.add_argument('lt')
+        parser.add_argument('gt')
+        return parser
+
 
 
 query_parser = reqparse.RequestParser()
