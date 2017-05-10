@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "EvergreenDB",
-		"_postman_id": "bdf2ce2f-f90a-0d9d-909f-5abcf83e901f",
+		"_postman_id": "df775584-ec9c-5e9e-b248-d08fce7d7947",
 		"description": "Collection of EvergreenDB API Calls.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -10,7 +10,7 @@
 		{
 			"name": "Get all children",
 			"request": {
-				"url": "{{api_base_uri}}/entity?entity_name=child",
+				"url": "{{api_base_uri}}/entity/child",
 				"method": "GET",
 				"header": [],
 				"body": {
@@ -24,7 +24,7 @@
 		{
 			"name": "Delete Child 5",
 			"request": {
-				"url": "{{api_base_uri}}/entity/5?entity_name=child",
+				"url": "{{api_base_uri}}/entity/child?id=5",
 				"method": "DELETE",
 				"header": [
 					{
@@ -69,7 +69,7 @@
 		{
 			"name": "Update Child 2 Fields",
 			"request": {
-				"url": "{{api_base_uri}}/entity/2?entity_name=child",
+				"url": "{{api_base_uri}}/entity/child?id=2",
 				"method": "PUT",
 				"header": [
 					{
@@ -94,7 +94,7 @@
 		{
 			"name": "Add Child Bobby",
 			"request": {
-				"url": "{{api_base_uri}}/entity?entity_name=child",
+				"url": "{{api_base_uri}}/entity/child",
 				"method": "POST",
 				"header": [
 					{
@@ -119,7 +119,7 @@
 		{
 			"name": "Get Child Entity ID=2",
 			"request": {
-				"url": "{{api_base_uri}}/entity/2?entity_name=child",
+				"url": "{{api_base_uri}}/entity/child?id=2",
 				"method": "GET",
 				"header": [
 					{
@@ -194,7 +194,7 @@
 		{
 			"name": "Add Partner Susan",
 			"request": {
-				"url": "{{api_base_uri}}/entity?entity_name=partner",
+				"url": "{{api_base_uri}}/entity/partner",
 				"method": "POST",
 				"header": [
 					{
@@ -219,7 +219,7 @@
 		{
 			"name": "Add Association Child,Bobby Partner,Susan",
 			"request": {
-				"url": "{{api_base_uri}}/entity?entity_name=childpartner",
+				"url": "{{api_base_uri}}/entity/child_partner",
 				"method": "POST",
 				"header": [
 					{
@@ -235,7 +235,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"start_date\": \"2014-1-2\",\n  \"end_date\": null,\n  \"note\": null,\n  \"flag\": 0,\n  \"child_id\": 1,\n  \"partner_id\": 1\n}"
+					"raw": "{\n  \"start_date\": \"2014-1-3\",\n  \"end_date\": null,\n  \"note\": null,\n  \"flag\": 0,\n  \"child_id\": 1,\n  \"partner_id\": 1\n}"
 				},
 				"description": ""
 			},
@@ -244,10 +244,38 @@
 		{
 			"name": "Get all partners",
 			"request": {
-				"url": "{{api_base_uri}}/entity?entity_name=partner",
+				"url": "{{api_base_uri}}/entity/partner",
 				"method": "GET",
 				"header": [],
 				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Filter Example",
+			"request": {
+				"url": "{{api_base_uri}}/entity/child?english_name=Bobby DropTables&sex=M",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all entity types",
+			"request": {
+				"url": "{{api_base_uri}}/entity",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
