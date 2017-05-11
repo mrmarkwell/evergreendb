@@ -3,6 +3,7 @@ from db import session
 from datetime import datetime
 from sqlalchemy import text
 from flask import request
+from flask_login import LoginManager, UserMixin, login_required
 
 from flask_restful import reqparse
 from flask_restful import abort
@@ -251,6 +252,7 @@ class RollbackResource(Resource):
 
 # Resource for checking online status
 class HeartbeatResource(Resource):
+    decorators = [login_required]
     def get(self):
         response = { 'message': 'beat' }
         return response, 200
