@@ -1,10 +1,11 @@
+from datetime import datetime
+import json
+
 from app.models import *
 from db import session
-from datetime import datetime
 from sqlalchemy import text
 from flask import request
 from flask import jsonify
-import json
 
 from flask_restful import reqparse
 from flask_restful import abort
@@ -259,23 +260,29 @@ class EntityListResource(ResourceBase):
         response = { "entity_names": entity_names }
         return response, 200
 
+from pprint import pprint as pp
 class EntityFilterResource(ResourceBase):
 
-    def get(self, entity_name):
+    def post(self, entity_name):
+        pp(json.loads(request.data))
         parser = self._make_filter_parser(entity_name)
         args = parser.parse_args()
-        if args.attribute not in self.ed.marshaller.keys():
-            abort(400, message="{} does not exist in {}".format(args.attribute, entity_name))
-        marshalled_entities = []
-        if args.eq:
-            eq_entities = self._filter_eq(args.attribute, args.eq)
-        elif args.lt:
-            lt_entities = self._filter_lt(args.attribute, args.lt)
-        elif args.gt:
-            gt_entities = self._filter_gt(args.attribute, args.gt)
-        else:
-            msg = "Attempted to filter {} by {} without specifying filter parameters".format(entity_name, args.attribute)
-            abort(400, message=msg)
+        for arg in args.keys():
+            print arg
+            print '\t' + str(args[arg])
+            for attribute, op_list in args[arg]:
+                if attribute:          # not an empty list
+                    for entry in op_list:
+                        op, val = tuple(entry.split(','))
+                        if op == 'eq':
+                            eq_entities = self._filter_eq(arg, val)
+                        elif op == 'lt':
+                            lt_entities = self._filter_lt(args, val)
+                        elif op == 'gt':
+                            gt_entities = self._filter_gt(arg, val)
+                        else:
+                            msg = "Attempted to filter {} by {} without specifying filter parameters".format(entity_name, args.attribute)
+                            abort(400, message=msg)
         return {"filtered_entities": list(set(eq_entities) & set(lt_entities) & set(gt_entities))}
 
     def _filter_eq(self, attribute, val):
@@ -290,15 +297,25 @@ class EntityFilterResource(ResourceBase):
         entities = session.query(self.ed.class_type).filter(getattr(self.ed.class_type, attribute) > val)
         return [marshal(entity, self.ed.marshaller) for entity in entities]
 
+#    def _parse_filter(self):
+#        """parse string of format 'key0:op0=val0,op1=val1&key1:op2=val2' into
+#       a dictionary, {key0: {op0: val0, op1: val1}, key1: {op2: val2}}
+#        """
+#        body = request.data
+#        filters = body.split('&')
+#        args = dict()
+#        for filt in filters:
+#            key = filt.split(':')[0]
+#            vals = key[1].split(',')
+#            ops = vals.split('=')
+
     def _make_filter_parser(self, entity_name):
         self.get_entity_data(entity_name)
-        parser = self.ed.create_parser.copy()
-        parser.add_argument('attribute', required=True)
-        parser.add_argument('eq')
-        parser.add_argument('lt')
-        parser.add_argument('gt')
+        parser = reqparse.RequestParser()
+        for arg in self.ed.update_parser.args:
+            print "updating:", arg.name
+            parser.add_argument(arg.name, type=list, default=list, location='json')
         return parser
-
 
 
 query_parser = reqparse.RequestParser()

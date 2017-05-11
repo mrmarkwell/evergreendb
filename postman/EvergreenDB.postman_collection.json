@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "EvergreenDB",
-		"_postman_id": "df775584-ec9c-5e9e-b248-d08fce7d7947",
+		"_postman_id": "91289d7d-a0dd-41e7-42ad-6d21ccc3d9d9",
 		"description": "Collection of EvergreenDB API Calls.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -247,7 +247,10 @@
 				"url": "{{api_base_uri}}/entity/partner",
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"description": ""
 			},
 			"response": []
@@ -306,50 +309,14 @@
 			"response": []
 		},
 		{
-			"name": "NegTest: Illegal Filter Attribute",
+			"name": "Get Filter Child Endpoint",
 			"request": {
-				"url": "{{api_base_uri}}/entity/child_partner?child_id=1",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
+				"url": "{{api_base_uri}}/entity/child/filter",
+				"method": "POST",
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"start_date\": \"2014-1-3\",\n  \"end_date\": null,\n  \"note\": null,\n  \"flag\": 0,\n  \"child_id\": 1,\n  \"partner_id\": 1\n}"
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "NegTest: Illegal Entity Name",
-			"request": {
-				"url": "{{api_base_uri}}/entity/childpartner",
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"start_date\": \"2014-1-3\",\n  \"end_date\": null,\n  \"note\": null,\n  \"flag\": 0,\n  \"child_id\": 1,\n  \"partner_id\": 1\n}"
+					"raw": "{\"sex\": [\"eq,M\"]}"
 				},
 				"description": ""
 			},
