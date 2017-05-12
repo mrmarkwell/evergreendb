@@ -96,7 +96,7 @@ class SpecialistType(db.Model):
     specialists = db.relationship('Specialist')
 
     def __repr__(self):
-        return '<Assessment Type %r>' % (self.english_name)
+        return '<Specialist Type %r>' % (self.english_name)
 
 
 class MilestoneTypeCategory(db.Model):
@@ -298,7 +298,6 @@ class ChildMedicalCondition(db.Model):
 class ChildMedication(db.Model):
     __tablename__ = 'child_medication'
     id = db.Column(db.Integer, primary_key=True)
-    is_active = db.Column(db.Boolean)
     start_date = db.Column(db.DateTime)
     end_date = db.Column(db.DateTime)
     dosage1 = db.Column(db.Float)
