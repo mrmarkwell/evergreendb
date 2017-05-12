@@ -4,6 +4,7 @@ import json
 from app.models import *
 from db import session
 from sqlalchemy import text
+from sqlalchemy.sql.expression import and_
 from flask import request
 from flask import jsonify
 
@@ -420,29 +421,29 @@ class EntityData:
         self.update_parser = update_parser
 
 entity_data = {
-    'child'                 : EntityData(Child, child_fields, child_parser, child_update_parser),
+    'child'                  : EntityData(Child, child_fields, child_parser, child_update_parser),
     'child_note'             : EntityData(ChildNote, child_note_fields, child_note_parser, child_note_update_parser),
-    'partner'               : EntityData(Partner, partner_fields, partner_parser, partner_update_parser),
-    'caregiver'             : EntityData(Caregiver, caregiver_fields, caregiver_parser, caregiver_update_parser),
-    'specialist'            : EntityData(Specialist, specialist_fields, specialist_parser, specialist_update_parser),
+    'partner'                : EntityData(Partner, partner_fields, partner_parser, partner_update_parser),
+    'caregiver'              : EntityData(Caregiver, caregiver_fields, caregiver_parser, caregiver_update_parser),
+    'specialist'             : EntityData(Specialist, specialist_fields, specialist_parser, specialist_update_parser),
     'specialist_type'        : EntityData(SpecialistType, specialist_type_fields, specialist_type_parser, specialist_type_update_parser),
-    'milestone_type_category' : EntityData(MilestoneTypeCategory, milestone_type_category_fields, milestone_type_category_parser, milestone_type_category_update_parser),
+    'milestone_type_category': EntityData(MilestoneTypeCategory, milestone_type_category_fields, milestone_type_category_parser, milestone_type_category_update_parser),
     'milestone_type'         : EntityData(MilestoneType, milestone_type_fields, milestone_type_parser, milestone_type_update_parser),
     'doctor_type'            : EntityData(DoctorType, doctor_type_fields, doctor_type_parser, doctor_type_update_parser),
-    'doctor'                : EntityData(Doctor, doctor_fields, doctor_parser, doctor_update_parser),
+    'doctor'                 : EntityData(Doctor, doctor_fields, doctor_parser, doctor_update_parser),
     'measurement_type'       : EntityData(MeasurementType, measurement_type_fields, measurement_type_parser, measurement_type_update_parser),
-    'camp'                  : EntityData(Camp, camp_fields, camp_parser, camp_update_parser),
+    'camp'                   : EntityData(Camp, camp_fields, camp_parser, camp_update_parser),
     'medical_condition'      : EntityData(MedicalCondition, medical_condition_fields, medical_condition_parser, medical_condition_update_parser),
-    'medication'            : EntityData(Medication, medication_fields, medication_parser, medication_update_parser),
+    'medication'             : EntityData(Medication, medication_fields, medication_parser, medication_update_parser),
     'child_partner'          : EntityData(ChildPartner, child_partner_fields, child_partner_parser, child_partner_update_parser),
-    'child_camp'          : EntityData(ChildCamp, child_camp_fields, child_camp_parser, child_camp_update_parser),
-    'child_assessment'          : EntityData(ChildAssessment, child_assessment_fields, child_assessment_parser, child_assessment_update_parser),
-    'child_caregiver'          : EntityData(ChildCaregiver, child_caregiver_fields, child_caregiver_parser, child_caregiver_update_parser),
-    'child_measurement'          : EntityData(ChildMeasurement, child_measurement_fields, child_measurement_parser, child_measurement_update_parser),
-    'child_milestone'          : EntityData(ChildMilestone, child_milestone_fields, child_milestone_parser, child_milestone_update_parser),
-    'child_doctor_visit'          : EntityData(ChildDoctorVisit, child_doctor_visit_fields, child_doctor_visit_parser, child_doctor_visit_update_parser),
-    'child_medical_condition'          : EntityData(ChildMedicalCondition, child_medical_condition_fields, child_medical_condition_parser, child_medical_condition_update_parser),
-    'child_medication'          : EntityData(ChildMedication, child_medication_fields, child_medication_parser, child_medication_update_parser)
+    'child_camp'             : EntityData(ChildCamp, child_camp_fields, child_camp_parser, child_camp_update_parser),
+    'child_assessment'       : EntityData(ChildAssessment, child_assessment_fields, child_assessment_parser, child_assessment_update_parser),
+    'child_caregiver'        : EntityData(ChildCaregiver, child_caregiver_fields, child_caregiver_parser, child_caregiver_update_parser),
+    'child_measurement'      : EntityData(ChildMeasurement, child_measurement_fields, child_measurement_parser, child_measurement_update_parser),
+    'child_milestone'        : EntityData(ChildMilestone, child_milestone_fields, child_milestone_parser, child_milestone_update_parser),
+    'child_doctor_visit'     : EntityData(ChildDoctorVisit, child_doctor_visit_fields, child_doctor_visit_parser, child_doctor_visit_update_parser),
+    'child_medical_condition': EntityData(ChildMedicalCondition, child_medical_condition_fields, child_medical_condition_parser, child_medical_condition_update_parser),
+    'child_medication'       : EntityData(ChildMedication, child_medication_fields, child_medication_parser, child_medication_update_parser)
 }
 
 entity_names = entity_data.keys()
@@ -453,12 +454,14 @@ entity_names = entity_data.keys()
 class ResourceBase(Resource):
     def __init__(self):
         self.ed = None
+        self.query = None
 
     # Call this right away to populate the entity data object.
     def get_entity_data(self, name):
         if name not in entity_names:
             abort(404, message="Invalid entity name: '" + name + "'. Legal entity names are: " + ", ".join(entity_names))
         self.ed = entity_data[name]
+        self.query = session.query(self.ed.class_type)
  
     # For operations that can only be performed on one entity, get that entity by id
     # Throw an error if 'id' was not specified in the request.
@@ -528,61 +531,46 @@ class EntityListResource(ResourceBase):
         response = { "entity_names": entity_names }
         return response, 200
 
-from pprint import pprint as pp
 class EntityFilterResource(ResourceBase):
 
     def post(self, entity_name):
         pp(json.loads(request.data))
         parser = self._make_filter_parser(entity_name)
         args = parser.parse_args()
+        filters = []
         for arg in args.keys():
-            print arg
-            print '\t' + str(args[arg])
-            for attribute, op_list in args[arg]:
-                if attribute:          # not an empty list
-                    for entry in op_list:
-                        op, val = tuple(entry.split(','))
-                        if op == 'eq':
-                            eq_entities = self._filter_eq(arg, val)
-                        elif op == 'lt':
-                            lt_entities = self._filter_lt(args, val)
-                        elif op == 'gt':
-                            gt_entities = self._filter_gt(arg, val)
-                        else:
-                            msg = "Attempted to filter {} by {} without specifying filter parameters".format(entity_name, args.attribute)
-                            abort(400, message=msg)
-        return {"filtered_entities": list(set(eq_entities) & set(lt_entities) & set(gt_entities))}
+            for op_val_pair in args[arg]:
+                op, val = tuple(op_val_pair.split(','))
+                if op == 'eq':
+                    filters.append(self._filter_eq(arg, val))
+                elif op == 'lt':
+                    filters.append(self._filter_lt(args, val))
+                elif op == 'gt':
+                    filters.append(self._filter_gt(args, val))
+                else:
+                    msg = "Attempted to filter {} by {} without specifying filter parameters".format(entity_name, args.attribute)
+                    abort(400, message=msg)
+        pp(self.query.filter(and_(*filters)).all())
+        pp(dir(self.query.filter(and_(*filters)).all()))
+        pp(self.query.filter(and_(*filters)).all()[0].to_dict())
+        return {"filtered_entities": [res.to_dict() for res in self.query.filter(and_(*filters)).all()]}
 
     def _filter_eq(self, attribute, val):
-        entities = session.query(self.ed.class_type).filter(getattr(self.ed.class_type, attribute) == val)
-        return [marshal(entity, self.ed.marshaller) for entity in entities]
+        return getattr(self.ed.class_type, attribute) == val
 
     def _filter_lt(self, attribute):
-        entities = session.query(self.ed.class_type).filter(getattr(self.ed.class_type, attribute) < val)
-        return [marshal(entity, self.ed.marshaller) for entity in entities]
+        return getattr(self.ed.class_type, attribute) < val
 
     def _filter_gt(self, attribute):
-        entities = session.query(self.ed.class_type).filter(getattr(self.ed.class_type, attribute) > val)
-        return [marshal(entity, self.ed.marshaller) for entity in entities]
-
-#    def _parse_filter(self):
-#        """parse string of format 'key0:op0=val0,op1=val1&key1:op2=val2' into
-#       a dictionary, {key0: {op0: val0, op1: val1}, key1: {op2: val2}}
-#        """
-#        body = request.data
-#        filters = body.split('&')
-#        args = dict()
-#        for filt in filters:
-#            key = filt.split(':')[0]
-#            vals = key[1].split(',')
-#            ops = vals.split('=')
+        return getattr(self.ed.class_type, attribute) > val
 
     def _make_filter_parser(self, entity_name):
         self.get_entity_data(entity_name)
         parser = reqparse.RequestParser()
+        raw_json = request.get_json()
         for arg in self.ed.update_parser.args:
-            print "updating:", arg.name
-            parser.add_argument(arg.name, type=list, default=list, location='json')
+            if arg.name in raw_json.keys():
+                parser.add_argument(arg.name, type=list, location='json')
         return parser
 
 
