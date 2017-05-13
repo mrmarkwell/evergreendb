@@ -309,14 +309,66 @@
 			"response": []
 		},
 		{
-			"name": "Get Filter Child Endpoint",
+			"name": "Filter Sex=M, ChildEntity",
 			"request": {
 				"url": "{{api_base_uri}}/entity/child/filter",
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"sex\": [\"eq,M\"]}"
+					"raw": "{\"sex\": [\"eq,M\"], \"english_name\": [\"eq,Bobby\"]}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Child Roberta",
+			"request": {
+				"url": "{{api_base_uri}}/entity/child",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"abandonment_date\": null,\n  \"birth_date\": null,\n  \"child_history\": \"Roberta is from 充佛动囖\",\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Roberta\",\n  \"medical_history\": null,\n  \"nickname\": null,\n  \"pinyin_name\": \"ch po en\",\n  \"program_departure_date\": null,\n  \"program_departure_reason\": null,\n  \"program_entry_date\": null,\n  \"sex\": \"F\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Upload File",
+			"request": {
+				"url": "{{api_base_uri}}/upload",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "upload",
+							"type": "file",
+							"enabled": true,
+							"src": "testfile.txt"
+						}
+					]
 				},
 				"description": ""
 			},
