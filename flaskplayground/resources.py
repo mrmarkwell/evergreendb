@@ -520,8 +520,8 @@ class EntityResource(ResourceBase):
 
 # Resource for getting valid entity names.
 class EntityListResource(ResourceBase):
-    def get(self):        
-        response = { "entity_names": entity_names }
+    def get(self):
+        response = {"entity_names": entity_names}
         return response, 200
 
 class EntityFilterResource(ResourceBase):
@@ -590,11 +590,11 @@ class QueryResource(ResourceBase):
 class RollbackResource(ResourceBase):
     def post(self):
         session.rollback()
-        response = { 'message': 'Successfully rolled back the session!' }
+        response = {'message': 'Successfully rolled back the session!'}
         return response, 200
 
 # Resource for checking online status
 class HeartbeatResource(ResourceBase):
     def get(self):
-        response = { 'message': 'beat' }
+        response = {'message': 'beat'}
         return response, 200
