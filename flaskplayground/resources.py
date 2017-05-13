@@ -158,13 +158,6 @@ child_medication_fields = {
 
 ################ Parsers ####################
 
-# EXP: filtering
-filter_parser = reqparse.RequestParser()
-filter_parser.add_argument('attribute', required=True)
-filter_parser.add_argument('eq')
-filter_parser.add_argument('lt')
-filter_parser.add_argument('gt')
-
 # A base entity parser for other parsers to derive from
 base_parser = reqparse.RequestParser()
 base_parser.add_argument('english_name', required=True)
@@ -172,7 +165,7 @@ base_parser.add_argument('chinese_name')
 base_parser.add_argument('pinyin_name')
 
 # Parser for input date related to a child object.
-child_parser = base_parser.copy();
+child_parser = base_parser.copy()
 child_parser.add_argument('nickname')
 child_parser.add_argument('sex', required=True)
 child_parser.add_argument('birth_date', type=datetype, help=date_error_help)
@@ -534,34 +527,34 @@ class EntityListResource(ResourceBase):
 class EntityFilterResource(ResourceBase):
 
     def post(self, entity_name):
-        pp(json.loads(request.data))
         parser = self._make_filter_parser(entity_name)
         args = parser.parse_args()
         filters = []
         for arg in args.keys():
             for op_val_pair in args[arg]:
-                op, val = tuple(op_val_pair.split(','))
+                try:
+                    op, val = tuple(op_val_pair.split(','))
+                except ValueError:
+                    msg = "Improperly formatted query: {}. Use \"op,val\", e.g. \"eq,M\"".format(op_val_pair)
+                    abort(400, message=msg)
                 if op == 'eq':
                     filters.append(self._filter_eq(arg, val))
                 elif op == 'lt':
-                    filters.append(self._filter_lt(args, val))
+                    filters.append(self._filter_lt(arg, val))
                 elif op == 'gt':
-                    filters.append(self._filter_gt(args, val))
+                    filters.append(self._filter_gt(arg, val))
                 else:
                     msg = "Attempted to filter {} by {} without specifying filter parameters".format(entity_name, args.attribute)
                     abort(400, message=msg)
-        pp(self.query.filter(and_(*filters)).all())
-        pp(dir(self.query.filter(and_(*filters)).all()))
-        pp(self.query.filter(and_(*filters)).all()[0].to_dict())
         return {"filtered_entities": [res.to_dict() for res in self.query.filter(and_(*filters)).all()]}
 
     def _filter_eq(self, attribute, val):
         return getattr(self.ed.class_type, attribute) == val
 
-    def _filter_lt(self, attribute):
+    def _filter_lt(self, attribute, val):
         return getattr(self.ed.class_type, attribute) < val
 
-    def _filter_gt(self, attribute):
+    def _filter_gt(self, attribute, val):
         return getattr(self.ed.class_type, attribute) > val
 
     def _make_filter_parser(self, entity_name):
@@ -596,7 +589,7 @@ class QueryResource(ResourceBase):
 # Resource for calling a session.rollback()
 class RollbackResource(ResourceBase):
     def post(self):
-        session.rollback();
+        session.rollback()
         response = { 'message': 'Successfully rolled back the session!' }
         return response, 200
 
@@ -605,4 +598,3 @@ class HeartbeatResource(ResourceBase):
     def get(self):
         response = { 'message': 'beat' }
         return response, 200
-

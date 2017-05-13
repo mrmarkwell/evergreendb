@@ -29,13 +29,5 @@ class TestFlaskRestApi(unittest.TestCase):
         response = self.app.get('/heartbeat')
         self.assertEqual(json.loads(response.get_data()), {'message': 'beat'})
 
-    def test_filter(self):
-#        body = "{'id': {'gt': 0, 'lt': 5}, 'program_entry_date': {'gt': '1999-01-01'}, 'english_name': {'eq': 'Robert'}}"
-#        body = {'id': ['gt:0', 'lt:5'], 'program_entry_date': ['gt:1999-01-01'], 'english_name': ['eq:Robert']}
-#        body = {'id': 'gt:0,lt:5', 'program_entry_date': 'gt:1999-01-01', 'english_name': 'eq:Robert'}
-        body = "id:gt=0,lt=5&program_entry_date:gt=199-01-01&english_name=Robert"
-        response = self.app.get('/entity/child/filter', data=body)
-        self.assertNotEqual(json.loads(response.get_data()), {})
-
 if __name__ == "__main__":
     unittest.main()
