@@ -404,7 +404,6 @@ class TestAssociationCreation(unittest.TestCase):
         medications = db.session.query(models.Medication).all()
         medication = random.choice(medications)
         child_medication = models.ChildMedication(
-            is_active=FLAG,
             start_date=TODAY,
             end_date=TODAY,
             dosage1=0.0,
