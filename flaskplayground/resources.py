@@ -462,7 +462,7 @@ class ResourceBase(Resource):
         id = request.args.to_dict().get("id", None)
         if not id:
             abort(404, message="This operation must be passed a specific entity ID!")
-        entity = session.query(self.ed.class_type).filter(self.ed.class_type.id == id).first()
+        entity = self.query.filter(self.ed.class_type.id == id).first()
         if not entity:
             abort(404, message="Entity {}: {} doesn't exist".format(entity_name, id))
         return entity
@@ -470,7 +470,7 @@ class ResourceBase(Resource):
     def verify_filters(self):
         for attr in request.args.to_dict().keys():
             if not hasattr(self.ed.class_type, attr):
-                abort (404, message= "Class {} does not have filter attribute {}!".format(self.ed.class_type.__name__, attr))
+                abort (404, message="Class {} does not have filter attribute {}!".format(self.ed.class_type.__name__, attr))
 
 
 class EntityResource(ResourceBase):
@@ -479,7 +479,7 @@ class EntityResource(ResourceBase):
     def get(self, entity_name):
         self.get_entity_data(entity_name)
         self.verify_filters()
-        entity = session.query(self.ed.class_type).filter_by(**request.args.to_dict()).all()
+        entity = self.query.filter_by(**request.args.to_dict()).all()
         if not entity:
             abort(404, message="Entity {}: {} doesn't exist".format(entity_name, request.args.to_dict()))
         return marshal(entity, self.ed.marshaller), 200
