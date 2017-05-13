@@ -1,30 +1,11 @@
 """Model the EvergreenDB"""
 
-import datetime
-
 from app import db
 from sqlalchemy import UniqueConstraint
 
 # ------------------ Entities ------------------
 
-class EVDBModel(db.Model):
-    __abstract__ = True
-
-    def to_dict(self):
-        raw = {col.name: getattr(self, col.name) for col in self.__table__.columns}
-        return self._serializable(raw)
-
-    def _serializable(self, model_dict):
-        """take raw model dictionary and make any unserializable values
-        serializable -- currently only changes datetime objects
-        """
-        for col in model_dict.keys():
-            if isinstance(model_dict[col], datetime.datetime):
-                model_dict[col] = unicode(model_dict[col].date())
-        return model_dict
-
-
-class Child(EVDBModel):
+class Child(db.Model):
     __tablename__ = 'child'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
@@ -56,7 +37,7 @@ class Child(EVDBModel):
         return '<Child %r>' % (self.nickname)
 
 
-class ChildNote(EVDBModel):
+class ChildNote(db.Model):
     __tablename__ = 'child_note'
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime)
@@ -65,7 +46,7 @@ class ChildNote(EVDBModel):
     child = db.Column(db.Integer, db.ForeignKey('child.id'))
 
 
-class Partner(EVDBModel):
+class Partner(db.Model):
     __tablename__ = 'partner'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
@@ -80,7 +61,7 @@ class Partner(EVDBModel):
         return '<Partner %r>' % (self.english_name)
 
 
-class Caregiver(EVDBModel):
+class Caregiver(db.Model):
     __tablename__ = 'caregiver'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
@@ -92,7 +73,7 @@ class Caregiver(EVDBModel):
         return '<Caregiver %r>' % (self.english_name)
 
 
-class Specialist(EVDBModel):
+class Specialist(db.Model):
     __tablename__ = 'specialist'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
@@ -105,7 +86,7 @@ class Specialist(EVDBModel):
         return '<Specialist %r>' % (self.english_name)
 
 
-class SpecialistType(EVDBModel):
+class SpecialistType(db.Model):
     __tablename__ = 'specialist_type'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
@@ -117,7 +98,7 @@ class SpecialistType(EVDBModel):
         return '<Specialist Type %r>' % (self.english_name)
 
 
-class MilestoneTypeCategory(EVDBModel):
+class MilestoneTypeCategory(db.Model):
     __tablename__ = 'milestone_type_category'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
@@ -129,7 +110,7 @@ class MilestoneTypeCategory(EVDBModel):
         return '<Milestone Type Category %r>' % (self.english_name)
 
 
-class MilestoneType(EVDBModel):
+class MilestoneType(db.Model):
     __tablename__ = 'milestone_type'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
@@ -145,7 +126,7 @@ class MilestoneType(EVDBModel):
         return '<Milestone Type Category %r>' % (self.english_name)
 
 
-class DoctorType(EVDBModel):
+class DoctorType(db.Model):
     __tablename__ = 'doctor_type'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
@@ -157,7 +138,7 @@ class DoctorType(EVDBModel):
         return '<Doctor Type %r>' % (self.english_name)
 
 
-class Doctor(EVDBModel):
+class Doctor(db.Model):
     __tablename__ = 'doctor'
     id = db.Column(db.Integer, primary_key=True)
     doctor_english_name = db.Column(db.Unicode(255))
@@ -173,7 +154,7 @@ class Doctor(EVDBModel):
         return '<Doctor %r>' % (self.english_name)
 
 
-class MeasurementType(EVDBModel):
+class MeasurementType(db.Model):
     __tablename__ = 'measurement_type'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
@@ -186,7 +167,7 @@ class MeasurementType(EVDBModel):
         return '<Measurement Type %r>' % (self.english_name)
 
 
-class Camp(EVDBModel):
+class Camp(db.Model):
     __tablename__ = 'camp'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
@@ -195,7 +176,7 @@ class Camp(EVDBModel):
     children = db.relationship('ChildCamp', back_populates='camp')
 
 
-class MedicalCondition(EVDBModel):
+class MedicalCondition(db.Model):
     __tablename__ = 'medical_condition'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
@@ -204,7 +185,7 @@ class MedicalCondition(EVDBModel):
     children = db.relationship('ChildMedicalCondition', back_populates='medical_condition')
 
 
-class Medication(EVDBModel):
+class Medication(db.Model):
     __tablename__ = 'medication'
     id = db.Column(db.Integer, primary_key=True)
     english_name = db.Column(db.Unicode(255))
@@ -216,7 +197,7 @@ class Medication(EVDBModel):
 # ------------------ Associations ------------------
 
 
-class ChildPartner(EVDBModel):
+class ChildPartner(db.Model):
     __tablename__ = 'child_partner'
     id = db.Column(db.Integer, primary_key=True)
     start_date = db.Column(db.DateTime)
@@ -230,7 +211,7 @@ class ChildPartner(EVDBModel):
     __table_args__ = (UniqueConstraint('child_id', 'partner_id', 'start_date'),)
 
 
-class ChildCamp(EVDBModel):
+class ChildCamp(db.Model):
     __tablename__ = 'child_camp'
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime)
@@ -242,7 +223,7 @@ class ChildCamp(EVDBModel):
 
     __table_args__ = (UniqueConstraint('child_id', 'camp_id', 'date'),)
 
-class ChildAssessment(EVDBModel):
+class ChildAssessment(db.Model):
     __tablename__ = 'child_assessment'
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime)
@@ -255,7 +236,7 @@ class ChildAssessment(EVDBModel):
 
     __table_args__ = (UniqueConstraint('child_id', 'specialist_id', 'date'),)
 
-class ChildCaregiver(EVDBModel):
+class ChildCaregiver(db.Model):
     __tablename__ = 'child_caregiver'
     id = db.Column(db.Integer, primary_key=True)
     start_date = db.Column(db.DateTime)
@@ -268,7 +249,7 @@ class ChildCaregiver(EVDBModel):
 
     __table_args__ = (UniqueConstraint('child_id', 'caregiver_id', 'start_date'),)
 
-class ChildMeasurement(EVDBModel):
+class ChildMeasurement(db.Model):
     __tablename__ = 'child_measurement'
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime)
@@ -280,7 +261,7 @@ class ChildMeasurement(EVDBModel):
 
     __table_args__ = (UniqueConstraint('child_id', 'measurement_type_id', 'date'),)
 
-class ChildMilestone(EVDBModel):
+class ChildMilestone(db.Model):
     __tablename__ = 'child_milestone'
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime)
@@ -291,7 +272,7 @@ class ChildMilestone(EVDBModel):
 
     __table_args__ = (UniqueConstraint('child_id', 'milestone_type_id'),)
 
-class ChildDoctorVisit(EVDBModel):
+class ChildDoctorVisit(db.Model):
     __tablename__ = 'child_doctor_visit'
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime)
@@ -303,7 +284,7 @@ class ChildDoctorVisit(EVDBModel):
 
     __table_args__ = (UniqueConstraint('child_id', 'doctor_id', 'date'),)
 
-class ChildMedicalCondition(EVDBModel):
+class ChildMedicalCondition(db.Model):
     __tablename__ = 'child_medical_condition'
     id = db.Column(db.Integer, primary_key=True)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
@@ -313,7 +294,7 @@ class ChildMedicalCondition(EVDBModel):
 
     __table_args__ = (UniqueConstraint('child_id', 'medical_condition_id'),)
 
-class ChildMedication(EVDBModel):
+class ChildMedication(db.Model):
     __tablename__ = 'child_medication'
     id = db.Column(db.Integer, primary_key=True)
     start_date = db.Column(db.DateTime)
