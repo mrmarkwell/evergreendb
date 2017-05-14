@@ -28,7 +28,7 @@ sample_child = {
 sample_child_note = {
   "child_id": 1,
   "date": "2012-11-14",
-  "flag": true,
+  "flag": True,
   "id": 1,
   "note": "This is a note about a child!"
 }
