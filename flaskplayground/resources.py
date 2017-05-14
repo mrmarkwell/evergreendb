@@ -527,6 +527,7 @@ class EntityListResource(ResourceBase):
 class EntityFilterResource(ResourceBase):
 
     def post(self, entity_name):
+        """filter using eq, lt, gt, ne or like"""
         parser = self._make_filter_parser(entity_name)
         args = parser.parse_args()
         filters = []
@@ -543,6 +544,10 @@ class EntityFilterResource(ResourceBase):
                     filters.append(self._filter_lt(arg, val))
                 elif op == 'gt':
                     filters.append(self._filter_gt(arg, val))
+                elif op == 'ne':
+                    filters.append(self._filter_ne(arg, val))
+                elif op == 'like':
+                    filters.append(self._filter_like(arg, val))
                 else:
                     msg = "Attempted to filter {} by {} without specifying filter parameters".format(entity_name, args.attribute)
                     abort(400, message=msg)
@@ -556,6 +561,12 @@ class EntityFilterResource(ResourceBase):
 
     def _filter_gt(self, attribute, val):
         return getattr(self.ed.class_type, attribute) > val
+
+    def _filter_ne(self, attribute, val):
+        return getattr(self.ed.class_type, attribute) != val
+
+    def _filter_like(self, attribute, val):
+        return getattr(self.ed.class_type, attribute).like(val)
 
     def _make_filter_parser(self, entity_name):
         self.get_entity_data(entity_name)
