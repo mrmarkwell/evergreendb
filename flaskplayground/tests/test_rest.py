@@ -1,12 +1,37 @@
 # -*- coding: utf-8 -*-
+# encoding=utf8
 import json
 import os
 import unittest
-
+import sys
 from app import app, db, models
 from config import basedir
 
-BOBBY_DATA = "{\n  \"abandonment_date\": \"2014-1-2\",\n  \"birth_date\": \"2014-1-1\",\n  \"child_history\": \"Bobby is from 充佛动囖\",\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Bobby\",\n  \"medical_history\": \"Bobby had a fever\",\n  \"nickname\": \"Little Bobby Tables\",\n  \"pinyin_name\": \"ch po en\",\n  \"program_departure_date\": null,\n  \"program_departure_reason\": null,\n  \"program_entry_date\": \"2014-1-3\",\n  \"sex\": \"M\"\n}"
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+sample_child = {
+  "abandonment_date": "2014-01-02",
+  "birth_date": "2014-01-01",
+  "child_history": "Bobby is from 充佛动囖",
+  "chinese_name": "吃手婆娘给飘红",
+  "english_name": "Bobby",
+  "medical_history": "Bobby had a fever",
+  "nickname": "Little Bobby Tables",
+  "pinyin_name": "ch po en",
+  "program_departure_date": None,
+  "program_departure_reason": None,
+  "program_entry_date": "2014-01-03",
+  "sex": "M"
+}
+
+sample_child_note = {
+  "child_id": 1,
+  "date": "2012-11-14",
+  "flag": true,
+  "id": 1,
+  "note": "This is a note about a child!"
+}
 
 class TestFlaskRestApi(unittest.TestCase):
 
@@ -35,7 +60,12 @@ class TestFlaskRestApi(unittest.TestCase):
 
     def test_create_child(self):
         response = self.app.post('/entity/child', data=BOBBY_DATA)
-        self.assertEqual(json.loads(response.get_data()), BOBBY_DATA)
-        
+        res_dict = json.loads(response.get_data())
+        # Remove the id field from the response
+        res_dict.pop('id', None)
+        self.assertEqual(response.status_code, 201)
+        self.assertDictEqual(res_dict, BOBBY_DATA)
+    
+    
 if __name__ == "__main__":
     unittest.main()

@@ -43,7 +43,7 @@ class ChildNote(db.Model):
     date = db.Column(db.DateTime)
     note = db.Column(db.UnicodeText)
     flag = db.Column(db.Boolean)
-    child = db.Column(db.Integer, db.ForeignKey('child.id'))
+    child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
 
 
 class Partner(db.Model):
@@ -79,7 +79,7 @@ class Specialist(db.Model):
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
     pinyin_name = db.Column(db.Unicode(255))
-    specialist_type = db.Column(db.Integer, db.ForeignKey('specialist_type.id'))
+    specialist_type_id = db.Column(db.Integer, db.ForeignKey('specialist_type.id'))
     children = db.relationship('ChildAssessment', back_populates='specialist')
 
     def __repr__(self):
@@ -116,7 +116,7 @@ class MilestoneType(db.Model):
     english_name = db.Column(db.Unicode(255))
     chinese_name = db.Column(db.Unicode(255))
     pinyin_name = db.Column(db.Unicode(255))
-    milestone_category = db.Column(
+    milestone_type_category_id = db.Column(
         db.Unicode(16),
         db.ForeignKey('milestone_type_category.id')
     )
@@ -147,7 +147,7 @@ class Doctor(db.Model):
     facility_english_name = db.Column(db.Unicode(255))
     facility_chinese_name = db.Column(db.Unicode(255))
     facility_pinyin_name = db.Column(db.Unicode(255))
-    doctor_type = db.Column(db.Integer, db.ForeignKey('doctor_type.id'))
+    doctor_type_id = db.Column(db.Integer, db.ForeignKey('doctor_type.id'))
     children = db.relationship('ChildDoctorVisit', back_populates='doctor')
 
     def __repr__(self):
