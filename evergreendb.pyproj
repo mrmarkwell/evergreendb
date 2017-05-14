@@ -49,6 +49,9 @@
     <Compile Include="flaskplayground\db_upgrade.py" />
     <Compile Include="flaskplayground\resources.py" />
     <Compile Include="flaskplayground\run.py" />
+    <Compile Include="flaskplayground\tests\rest_test_data.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="flaskplayground\tests\test_models.py" />
     <Compile Include="flaskplayground\tests\test_rest.py" />
     <Compile Include="flaskplayground\tests\__init__.py" />
