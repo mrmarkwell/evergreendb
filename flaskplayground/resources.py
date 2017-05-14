@@ -546,7 +546,7 @@ class EntityFilterResource(ResourceBase):
                 else:
                     msg = "Attempted to filter {} by {} without specifying filter parameters".format(entity_name, args.attribute)
                     abort(400, message=msg)
-        return {"filtered_entities": [res.to_dict() for res in self.query.filter(and_(*filters)).all()]}
+        return {"filtered_entities": [marshal(res, self.ed.marshaller) for res in self.query.filter(and_(*filters)).all()]}
 
     def _filter_eq(self, attribute, val):
         return getattr(self.ed.class_type, attribute) == val
