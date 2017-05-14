@@ -1,11 +1,10 @@
 import forgery_py as fpy
 from api.marshallers import Date
-from api.entity_data import *
+from api.entity_data import entity_data
 from flask_restful import fields
 from pprint import pprint as pp
 
 
-    
 test_data = dict()
 
 for entity, ed in entity_data.items():
@@ -32,7 +31,7 @@ for entity, ed in entity_data.items():
             if field_type == fields.Boolean:
                 vals[field] = fpy.basic.random.choice([True, False])
 
-pp(test_data)
+#pp(test_data)
 
 
 

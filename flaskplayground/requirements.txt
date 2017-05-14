@@ -16,7 +16,9 @@ Flask-Uploads==0.2.1
 Flask-WhooshAlchemy==0.56
 Flask-WTF==0.14.2
 flipflop==1.0
+ForgeryPy==0.1
 guess-language==0.2
+hypothesis==3.8.3
 itsdangerous==0.24
 Jinja2==2.9.6
 MarkupSafe==1.0
