@@ -524,58 +524,69 @@ class EntityListResource(ResourceBase):
         response = {"entity_names": entity_names}
         return response, 200
 
-class EntityFilterResource(ResourceBase):
+class FilterResource(ResourceBase):
+    """Filter with format like,
+        {
+        "child": {
+            "sex": {
+                "eq": "M"
+            }
+            "english_name": {
+                "eq": "Bobby"
+            }
+          }
+        }
+    """
 
-    def post(self, entity_name):
+    def post(self):
         """filter using eq, lt, gt, ne or like"""
-        parser = self._make_filter_parser(entity_name)
-        args = parser.parse_args()
         filters = []
-        for arg in args.keys():
-            for op_val_pair in args[arg]:
-                try:
-                    op, val = tuple(op_val_pair.split(','))
-                except ValueError:
-                    msg = "Improperly formatted query: {}. Use \"op,val\", e.g. \"eq,M\"".format(op_val_pair)
-                    abort(400, message=msg)
-                if op == 'eq':
-                    filters.append(self._filter_eq(arg, val))
-                elif op == 'lt':
-                    filters.append(self._filter_lt(arg, val))
-                elif op == 'gt':
-                    filters.append(self._filter_gt(arg, val))
-                elif op == 'ne':
-                    filters.append(self._filter_ne(arg, val))
-                elif op == 'like':
-                    filters.append(self._filter_like(arg, val))
-                else:
-                    msg = "Attempted to filter {} by {} without specifying filter parameters".format(entity_name, args.attribute)
-                    abort(400, message=msg)
+        entity_data = self._get_entity_data()
+        for e_class, e_marshaller, e_parser in entity_data:
+            attributes = e_parser.parse_args()
+            for attribute in attributes:
+                for op, val in attribute.items():
+                    if op == 'eq':
+                        filters.append(self._filter_eq(e_class, attribute, val))
+                    elif op == 'lt':
+                        filters.append(self._filter_lt(e_class, attribute, val))
+                    elif op == 'gt':
+                        filters.append(self._filter_gt(e_class, attribute, val))
+                    elif op == 'ne':
+                        filters.append(self._filter_ne(e_class, attribute, val))
+                    elif op == 'like':
+                        filters.append(self._filter_like(e_class, attribute, val))
+                    else:
+                        msg = "Attempted to filter {} by {} without specifying filter parameters".format(entity_name, args.attribute)
+                        abort(400, message=msg)
         return {"filtered_entities": [marshal(res, self.ed.marshaller) for res in self.query.filter(and_(*filters)).all()]}
 
-    def _filter_eq(self, attribute, val):
-        return getattr(self.ed.class_type, attribute) == val
+    def _filter_eq(self, e_class, attribute, val):
+        return getattr(e_class, attribute) == val
 
-    def _filter_lt(self, attribute, val):
-        return getattr(self.ed.class_type, attribute) < val
+    def _filter_lt(self, e_class, attribute, val):
+        return getattr(e_class, attribute) < val
 
-    def _filter_gt(self, attribute, val):
-        return getattr(self.ed.class_type, attribute) > val
+    def _filter_gt(self, e_class, attribute, val):
+        return getattr(e_class, attribute) > val
 
-    def _filter_ne(self, attribute, val):
-        return getattr(self.ed.class_type, attribute) != val
+    def _filter_ne(self, e_class, attribute, val):
+        return getattr(e_class, attribute) != val
 
-    def _filter_like(self, attribute, val):
-        return getattr(self.ed.class_type, attribute).like(val)
+    def _filter_like(self, e_class, attribute, val):
+        return getattr(e_class, attribute).like(val)
 
-    def _make_filter_parser(self, entity_name):
-        self.get_entity_data(entity_name)
-        parser = reqparse.RequestParser()
+    def _get_entity_data(self):
+        entity_data = []
         raw_json = request.get_json()
-        for arg in self.ed.update_parser.args:
-            if arg.name in raw_json.keys():
-                parser.add_argument(arg.name, type=list, location='json')
-        return parser
+        for entity_name in raw_json.keys():
+            parser = RequestParser()
+            self.get_entity_data(entity_name)
+            for arg in self.ed.update_parser.args:
+                if arg.name in entity_name.keys():
+                    parser.add_argument(arg.name, type=dict, location='json')
+            entity_data.append((self.ed.class_type, self.ed.marshaller, parser))
+        return filters
 
 
 query_parser = reqparse.RequestParser()
