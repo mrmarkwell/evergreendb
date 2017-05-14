@@ -4,3 +4,4 @@
 flaskplayground/venv/
 *.db
 flaskplayground/uploads/
+.vs/
