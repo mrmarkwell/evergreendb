@@ -49,13 +49,13 @@ child_note_fields = {
     'date': Date,
     'note': fields.String,
     'flag': fields.Boolean,
-    'child': fields.Integer,
+    'child_id': fields.Integer,
 }
 partner_fields = base_fields.copy()
 partner_fields.update({'email': fields.String, 'phone': fields.String })
 caregiver_fields = base_fields.copy()
 specialist_fields = base_fields.copy()
-specialist_fields.update({'specialist_type': fields.Integer})
+specialist_fields.update({'specialist_type_id': fields.Integer})
 specialist_type_fields = base_fields.copy()
 milestone_type_category_fields = base_fields.copy()
 milestone_type_fields = base_fields.copy()
@@ -69,7 +69,7 @@ doctor_fields = {
     'facility_english_name': fields.String,
     'facility_chinese_name': fields.String,
     'facility_pinyin_name':  fields.String,
-    'doctor_type': fields.Integer
+    'doctor_type_id': fields.Integer
     }
 measurement_type_fields = base_fields.copy()
 measurement_type_fields.update({'units': fields.String})
@@ -93,7 +93,7 @@ child_partner_fields = {
 child_camp_fields = {
     'id': fields.Integer,
     'date': Date,
-    'node': fields.String,
+    'note': fields.String,
     'child_id': fields.Integer,
     'camp_id': fields.Integer
     }
@@ -187,11 +187,11 @@ child_note_parser = reqparse.RequestParser()
 child_note_parser.add_argument('date', type=datetype, help=date_error_help)
 child_note_parser.add_argument('note', required=True)
 child_note_parser.add_argument('flag', type=bool)
-child_note_parser.add_argument('child', required=True)
+child_note_parser.add_argument('child_id', required=True)
 
 child_note_update_parser = child_note_parser.copy()
 child_note_update_parser.replace_argument('note', required=False)
-child_note_update_parser.replace_argument('child', required=False)
+child_note_update_parser.replace_argument('child_id', required=False)
 
 # partner
 partner_parser = base_parser.copy()
@@ -210,7 +210,7 @@ caregiver_update_parser.replace_argument('english_name', required=False)
 # specialist
 
 specialist_parser = base_parser.copy()
-specialist_parser.add_argument('specialist_type', type=int, required=True)
+specialist_parser.add_argument('specialist_type_id', type=int, required=True)
 specialist_update_parser = specialist_parser.copy()
 for arg in specialist_update_parser.args:
     specialist_update_parser.replace_argument(arg, required=False)
@@ -252,7 +252,7 @@ doctor_parser.add_argument('doctor_pinyin_name')
 doctor_parser.add_argument('facility_english_name')
 doctor_parser.add_argument('facility_chinese_name')
 doctor_parser.add_argument('facility_pinyin_name')
-doctor_parser.add_argument('doctor_type', type=int, required=True)
+doctor_parser.add_argument('doctor_type_id', type=int, required=True)
 doctor_update_parser = doctor_parser.copy()
 for arg in doctor_update_parser.args:
     doctor_update_parser.replace_argument(arg, required=False)

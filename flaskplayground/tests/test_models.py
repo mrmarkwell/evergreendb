@@ -46,7 +46,7 @@ class TestEntityCreation(unittest.TestCase):
             note=NOTE,
             flag=FLAG,
             date=TODAY,
-            child=0
+            child_id=0
         )
         db.session.add(child_note)
         db.session.commit()
