@@ -58,6 +58,11 @@ class TestFlaskRestApi(unittest.TestCase):
         )
         db.session.add_all([bobby])
 
+    @classmethod
+    def tearDownClass(cls):
+        db.session.remove()
+        db.drop_all()
+
     def test_heartbeat(self):
         response = self.app.get('/heartbeat')
         self.assertEqual(json.loads(response.get_data()), {'message': 'beat'})
@@ -70,7 +75,6 @@ class TestFlaskRestApi(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertDictEqual(res_dict, BOBBY_DATA)
 
-from pprint import pprint as pp
 @composite
 def entity_data(draw):
     entity = draw(sampled_from(test_data.keys()))
@@ -86,10 +90,16 @@ class TestEntityEndpoint(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        db.session.rollback()
         app.config['TESTING'] = True
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
             os.path.join(basedir, 'test.db')
         db.create_all()
+
+    @classmethod
+    def tearDownClass(cls):
+        db.session.remove()
+        db.drop_all()
 
     @given(entity_data())
     def test_post(self, ed):
@@ -99,7 +109,7 @@ class TestEntityEndpoint(unittest.TestCase):
         res_body.pop('id', None)
         self.assertEqual(response.status_code, 201)
         self.assertDictEqual(res_body, e_body)
-    
-    
+
+
 if __name__ == "__main__":
     unittest.main()

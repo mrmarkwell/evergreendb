@@ -543,22 +543,26 @@ class FilterResource(ResourceBase):
         filters = []
         entity_data = self._get_entity_data()
         for e_class, e_marshaller, e_parser in entity_data:
-            attributes = e_parser.parse_args()
+#            attributes = e_parser.parse_args()
+            attributes = e_parser
             for attribute in attributes:
-                for op, val in attribute.items():
-                    if op == 'eq':
-                        filters.append(self._filter_eq(e_class, attribute, val))
-                    elif op == 'lt':
-                        filters.append(self._filter_lt(e_class, attribute, val))
-                    elif op == 'gt':
-                        filters.append(self._filter_gt(e_class, attribute, val))
-                    elif op == 'ne':
-                        filters.append(self._filter_ne(e_class, attribute, val))
-                    elif op == 'like':
-                        filters.append(self._filter_like(e_class, attribute, val))
-                    else:
-                        msg = "Attempted to filter {} by {} without specifying filter parameters".format(entity_name, args.attribute)
-                        abort(400, message=msg)
+                try:
+                    for op, val in attributes[attribute].items():
+                        if op == 'eq':
+                            filters.append(self._filter_eq(e_class, attribute, val))
+                        elif op == 'lt':
+                            filters.append(self._filter_lt(e_class, attribute, val))
+                        elif op == 'gt':
+                            filters.append(self._filter_gt(e_class, attribute, val))
+                        elif op == 'ne':
+                            filters.append(self._filter_ne(e_class, attribute, val))
+                        elif op == 'like':
+                            filters.append(self._filter_like(e_class, attribute, val))
+                        else:
+                            raise AttributeError()
+                except (TypeError, AttributeError) as e:
+                    msg = "Attempted to filter {} without specifying filter parameters\nException:\n{}".format(e_class, e)
+                    abort(400, message=msg)
         return {"filtered_entities": [marshal(res, self.ed.marshaller) for res in self.query.filter(and_(*filters)).all()]}
 
     def _filter_eq(self, e_class, attribute, val):
@@ -580,13 +584,14 @@ class FilterResource(ResourceBase):
         entity_data = []
         raw_json = request.get_json()
         for entity_name in raw_json.keys():
-            parser = RequestParser()
+            parser = reqparse.RequestParser()
             self.get_entity_data(entity_name)
-            for arg in self.ed.update_parser.args:
-                if arg.name in entity_name.keys():
-                    parser.add_argument(arg.name, type=dict, location='json')
-            entity_data.append((self.ed.class_type, self.ed.marshaller, parser))
-        return filters
+#            for arg in self.ed.update_parser.args:
+#                if arg.name in raw_json[entity_name]:
+#                    parser.add_argument(arg.name, type=dict, location='json')
+#            entity_data.append((self.ed.class_type, self.ed.marshaller, parser))
+            entity_data.append((self.ed.class_type, self.ed.marshaller, raw_json[entity_name]))
+        return entity_data
 
 
 query_parser = reqparse.RequestParser()

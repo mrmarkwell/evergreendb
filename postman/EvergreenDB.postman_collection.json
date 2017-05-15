@@ -2,1022 +2,24 @@
 	"variables": [],
 	"info": {
 		"name": "EvergreenDB",
-		"_postman_id": "ad1e4733-0e15-fb1f-4fe0-9cf13591b4da",
+		"_postman_id": "91289d7d-a0dd-41e7-42ad-6d21ccc3d9d9",
 		"description": "Collection of EvergreenDB API Calls.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Create",
-			"description": "Create Methods for each entity",
-			"item": [
-				{
-					"name": "Create Child Roberta",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"abandonment_date\": null,\n  \"birth_date\": null,\n  \"child_history\": \"Roberta is from 充佛动囖\",\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Roberta\",\n  \"medical_history\": null,\n  \"nickname\": null,\n  \"pinyin_name\": \"ch po en\",\n  \"program_departure_date\": null,\n  \"program_departure_reason\": null,\n  \"program_entry_date\": null,\n  \"sex\": \"F\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
+			"name": "Get all children",
+			"request": {
+				"url": "{{api_base_uri}}/entity/child",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
-				{
-					"name": "Create Child Bobby",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"abandonment_date\": \"2014-1-2\",\n  \"birth_date\": \"2014-1-1\",\n  \"child_history\": \"Bobby is from 充佛动囖\",\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Bobby\",\n  \"medical_history\": \"Bobby had a fever\",\n  \"nickname\": \"Little Bobby Tables\",\n  \"pinyin_name\": \"ch po en\",\n  \"program_departure_date\": null,\n  \"program_departure_reason\": null,\n  \"program_entry_date\": \"2014-1-3\",\n  \"sex\": \"M\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Child Note",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_note",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"child_id\": 1,\n  \"date\": \"2012-11-14\",\n  \"flag\": true,\n  \"id\": 1,\n  \"note\": \"This is a note about a child!\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Caregiver",
-					"request": {
-						"url": "{{api_base_uri}}/entity/caregiver",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"english_name\": \"English Name\",\n  \"pinyin_name\": \"Pinyin\",\n  \"chinese_name\": \"啦时间看对方\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Partner Susan",
-					"request": {
-						"url": "{{api_base_uri}}/entity/partner",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Susan\",\n  \"pinyin_name\": \"ch po en\",\n  \"email\": \"susan@example.com\",\n  \"address\": \"1234 Susan Street\",\n  \"phone\": \"123-456-7890\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Specialist",
-					"request": {
-						"url": "{{api_base_uri}}/entity/specialist",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"english_name\": \"Example Person\",\n  \"pinyin_name\": \"Pinyin Name of Person\",\n  \"chinese_name\": \"啦时间看对方\",\n  \"specialist_type_id\": 1\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Specialist Type",
-					"request": {
-						"url": "{{api_base_uri}}/entity/specialist_type",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"english_name\": \"Example Specialist Type\",\n  \"pinyin_name\": \"Pinyin Specialist Type\",\n  \"chinese_name\": \"啦时间看对方\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Milestone Type Category",
-					"request": {
-						"url": "{{api_base_uri}}/entity/milestone_type_category",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"english_name\": \"Milestone Type Name\",\n  \"pinyin_name\": \"Pinyin Milestone Type Name\",\n  \"chinese_name\": \"啦时间看对方\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Milestone Type",
-					"request": {
-						"url": "{{api_base_uri}}/entity/milestone_type",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"english_name\": \"Milestone Type\",\n  \"pinyin_name\": \"Pinyin Type\",\n  \"chinese_name\": \"啦时间看对方\",\n  \"milestone_type_category_id\": 1\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Doctor Type",
-					"request": {
-						"url": "{{api_base_uri}}/entity/doctor_type",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"english_name\": \"Doctor type\",\n  \"pinyin_name\": \"Pinyin\",\n  \"chinese_name\": \"啦时间看对方\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Doctor",
-					"request": {
-						"url": "{{api_base_uri}}/entity/doctor",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"doctor_english_name\": \"Doctor Name\",\n  \"doctor_pinyin_name\": \"Pinyin\",\n  \"doctor_chinese_name\": \"啦时间看对方\",\n  \"facility_chinese_name\": \"啦时间看对方\",\n  \"facility_english_name\": \"Facility English Name\",\n  \"facility_pinyin_name\": \"Facility Pinyin Name\",\n  \"doctor_type_id\": 1\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Measurement Type",
-					"request": {
-						"url": "{{api_base_uri}}/entity/measurement_type",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"english_name\": \"Measurement Type\",\n  \"pinyin_name\": \"Pinyin\",\n  \"chinese_name\": \"啦时间看对方\",\n  \"units\": \"kg\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Camp",
-					"request": {
-						"url": "{{api_base_uri}}/entity/camp",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"english_name\": \"English Name\",\n  \"pinyin_name\": \"Pinyin\",\n  \"chinese_name\": \"啦时间看对方\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Medical Condition",
-					"request": {
-						"url": "{{api_base_uri}}/entity/medical_condition",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"english_name\": \"English Name\",\n  \"pinyin_name\": \"Pinyin\",\n  \"chinese_name\": \"啦时间看对方\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Medication",
-					"request": {
-						"url": "{{api_base_uri}}/entity/medication",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"english_name\": \"English Name\",\n  \"pinyin_name\": \"Pinyin\",\n  \"chinese_name\": \"啦时间看对方\",\n  \"milligram_dose\": 200\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create ChildPartner",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_partner",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"start_date\": \"2014-01-03\",\n  \"end_date\": null,\n  \"note\": \"This is an example child partner note.\",\n  \"flag\": 0,\n  \"child_id\": 1,\n  \"partner_id\": 1\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Child Camp",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_camp",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"date\": \"2013-03-04\",\n  \"child_id\": 1,\n  \"camp_id\": 2,\n  \"note\": \"The child had fun at this camp.\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Child Assessment",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_assessment",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"date\": \"2013-03-04\",\n  \"child_id\": 1,\n  \"specialist_id\": 3,\n  \"flag\": false,\n  \"note\": \"The child needs a new medication.\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Child Caregiver",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_caregiver",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"start_date\": \"2013-03-04\",\n  \"end_date\": \"2014-04-03\",\n  \"child_id\": 1,\n  \"caregiver_id\": 2,\n  \"note\": \"The caregiver likes this child.\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Child Measurement",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_measurement",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"date\": \"2013-03-04\",\n  \"child_id\": 1,\n  \"measurement_type_id\": 2,\n  \"value\": 1234\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Child Milestone",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_milestone",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"date\": \"2013-03-04\",\n  \"child_id\": 1,\n  \"milestone_type_id\": 2\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Child Doctor Visit",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_doctor_visit",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"date\": \"2013-03-04\",\n  \"child_id\": 1,\n  \"doctor_id\": 2,\n  \"note\": \"The child needs more meds.\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Child Medical Condition",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_medical_condition",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"date\": \"2013-03-04\",\n  \"child_id\": 1,\n  \"medical_condition_id\": 2\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Create Child Medication",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_medication",
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"start_date\": \"2013-03-04\",\n  \"end_date\": \"2013-07-15\",\n  \"child_id\": 1,\n  \"medication_id\": 2,\n  \"dosage1\": 2,\n  \"dosage2\": 0,\n  \"dosage3\": 4\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Get",
-			"description": "",
-			"item": [
-				{
-					"name": "Get all children",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get Child Entity ID=2",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child?id=2",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"abandonment_date\": \"2014-1-2\",\n  \"birth_date\": \"2014-1-1\",\n  \"child_history\": \"Bobby is from 充佛动囖\",\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Bobby\",\n  \"medical_history\": \"Bobby had a fever \",\n  \"nickname\": \"Little Bobby Tables\",\n  \"pinyin_name\": \"ch po en\",\n  \"program_departure_date\": null,\n  \"program_departure_reason\": null,\n  \"program_entry_date\": \"2014-1-3\",\n  \"sex\": \"M\"\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all partners",
-					"request": {
-						"url": "{{api_base_uri}}/entity/partner",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get Filter Example",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child?english_name=Bobby DropTables&sex=M",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all entity types",
-					"request": {
-						"url": "{{api_base_uri}}/entity",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Child 1 Partners",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_partner?child_id=1",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n  \"start_date\": \"2014-1-3\",\n  \"end_date\": null,\n  \"note\": null,\n  \"flag\": 0,\n  \"child_id\": 1,\n  \"partner_id\": 1\n}"
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Child Notes",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_note",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Caregivers",
-					"request": {
-						"url": "{{api_base_uri}}/entity/caregiver",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Specialists",
-					"request": {
-						"url": "{{api_base_uri}}/entity/specialist",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Specialist Types",
-					"request": {
-						"url": "{{api_base_uri}}/entity/specialist_type",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Milestone Type Categories",
-					"request": {
-						"url": "{{api_base_uri}}/entity/milestone_type_category",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Milestone Types",
-					"request": {
-						"url": "{{api_base_uri}}/entity/milestone_type",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Doctor Types",
-					"request": {
-						"url": "{{api_base_uri}}/entity/doctor_type",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Doctors",
-					"request": {
-						"url": "{{api_base_uri}}/entity/doctor",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Measurement Types",
-					"request": {
-						"url": "{{api_base_uri}}/entity/measurement_type",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Camps",
-					"request": {
-						"url": "{{api_base_uri}}/entity/camp",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Medical Conditions",
-					"request": {
-						"url": "{{api_base_uri}}/entity/medical_condition",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Medications",
-					"request": {
-						"url": "{{api_base_uri}}/entity/medication",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Child Partners",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_partner",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Child Camps",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_camp",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Child Assessments",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_assessment",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Child Caregivers",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_caregiver",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Child Measurements",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_measurement",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Child Milestones",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_milestone",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Child Doctor Visits",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_doctor_visit",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Child Medical Conditions",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_medical_condition",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Child Medications",
-					"request": {
-						"url": "{{api_base_uri}}/entity/child_medication",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				}
-			]
+				"description": ""
+			},
+			"response": []
 		},
 		{
 			"name": "Delete Child 5",
@@ -1090,6 +92,56 @@
 			"response": []
 		},
 		{
+			"name": "Add Child Bobby",
+			"request": {
+				"url": "{{api_base_uri}}/entity/child",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"abandonment_date\": \"2014-1-2\",\n  \"birth_date\": \"2014-1-1\",\n  \"child_history\": \"Bobby is from 充佛动囖\",\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Bobby\",\n  \"medical_history\": \"Bobby had a fever\",\n  \"nickname\": \"Little Bobby Tables\",\n  \"pinyin_name\": \"ch po en\",\n  \"program_departure_date\": null,\n  \"program_departure_reason\": null,\n  \"program_entry_date\": \"2014-1-3\",\n  \"sex\": \"M\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Child Entity ID=2",
+			"request": {
+				"url": "{{api_base_uri}}/entity/child?id=2",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"abandonment_date\": \"2014-1-2\",\n  \"birth_date\": \"2014-1-1\",\n  \"child_history\": \"Bobby is from 充佛动囖\",\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Bobby\",\n  \"medical_history\": \"Bobby had a fever \",\n  \"nickname\": \"Little Bobby Tables\",\n  \"pinyin_name\": \"ch po en\",\n  \"program_departure_date\": null,\n  \"program_departure_reason\": null,\n  \"program_entry_date\": \"2014-1-3\",\n  \"sex\": \"M\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
 			"name": "Heartbeat",
 			"request": {
 				"url": "{{api_base_uri}}/heartbeat",
@@ -1140,9 +192,126 @@
 			"response": []
 		},
 		{
+			"name": "Add Partner Susan",
+			"request": {
+				"url": "{{api_base_uri}}/entity/partner",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Susan\",\n  \"pinyin_name\": \"ch po en\",\n  \"email\": \"susan@example.com\",\n  \"address\": null,\n  \"phone\": null\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Association Child 1 Partner 1",
+			"request": {
+				"url": "{{api_base_uri}}/entity/child_partner",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"start_date\": \"2014-1-3\",\n  \"end_date\": null,\n  \"note\": null,\n  \"flag\": 0,\n  \"child_id\": 1,\n  \"partner_id\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all partners",
+			"request": {
+				"url": "{{api_base_uri}}/entity/partner",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Filter Example",
+			"request": {
+				"url": "{{api_base_uri}}/entity/child?english_name=Bobby DropTables&sex=M",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all entity types",
+			"request": {
+				"url": "{{api_base_uri}}/entity",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Child 1 Partners",
+			"request": {
+				"url": "{{api_base_uri}}/entity/child_partner?child_id=1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"start_date\": \"2014-1-3\",\n  \"end_date\": null,\n  \"note\": null,\n  \"flag\": 0,\n  \"child_id\": 1,\n  \"partner_id\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
 			"name": "Filter Sex=M, ChildEntity",
 			"request": {
-				"url": "{{api_base_uri}}/entity/child/filter",
+				"url": "{{api_base_uri}}/filter",
 				"method": "POST",
 				"header": [
 					{
@@ -1153,7 +322,32 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"sex\": [\"eq,M\"], \"english_name\": [\"eq,Bobby\"]}"
+					"raw": "{\n\t\"child\": {\n\t\t\"sex\": {\n\t\t\t\"eq\": \"M\"\n\t},\n\t\t\"english_name\": {\n\t\t\t\"eq\": \"Bobby\"\n\t\t}\n\t}\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Add Child Roberta",
+			"request": {
+				"url": "{{api_base_uri}}/entity/child",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"abandonment_date\": null,\n  \"birth_date\": null,\n  \"child_history\": \"Roberta is from 充佛动囖\",\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Roberta\",\n  \"medical_history\": null,\n  \"nickname\": null,\n  \"pinyin_name\": \"ch po en\",\n  \"program_departure_date\": null,\n  \"program_departure_reason\": null,\n  \"program_entry_date\": null,\n  \"sex\": \"F\"\n}"
 				},
 				"description": ""
 			},
@@ -1172,8 +366,7 @@
 							"key": "upload",
 							"type": "file",
 							"enabled": true,
-							"src": "testfile.txt",
-							"value": ""
+							"src": "testfile.txt"
 						}
 					]
 				},
