@@ -38,7 +38,7 @@ specialist_fields.update({'specialist_type_id': fields.Integer})
 specialist_type_fields = base_fields.copy()
 milestone_type_category_fields = base_fields.copy()
 milestone_type_fields = base_fields.copy()
-milestone_type_fields.update({'milestone_category': fields.String})
+milestone_type_fields.update({'milestone_type_category_id': fields.Integer})
 doctor_type_fields = base_fields.copy()
 doctor_fields = {
     'id': fields.Integer,

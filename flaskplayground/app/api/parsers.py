@@ -1,7 +1,8 @@
 from flask_restful import reqparse
+from datetime import datetime
 
-
-datetype = lambda x: datetime.strptime(x, '%Y-%m-%d')
+def datetype(x):
+    return datetime.strptime(x, '%Y-%m-%d')
 date_error_help = "Date fields should be entered as: YYYY-MM-DD"
 
 
@@ -18,7 +19,7 @@ base_parser.add_argument('pinyin_name')
 child_parser = base_parser.copy()
 child_parser.add_argument('nickname')
 child_parser.add_argument('sex', required=True)
-child_parser.add_argument('birth_date', type=datetype, help=date_error_help)
+child_parser.add_argument('birth_date', type=datetype,)# help=date_error_help)
 child_parser.add_argument('abandonment_date', type=datetype, help=date_error_help)
 child_parser.add_argument('program_entry_date', type=datetype, help=date_error_help)
 child_parser.add_argument('program_departure_date', type=datetype, help=date_error_help)
@@ -82,9 +83,11 @@ for arg in milestone_type_category_update_parser.args:
 # milestone_type
 
 milestone_type_parser = base_parser.copy()
+milestone_type_parser.add_argument('milestone_type_category_id', type=int, required=True)
 milestone_type_update_parser = milestone_type_parser.copy()
 for arg in milestone_type_update_parser.args:
     milestone_type_update_parser.replace_argument(arg, required=False)
+    milestone_type_update_parser.replace_argument('milestone_type_category_id', type=int, required=False)
 
 # doctor_type
 

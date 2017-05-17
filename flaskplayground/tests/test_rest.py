@@ -3,12 +3,16 @@ import json
 import os
 import unittest
 import sys
+import tempfile
+import random
 
-from hypothesis import given
+from pprint import pprint as pp
+from hypothesis import given, settings
 from hypothesis.strategies import composite, sampled_from
 from rest_test_data import test_data
 
-from app import app, db, models
+
+from app import app, db, models 
 from config import basedir
 
 reload(sys)
@@ -39,27 +43,14 @@ sample_child_note = {
 
 class TestFlaskRestApi(unittest.TestCase):
 
-    def __init__(self, *args, **kwargs):
-        super(TestFlaskRestApi, self).__init__(*args, **kwargs)
+    def setUp(self):
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
+           os.path.join(basedir, 'test.db')
+        db.create_all()
+        app.config['TESTING'] = True
         self.app = app.test_client()
 
-    @classmethod
-    def setUpClass(cls):
-        app.config['TESTING'] = True
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-            os.path.join(basedir, 'test.db')
-        db.create_all()
-        bobby = models.Child(
-            english_name="Robert",
-            program_entry_date="2003-01-01",
-            program_departure_date="2005-12-31",
-            program_departure_reason="adoption",
-            nickname="Bobby"
-        )
-        db.session.add_all([bobby])
-
-    @classmethod
-    def tearDownClass(cls):
+    def tearDown(self):
         db.session.remove()
         db.drop_all()
 
@@ -84,32 +75,61 @@ def entity_data(draw):
 
 class TestEntityEndpoint(unittest.TestCase):
 
-    def __init__(self, *args, **kwargs):
-        super(TestEntityEndpoint, self).__init__(*args, **kwargs)
+
+    def setUp(self):
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
+           os.path.join(basedir, 'test.db')
+        db.create_all()
+        app.config['TESTING'] = True
         self.app = app.test_client()
 
-    @classmethod
-    def setUpClass(cls):
-        db.session.rollback()
-        app.config['TESTING'] = True
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-            os.path.join(basedir, 'test.db')
-        db.create_all()
-
-    @classmethod
-    def tearDownClass(cls):
+    def tearDown(self):
         db.session.remove()
         db.drop_all()
 
-    @given(entity_data())
-    def test_post(self, ed):
-        e_name, e_body = ed
-        response = self.app.post('/entity/' + e_name, data=e_body)
-        res_body = json.loads(response.get_data())
-        res_body.pop('id', None)
-        self.assertEqual(response.status_code, 201)
-        self.assertDictEqual(res_body, e_body)
+    #@given(entity_data())
+    def test_post(self):
+        seed = random.randint(1, 10000)
+        print "RANDOM SEED USED: " + str(seed)
+        random.seed(seed)
+        for i in xrange(30): 
+            
+            e_name = random.choice(test_data.keys())
+            e_body = random.choice(test_data[e_name])
+            #e_name, e_body = ed
+            pp(e_name)
+            pp(e_body)
+            print 
+            post_response = self.app.post('/entity/' + e_name, data=e_body)
+            pp(post_response.get_data())
+            res_body = json.loads(post_response.get_data())
+            pp(res_body)
 
-
+            print
+            id = res_body.pop('id', None)
+            delete_response = self.app.delete('/entity/' + e_name + "?id=" + str(id))
+            
+            self.assertEqual(post_response.status_code, 201, "Post failed")
+            self.assertDictEqual(res_body, e_body, "Post sent back bad data")
+            self.assertEqual(delete_response.status_code, 204, "Delete failed")
+        
+#    def test_fake(self):
+#        data = {'child_id': 60,
+#                'date': '2017-05-22',
+#                'flag': 1,
+#                'note': '3VFdZ7FitwX89ksodZkJDxgKaCRJoQIfj4xy3ZSiUIuqmqjFRQfaLxGh9RxxcxdePwZ1wUfW7yGcAxPv'}
+#        #json_data = json.dumps(data)
+#        #str_data = str(data)
+#       # pp(json_data)
+#       # pp(str_data)
+#        print "hello"
+#         
+#        for i in xrange(30): 
+#            post_response = self.app.post('/entity/child_note', data=data)
+#            pp(post_response.get_data())
+#
+            
+        
+        
 if __name__ == "__main__":
     unittest.main()

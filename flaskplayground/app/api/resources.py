@@ -1,12 +1,11 @@
-from datetime import datetime
 import json
 
-from app.models import *
-from db import session
+from db import get_session
 from sqlalchemy import text
 from sqlalchemy.sql.expression import and_
 from flask import request
 from flask import jsonify
+from pprint import pprint as pp
 
 from flask_restful import reqparse
 from flask_restful import abort
@@ -14,7 +13,7 @@ from flask_restful import Resource
 from flask_restful import fields
 from flask_restful import marshal_with
 from flask_restful import marshal
-from entity_data import *
+from entity_data import entity_data, entity_names
 
 ################ Resources ####################
 
@@ -23,13 +22,14 @@ class ResourceBase(Resource):
     def __init__(self):
         self.ed = None
         self.query = None
+        self.session = get_session()
 
     # Call this right away to populate the entity data object.
     def get_entity_data(self, name):
         if name not in entity_names:
             abort(404, message="Invalid entity name: '" + name + "'. Legal entity names are: " + ", ".join(entity_names))
         self.ed = entity_data[name]
-        self.query = session.query(self.ed.class_type)
+        self.query = self.session.query(self.ed.class_type)
  
     # For operations that can only be performed on one entity, get that entity by id
     # Throw an error if 'id' was not specified in the request.
@@ -39,7 +39,7 @@ class ResourceBase(Resource):
             abort(404, message="This operation must be passed a specific entity ID!")
         entity = self.query.filter(self.ed.class_type.id == id).first()
         if not entity:
-            abort(404, message="Entity {}: {} doesn't exist".format(entity_name, id))
+            abort(404, message="Entity {}: {} doesn't exist".format(self.ed.class_type.__tablename__, id))
         return entity
 
     def verify_filters(self):
@@ -63,8 +63,8 @@ class EntityResource(ResourceBase):
     def delete(self, entity_name):
         self.get_entity_data(entity_name)
         entity = self.get_entity_by_id()
-        session.delete(entity)
-        session.commit()
+        self.session.delete(entity)
+        self.session.commit()
         return {}, 204
 
     # PUT to update a single entity instance
@@ -77,8 +77,8 @@ class EntityResource(ResourceBase):
             # Only update keys that are sent in the Json body
             if key in raw_json.keys():
                 setattr(entity, key, entity_args[key])
-        session.add(entity)
-        session.commit()
+        self.session.add(entity)
+        self.session.commit()
         return marshal(entity, self.ed.marshaller), 201
 
     # Post to create a new entity
@@ -88,8 +88,8 @@ class EntityResource(ResourceBase):
         entity = self.ed.class_type()
         for key in entity_args.keys():
             setattr(entity, key, entity_args[key])
-        session.add(entity)
-        session.commit()
+        self.session.add(entity)
+        self.session.commit()
         return marshal(entity, self.ed.marshaller), 201
 
 
@@ -182,7 +182,7 @@ class QueryResource(ResourceBase):
         if ";" in query:
             abort(400, message="Query messages must not contain semicolons!")
         sql = text(query)
-        result = session.execute(sql)
+        result = self.session.execute(sql)
         result_dict = []
         for row in result:
             result_dict.append(dict(zip(row.keys(), row)))
@@ -191,7 +191,7 @@ class QueryResource(ResourceBase):
 # Resource for calling a session.rollback()
 class RollbackResource(ResourceBase):
     def post(self):
-        session.rollback()
+        self.session.rollback()
         response = {'message': 'Successfully rolled back the session!'}
         return response, 200
 
