@@ -135,8 +135,12 @@ class FilterResource(ResourceBase):
                             filters.append(self._filter_eq(e_class, attribute, val))
                         elif op == 'lt':
                             filters.append(self._filter_lt(e_class, attribute, val))
+                        elif op == 'le':
+                            filters.append(self._filter_le(e_class, attribute, val))
                         elif op == 'gt':
                             filters.append(self._filter_gt(e_class, attribute, val))
+                        elif op == 'ge':
+                            filters.append(self._filter_ge(e_class, attribute, val))
                         elif op == 'ne':
                             filters.append(self._filter_ne(e_class, attribute, val))
                         elif op == 'like':
@@ -154,8 +158,14 @@ class FilterResource(ResourceBase):
     def _filter_lt(self, e_class, attribute, val):
         return getattr(e_class, attribute) < val
 
+    def _filter_le(self, e_class, attribute, val):
+        return getattr(e_class, attribute) <= val
+
     def _filter_gt(self, e_class, attribute, val):
         return getattr(e_class, attribute) > val
+
+    def _filter_ge(self, e_class, attribute, val):
+        return getattr(e_class, attribute) >= val
 
     def _filter_ne(self, e_class, attribute, val):
         return getattr(e_class, attribute) != val
