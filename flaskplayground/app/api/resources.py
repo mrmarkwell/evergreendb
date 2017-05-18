@@ -111,6 +111,15 @@ class FilterResource(ResourceBase):
             }
           }
         }
+
+    Available operations
+        eq: equal
+        ne: not equal
+        gt: greater than
+        ge: greater than or equal to
+        lt: less than
+        le: less than or equal to
+        like: like
     """
 
     def post(self):
@@ -118,7 +127,6 @@ class FilterResource(ResourceBase):
         filters = []
         entity_data = self._get_entity_data()
         for e_class, e_marshaller, e_parser in entity_data:
-#            attributes = e_parser.parse_args()
             attributes = e_parser
             for attribute in attributes:
                 try:
@@ -161,10 +169,6 @@ class FilterResource(ResourceBase):
         for entity_name in raw_json.keys():
             parser = reqparse.RequestParser()
             self.get_entity_data(entity_name)
-#            for arg in self.ed.update_parser.args:
-#                if arg.name in raw_json[entity_name]:
-#                    parser.add_argument(arg.name, type=dict, location='json')
-#            entity_data.append((self.ed.class_type, self.ed.marshaller, parser))
             entity_data.append((self.ed.class_type, self.ed.marshaller, raw_json[entity_name]))
         return entity_data
 
