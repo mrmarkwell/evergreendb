@@ -4,7 +4,6 @@ from flask_restful import Api
 from flask_login import LoginManager, UserMixin, login_required
 from flask import request
 
-
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
