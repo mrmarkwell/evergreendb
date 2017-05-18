@@ -1,10 +1,12 @@
 language: python
 python: 
   - "2.7"
+before_install:
+  - cd flaskplayground
 install: 
   - pip install -r requirements.txt
 script:
-  - python -c "print 'Hello world!'"
+  - python -m unittest discover -v
 notifications:
   webhooks:
     urls:
