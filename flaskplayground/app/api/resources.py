@@ -1,11 +1,13 @@
+from datetime import datetime
 import json
 
 from db import get_session
+from marshallers import DATE_FMT
+
 from sqlalchemy import text
 from sqlalchemy.sql.expression import and_
 from flask import request
 from flask import jsonify
-from pprint import pprint as pp
 
 from flask_restful import reqparse
 from flask_restful import abort
@@ -124,63 +126,52 @@ class FilterResource(ResourceBase):
 
     def post(self):
         """filter using eq, lt, gt, ne or like"""
+        data = self._get_entity_data()
+        results = []
+        for e_class, e_marshaller, attributes, e_query in data:
+            try:
+                filters = self._build_filter(e_class, attributes)
+            except (TypeError, AttributeError) as e:
+                msg = ("Attempted to filter {}"
+                       " without specifying filter parameters\n"
+                       "Exception:\n{}".format(e_class, e))
+                abort(400, message=msg)
+            results.append({e_class.__tablename__: [marshal(res, e_marshaller) for res in e_query.filter(and_(*filters)).all()]})
+        return {"filtered_entityes": results}
+
+    def _build_filter(self, e_class, attributes):
         filters = []
-        entity_data = self._get_entity_data()
-        for e_class, e_marshaller, e_parser in entity_data:
-            attributes = e_parser
-            for attribute in attributes:
+        for attribute in attributes:
+            for op, val in attributes[attribute].items():
                 try:
-                    for op, val in attributes[attribute].items():
-                        if op == 'eq':
-                            filters.append(self._filter_eq(e_class, attribute, val))
-                        elif op == 'lt':
-                            filters.append(self._filter_lt(e_class, attribute, val))
-                        elif op == 'le':
-                            filters.append(self._filter_le(e_class, attribute, val))
-                        elif op == 'gt':
-                            filters.append(self._filter_gt(e_class, attribute, val))
-                        elif op == 'ge':
-                            filters.append(self._filter_ge(e_class, attribute, val))
-                        elif op == 'ne':
-                            filters.append(self._filter_ne(e_class, attribute, val))
-                        elif op == 'like':
-                            filters.append(self._filter_like(e_class, attribute, val))
-                        else:
-                            raise AttributeError()
-                except (TypeError, AttributeError) as e:
-                    msg = "Attempted to filter {} without specifying filter parameters\nException:\n{}".format(e_class, e)
-                    abort(400, message=msg)
-        return {"filtered_entities": [marshal(res, self.ed.marshaller) for res in self.query.filter(and_(*filters)).all()]}
-
-    def _filter_eq(self, e_class, attribute, val):
-        return getattr(e_class, attribute) == val
-
-    def _filter_lt(self, e_class, attribute, val):
-        return getattr(e_class, attribute) < val
-
-    def _filter_le(self, e_class, attribute, val):
-        return getattr(e_class, attribute) <= val
-
-    def _filter_gt(self, e_class, attribute, val):
-        return getattr(e_class, attribute) > val
-
-    def _filter_ge(self, e_class, attribute, val):
-        return getattr(e_class, attribute) >= val
-
-    def _filter_ne(self, e_class, attribute, val):
-        return getattr(e_class, attribute) != val
-
-    def _filter_like(self, e_class, attribute, val):
-        return getattr(e_class, attribute).like(val)
+                    val = datetime.strptime(val, DATE_FMT)
+                except ValueError:
+                    pass
+                if op == 'eq':
+                    filters.append(getattr(e_class, attribute) == val)
+                elif op == 'lt':
+                    filters.append(getattr(e_class, attribute) < val)
+                elif op == 'le':
+                    filters.append(getattr(e_class, attribute) <= val)
+                elif op == 'gt':
+                    filters.append(getattr(e_class, attribute) > val)
+                elif op == 'ge':
+                    filters.append(getattr(e_class, attribute) >= val)
+                elif op == 'ne':
+                    filters.append(getattr(e_class, attribute) != val)
+                elif op == 'like':
+                    filters.append(getattr(e_class, attribute).like(val))
+                else:
+                    raise AttributeError()
+        return filters
 
     def _get_entity_data(self):
-        entity_data = []
+        data = []
         raw_json = request.get_json()
         for entity_name in raw_json.keys():
-            parser = reqparse.RequestParser()
             self.get_entity_data(entity_name)
-            entity_data.append((self.ed.class_type, self.ed.marshaller, raw_json[entity_name]))
-        return entity_data
+            data.append((self.ed.class_type, self.ed.marshaller, raw_json[entity_name], self.query))
+        return data
 
 
 query_parser = reqparse.RequestParser()
