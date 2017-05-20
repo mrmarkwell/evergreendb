@@ -1,11 +1,12 @@
 .DS_Store
 ~$*
 *.pyc
-flaskplayground/venv/
+flask/venv/
 *.db
-flaskplayground/uploads/
+flask/uploads/
 .vs/
 *.sln
 *.pyproj
 .hypothesis/
 node_modules
+electron/dist/
