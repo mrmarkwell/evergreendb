@@ -6,7 +6,8 @@
   "scripts": {
     "start": "electron .",
     "test": "gulp",
-    "build": "electron-packager . --out=dist --asar --overwrite --all"
+    "buildall": "electron-packager . evergreendb --out=dist --asar --overwrite --all",
+    "build": "electron-packager . evergreendb --out=dist --asar --overwrite" 
   },
   "devDependencies": {
     "phantomjs-prebuilt": "latest",
