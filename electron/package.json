@@ -1,7 +1,7 @@
 {
-  "name": "electron-quick-start",
-  "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "name": "EvergreenDB",
+  "version": "0.1.0",
+  "description": "A front end to access the Evergreen database",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
