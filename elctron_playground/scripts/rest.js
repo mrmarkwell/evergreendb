@@ -17,4 +17,3 @@ function restPut(url,data) { // Update
 
 }
 
-function rest

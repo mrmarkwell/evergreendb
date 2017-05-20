@@ -5,13 +5,16 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "test": "gulp"
+    "test": "gulp",
+    "build": "electron-packager . --out=dist --asar --overwrite --all"
   },
   "devDependencies": {
-    "phantomjs": "latest",
+    "phantomjs-prebuilt": "latest",
     "electron": "latest",
 	"gulp-qunit": "latest",
     "qunitjs": "latest",
-    "gulp": "latest"
+    "gulp": "latest",
+    "devtron": "latest",
+    "electron-packager": "latest"
   }
 }
