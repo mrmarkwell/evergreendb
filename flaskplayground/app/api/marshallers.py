@@ -1,7 +1,10 @@
 from flask_restful import fields
+
+DATE_FMT = '%Y-%m-%d'
+
 class Date(fields.Raw):
     def format(self, value):
-        return value.strftime('%Y-%m-%d')
+        return value.strftime(DATE_FMT)
 
 ################ Marshallers ####################
 
