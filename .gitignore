@@ -8,3 +8,4 @@ flaskplayground/uploads/
 *.sln
 *.pyproj
 .hypothesis/
+node_modules

@@ -1,6 +1,6 @@
 function restRun(method,url) {
   var xmlHttp = new XMLHttpRequest();
-  xmlHttp.open( "GET", url, false ); // false for synchronous request
+  xmlHttp.open( method, url, false ); // false for synchronous request
   xmlHttp.send( null );
   return xmlHttp.responseText;
 }
@@ -8,3 +8,13 @@ function restRun(method,url) {
 function restGet(url) {
   return JSON.parse(restRun("GET", url));
 }
+
+function restPost(url,data) { // Create
+
+}
+
+function restPut(url,data) { // Update
+
+}
+
+function rest
