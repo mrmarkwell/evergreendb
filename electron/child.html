@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Child Info</title>
+
+	<!-- Insert this line above script imports  -->
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<!-- normal script imports etc  -->
+	<script src="scripts/jquery.min.js"></script>	
+	<script src="scripts/jquery-ui.min.js"></script>	
+	<!-- Insert this line after script imports -->
+	<script>if (window.module) module = window.module;</script>
+
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	<style>.datepicker{}</style>
+
+	<script>
+		$(document).ready(function() {
+			jQuery(".datepicker").datepicker({dateFormat: "yy/mm/dd"});
+			$("#childTab").tabs();
+			getTabData('child',2);
+		});
+	</script>
+
+</head>
+<body>
+	<script src="scripts/child.js"></script>
+	<h1>Johnny</h1>
+	<div id="childTab">
+		<ul>
+			<li><a href="#childTab-child">Child’s Data</a></li>
+			<li><a href="#childTab-medical">Medical Information</a></li>
+			<li><a href="#childTab-milestones">Developmental Milestones</a></li>
+			<li><a href="#childTab-carer">Carer Information</a></li>
+			<li><a href="#childTab-assessment">Assessment </a></li>
+			<li><a href="#childTab-notes">Notes</a></li>
+			<li><a href="#childTab-attachments">Attachments</a></li>
+			<li><a href="#childTab-partnership">Partnership</a></li>
+			<li><a href="#childTab-adoption">Adoption/Fostering</a></li>
+		</ul>
+		<div id="childTab-child">
+			<form>
+				<fieldset>
+					<legend>Child’s Data:</legend>
+					Chinese Name: <input type="text" name="ChineseName"><br>
+					Pinyin Name: <input type="text" name="PinyinName"><br>
+					English Name: <input type="text" name="EnglishName"><br>
+					Nickname: <input type="text" name="Nickname"><br>
+					DOB: <input type="text" class="datepicker" name="DoB"><br>
+					Age: <input type="text" name="age"><br>
+					Sex:   <input type="radio" name="gender" value="male"> Male<input type="radio" name="gender" value="female"> Female<br>
+					Abandonment Date: <input type="text" class="datepicker" name="Abandonment"><br>
+					Programme Entry Date: <input type="text" class="datepicker" name="ProgrammeEntry"><br>
+					Programme Departure Date:<input type="text" class="datepicker" name="ProgrammeDeparture"><br>
+					Reason: <textarea id = "Reason" rows = "3" cols = "80"></textarea><br>
+					Child’s History: <textarea id = "History" rows = "3" cols = "80"></textarea><br>
+					<br><input type="submit" value="Submit">
+				</fieldset>
+			</form>
+		</div>
+		<div id="childTab-medical">
+			<form>
+				<fieldset>
+					<legend>Medical Information:</legend>
+					Diagnosis:
+					<select id="Diagnosis" name="Diagnosis">
+						<option value="CP">CP</option>
+						<option value="Autism">Autism</option>
+						<option value="Intellectual Disability">Intellectual Disability</option>
+						<option value="ADHD">ADHD</option>
+						<option value="Lennox-Gastaut">Lennox-Gastaut</option>
+						<option value="Angelman Syndrome">Angelman Syndrome</option>
+						<option value="PKU">PKU</option>
+						<option value="Cleft Lip / Cleft Palate ">Cleft Lip / Cleft Palate </option>
+						<option value="Hepatitis B">Hepatitis B</option>
+					</select><br>
+					Medication:<br>
+					Measurements:<br>
+					Doctor Visits:<br>
+				</fieldset>
+			</form>
+		</div>
+		<div id="childTab-milestones">
+			<form>
+				<fieldset>
+					<legend>Developmental Milestones:</legend>
+					<table border=1>
+						<tr>
+							<th><b>Communication Milestones</b></th>
+							<th><b>Reached</b></th>
+							<th><b>Date</b></th>
+						</tr>
+						<tr>
+							<th>Vocalizes</th>
+							<th>tick box</th>
+							<th>Date</th>
+						</tr>
+					</table>
+					<br>
+					<table border=1>
+						<tr>
+							<th><b>Physical Milestones</b></th>
+							<th><b>Reached</b></th>
+							<th><b>Date</b></th>
+						</tr>
+						<tr>
+							<th>Vocalizes</th>
+							<th>tick box</th>
+							<th>Date</th>
+						</tr>
+					</table>
+					<br>
+					<table border=1>
+						<tr>
+							<th><b>Life-Skills </b></th>
+							<th><b>Reached</b></th>
+							<th><b>Date</b></th>
+						</tr>
+						<tr>
+							<th>Vocalizes</th>
+							<th>3</th>
+							<th>2017/3/4</th>
+						</tr>
+					</table>
+
+				</fieldset>
+			</form>
+		</div>
+		<div id="childTab-carer">
+			<form>
+				<fieldset>
+					<legend>Current Carer:</legend>
+					<table border=1>
+						<tr>
+							<th><b>Name of Carer</b></th>
+							<th><b>Pinyin Name</b></th>
+							<th><b>From</b></th>
+							<th><b>To</b></th>
+							<th><b>Note</b></th>
+						</tr>
+						<tr>
+							<th><b>Jennifer</b></th>
+							<th><b>Chinchin</b></th>
+							<th><b>2016/1/23</b></th>
+							<th><b>2017/5/13</b></th>
+							<th><b>No notes</b></th>
+						</tr>
+					</table>
+
+				</fieldset>
+				 <fieldset>
+					<legend>Carer History: </legend>
+					<table border=1>
+						<tr>
+							<th><b>Name of Carer</b></th>
+							<th><b>Pinyin Name</b></th>
+							<th><b>From</b></th>
+							<th><b>To</b></th>
+							<th><b>Note</b></th>
+						</tr>
+						<tr>
+							<th><b>Jennifer</b></th>
+							<th><b>Chinchin</b></th>
+							<th><b>2016/1/23</b></th>
+							<th><b>2017/5/13</b></th>
+							<th><b>No notes</b></th>
+						</tr>
+					</table>
+				</fieldset>
+			</form>
+		</div>
+		<div id="childTab-assessment">
+			<form>
+				<fieldset>
+					<legend>Assessment:</legend>
+				</fieldset>
+			</form>
+		</div>
+		<div id="childTab-notes">
+			<form>
+				<fieldset>
+					<legend>Notes:</legend>
+				</fieldset>
+			</form>
+		</div>
+		<div id="childTab-attachments">
+			<form>
+				<fieldset>
+					<legend>Attachments:</legend>
+				</fieldset>
+			</form>
+		</div>
+		<div id="childTab-partnership">
+			<form>
+				<fieldset>
+					<legend>Partnership:</legend>
+				</fieldset>
+			</form>
+		</div>	
+		<div id="childTab-adoption">
+			<form>
+				<fieldset>
+					<legend>Adoption/Fostering:</legend>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
