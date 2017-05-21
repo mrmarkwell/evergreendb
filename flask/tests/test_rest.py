@@ -9,7 +9,7 @@ import random
 from pprint import pprint as pp
 from hypothesis import given, settings
 from hypothesis.strategies import composite, sampled_from
-from rest_test_data import test_data
+from rest_test_data import get_test_data
 
 
 from app import app, db, models 
@@ -66,11 +66,11 @@ class TestFlaskRestApi(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertDictEqual(res_dict, BOBBY_DATA)
 
-@composite
-def entity_data(draw):
-    entity = draw(sampled_from(test_data.keys()))
-    body = draw(sampled_from(test_data[entity]))
-    return (entity, body)
+#@composite
+#def entity_data(draw):
+#    entity = draw(sampled_from(test_data.keys()))
+#    body = draw(sampled_from(test_data[entity]))
+#    return (entity, body)
 
 
 class TestEntityEndpoint(unittest.TestCase):
@@ -92,6 +92,7 @@ class TestEntityEndpoint(unittest.TestCase):
         seed = random.randint(1, 10000)
         print "RANDOM SEED USED: " + str(seed)
         random.seed(seed)
+        test_data = get_test_data()
         for i in xrange(30): 
             
             e_name = random.choice(test_data.keys())
