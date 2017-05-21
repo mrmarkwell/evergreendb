@@ -45,9 +45,9 @@ class TestEntityCreation(unittest.TestCase):
 
     def test_entity_creation_child_note(self):
         child_note = models.ChildNote(
-            note=NOTE,
-            flag=FLAG,
-            date=TODAY,
+            child_note=NOTE,
+            child_note_flag=FLAG,
+            child_note_date=TODAY,
             child_id=0
         )
         db.session.add(child_note)
@@ -230,10 +230,10 @@ class TestAssociationCreation(unittest.TestCase):
         partners = db.session.query(models.Partner).all()
         partner = random.choice(partners)
         child_partner = models.ChildPartner(
-            start_date=TODAY,
-            end_date=TODAY,
-            note=NOTE,
-            flag=FLAG,
+            child_partner_start_date=TODAY,
+            child_partner_end_date=TODAY,
+            child_partner_note=NOTE,
+            child_partner_note_flag=FLAG,
             child_id=child.id,
             partner_id=partner.id
         )
@@ -253,8 +253,8 @@ class TestAssociationCreation(unittest.TestCase):
         camps = db.session.query(models.Camp).all()
         camp = random.choice(camps)
         child_camp = models.ChildCamp(
-            date=TODAY,
-            note=NOTE,
+            child_camp_date=TODAY,
+            child_camp_note=NOTE,
             child_id=child.id,
             camp_id=camp.id
         )
@@ -274,9 +274,9 @@ class TestAssociationCreation(unittest.TestCase):
         specialists = db.session.query(models.Specialist).all()
         specialist = random.choice(specialists)
         child_assessment = models.ChildAssessment(
-            date=TODAY,
-            note=NOTE,
-            flag=FLAG,
+            child_assessment_date=TODAY,
+            child_assessment_note=NOTE,
+            child_assessment_note_flag=FLAG,
             child_id=child.id,
             specialist_id=specialist.id
         )
@@ -297,9 +297,9 @@ class TestAssociationCreation(unittest.TestCase):
         caregivers = db.session.query(models.Caregiver).all()
         caregiver = random.choice(caregivers)
         child_caregiver = models.ChildCaregiver(
-            start_date=TODAY,
-            end_date=TODAY,
-            note=NOTE,
+            child_caregiver_start_date=TODAY,
+            child_caregiver_end_date=TODAY,
+            child_caregiver_note=NOTE,
             child_id=child.id,
             caregiver_id=caregiver.id
         )
@@ -320,8 +320,8 @@ class TestAssociationCreation(unittest.TestCase):
         measurements = db.session.query(models.MeasurementType).all()
         measurement = random.choice(measurements)
         child_measurement = models.ChildMeasurement(
-            date=TODAY,
-            value=0,
+            child_measurement_date=TODAY,
+            child_measurement_value=0,
             child_id=child.id,
             measurement_type_id=measurement.id
         )
@@ -342,7 +342,7 @@ class TestAssociationCreation(unittest.TestCase):
         milestones = db.session.query(models.MilestoneType).all()
         milestone = random.choice(milestones)
         child_milestone = models.ChildMilestone(
-            date=TODAY,
+            child_milestone_date=TODAY,
             child_id=child.id,
             milestone_type_id=milestone.id
         )
@@ -363,8 +363,8 @@ class TestAssociationCreation(unittest.TestCase):
         doctors = db.session.query(models.Doctor).all()
         doctor = random.choice(doctors)
         child_doctor_visit = models.ChildDoctorVisit(
-            date=TODAY,
-            note=NOTE,
+            child_doctor_visit_date=TODAY,
+            child_doctor_visit_note=NOTE,
             child_id=child.id,
             doctor_id=doctor.id
         )
@@ -406,8 +406,8 @@ class TestAssociationCreation(unittest.TestCase):
         medications = db.session.query(models.Medication).all()
         medication = random.choice(medications)
         child_medication = models.ChildMedication(
-            start_date=TODAY,
-            end_date=TODAY,
+            child_medication_start_date=TODAY,
+            child_medication_end_date=TODAY,
             dosage1=0.0,
             dosage2=0.0,
             dosage3=0.0,

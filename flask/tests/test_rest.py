@@ -109,6 +109,7 @@ class TestEntityEndpoint(unittest.TestCase):
             print
             id = res_body.pop('id', None)
             delete_response = self.app.delete('/entity/' + e_name + "?id=" + str(id))
+            print delete_response.status_code
             
             self.assertEqual(post_response.status_code, 201, "Post failed")
             self.assertDictEqual(res_body, e_body, "Post sent back bad data")

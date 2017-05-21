@@ -28,9 +28,9 @@ child_fields.update({
 })
 child_note_fields = {
     'id': fields.Integer,
-    'date': Date,
-    'note': fields.String,
-    'flag': fields.Boolean,
+    'child_note_date': Date,
+    'child_note': fields.String,
+    'child_note_flag': fields.Boolean,
     'child_id': fields.Integer,
 }
 partner_fields = {
@@ -114,60 +114,60 @@ medication_fields = {
 
 child_partner_fields = {
     'id': fields.Integer,
-    'start_date': Date,
-    'end_date': Date,
-    'note': fields.String,
-    'flag': fields.Boolean,
+    'child_partner_start_date': Date,
+    'child_partner_end_date': Date,
+    'child_partner_note': fields.String,
+    'child_partner_note_flag': fields.Boolean,
     'child_id': fields.Integer,
     'partner_id': fields.Integer
 }
 
 child_camp_fields = {
     'id': fields.Integer,
-    'date': Date,
-    'note': fields.String,
+    'child_camp_date': Date,
+    'child_camp_note': fields.String,
     'child_id': fields.Integer,
     'camp_id': fields.Integer
     }
 
 child_assessment_fields = {
     'id': fields.Integer,
-    'date': Date,
+    'child_assessment_date': Date,
     'child_id': fields.Integer,
-    'note': fields.String,
-    'flag': fields.Boolean,
+    'child_assessment_note': fields.String,
+    'child_assessment_note_flag': fields.Boolean,
     'specialist_id':fields.Integer
     }
 
 child_caregiver_fields = {
     'id': fields.Integer,
-    'start_date': Date,
-    'end_date': Date,
-    'note': fields.String,
+    'child_caregiver_start_date': Date,
+    'child_caregiver_end_date': Date,
+    'child_caregiver_note': fields.String,
     'child_id': fields.Integer,
     'caregiver_id': fields.Integer
     }
 
 child_measurement_fields = {
     'id': fields.Integer,
-    'date': Date,
+    'child_measurement_date': Date,
     'child_id': fields.Integer,
-    'value': fields.Float,
+    'child_measurement_value': fields.Float,
     'measurement_type_id': fields.Integer
     }
 
 child_milestone_fields = {
     'id': fields.Integer,
-    'date': Date,
+    'child_milestone_date': Date,
     'child_id': fields.Integer,
     'milestone_type_id': fields.Integer
     }
 
 child_doctor_visit_fields = {
     'id': fields.Integer,
-    'date': Date,
+    'child_doctor_visit_date': Date,
     'child_id': fields.Integer,
-    'note': fields.String,
+    'child_doctor_visit_note': fields.String,
     'doctor_id': fields.Integer
     }
 
@@ -179,8 +179,8 @@ child_medical_condition_fields = {
 
 child_medication_fields = {
     'id': fields.Integer,
-    'start_date': Date,
-    'end_date': Date,
+    'child_medication_start_date': Date,
+    'child_medication_end_date': Date,
     'child_id': fields.Integer,
     'medication_id': fields.Integer,
     'dosage1': fields.Float,

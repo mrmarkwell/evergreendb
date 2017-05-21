@@ -35,9 +35,9 @@ child_update_parser.replace_argument('sex', required=False)
 
 # child_note
 child_note_parser = reqparse.RequestParser()
-child_note_parser.add_argument('date', type=datetype, help=date_error_help)
-child_note_parser.add_argument('note', required=True)
-child_note_parser.add_argument('flag', type=bool)
+child_note_parser.add_argument('child_notedate', type=datetype, help=date_error_help)
+child_note_parser.add_argument('child_note', required=True)
+child_note_parser.add_argument('child_note_flag', type=bool)
 child_note_parser.add_argument('child_id', required=True)
 
 child_note_update_parser = child_note_parser.copy()
@@ -175,10 +175,10 @@ for arg in medication_update_parser.args:
 
 # child_partner
 child_partner_parser = reqparse.RequestParser()
-child_partner_parser.add_argument('start_date', type=datetype, help=date_error_help)
-child_partner_parser.add_argument('end_date', type=datetype, help=date_error_help)
-child_partner_parser.add_argument('note')
-child_partner_parser.add_argument('flag', type=bool)
+child_partner_parser.add_argument('child_partner_start_date', type=datetype, help=date_error_help)
+child_partner_parser.add_argument('child_partner_end_date', type=datetype, help=date_error_help)
+child_partner_parser.add_argument('child_partner_note')
+child_partner_parser.add_argument('child_partner_note_flag', type=bool)
 child_partner_parser.add_argument('child_id', type=int, required=True)
 child_partner_parser.add_argument('partner_id', type=int, required=True)
 
@@ -188,36 +188,36 @@ child_partner_update_parser.replace_argument('partner_id', type=int, required=Fa
 
 # child_camp
 child_camp_parser = reqparse.RequestParser()
-child_camp_parser.add_argument('date', required=True, type=datetype, help=date_error_help)
-child_camp_parser.add_argument('note')
+child_camp_parser.add_argument('child_camp_date', required=True, type=datetype, help=date_error_help)
+child_camp_parser.add_argument('child_camp_note')
 child_camp_parser.add_argument('child_id', type=int, required=True)
 child_camp_parser.add_argument('camp_id', type=int, required=True)
 
 child_camp_update_parser = child_camp_parser.copy()
-child_camp_update_parser.replace_argument('date', required=False, type=datetype, help=date_error_help)
+child_camp_update_parser.replace_argument('child_camp_date', required=False, type=datetype, help=date_error_help)
 child_camp_update_parser.replace_argument('child_id', type=int, required=False)
 child_camp_update_parser.replace_argument('camp_id', type=int, required=False)
 
 # child_assessment
 
 child_assessment_parser = reqparse.RequestParser()
-child_assessment_parser.add_argument('date', required=True, type=datetype, help=date_error_help)
-child_assessment_parser.add_argument('note')
+child_assessment_parser.add_argument('child_assessment_date', required=True, type=datetype, help=date_error_help)
+child_assessment_parser.add_argument('child_assessment_note')
 child_assessment_parser.add_argument('child_id', type=int, required=True)
-child_assessment_parser.add_argument('flag', type=bool)
+child_assessment_parser.add_argument('child_assessment_note_flag', type=bool)
 child_assessment_parser.add_argument('specialist_id', type=int, required=True)
 
 child_assessment_update_parser = child_assessment_parser.copy()
-child_assessment_update_parser.replace_argument('date', required=False, type=datetype, help=date_error_help)
+child_assessment_update_parser.replace_argument('child_assessment_date', required=False, type=datetype, help=date_error_help)
 child_assessment_update_parser.replace_argument('child_id', type=int, required=False)
 child_assessment_update_parser.replace_argument('specialist_id', type=int, required=False)
 
 # child_caregiver
 
 child_caregiver_parser = reqparse.RequestParser()
-child_caregiver_parser.add_argument('start_date', type=datetype, help=date_error_help)
-child_caregiver_parser.add_argument('end_date', type=datetype, help=date_error_help)
-child_caregiver_parser.add_argument('note')
+child_caregiver_parser.add_argument('child_caregiver_start_date', type=datetype, help=date_error_help)
+child_caregiver_parser.add_argument('child_caregiver_end_date', type=datetype, help=date_error_help)
+child_caregiver_parser.add_argument('child_caregiver_note')
 child_caregiver_parser.add_argument('child_id', type=int, required=True)
 child_caregiver_parser.add_argument('caregiver_id', type=int, required=True)
 
@@ -234,10 +234,10 @@ child_measurement_parser.add_argument('child_id', type=int, required=True)
 child_measurement_parser.add_argument('measurement_type_id', type=int, required=True)
 
 child_measurement_update_parser = child_measurement_parser.copy()
-child_measurement_update_parser.replace_argument('date', required=False, type=datetype, help=date_error_help)
+child_measurement_update_parser.replace_argument('child_measurement_date', required=False, type=datetype, help=date_error_help)
 child_measurement_update_parser.replace_argument('child_id', type=int, required=False)
 child_measurement_update_parser.replace_argument('measurement_type_id', type=int, required=False)
-child_measurement_update_parser.replace_argument('value', required=False, type=float)
+child_measurement_update_parser.replace_argument('child_measurement_value', required=False, type=float)
 
 # child_milestone
 
@@ -247,20 +247,20 @@ child_milestone_parser.add_argument('child_id', type=int, required=True)
 child_milestone_parser.add_argument('milestone_type_id', type=int, required=True)
 
 child_milestone_update_parser = child_milestone_parser.copy()
-child_milestone_update_parser.replace_argument('date', required=False, type=datetype, help=date_error_help)
+child_milestone_update_parser.replace_argument('child_milestone_date', required=False, type=datetype, help=date_error_help)
 child_milestone_update_parser.replace_argument('child_id', type=int, required=False)
 child_milestone_update_parser.replace_argument('milestone_type_id', type=int, required=False)
 
 # child_doctor_visit
 
 child_doctor_visit_parser = reqparse.RequestParser()
-child_doctor_visit_parser.add_argument('date', required=True, type=datetype, help=date_error_help)
+child_doctor_visit_parser.add_argument('child_doctor_visit_date', required=True, type=datetype, help=date_error_help)
 child_doctor_visit_parser.add_argument('child_id', type=int, required=True)
 child_doctor_visit_parser.add_argument('doctor_id', type=int, required=True)
-child_doctor_visit_parser.add_argument('note')
+child_doctor_visit_parser.add_argument('child_doctor_visit_note')
 
 child_doctor_visit_update_parser = child_doctor_visit_parser.copy()
-child_doctor_visit_update_parser.replace_argument('date', required=False, type=datetype, help=date_error_help)
+child_doctor_visit_update_parser.replace_argument('child_doctor_visit_date', required=False, type=datetype, help=date_error_help)
 child_doctor_visit_update_parser.replace_argument('child_id', type=int, required=False)
 child_doctor_visit_update_parser.replace_argument('doctor_id', type=int, required=False)
 
@@ -277,8 +277,8 @@ child_medical_condition_update_parser.replace_argument('medical_condition_id', t
 # child_medication
 
 child_medication_parser = reqparse.RequestParser()
-child_medication_parser.add_argument('start_date', required=True, type=datetype, help=date_error_help)
-child_medication_parser.add_argument('end_date', type=datetype, help=date_error_help)
+child_medication_parser.add_argument('child_medication_start_date', required=True, type=datetype, help=date_error_help)
+child_medication_parser.add_argument('child_medication_end_date', type=datetype, help=date_error_help)
 child_medication_parser.add_argument('dosage1', type=float)
 child_medication_parser.add_argument('dosage2', type=float)
 child_medication_parser.add_argument('dosage3', type=float)
