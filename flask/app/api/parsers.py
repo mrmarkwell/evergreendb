@@ -101,7 +101,7 @@ milestone_type_parser = base_parser.copy()
 milestone_type_parser.add_argument('milestone_type_english_name', required=True)
 milestone_type_parser.add_argument('milestone_type_chinese_name')
 milestone_type_parser.add_argument('milestone_type_pinyin_name')
-milestone_type_parser.add_argument('milestone_type_id', type=int, required=True)
+milestone_type_parser.add_argument('milestone_type_category_id', type=int, required=True)
 milestone_type_update_parser = milestone_type_parser.copy()
 for arg in milestone_type_update_parser.args:
     milestone_type_update_parser.replace_argument(arg, required=False)
