@@ -10,17 +10,18 @@
     <script src="scripts/jquery-ui.min.js"></script>    
     <!-- Insert this line after script imports -->
     <script>if (window.module) module = window.module;</script>
-    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="css/table.css">
   </head>
   <body>
-    <script src="scripts/rest.js"></script>
-    <script src="scripts/table.js"></script>
+    <script src="scripts/query.js"></script>
     <h2>table</h2>
     <p>
       <table id=child_table></table>
-      <script>
-        getAllChildren(function(json) {jsonTable("child_table",json,["english_name"]);});
-      </script>
     </p>
   </body>
+  <script>
+    getAllChildren(function(json) {
+      jsonTable(json, document.getElementById("child_table"), ["english_name"]);
+    });
+  </script>
 </html>
