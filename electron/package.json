@@ -16,6 +16,7 @@
     "qunitjs": "latest",
     "gulp": "latest",
     "devtron": "latest",
-    "electron-packager": "latest"
+    "electron-packager": "latest",
+    "node-rest-client": "latest"
   }
 }

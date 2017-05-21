@@ -58,3 +58,9 @@ app.on('activate', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+
+exports.openWindow = () => {
+    let win = new BrowserWindow({width:800, height:600})
+    win.loadURL(`file://${__dirname}/flagged_notes.html`)
+    }
