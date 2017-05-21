@@ -13,9 +13,14 @@
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <script>require('./index.js')</script>
-    <a href=rest.html>calendar & REST test</a>
-    <p><a href=query.html>Child selct</a></p>
+    <script src="scripts/rest.js"></script>
+    <script src="scripts/table.js"></script>
+    <h2>table</h2>
+    <p>
+      <table id=child_table></table>
+      <script>
+        getAllChildren(function(json) {jsonTable("child_table",json,["english_name"]);});
+      </script>
+    </p>
   </body>
 </html>

@@ -29,5 +29,13 @@
         ).query.results.quote.LastTradeDate);
 		document.getElementById("calendar").value = $.datepicker.formatDate("yy/mm/dd",last_trade_date);
     </script>
+    <script src="scripts/table.js"></script>
+    <h2>table</h2>
+    <p>
+      <table id=child_table></table>
+      <script>
+        getAllChildren(function(json) {jsonTable("child_table",json,["english_name"]);});
+      </script>
+    </p>
   </body>
 </html>

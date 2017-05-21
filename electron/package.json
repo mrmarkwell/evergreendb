@@ -1,5 +1,5 @@
 {
-  "name": "EvergreenDB",
+  "name": "evergreendb",
   "version": "0.1.0",
   "description": "A front end to access the Evergreen database",
   "main": "main.js",
