@@ -4,10 +4,11 @@ Electron installation instructions:
 Ubuntu: https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
 Windows: https://nodejs.org/en/download/
 
-2. Install electron
-(as root/administrator)
-npm install -g electron
+2. Download dependecies and run the app
+cd electron
+npm install
+npm start
 
-Running the app:
-(from in evergreendb dir)
-electron ./elctron_playground
+Build the app executable:
+npm run build # for current platform
+npm run buildall # for all platforms
