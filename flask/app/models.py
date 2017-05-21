@@ -76,9 +76,9 @@ class Caregiver(db.Model):
 class Specialist(db.Model):
     __tablename__ = 'specialist'
     id = db.Column(db.Integer, primary_key=True)
-    specailist_english_name = db.Column(db.Unicode(255))
-    specailist_chinese_name = db.Column(db.Unicode(255))
-    specailist_pinyin_name = db.Column(db.Unicode(255))
+    specialist_english_name = db.Column(db.Unicode(255))
+    specialist_chinese_name = db.Column(db.Unicode(255))
+    specialist_pinyin_name = db.Column(db.Unicode(255))
     specialist_type_id = db.Column(db.Integer, db.ForeignKey('specialist_type.id'))
     children = db.relationship('ChildAssessment', back_populates='specialist')
 
