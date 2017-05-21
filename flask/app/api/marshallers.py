@@ -10,12 +10,12 @@ class Date(fields.Raw):
 
 base_fields = {
     'id': fields.Integer,
-    'english_name': fields.String,
-    'chinese_name': fields.String,
-    'pinyin_name': fields.String,
     }
 child_fields = base_fields.copy()
 child_fields.update({
+    'child_english_name': fields.String,
+    'child_chinese_name': fields.String,
+    'child_pinyin_name': fields.String,
     'nickname': fields.String,
     'sex': fields.String,
     'birth_date': Date,
@@ -33,16 +33,47 @@ child_note_fields = {
     'flag': fields.Boolean,
     'child_id': fields.Integer,
 }
-partner_fields = base_fields.copy()
-partner_fields.update({'email': fields.String, 'phone': fields.String })
-caregiver_fields = base_fields.copy()
-specialist_fields = base_fields.copy()
-specialist_fields.update({'specialist_type_id': fields.Integer})
-specialist_type_fields = base_fields.copy()
-milestone_type_category_fields = base_fields.copy()
-milestone_type_fields = base_fields.copy()
-milestone_type_fields.update({'milestone_type_category_id': fields.Integer})
-doctor_type_fields = base_fields.copy()
+partner_fields = {
+    'partner_english_name': fields.String,
+    'partner_chinese_name': fields.String,
+    'partner_pinyin_name': fields.String
+}
+partner_fields.update({'email': fields.String, 'phone': fields.String})
+caregiver_fields = {
+    'caregiver_english_name': fields.String,
+    'caregiver_chinese_name': fields.String,
+    'caregiver_pinyin_name': fields.String
+}
+specialist_fields = {
+    'specialist_english_name': fields.String,
+    'specialist_chinese_name': fields.String,
+    'specialist_pinyin_name': fields.String,
+    'specialist_type_id': fields.Integer
+}
+specialist_type_fields = {
+    'specialist_type_english_name': fields.String,
+    'specialist_type_chinese_name': fields.String,
+    'specialist_type_pinyin_name': fields.String
+}
+milestone_type_category_fields = {
+    'milestone_type_category_english_name': fields.String,
+    'milestone_type_category_chinese_name': fields.String,
+    'milestone_type_category_pinyin_name': fields.String
+}
+
+milestone_type_fields = {
+    'milestone_type_english_name': fields.String,
+    'milestone_type_chinese_name': fields.String,
+    'milestone_type_pinyin_name': fields.String,
+    'milestone_type_category_id': fields.Integer
+}
+
+doctor_type_fields = {
+    'doctor_type_english_name': fields.String,
+    'doctor_type_chinese_name': fields.String,
+    'doctor_type_pinyin_name': fields.String
+}
+
 doctor_fields = {
     'id': fields.Integer,
     'doctor_english_name':   fields.String,
@@ -53,13 +84,32 @@ doctor_fields = {
     'facility_pinyin_name':  fields.String,
     'doctor_type_id': fields.Integer
     }
-measurement_type_fields = base_fields.copy()
-measurement_type_fields.update({'units': fields.String})
+measurement_type_fields = {
+    'measurement_type_english_name': fields.String,
+    'measurement_type_chinese_name': fields.String,
+    'measurement_type_pinyin_name': fields.String,
+    'units': fields.String
+}
 
-camp_fields = base_fields.copy()
-medical_condition_fields = base_fields.copy()
-medication_fields = base_fields.copy()
-medication_fields.update({'milligram_dose': fields.Float})
+camp_fields = {
+    'id': fields.Integer,
+    'camp_english_name':   fields.String,
+    'camp_chinese_name':   fields.String,
+    'camp_pinyin_name':    fields.String
+}
+medical_condition_fields = {
+    'id': fields.Integer,
+    'medical_condition_english_name':   fields.String,
+    'medical_condition_chinese_name':   fields.String,
+    'medical_condition_pinyin_name':    fields.String
+}
+medication_fields = {
+    'id': fields.Integer,
+    'medication_english_name':   fields.String,
+    'medication_chinese_name':   fields.String,
+    'medication_pinyin_name':    fields.String,
+    'milligram_dose': fields.Float
+}
 
 
 child_partner_fields = {

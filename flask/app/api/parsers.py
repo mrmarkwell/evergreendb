@@ -11,12 +11,12 @@ date_error_help = "Date fields should be entered as: YYYY-MM-DD"
 
 # A base entity parser for other parsers to derive from
 base_parser = reqparse.RequestParser()
-base_parser.add_argument('english_name', required=True)
-base_parser.add_argument('chinese_name')
-base_parser.add_argument('pinyin_name')
 
 # Parser for input date related to a child object.
 child_parser = base_parser.copy()
+child_parser.add_argument('child_english_name', required=True)
+child_parser.add_argument('child_chinese_name')
+child_parser.add_argument('child_pinyin_name')
 child_parser.add_argument('nickname')
 child_parser.add_argument('sex', required=True)
 child_parser.add_argument('birth_date', type=datetype,)# help=date_error_help)
@@ -30,7 +30,7 @@ child_parser.add_argument('medical_history')
 # When updating a child, no argument is required
 # so replace arguments fields from the original child_parser.
 child_update_parser = child_parser.copy()
-child_update_parser.replace_argument('english_name', required=False)
+child_update_parser.replace_argument('child_english_name', required=False)
 child_update_parser.replace_argument('sex', required=False)
 
 # child_note
@@ -46,21 +46,30 @@ child_note_update_parser.replace_argument('child_id', required=False)
 
 # partner
 partner_parser = base_parser.copy()
+partner_parser.add_argument('partner_english_name', required=True)
+partner_parser.add_argument('partner_chinese_name')
+partner_parser.add_argument('partner_pinyin_name')
 partner_parser.add_argument('email')
 partner_parser.add_argument('phone')
 
 partner_update_parser = partner_parser.copy()
-partner_update_parser.replace_argument('english_name', required=False)
+partner_update_parser.replace_argument('partner_english_name', required=False)
 
 # caregiver
 caregiver_parser = base_parser.copy()
+caregiver_parser.add_argument('caregiver_english_name', required=True)
+caregiver_parser.add_argument('caregiver_chinese_name')
+caregiver_parser.add_argument('caregiver_pinyin_name')
 
 caregiver_update_parser = caregiver_parser.copy()
-caregiver_update_parser.replace_argument('english_name', required=False)
+caregiver_update_parser.replace_argument('caregiver_english_name', required=False)
 
 # specialist
 
 specialist_parser = base_parser.copy()
+specialist_parser.add_argument('specialist_english_name', required=True)
+specialist_parser.add_argument('specialist_chinese_name')
+specialist_parser.add_argument('specialist_pinyin_name')
 specialist_parser.add_argument('specialist_type_id', type=int, required=True)
 specialist_update_parser = specialist_parser.copy()
 for arg in specialist_update_parser.args:
@@ -69,6 +78,9 @@ for arg in specialist_update_parser.args:
 # specialist_type
 
 specialist_type_parser = base_parser.copy()
+specialist_type_parser.add_argument('specialist_type_english_name', required=True)
+specialist_type_parser.add_argument('specialist_type_chinese_name')
+specialist_type_parser.add_argument('specialist_type_pinyin_name')
 specialist_type_update_parser = specialist_type_parser.copy()
 for arg in specialist_type_update_parser.args:
     specialist_type_update_parser.replace_argument(arg, required=False)
@@ -76,6 +88,9 @@ for arg in specialist_type_update_parser.args:
 # milestone_type_category
 
 milestone_type_category_parser = base_parser.copy()
+milestone_type_category_parser.add_argument('milestone_type_category_english_name', required=True)
+milestone_type_category_parser.add_argument('milestone_type_category_chinese_name')
+milestone_type_category_parser.add_argument('milestone_type_category_pinyin_name')
 milestone_type_category_update_parser = milestone_type_category_parser.copy()
 for arg in milestone_type_category_update_parser.args:
     milestone_type_category_update_parser.replace_argument(arg, required=False)
@@ -83,7 +98,10 @@ for arg in milestone_type_category_update_parser.args:
 # milestone_type
 
 milestone_type_parser = base_parser.copy()
-milestone_type_parser.add_argument('milestone_type_category_id', type=int, required=True)
+milestone_type_parser.add_argument('milestone_type_english_name', required=True)
+milestone_type_parser.add_argument('milestone_type_chinese_name')
+milestone_type_parser.add_argument('milestone_type_pinyin_name')
+milestone_type_parser.add_argument('milestone_type_id', type=int, required=True)
 milestone_type_update_parser = milestone_type_parser.copy()
 for arg in milestone_type_update_parser.args:
     milestone_type_update_parser.replace_argument(arg, required=False)
@@ -92,6 +110,9 @@ for arg in milestone_type_update_parser.args:
 # doctor_type
 
 doctor_type_parser = base_parser.copy()
+doctor_type_parser.add_argument('doctor_type_english_name', required=True)
+doctor_type_parser.add_argument('doctor_type_chinese_name')
+doctor_type_parser.add_argument('doctor_type_pinyin_name')
 doctor_type_update_parser = doctor_type_parser.copy()
 for arg in doctor_type_update_parser.args:
     doctor_type_update_parser.replace_argument(arg, required=False)
@@ -113,6 +134,9 @@ for arg in doctor_update_parser.args:
 # measurement_type
 
 measurement_type_parser = base_parser.copy()
+measurement_type_parser.add_argument('measurement_type_english_name', required=True)
+measurement_type_parser.add_argument('measurement_type_chinese_name')
+measurement_type_parser.add_argument('measurement_type_pinyin_name')
 measurement_type_parser.add_argument('units', required=True)
 measurement_type_update_parser = measurement_type_parser.copy()
 for arg in measurement_type_update_parser.args:
@@ -121,6 +145,9 @@ for arg in measurement_type_update_parser.args:
 # camp
 
 camp_parser = base_parser.copy()
+camp_parser.add_argument('camp_english_name', required=True)
+camp_parser.add_argument('camp_chinese_name')
+camp_parser.add_argument('camp_pinyin_name')
 camp_update_parser = camp_parser.copy()
 for arg in camp_update_parser.args:
     camp_update_parser.replace_argument(arg, required=False)
@@ -128,6 +155,9 @@ for arg in camp_update_parser.args:
 # medical_condition
 
 medical_condition_parser = base_parser.copy()
+medical_condition_parser.add_argument('medical_condition_english_name', required=True)
+medical_condition_parser.add_argument('medical_condition_chinese_name')
+medical_condition_parser.add_argument('medical_condition_pinyin_name')
 medical_condition_update_parser = medical_condition_parser.copy()
 for arg in medical_condition_update_parser.args:
     medical_condition_update_parser.replace_argument(arg, required=False)
@@ -135,6 +165,9 @@ for arg in medical_condition_update_parser.args:
 # medication
 
 medication_parser = base_parser.copy()
+medication_parser.add_argument('medication_english_name', required=True)
+medication_parser.add_argument('medication_chinese_name')
+medication_parser.add_argument('medication_pinyin_name')
 medication_parser.add_argument('milligram_dose', type=float, required=True)
 medication_update_parser = medication_parser.copy()
 for arg in medication_update_parser.args:

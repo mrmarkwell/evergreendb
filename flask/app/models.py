@@ -8,9 +8,9 @@ from sqlalchemy import UniqueConstraint
 class Child(db.Model):
     __tablename__ = 'child'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    child_english_name = db.Column(db.Unicode(255))
+    child_chinese_name = db.Column(db.Unicode(255))
+    child_pinyin_name = db.Column(db.Unicode(255))
     nickname = db.Column(db.Unicode(255))
     sex = db.Column(db.Unicode(1))
     birth_date = db.Column(db.DateTime)
@@ -20,7 +20,7 @@ class Child(db.Model):
     program_departure_reason = db.Column(db.UnicodeText)
     child_history = db.Column(db.UnicodeText)
     medical_history = db.Column(db.UnicodeText)
-    notes = db.relationship('ChildNote')
+    child_notes = db.relationship('ChildNote')
 
     # Association mapping
     partners = db.relationship('ChildPartner', back_populates='child')
@@ -49,9 +49,9 @@ class ChildNote(db.Model):
 class Partner(db.Model):
     __tablename__ = 'partner'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    partner_english_name = db.Column(db.Unicode(255))
+    partner_chinese_name = db.Column(db.Unicode(255))
+    partner_pinyin_name = db.Column(db.Unicode(255))
     email = db.Column(db.Unicode(255))
     address = db.Column(db.Unicode(255))
     phone = db.Column(db.Unicode(255))
@@ -64,9 +64,9 @@ class Partner(db.Model):
 class Caregiver(db.Model):
     __tablename__ = 'caregiver'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    caregiver_english_name = db.Column(db.Unicode(255))
+    caregiver_chinese_name = db.Column(db.Unicode(255))
+    caregiver_pinyin_name = db.Column(db.Unicode(255))
     children = db.relationship('ChildCaregiver', back_populates='caregiver')
 
     def __repr__(self):
@@ -76,9 +76,9 @@ class Caregiver(db.Model):
 class Specialist(db.Model):
     __tablename__ = 'specialist'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    specailist_english_name = db.Column(db.Unicode(255))
+    specailist_chinese_name = db.Column(db.Unicode(255))
+    specailist_pinyin_name = db.Column(db.Unicode(255))
     specialist_type_id = db.Column(db.Integer, db.ForeignKey('specialist_type.id'))
     children = db.relationship('ChildAssessment', back_populates='specialist')
 
@@ -89,9 +89,9 @@ class Specialist(db.Model):
 class SpecialistType(db.Model):
     __tablename__ = 'specialist_type'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    specialist_type_english_name = db.Column(db.Unicode(255))
+    specialist_type_chinese_name = db.Column(db.Unicode(255))
+    specialist_type_pinyin_name = db.Column(db.Unicode(255))
     specialists = db.relationship('Specialist')
 
     def __repr__(self):
@@ -101,9 +101,9 @@ class SpecialistType(db.Model):
 class MilestoneTypeCategory(db.Model):
     __tablename__ = 'milestone_type_category'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    milestone_type_category_english_name = db.Column(db.Unicode(255))
+    milestone_type_category_chinese_name = db.Column(db.Unicode(255))
+    milestone_type_category_pinyin_name = db.Column(db.Unicode(255))
     milestone_types = db.relationship('MilestoneType')
 
     def __repr__(self):
@@ -113,9 +113,9 @@ class MilestoneTypeCategory(db.Model):
 class MilestoneType(db.Model):
     __tablename__ = 'milestone_type'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    milestone_type_english_name = db.Column(db.Unicode(255))
+    milestone_type_chinese_name = db.Column(db.Unicode(255))
+    milestone_type_pinyin_name = db.Column(db.Unicode(255))
     milestone_type_category_id = db.Column(
         db.Unicode(16),
         db.ForeignKey('milestone_type_category.id')
@@ -129,9 +129,9 @@ class MilestoneType(db.Model):
 class DoctorType(db.Model):
     __tablename__ = 'doctor_type'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    doctor_type_english_name = db.Column(db.Unicode(255))
+    doctor_type_chinese_name = db.Column(db.Unicode(255))
+    doctor_type_pinyin_name = db.Column(db.Unicode(255))
     doctors = db.relationship('Doctor')
 
     def __repr__(self):
@@ -157,9 +157,9 @@ class Doctor(db.Model):
 class MeasurementType(db.Model):
     __tablename__ = 'measurement_type'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    measurement_type_english_name = db.Column(db.Unicode(255))
+    measurement_type_chinese_name = db.Column(db.Unicode(255))
+    measurement_type_pinyin_name = db.Column(db.Unicode(255))
     units = db.Column(db.Unicode(255))
     children = db.relationship('ChildMeasurement', back_populates='measurement_type')
 
@@ -170,27 +170,27 @@ class MeasurementType(db.Model):
 class Camp(db.Model):
     __tablename__ = 'camp'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    camp_english_name = db.Column(db.Unicode(255))
+    camp_chinese_name = db.Column(db.Unicode(255))
+    camp_pinyin_name = db.Column(db.Unicode(255))
     children = db.relationship('ChildCamp', back_populates='camp')
 
 
 class MedicalCondition(db.Model):
     __tablename__ = 'medical_condition'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    medical_condition_english_name = db.Column(db.Unicode(255))
+    medical_condition_chinese_name = db.Column(db.Unicode(255))
+    medical_condition_pinyin_name = db.Column(db.Unicode(255))
     children = db.relationship('ChildMedicalCondition', back_populates='medical_condition')
 
 
 class Medication(db.Model):
     __tablename__ = 'medication'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    medication_english_name = db.Column(db.Unicode(255))
+    medication_chinese_name = db.Column(db.Unicode(255))
+    medication_pinyin_name = db.Column(db.Unicode(255))
     milligram_dose = db.Column(db.Float)
     children = db.relationship('ChildMedication', back_populates='medication')
 
