@@ -2,7 +2,11 @@
 	"variables": [],
 	"info": {
 		"name": "EvergreenDB",
+<<<<<<< HEAD
 		"_postman_id": "d9a49d09-fbf1-eab4-7707-8def9aa56fae",
+=======
+		"_postman_id": "e73aefa7-48c1-4c62-1bc7-788803d125e0",
+>>>>>>> [POSTMAN] Update the postman collection
 		"description": "Collection of EvergreenDB API Calls.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -30,7 +34,11 @@
 						],
 						"body": {
 							"mode": "raw",
+<<<<<<< HEAD
 							"raw": "{\n  \"abandonment_date\": null,\n  \"birth_date\": null,\n  \"child_history\": \"Roberta is from 充佛动囖\",\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Roberta\",\n  \"medical_history\": null,\n  \"nickname\": null,\n  \"pinyin_name\": \"ch po en\",\n  \"program_departure_date\": null,\n  \"program_departure_reason\": null,\n  \"program_entry_date\": null,\n  \"sex\": \"F\"\n}"
+=======
+							"raw": "{\n  \"abandonment_date\": null,\n  \"birth_date\": null,\n  \"child_history\": \"Roberta is from 充佛动囖\",\n  \"child_chinese_name\": \"吃手婆娘给飘红\",\n  \"child_english_name\": \"Roberta\",\n  \"medical_history\": null,\n  \"nickname\": null,\n  \"child_pinyin_name\": \"ch po en\",\n  \"program_departure_date\": null,\n  \"program_departure_reason\": null,\n  \"program_entry_date\": null,\n  \"sex\": \"F\"\n}"
+>>>>>>> [POSTMAN] Update the postman collection
 						},
 						"description": ""
 					},
@@ -55,7 +63,11 @@
 						],
 						"body": {
 							"mode": "raw",
+<<<<<<< HEAD
 							"raw": "{\n  \"abandonment_date\": \"2014-1-2\",\n  \"birth_date\": \"2014-1-1\",\n  \"child_history\": \"Bobby is from 充佛动囖\",\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Bobby\",\n  \"medical_history\": \"Bobby had a fever\",\n  \"nickname\": \"Little Bobby Tables\",\n  \"pinyin_name\": \"ch po en\",\n  \"program_departure_date\": null,\n  \"program_departure_reason\": null,\n  \"program_entry_date\": \"2014-1-3\",\n  \"sex\": \"M\"\n}"
+=======
+							"raw": "{\n  \"abandonment_date\": \"2014-1-2\",\n  \"birth_date\": \"2014-1-1\",\n  \"child_history\": \"Bobby is from 充佛动囖\",\n  \"child_chinese_name\": \"吃手婆娘给飘红\",\n  \"child_english_name\": \"Bobby\",\n  \"medical_history\": \"Bobby had a fever\",\n  \"nickname\": \"Little Bobby Tables\",\n  \"child_pinyin_name\": \"ch po en\",\n  \"program_departure_date\": null,\n  \"program_departure_reason\": null,\n  \"program_entry_date\": \"2014-1-3\",\n  \"sex\": \"M\"\n}"
+>>>>>>> [POSTMAN] Update the postman collection
 						},
 						"description": ""
 					},
@@ -105,7 +117,11 @@
 						],
 						"body": {
 							"mode": "raw",
+<<<<<<< HEAD
 							"raw": "{\n  \"english_name\": \"English Name\",\n  \"pinyin_name\": \"Pinyin\",\n  \"chinese_name\": \"啦时间看对方\"\n}"
+=======
+							"raw": "{\n  \"caregiver_english_name\": \"English Name\",\n  \"caregiver_pinyin_name\": \"Pinyin\",\n  \"caregiver_chinese_name\": \"啦时间看对方\"\n}"
+>>>>>>> [POSTMAN] Update the postman collection
 						},
 						"description": ""
 					},
@@ -130,7 +146,11 @@
 						],
 						"body": {
 							"mode": "raw",
+<<<<<<< HEAD
 							"raw": "{\n  \"chinese_name\": \"吃手婆娘给飘红\",\n  \"english_name\": \"Susan\",\n  \"pinyin_name\": \"ch po en\",\n  \"email\": \"susan@example.com\",\n  \"address\": \"1234 Susan Street\",\n  \"phone\": \"123-456-7890\"\n}"
+=======
+							"raw": "{\n  \"partner_chinese_name\": \"吃手婆娘给飘红\",\n  \"partner_english_name\": \"Susan\",\n  \"partner_pinyin_name\": \"ch po en\",\n  \"email\": \"susan@example.com\",\n  \"address\": \"1234 Susan Street\",\n  \"phone\": \"123-456-7890\"\n}"
+>>>>>>> [POSTMAN] Update the postman collection
 						},
 						"description": ""
 					},
@@ -155,7 +175,11 @@
 						],
 						"body": {
 							"mode": "raw",
+<<<<<<< HEAD
 							"raw": "{\n  \"english_name\": \"Example Person\",\n  \"pinyin_name\": \"Pinyin Name of Person\",\n  \"chinese_name\": \"啦时间看对方\",\n  \"specialist_type_id\": 1\n}"
+=======
+							"raw": "{\n  \"specialist_english_name\": \"Example Person\",\n  \"specialist_pinyin_name\": \"Pinyin Name of Person\",\n  \"specialist_chinese_name\": \"啦时间看对方\",\n  \"specialist_type_id\": 1\n}"
+>>>>>>> [POSTMAN] Update the postman collection
 						},
 						"description": ""
 					},
@@ -180,7 +204,11 @@
 						],
 						"body": {
 							"mode": "raw",
+<<<<<<< HEAD
 							"raw": "{\n  \"english_name\": \"Example Specialist Type\",\n  \"pinyin_name\": \"Pinyin Specialist Type\",\n  \"chinese_name\": \"啦时间看对方\"\n}"
+=======
+							"raw": "{\n  \"specialist_type_english_name\": \"Example Specialist Type\",\n  \"specialist_type_pinyin_name\": \"Pinyin Specialist Type\",\n  \"specialist_type_chinese_name\": \"啦时间看对方\"\n}"
+>>>>>>> [POSTMAN] Update the postman collection
 						},
 						"description": ""
 					},
@@ -205,7 +233,11 @@
 						],
 						"body": {
 							"mode": "raw",
+<<<<<<< HEAD
 							"raw": "{\n  \"english_name\": \"Milestone Type Name\",\n  \"pinyin_name\": \"Pinyin Milestone Type Name\",\n  \"chinese_name\": \"啦时间看对方\"\n}"
+=======
+							"raw": "{\n  \"milestone_type_category_english_name\": \"Milestone Type Name\",\n  \"milestone_type_category_pinyin_name\": \"Pinyin Milestone Type Name\",\n  \"milestone_type_category_chinese_name\": \"啦时间看对方\"\n}"
+>>>>>>> [POSTMAN] Update the postman collection
 						},
 						"description": ""
 					},
@@ -230,7 +262,11 @@
 						],
 						"body": {
 							"mode": "raw",
+<<<<<<< HEAD
 							"raw": "{\n  \"english_name\": \"Milestone Type\",\n  \"pinyin_name\": \"Pinyin Type\",\n  \"chinese_name\": \"啦时间看对方\",\n  \"milestone_type_category_id\": 1\n}"
+=======
+							"raw": "{\n  \"milestone_type_english_name\": \"Milestone Type\",\n  \"milestone_type_pinyin_name\": \"Pinyin Type\",\n  \"milestone_type_chinese_name\": \"啦时间看对方\",\n  \"milestone_type_category_id\": 1\n}"
+>>>>>>> [POSTMAN] Update the postman collection
 						},
 						"description": ""
 					},
@@ -255,7 +291,11 @@
 						],
 						"body": {
 							"mode": "raw",
+<<<<<<< HEAD
 							"raw": "{\n  \"english_name\": \"Doctor type\",\n  \"pinyin_name\": \"Pinyin\",\n  \"chinese_name\": \"啦时间看对方\"\n}"
+=======
+							"raw": "{\n  \"doctor_type_english_name\": \"Doctor type\",\n  \"doctor_type_pinyin_name\": \"Pinyin\",\n  \"doctor_type_chinese_name\": \"啦时间看对方\"\n}"
+>>>>>>> [POSTMAN] Update the postman collection
 						},
 						"description": ""
 					},
@@ -305,7 +345,11 @@
 						],
 						"body": {
 							"mode": "raw",
+<<<<<<< HEAD
 							"raw": "{\n  \"english_name\": \"Measurement Type\",\n  \"pinyin_name\": \"Pinyin\",\n  \"chinese_name\": \"啦时间看对方\",\n  \"units\": \"kg\"\n}"
+=======
+							"raw": "{\n  \"measurement_type_english_name\": \"Measurement Type\",\n  \"measurement_type_pinyin_name\": \"Pinyin\",\n  \"measurement_type_chinese_name\": \"啦时间看对方\",\n  \"units\": \"kg\"\n}"
+>>>>>>> [POSTMAN] Update the postman collection
 						},
 						"description": ""
 					},
@@ -330,7 +374,11 @@
 						],
 						"body": {
 							"mode": "raw",
+<<<<<<< HEAD
 							"raw": "{\n  \"english_name\": \"English Name\",\n  \"pinyin_name\": \"Pinyin\",\n  \"chinese_name\": \"啦时间看对方\"\n}"
+=======
+							"raw": "{\n  \"camp_english_name\": \"English Name\",\n  \"camp_pinyin_name\": \"Pinyin\",\n  \"camp_chinese_name\": \"啦时间看对方\"\n}"
+>>>>>>> [POSTMAN] Update the postman collection
 						},
 						"description": ""
 					},
@@ -355,7 +403,11 @@
 						],
 						"body": {
 							"mode": "raw",
+<<<<<<< HEAD
 							"raw": "{\n  \"english_name\": \"English Name\",\n  \"pinyin_name\": \"Pinyin\",\n  \"chinese_name\": \"啦时间看对方\"\n}"
+=======
+							"raw": "{\n  \"medical_condition_english_name\": \"English Name\",\n  \"medical_condition_pinyin_name\": \"Pinyin\",\n  \"medical_condition_chinese_name\": \"啦时间看对方\"\n}"
+>>>>>>> [POSTMAN] Update the postman collection
 						},
 						"description": ""
 					},
@@ -380,7 +432,11 @@
 						],
 						"body": {
 							"mode": "raw",
+<<<<<<< HEAD
 							"raw": "{\n  \"english_name\": \"English Name\",\n  \"pinyin_name\": \"Pinyin\",\n  \"chinese_name\": \"啦时间看对方\",\n  \"milligram_dose\": 200\n}"
+=======
+							"raw": "{\n  \"medication_english_name\": \"English Name\",\n  \"medication_pinyin_name\": \"Pinyin\",\n  \"medication_chinese_name\": \"啦时间看对方\",\n  \"milligram_dose\": 200\n}"
+>>>>>>> [POSTMAN] Update the postman collection
 						},
 						"description": ""
 					},
@@ -1083,7 +1139,11 @@
 				],
 				"body": {
 					"mode": "raw",
+<<<<<<< HEAD
 					"raw": "{\n  \"english_name\": \"Bobby DropTables\",\n  \"medical_history\": \"Bobby had a fever when he was 2 years old\"\n}"
+=======
+					"raw": "{\n  \"child_english_name\": \"Bobby DropTables\",\n  \"medical_history\": \"Bobby had a fever when he was 2 years old\"\n}"
+>>>>>>> [POSTMAN] Update the postman collection
 				},
 				"description": ""
 			},
