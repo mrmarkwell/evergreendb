@@ -16,5 +16,5 @@ for entity in test_data.keys():
         print "adding " + entity
         response = client.post('/entity/' + entity, data=data)
         if response.status_code != 201:
-            print "Something bad happened during DB seed! Exiting!"
-            exit(1)
+            print "Something bad happened during DB seed! Attempting a rollback..."
+            session.rollback()
