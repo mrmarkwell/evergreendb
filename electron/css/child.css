@@ -1,0 +1,144 @@
+/*! jQuery UI - v1.10.4 - 2014-01-17
+* http://jqueryui.com
+* Includes: jquery.ui.core.css, jquery.ui.accordion.css, jquery.ui.autocomplete.css, jquery.ui.button.css, jquery.ui.datepicker.css, jquery.ui.dialog.css, jquery.ui.menu.css, jquery.ui.progressbar.css, jquery.ui.resizable.css, jquery.ui.selectable.css, jquery.ui.slider.css, jquery.ui.spinner.css, jquery.ui.tabs.css, jquery.ui.tooltip.css, jquery.ui.theme.css
+* To view and modify this theme, visit http://jqueryui.com/themeroller/?ffDefault=Trebuchet%20MS%2CTahoma%2CVerdana%2CArial%2Csans-serif&fwDefault=bold&fsDefault=1.1em&cornerRadius=4px&bgColorHeader=f6a828&bgTextureHeader=gloss_wave&bgImgOpacityHeader=35&borderColorHeader=e78f08&fcHeader=ffffff&iconColorHeader=ffffff&bgColorContent=eeeeee&bgTextureContent=highlight_soft&bgImgOpacityContent=100&borderColorContent=dddddd&fcContent=333333&iconColorContent=222222&bgColorDefault=f6f6f6&bgTextureDefault=glass&bgImgOpacityDefault=100&borderColorDefault=cccccc&fcDefault=1c94c4&iconColorDefault=ef8c08&bgColorHover=fdf5ce&bgTextureHover=glass&bgImgOpacityHover=100&borderColorHover=fbcb09&fcHover=c77405&iconColorHover=ef8c08&bgColorActive=ffffff&bgTextureActive=glass&bgImgOpacityActive=65&borderColorActive=fbd850&fcActive=eb8f00&iconColorActive=ef8c08&bgColorHighlight=ffe45c&bgTextureHighlight=highlight_soft&bgImgOpacityHighlight=75&borderColorHighlight=fed22f&fcHighlight=363636&iconColorHighlight=228ef1&bgColorError=b81900&bgTextureError=diagonals_thick&bgImgOpacityError=18&borderColorError=cd0a0a&fcError=ffffff&iconColorError=ffd27a&bgColorOverlay=666666&bgTextureOverlay=diagonals_thick&bgImgOpacityOverlay=20&opacityOverlay=50&bgColorShadow=000000&bgTextureShadow=flat&bgImgOpacityShadow=10&opacityShadow=20&thicknessShadow=5px&offsetTopShadow=-5px&offsetLeftShadow=-5px&cornerRadiusShadow=5px
+* Copyright 2014 jQuery Foundation and other contributors; Licensed MIT */
+
+/* -------------------------- remove??? -------------------------- */
+.ui-helper-clearfix:after { /*Applies float wrapping properties to parent elements. */
+	content: "";
+	display: table;
+	border-collapse: collapse;
+	clear: both;
+}
+
+/* -------------------------- important -------------------------- */
+
+body {
+	background: #eeeeee ;
+	font-family: Trebuchet MS,Tahoma,Verdana,Arial,sans-serif;
+}
+
+table {
+	font-style: normal;
+	width:500px;
+}
+
+a:focus {
+	outline: none; /* Removes dotted border appearing after link click */
+}
+.container div {
+    display: inline-block;
+	position: relative;
+	min-width: 1500px; /*makes sure the tab doesn't go to new line */
+	white-space: nowrap;
+}
+
+p { 
+	font-size: 10pt; 
+}
+
+h1 { 
+	font-weight: bold; 
+	color: #eb8f00;
+}
+
+#leftTab {
+	width: 1500px;
+}
+
+#leftTab-1 {
+	top: -100px;
+	left: 200px;
+}
+
+#leftTab-2 {
+	top: -100px;
+	left: 200px;
+}
+
+#leftTab-3 {
+	top: -100px;
+	left: 200px;
+}
+
+.ui-tabs-vertical { 
+	width: 100%;
+}
+
+.ui-tabs-vertical > .ui-tabs-nav { 
+	/* float: left; */
+	width: 10%; 
+}
+
+.ui-tabs-vertical > .ui-tabs-nav li { 
+	clear: left; 
+	width: 100%; 
+	overflow:hidden;
+}
+
+.ui-tabs-vertical > .ui-tabs-nav li a { 
+	display:block; 
+	width: 100%; 
+}
+
+.ui-tabs-vertical > .ui-tabs-nav li.ui-tabs-selected { 
+	display:block; 
+	width: 100%; 
+}
+.ui-tabs-vertical > .ui-tabs-panel { 
+	/* float: left; */
+	width: 80%;
+}
+
+/* -------------------------- TR overrides -------------------------- */
+
+
+.ui-tabs .ui-tabs-nav { /* adjusts the textbox of tabs */
+	padding: .1% .1% .1% .1%;
+}
+
+.ui-tabs .ui-tabs-nav li { /* adjusts the textbox between tabs */
+	list-style: none; /*removes bullet point */
+	float: left;
+	white-space: nowrap;	
+}
+
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+	display: block;
+	padding: .5em 1em; /* sizing the tabs */
+}
+
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+
+}
+
+.ui-tabs .ui-tabs-panel {
+	display: block;
+}
+
+
+/* -------------------------- interaction states -------------------------- */
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default {
+	border: 1px solid #cccccc; /*border for white box */
+	background: #f6f6f6; /* background for boxes */
+	font-weight: bold;
+	color: #1c94c4; /* purple */
+	border-radius: 15px 50px 30px; /* ounded corners */
+}
+
+.ui-state-default a, /* Sets the color of the tabs before it's been selected */
+.ui-state-default a:link,
+.ui-state-default a:visited {
+	color: #1c94c4; /* purple */
+	text-decoration: none; /* removes underline for hperlink */
+}
+
+.ui-state-active a, /* Sets the color of the tabs after it's been selected */
+.ui-state-active a:link,
+.ui-state-active a:visited {
+	color: #eb8f00; /* orange */
+	text-decoration: none; /* removes underline for hperlink */
+}

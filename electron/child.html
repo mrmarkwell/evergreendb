@@ -12,21 +12,21 @@
 	<script>if (window.module) module = window.module;</script>
 
 	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
-	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	<!-- link rel="stylesheet" type="text/css" href="css/child.css"-->
 	<style>.datepicker{}</style>
 
 	<script>
 		$(document).ready(function() {
-			jQuery(".datepicker").datepicker({dateFormat: "yy/mm/dd"});
+			jQuery(".datepicker").datepicker({dateFormat: "yy-mm-dd"});
 			$("#childTab").tabs();
-			getTabData('child',2);
+			getTabData('child',2); // TODO: remove hard coding and get from query page or something
 		});
 	</script>
 
 </head>
 <body>
 	<script src="scripts/child.js"></script>
-	<h1>Johnny</h1>
+	<h1 id="child_name_header"></h1>
 	<div id="childTab">
 		<ul>
 			<li><a href="#childTab-child">Child’s Data</a></li>
@@ -43,18 +43,18 @@
 			<form>
 				<fieldset>
 					<legend>Child’s Data:</legend>
-					Chinese Name: <input type="text" name="ChineseName"><br>
-					Pinyin Name: <input type="text" name="PinyinName"><br>
-					English Name: <input type="text" name="EnglishName"><br>
-					Nickname: <input type="text" name="Nickname"><br>
-					DOB: <input type="text" class="datepicker" name="DoB"><br>
-					Age: <input type="text" name="age"><br>
-					Sex:   <input type="radio" name="gender" value="male"> Male<input type="radio" name="gender" value="female"> Female<br>
-					Abandonment Date: <input type="text" class="datepicker" name="Abandonment"><br>
-					Programme Entry Date: <input type="text" class="datepicker" name="ProgrammeEntry"><br>
-					Programme Departure Date:<input type="text" class="datepicker" name="ProgrammeDeparture"><br>
-					Reason: <textarea id = "Reason" rows = "3" cols = "80"></textarea><br>
-					Child’s History: <textarea id = "History" rows = "3" cols = "80"></textarea><br>
+					Chinese Name: <input type="text" id="child_chinese_name"><br>
+					Pinyin Name: <input type="text" id="child_pinyin_name"><br>
+					English Name: <input type="text" id="child_english_name"><br>
+					Nickname: <input type="text" id="nickname"><br>
+					DOB: <input type="text" class="datepicker" id="birth_date" onchange="fillAge(value)">  
+					Age: <label id="age"></label><br>
+					Sex:   <input type="radio" id="sex_m" name="gender" value="male"> Male<input type="radio" id="sex_f" name="gender" value="female"> Female<br>
+					Abandonment Date: <input type="text" class="datepicker" id="abandonment_date"><br>
+					Program Entry Date: <input type="text" class="datepicker" id="program_entry_date"><br>
+					Program Departure Date:<input type="text" class="datepicker" id="program_departure_date"><br>
+					Reason: <input id="program_departure_reason"></textarea><br>
+					Child’s History: <textarea id="child_history" rows = "3" cols = "80"></textarea><br>
 					<br><input type="submit" value="Submit">
 				</fieldset>
 			</form>
