@@ -35,7 +35,7 @@ child_update_parser.replace_argument('sex', required=False)
 
 # child_note
 child_note_parser = reqparse.RequestParser()
-child_note_parser.add_argument('child_notedate', type=datetype, help=date_error_help)
+child_note_parser.add_argument('child_note_date', type=datetype, help=date_error_help)
 child_note_parser.add_argument('child_note', required=True)
 child_note_parser.add_argument('child_note_flag', type=bool)
 child_note_parser.add_argument('child_id', required=True)

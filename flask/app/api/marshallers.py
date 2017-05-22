@@ -8,11 +8,8 @@ class Date(fields.Raw):
 
 ################ Marshallers ####################
 
-base_fields = {
+child_fields = {
     'id': fields.Integer,
-    }
-child_fields = base_fields.copy()
-child_fields.update({
     'child_english_name': fields.String,
     'child_chinese_name': fields.String,
     'child_pinyin_name': fields.String,
@@ -25,7 +22,7 @@ child_fields.update({
     'program_departure_reason': fields.String,
     'child_history': fields.String,
     'medical_history': fields.String,
-})
+}
 child_note_fields = {
     'id': fields.Integer,
     'child_note_date': Date,
@@ -34,34 +31,41 @@ child_note_fields = {
     'child_id': fields.Integer,
 }
 partner_fields = {
+    'id': fields.Integer,
     'partner_english_name': fields.String,
     'partner_chinese_name': fields.String,
-    'partner_pinyin_name': fields.String
+    'partner_pinyin_name': fields.String,
+    'email': fields.String,
+    'phone': fields.String
 }
-partner_fields.update({'email': fields.String, 'phone': fields.String})
 caregiver_fields = {
+    'id': fields.Integer,
     'caregiver_english_name': fields.String,
     'caregiver_chinese_name': fields.String,
     'caregiver_pinyin_name': fields.String
 }
 specialist_fields = {
+    'id': fields.Integer,
     'specialist_english_name': fields.String,
     'specialist_chinese_name': fields.String,
     'specialist_pinyin_name': fields.String,
     'specialist_type_id': fields.Integer
 }
 specialist_type_fields = {
+    'id': fields.Integer,
     'specialist_type_english_name': fields.String,
     'specialist_type_chinese_name': fields.String,
     'specialist_type_pinyin_name': fields.String
 }
 milestone_type_category_fields = {
+    'id': fields.Integer,
     'milestone_type_category_english_name': fields.String,
     'milestone_type_category_chinese_name': fields.String,
     'milestone_type_category_pinyin_name': fields.String
 }
 
 milestone_type_fields = {
+    'id': fields.Integer,
     'milestone_type_english_name': fields.String,
     'milestone_type_chinese_name': fields.String,
     'milestone_type_pinyin_name': fields.String,
@@ -69,6 +73,7 @@ milestone_type_fields = {
 }
 
 doctor_type_fields = {
+    'id': fields.Integer,
     'doctor_type_english_name': fields.String,
     'doctor_type_chinese_name': fields.String,
     'doctor_type_pinyin_name': fields.String
@@ -85,6 +90,7 @@ doctor_fields = {
     'doctor_type_id': fields.Integer
     }
 measurement_type_fields = {
+    'id': fields.Integer,
     'measurement_type_english_name': fields.String,
     'measurement_type_chinese_name': fields.String,
     'measurement_type_pinyin_name': fields.String,
