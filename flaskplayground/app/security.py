@@ -1,6 +1,6 @@
 from passlib.context import CryptContext
 
- = CryptContext(
+pwd_context = CryptContext(
     # Replace this list with the hash(es) you wish to support.
     # this example sets pbkdf2_sha256 as the default,
     schemes=["pbkdf2_sha256"],
