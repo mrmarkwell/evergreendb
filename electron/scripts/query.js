@@ -22,7 +22,7 @@ function jsonTable(json, table_ref, columns) {
 
   // data rows
   for (var i=0; i<json.length; i++) {
-    table += "<tr>";
+    table += "<tr id="+json[i].id+" onclick=\"loadChild(id)\">";
     for (var j=0; j<columns.length; j++) {
       table += "<td>" + json[i][columns[j]];
     }
@@ -30,4 +30,8 @@ function jsonTable(json, table_ref, columns) {
 
   // write to table
   table_ref.innerHTML = table;
+}
+
+function loadChild(child_id) {
+	window.document.location="child.html?id="+child_id;
 }

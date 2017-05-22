@@ -11,6 +11,8 @@
 	<!-- Insert this line after script imports -->
 	<script>if (window.module) module = window.module;</script>
 
+	<script src="scripts/child.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
 	<!-- link rel="stylesheet" type="text/css" href="css/child.css"-->
 	<style>.datepicker{}</style>
@@ -19,14 +21,13 @@
 		$(document).ready(function() {
 			jQuery(".datepicker").datepicker({dateFormat: "yy-mm-dd"});
 			$("#childTab").tabs();
-			getTabData('child',2); // TODO: remove hard coding and get from query page or something
+			getTabData('child',getParameterByName("id"));
 		});
 	</script>
 
 </head>
 <body>
-	<script src="scripts/child.js"></script>
-	<h1 id="child_name_header"></h1>
+	<p><a href="query.html">Back</a></p>
 	<div id="childTab">
 		<ul>
 			<li><a href="#childTab-child">Child’s Data</a></li>
