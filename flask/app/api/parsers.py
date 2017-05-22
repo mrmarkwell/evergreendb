@@ -228,8 +228,8 @@ child_caregiver_update_parser.replace_argument('caregiver_id', type=int, require
 # child_measurement
 
 child_measurement_parser = reqparse.RequestParser()
-child_measurement_parser.add_argument('date', required=True, type=datetype, help=date_error_help)
-child_measurement_parser.add_argument('value', required=True, type=float)
+child_measurement_parser.add_argument('child_measurement_date', required=True, type=datetype, help=date_error_help)
+child_measurement_parser.add_argument('child_measurement_value', required=True, type=float)
 child_measurement_parser.add_argument('child_id', type=int, required=True)
 child_measurement_parser.add_argument('measurement_type_id', type=int, required=True)
 
@@ -242,7 +242,7 @@ child_measurement_update_parser.replace_argument('child_measurement_value', requ
 # child_milestone
 
 child_milestone_parser = reqparse.RequestParser()
-child_milestone_parser.add_argument('date', required=True, type=datetype, help=date_error_help)
+child_milestone_parser.add_argument('child_milestone_date', required=True, type=datetype, help=date_error_help)
 child_milestone_parser.add_argument('child_id', type=int, required=True)
 child_milestone_parser.add_argument('milestone_type_id', type=int, required=True)
 
