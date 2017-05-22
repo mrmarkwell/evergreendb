@@ -1,5 +1,6 @@
 import json
 
+from flask import g
 from db import get_session
 from sqlalchemy import text
 from sqlalchemy.sql.expression import and_
@@ -14,6 +15,44 @@ from flask_restful import fields
 from flask_restful import marshal_with
 from flask_restful import marshal
 from entity_data import entity_data, entity_names
+
+from app import login_manager
+from app.models import User
+from functools import wraps
+from flask_login import current_user, login_required
+
+
+def admin_required(f):
+    @wraps(f)
+    def wrapped(*args, **kwargs):
+        if current_user.is_authenticated and current_user.is_admin:
+            # invoke the wrapped function
+            return f(*args, **kwargs)
+        else:
+            abort(403)
+    return wrapped
+
+
+def editor_required(f):
+    @wraps(f)
+    def wrapped(*args, **kwargs):
+        if current_user.is_authenticated and current_user.is_editor:
+            # invoke the wrapped function
+            return f(*args, **kwargs)
+        else:
+            abort(403)
+    return wrapped
+
+
+@login_manager.request_loader
+def load_user_from_request(request):
+    if request.authorization:
+        username, password = request.authorization.username, request.authorization.password
+
+        user = User.query.filter_by(username=username).first()
+        if user and user.verify_password(password):
+            return user
+    return None
 
 ################ Resources ####################
 
@@ -49,6 +88,7 @@ class ResourceBase(Resource):
 
 
 class EntityResource(ResourceBase):
+    # decorators = [editor_required]
     # GET to get instances by filter arguments (e.g. ?english_name=Bobby&sex=M).
     # No arguments returns all entities of that type.
     def get(self, entity_name):
@@ -95,6 +135,7 @@ class EntityResource(ResourceBase):
 
 # Resource for getting valid entity names.
 class EntityListResource(ResourceBase):
+    # decorators = [login_required]
     def get(self):
         response = {"entity_names": entity_names}
         return response, 200
@@ -112,6 +153,8 @@ class FilterResource(ResourceBase):
           }
         }
     """
+
+    # decorators = [editor_required]
 
     def post(self):
         """filter using eq, lt, gt, ne or like"""
@@ -174,6 +217,7 @@ query_parser.add_argument('query', required=True)
 
 # A generic SQL query API
 class QueryResource(ResourceBase):
+    # decorators = [editor_required]
     def post(self):
         args = query_parser.parse_args()
         query = args['query']
@@ -190,6 +234,7 @@ class QueryResource(ResourceBase):
  
 # Resource for calling a session.rollback()
 class RollbackResource(ResourceBase):
+    # decorators = [editor_required]
     def post(self):
         self.session.rollback()
         response = {'message': 'Successfully rolled back the session!'}
@@ -200,3 +245,50 @@ class HeartbeatResource(ResourceBase):
     def get(self):
         response = {'message': 'beat'}
         return response, 200
+
+
+class UserResource(ResourceBase):
+    # decorators = [admin_required]
+    def get(self):
+        self.get_entity_data("user")
+        self.verify_filters()
+        entity = self.query.filter_by(**request.args.to_dict()).all()
+        if not entity:
+            abort(404, message="Entity {}: {} doesn't exist".format("user", request.args.to_dict()))
+        return marshal(entity, self.ed.marshaller), 200
+
+    # DELETE to delete a single entity instance
+    def delete(self):
+        self.get_entity_data("user")
+        entity = self.get_entity_by_id()
+        self.session.delete(entity)
+        self.session.commit()
+        return {}, 204
+
+    # PUT to update a single entity instance
+    def put(self):
+        self.get_entity_data("user")
+        entity = self.get_entity_by_id()
+        entity_args = self.ed.update_parser.parse_args()
+        raw_json = request.get_json()
+        for key in entity_args.keys():
+            # Only update keys that are sent in the Json body
+            if key in raw_json.keys():
+                setattr(entity, key, entity_args[key])
+        if "password" in raw_json.keys() :
+            entity.hash_password(entity.password)
+        self.session.add(entity)
+        self.session.commit()
+        return marshal(entity, self.ed.marshaller), 201
+
+    # Post to create a new entity
+    def post(self):
+        self.get_entity_data("user")
+        entity_args = self.ed.create_parser.parse_args()
+        entity = self.ed.class_type()
+        for key in entity_args.keys():
+            setattr(entity, key, entity_args[key])
+        entity.hash_password(entity.password)
+        self.session.add(entity)
+        self.session.commit()
+        return marshal(entity, self.ed.marshaller), 201

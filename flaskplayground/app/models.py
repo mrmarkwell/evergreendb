@@ -2,6 +2,8 @@
 
 from app import db
 from sqlalchemy import UniqueConstraint
+from security import pwd_context
+from flask_login import UserMixin
 
 # ------------------ Entities ------------------
 
@@ -308,4 +310,36 @@ class ChildMedication(db.Model):
     medication = db.relationship('Medication', back_populates='children')
 
     __table_args__ = (UniqueConstraint('child_id', 'medication_id', 'start_date'),)
+
+class User(UserMixin, db.Model):
+    __tablename__ = 'user'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.Unicode(255), unique=True, index=True)
+    password_hash = db.Column(db.Unicode(255))
+    is_admin = db.Column(db.Boolean(), default=False)
+    is_editor = db.Column(db.Boolean(), default=False)
+    #email = db.Column(db.Unicode(255))
+    #created = db.Column(db.DateTime)
+
+    def hash_password(self, password):
+        self.password_hash = pwd_context.hash(password)
+
+    def verify_password(self, password):
+        return pwd_context.verify(password, self.password_hash)
+
+    @property
+    def is_authenticated(self):
+        return True
+
+    @property
+    def is_active(self):
+        return True
+
+    @property
+    def is_anonymous(self):
+        return False
+
+    @property
+    def get_id(self):
+        return unicode(self.id)
 
