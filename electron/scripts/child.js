@@ -1,27 +1,3 @@
-function getParameterByName(name, url) {
-	var regex = new RegExp("[?&]" + name + "=(.*)(&|$|#)");
-	results = regex.exec(window.location.href);
-	if (!url) url = window.location.href;
-	if (!results) return null;
-	if (!results[1]) return '';
-	return decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-
-function getTabData(entity, child_id) {
-	var BASE_URL = "http://127.0.0.1:5000/";
-	var xhr = new XMLHttpRequest();
-	xhr.withCredentials = true;
-	xhr.addEventListener("readystatechange", function () {
-		if (this.readyState === 4) {
-			fillChildTabData(JSON.parse(this.responseText));
-		}
-	});
-	var query = jQuery.param({"id":child_id});
-	var url = BASE_URL + "entity/" + entity + "?" + query;
-	xhr.open("GET", url);
-	xhr.send(null);
-}
-
 function fillChildTabData(json) {
 	// Make sure only one child is returned and get that child from array
 	if (json.length != 1) {
@@ -61,4 +37,8 @@ function fillAge(birthdate_str) {
 		age--;
 	}
 	document.getElementById('age').innerHTML = age;
+}
+
+function fillMedicalConditionsDropdown(json) {
+
 }

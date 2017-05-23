@@ -6,22 +6,30 @@
 	<!-- Insert this line above script imports  -->
 	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
 	<!-- normal script imports etc  -->
-	<script src="scripts/jquery.min.js"></script>	
-	<script src="scripts/jquery-ui.min.js"></script>	
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/jquery-ui.min.js"></script>
+	<script src="scripts/chosen.jquery.min.js"></script>
 	<!-- Insert this line after script imports -->
 	<script>if (window.module) module = window.module;</script>
 
 	<script src="scripts/child.js"></script>
+	<script src="scripts/lib.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="css/chosen.css">
 	<!-- link rel="stylesheet" type="text/css" href="css/child.css"-->
+	<link rel="stylesheet" type="text/css" href="css/child.css">
 	<style>.datepicker{}</style>
 
 	<script>
 		$(document).ready(function() {
+			jQuery("#childTab").tabs();
 			jQuery(".datepicker").datepicker({dateFormat: "yy-mm-dd"});
-			$("#childTab").tabs();
-			getTabData('child',getParameterByName("id"));
+			jQuery(".chosen-select").chosen({width: "95%"});
+			restGet(
+				"entity/child?"+jQuery.param({"id":getParameterByName("id")}),
+				fillChildTabData
+			);
 		});
 	</script>
 
@@ -65,7 +73,7 @@
 				<fieldset>
 					<legend>Medical Information:</legend>
 					Diagnosis:
-					<select id="Diagnosis" name="Diagnosis">
+					<select id="medical_condition" name="Diagnosis" class="chosen-select" multiple>
 						<option value="CP">CP</option>
 						<option value="Autism">Autism</option>
 						<option value="Intellectual Disability">Intellectual Disability</option>
