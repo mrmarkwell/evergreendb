@@ -23,6 +23,7 @@ from entity_data import entity_data, entity_names
 class ResourceBase(Resource):
     def __init__(self):
         self.ed = None
+        self.ed_list = list()
         self.query = None
         self.session = get_session()
 
@@ -30,8 +31,10 @@ class ResourceBase(Resource):
     def get_entity_data(self, name):
         if name not in entity_names:
             abort(404, message="Invalid entity name: '" + name + "'. Legal entity names are: " + ", ".join(entity_names))
-        self.ed = entity_data[name]
-        self.query = self.session.query(self.ed.class_type)
+        if self.ed is None:
+            self.ed = entity_data[name]
+        self.ed_list.append(entity_data[name])
+        #self.query = self.session.query(self.ed.class_type)
  
     # For operations that can only be performed on one entity, get that entity by id
     # Throw an error if 'id' was not specified in the request.
@@ -54,14 +57,37 @@ class EntityResource(ResourceBase):
     # GET to get instances by filter arguments (e.g. ?english_name=Bobby&sex=M).
     # No arguments returns all entities of that type.
     def get(self, entity_name):
-        self.get_entity_data(entity_name)
-        self.verify_filters()
-        entity = self.query.filter_by(**request.args.to_dict()).all()
-        if not entity:
-            abort(404, message="Entity {}: {} doesn't exist".format(entity_name, request.args.to_dict()))
-        return marshal(entity, self.ed.marshaller), 200
+        names = [x.strip() for x in entity_name.split(',')]
+        for name in names:
+            self.get_entity_data(name)
+        marshaller = dict()
+        classes = [x.class_type for x in self.ed_list]
+        query = self.session.query()
+        filters = request.args.to_dict()
+        attrs = filters.keys()
+        first = True
+        for ed in self.ed_list:
+            query = query.add_entity(ed.class_type)
+            # Skip joining the first one. That's just how SQLAlchemy works.
+            # We can't "join" the first table in the class list to itself.
+            if not first:
+                query = query.join(ed.class_type)
+            marshaller.update(ed.marshaller)
+            sub_attrs = [x for x in attrs if hasattr(ed.class_type, x)]
+            sub_filters = { key: filters[key] for key in sub_attrs }
+            if sub_filters:
+                query = query.filter_by(**sub_filters)
+            first = False
+        # This is a hack to get the same query but without column labels
+        # Not sure what the "right" way to do it is
+        sq = query.subquery(with_labels=False)
+        result = self.session.execute(sq)
+        result_dict = []
+        for row in result:
+            result_dict.append(dict(zip(row.keys(), row)))
+        return marshal(result_dict, marshaller), 200
 
-    # DELETE to delete a single entity instance
+        # DELETE to delete a single entity instance
     def delete(self, entity_name):
         self.get_entity_data(entity_name)
         entity = self.get_entity_by_id()
