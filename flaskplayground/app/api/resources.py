@@ -4,7 +4,7 @@ from flask import g
 from db import get_session
 from sqlalchemy import text
 from sqlalchemy.sql.expression import and_
-from flask import request
+from flask import request, current_app
 from flask import jsonify
 from pprint import pprint as pp
 
@@ -25,6 +25,7 @@ from flask_login import current_user, login_required
 def admin_required(f):
     @wraps(f)
     def wrapped(*args, **kwargs):
+        if current_app.config.get("LOGIN_DISABLED"): return f(*args, **kwargs)
         if current_user.is_authenticated and current_user.is_admin:
             # invoke the wrapped function
             return f(*args, **kwargs)
@@ -36,6 +37,7 @@ def admin_required(f):
 def editor_required(f):
     @wraps(f)
     def wrapped(*args, **kwargs):
+        if current_app.config.get("LOGIN_DISABLED"): return f(*args, **kwargs)
         if current_user.is_authenticated and current_user.is_editor:
             # invoke the wrapped function
             return f(*args, **kwargs)
@@ -58,6 +60,7 @@ def load_user_from_request(request):
 
 # Base resource class for resource data.
 class ResourceBase(Resource):
+    decorators = [login_required]
     def __init__(self):
         self.ed = None
         self.query = None
@@ -88,7 +91,6 @@ class ResourceBase(Resource):
 
 
 class EntityResource(ResourceBase):
-    # decorators = [editor_required]
     # GET to get instances by filter arguments (e.g. ?english_name=Bobby&sex=M).
     # No arguments returns all entities of that type.
     def get(self, entity_name):
@@ -135,7 +137,6 @@ class EntityResource(ResourceBase):
 
 # Resource for getting valid entity names.
 class EntityListResource(ResourceBase):
-    # decorators = [login_required]
     def get(self):
         response = {"entity_names": entity_names}
         return response, 200
@@ -217,7 +218,6 @@ query_parser.add_argument('query', required=True)
 
 # A generic SQL query API
 class QueryResource(ResourceBase):
-    # decorators = [editor_required]
     def post(self):
         args = query_parser.parse_args()
         query = args['query']
@@ -234,21 +234,20 @@ class QueryResource(ResourceBase):
  
 # Resource for calling a session.rollback()
 class RollbackResource(ResourceBase):
-    # decorators = [editor_required]
     def post(self):
         self.session.rollback()
         response = {'message': 'Successfully rolled back the session!'}
         return response, 200
 
 # Resource for checking online status
-class HeartbeatResource(ResourceBase):
+class HeartbeatResource(Resource):
     def get(self):
         response = {'message': 'beat'}
         return response, 200
 
 
 class UserResource(ResourceBase):
-    # decorators = [admin_required]
+    decorators = [admin_required]
     def get(self):
         self.get_entity_data("user")
         self.verify_filters()
