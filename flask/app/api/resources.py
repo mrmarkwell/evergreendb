@@ -9,6 +9,8 @@ from sqlalchemy.sql.expression import and_
 from flask import request
 from flask import jsonify
 
+from marshallers import DATE_FMT
+
 from flask_restful import reqparse
 from flask_restful import abort
 from flask_restful import Resource
@@ -52,7 +54,6 @@ class ResourceBase(Resource):
             if not hasattr(self.ed.class_type, attr):
                 abort (404, message="Class {} does not have filter attribute {}!".format(self.ed.class_type.__name__, attr))
 
-
 class EntityResource(ResourceBase):
     # GET to get instances by filter arguments (e.g. ?english_name=Bobby&sex=M).
     # No arguments returns all entities of that type.
@@ -74,9 +75,11 @@ class EntityResource(ResourceBase):
                 query = query.join(ed.class_type)
             marshaller.update(ed.marshaller)
             sub_attrs = [x for x in attrs if hasattr(ed.class_type, x)]
-            sub_filters = { key: filters[key] for key in sub_attrs }
+            sub_filters = [
+                self.parse_filter(ed.class_type, attribute, filters[attribute]) for attribute in sub_attrs
+            ]
             if sub_filters:
-                query = query.filter_by(**sub_filters)
+                query = query.filter(and_(*sub_filters))
             first = False
         # This is a hack to get the same query but without column labels
         # Not sure what the "right" way to do it is
@@ -87,7 +90,49 @@ class EntityResource(ResourceBase):
             result_dict.append(dict(zip(row.keys(), row)))
         return marshal(result_dict, marshaller), 200
 
-        # DELETE to delete a single entity instance
+    @classmethod
+    def parse_filter(cls, e_class, attribute, filterblob):
+        """parse filter with format "op,val", if op is left off
+        it is assumed to be "eq"
+        Available operations
+            eq: equal
+            ne: not equal
+            gt: greater than
+            ge: greater than or equal to
+            lt: less than
+            le: less than or equal to
+            like: like
+        """
+        opval = filterblob.split(',')
+        if len(opval) == 1:
+            opval = ['eq'] + opval
+        try:
+            op, val = tuple(opval)
+        except ValueError:
+            msg = ("Improperly formatted filter {}. Use format 'op,val'"
+                   " or just 'val' (default op is 'eq'). For example,"
+                   " ?medication_id=gt,4".format(filterblob))
+            abort(400, msg)
+        try:
+            val = datetime.strptime(val, DATE_FMT)
+        except ValueError:
+            pass
+        if op == 'eq':
+            return getattr(e_class, attribute) == val
+        if op == 'lt':
+            return getattr(e_class, attribute) < val
+        if op == 'le':
+            return getattr(e_class, attribute) <= val
+        if op == 'gt':
+            return getattr(e_class, attribute) > val
+        if op == 'ge':
+            return getattr(e_class, attribute) >= val
+        if op == 'ne':
+            return getattr(e_class, attribute) != val
+        if op == 'like':
+            return getattr(e_class, attribute).like(val)
+
+    # DELETE to delete a single entity instance
     def delete(self, entity_name):
         self.get_entity_data(entity_name)
         entity = self.get_entity_by_id()
