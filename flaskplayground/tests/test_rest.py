@@ -48,6 +48,7 @@ class TestFlaskRestApi(unittest.TestCase):
            os.path.join(basedir, 'test.db')
         db.create_all()
         app.config['TESTING'] = True
+        app.config['LOGIN_DISABLED'] = True
         self.app = app.test_client()
 
     def tearDown(self):
