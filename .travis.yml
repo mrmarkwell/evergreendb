@@ -2,7 +2,7 @@ language: python
 python: 
   - "2.7"
 before_install:
-  - cd flaskplayground
+  - cd flask
 install: 
   - pip install -r requirements.txt
 script:

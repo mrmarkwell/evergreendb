@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <!-- normal script imports etc  -->
+    <script src="scripts/jquery.min.js"></script>    
+    <script src="scripts/jquery-ui.min.js"></script>    
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+  </head>
+  <body>
+    <script src="scripts/rest.js"></script>
+    <script>
+      $(function() {
+        $( "#calendar" ).datepicker({
+          dateFormat: "yy/mm/dd",
+		});   
+      });
+    </script>
+    <h2>A calendar whos default date is the most recent stock trading day</h2>
+    <p>Calendar: <input type="text" id="calendar" /></p>
+    <script>
+        var last_trade_date = $.datepicker.parseDate("mm/dd/yy",restGet(
+          "http://query.yahooapis.com/v1/public/yql?format=json&env=store://datatables.org/alltableswithkeys&q=" + encodeURIComponent("select * from yahoo.finance.quotes where symbol=\"INTC\"")
+        ).query.results.quote.LastTradeDate);
+		document.getElementById("calendar").value = $.datepicker.formatDate("yy/mm/dd",last_trade_date);
+    </script>
+    <script src="scripts/table.js"></script>
+    <h2>table</h2>
+    <p>
+      <table id=child_table></table>
+      <script>
+        getAllChildren(function(json) {jsonTable("child_table",json,["english_name"]);});
+      </script>
+    </p>
+  </body>
+</html>

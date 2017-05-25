@@ -1,0 +1,14 @@
+Electron installation instructions:
+
+1. Install node.js
+Ubuntu: https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions
+Windows: https://nodejs.org/en/download/
+
+2. Download dependecies and run the app
+cd electron
+npm install
+npm start
+
+Build the app executable:
+npm run build # for current platform
+npm run buildall # for all platforms

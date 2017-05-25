@@ -44,4 +44,23 @@ To set up Postman:
 - Run the backend run.py script on your local system (see Quick Start guide above)
 - Choose a Postman request from the EvergreenDB collection on the left side of Postman and click "Send" to execute the request.
 
+# Frontend Quick start Guide
 
+To get started using the frontend follow these steps:
+
+Install node.js:  
+Ubuntu: https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions  
+Windows: https://nodejs.org/en/download/
+
+Install dependencies and run app:  
+```
+cd electron
+npm install
+npm start
+```
+
+Package app as executable:
+```
+npm run build # for current OS
+npm run buildall # for all OSs
+```

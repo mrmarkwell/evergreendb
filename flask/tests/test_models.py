@@ -34,8 +34,10 @@ class TestEntityCreation(unittest.TestCase):
         db.drop_all()
 
     def test_entity_creation_child(self):
-        child = models.Child(english_name=E_NAME,
-                             chinese_name=C_NAME, pinyin_name=P_NAME)
+        child = models.Child(
+            child_english_name=E_NAME,
+            child_chinese_name=C_NAME, 
+            child_pinyin_name=P_NAME)
         db.session.add(child)
         db.session.commit()
         children = db.session.query(models.Child).all()
@@ -43,9 +45,9 @@ class TestEntityCreation(unittest.TestCase):
 
     def test_entity_creation_child_note(self):
         child_note = models.ChildNote(
-            note=NOTE,
-            flag=FLAG,
-            date=TODAY,
+            child_note=NOTE,
+            child_note_flag=FLAG,
+            child_note_date=TODAY,
             child_id=0
         )
         db.session.add(child_note)
@@ -56,9 +58,9 @@ class TestEntityCreation(unittest.TestCase):
 
     def test_entity_creation_partner(self):
         partner = models.Partner(
-            english_name=E_NAME,
-            chinese_name=C_NAME,
-            pinyin_name=P_NAME,
+            partner_english_name=E_NAME,
+            partner_chinese_name=C_NAME,
+            partner_pinyin_name=P_NAME,
             email=unicode('example@example.com')
         )
         db.session.add(partner)
@@ -68,9 +70,9 @@ class TestEntityCreation(unittest.TestCase):
 
     def test_entity_creation_caregiver(self):
         caregiver = models.Caregiver(
-            english_name=E_NAME,
-            chinese_name=C_NAME,
-            pinyin_name=P_NAME,
+            caregiver_english_name=E_NAME,
+            caregiver_chinese_name=C_NAME,
+            caregiver_pinyin_name=P_NAME,
         )
         db.session.add(caregiver)
         db.session.commit()
@@ -79,9 +81,9 @@ class TestEntityCreation(unittest.TestCase):
 
     def test_entity_creation_specialist(self):
         specialist = models.Specialist(
-            english_name=E_NAME,
-            chinese_name=C_NAME,
-            pinyin_name=P_NAME,
+            specialist_english_name=E_NAME,
+            specialist_chinese_name=C_NAME,
+            specialist_pinyin_name=P_NAME,
         )
         db.session.add(specialist)
         db.session.commit()
@@ -90,9 +92,9 @@ class TestEntityCreation(unittest.TestCase):
 
     def test_entity_creation_specialist_type(self):
         specialist_type = models.SpecialistType(
-            english_name=E_NAME,
-            chinese_name=C_NAME,
-            pinyin_name=P_NAME,
+            specialist_type_english_name=E_NAME,
+            specialist_type_chinese_name=C_NAME,
+            specialist_type_pinyin_name=P_NAME,
         )
         db.session.add(specialist_type)
         db.session.commit()
@@ -101,9 +103,9 @@ class TestEntityCreation(unittest.TestCase):
 
     def test_entity_creation_milestone_type(self):
         milestone_type = models.MilestoneType(
-            english_name=E_NAME,
-            chinese_name=C_NAME,
-            pinyin_name=P_NAME,
+            milestone_type_english_name=E_NAME,
+            milestone_type_chinese_name=C_NAME,
+            milestone_type_pinyin_name=P_NAME,
         )
         db.session.add(milestone_type)
         db.session.commit()
@@ -112,9 +114,9 @@ class TestEntityCreation(unittest.TestCase):
 
     def test_entity_creation_milestone_type_category(self):
         milestone_type_category = models.MilestoneTypeCategory(
-            english_name=E_NAME,
-            chinese_name=C_NAME,
-            pinyin_name=P_NAME,
+            milestone_type_category_english_name=E_NAME,
+            milestone_type_category_chinese_name=C_NAME,
+            milestone_type_category_pinyin_name=P_NAME,
         )
         db.session.add(milestone_type_category)
         db.session.commit()
@@ -138,9 +140,9 @@ class TestEntityCreation(unittest.TestCase):
 
     def test_entity_creation_doctor_type(self):
         doctor_type = models.DoctorType(
-            english_name=E_NAME,
-            chinese_name=C_NAME,
-            pinyin_name=P_NAME,
+            doctor_type_english_name=E_NAME,
+            doctor_type_chinese_name=C_NAME,
+            doctor_type_pinyin_name=P_NAME,
         )
         db.session.add(doctor_type)
         db.session.commit()
@@ -149,9 +151,9 @@ class TestEntityCreation(unittest.TestCase):
 
     def test_entity_creation_measurement_type(self):
         measurement_type = models.MeasurementType(
-            english_name=E_NAME,
-            chinese_name=C_NAME,
-            pinyin_name=P_NAME,
+            measurement_type_english_name=E_NAME,
+            measurement_type_chinese_name=C_NAME,
+            measurement_type_pinyin_name=P_NAME,
         )
         db.session.add(measurement_type)
         db.session.commit()
@@ -160,9 +162,9 @@ class TestEntityCreation(unittest.TestCase):
 
     def test_entity_creation_camp(self):
         camp = models.Camp(
-            english_name=E_NAME,
-            chinese_name=C_NAME,
-            pinyin_name=P_NAME,
+            camp_english_name=E_NAME,
+            camp_chinese_name=C_NAME,
+            camp_pinyin_name=P_NAME,
         )
         db.session.add(camp)
         db.session.commit()
@@ -171,9 +173,9 @@ class TestEntityCreation(unittest.TestCase):
 
     def test_entity_creation_medical_condition(self):
         medical_condition = models.MedicalCondition(
-            english_name=E_NAME,
-            chinese_name=C_NAME,
-            pinyin_name=P_NAME,
+            medical_condition_english_name=E_NAME,
+            medical_condition_chinese_name=C_NAME,
+            medical_condition_pinyin_name=P_NAME,
         )
         db.session.add(medical_condition)
         db.session.commit()
@@ -182,9 +184,9 @@ class TestEntityCreation(unittest.TestCase):
 
     def test_entity_creation_medication(self):
         medication = models.Medication(
-            english_name=E_NAME,
-            chinese_name=C_NAME,
-            pinyin_name=P_NAME,
+            medication_english_name=E_NAME,
+            medication_chinese_name=C_NAME,
+            medication_pinyin_name=P_NAME,
         )
         db.session.add(medication)
         db.session.commit()
@@ -228,10 +230,10 @@ class TestAssociationCreation(unittest.TestCase):
         partners = db.session.query(models.Partner).all()
         partner = random.choice(partners)
         child_partner = models.ChildPartner(
-            start_date=TODAY,
-            end_date=TODAY,
-            note=NOTE,
-            flag=FLAG,
+            child_partner_start_date=TODAY,
+            child_partner_end_date=TODAY,
+            child_partner_note=NOTE,
+            child_partner_note_flag=FLAG,
             child_id=child.id,
             partner_id=partner.id
         )
@@ -251,8 +253,8 @@ class TestAssociationCreation(unittest.TestCase):
         camps = db.session.query(models.Camp).all()
         camp = random.choice(camps)
         child_camp = models.ChildCamp(
-            date=TODAY,
-            note=NOTE,
+            child_camp_date=TODAY,
+            child_camp_note=NOTE,
             child_id=child.id,
             camp_id=camp.id
         )
@@ -272,9 +274,9 @@ class TestAssociationCreation(unittest.TestCase):
         specialists = db.session.query(models.Specialist).all()
         specialist = random.choice(specialists)
         child_assessment = models.ChildAssessment(
-            date=TODAY,
-            note=NOTE,
-            flag=FLAG,
+            child_assessment_date=TODAY,
+            child_assessment_note=NOTE,
+            child_assessment_note_flag=FLAG,
             child_id=child.id,
             specialist_id=specialist.id
         )
@@ -295,9 +297,9 @@ class TestAssociationCreation(unittest.TestCase):
         caregivers = db.session.query(models.Caregiver).all()
         caregiver = random.choice(caregivers)
         child_caregiver = models.ChildCaregiver(
-            start_date=TODAY,
-            end_date=TODAY,
-            note=NOTE,
+            child_caregiver_start_date=TODAY,
+            child_caregiver_end_date=TODAY,
+            child_caregiver_note=NOTE,
             child_id=child.id,
             caregiver_id=caregiver.id
         )
@@ -318,8 +320,8 @@ class TestAssociationCreation(unittest.TestCase):
         measurements = db.session.query(models.MeasurementType).all()
         measurement = random.choice(measurements)
         child_measurement = models.ChildMeasurement(
-            date=TODAY,
-            value=0,
+            child_measurement_date=TODAY,
+            child_measurement_value=0,
             child_id=child.id,
             measurement_type_id=measurement.id
         )
@@ -340,7 +342,7 @@ class TestAssociationCreation(unittest.TestCase):
         milestones = db.session.query(models.MilestoneType).all()
         milestone = random.choice(milestones)
         child_milestone = models.ChildMilestone(
-            date=TODAY,
+            child_milestone_date=TODAY,
             child_id=child.id,
             milestone_type_id=milestone.id
         )
@@ -361,8 +363,8 @@ class TestAssociationCreation(unittest.TestCase):
         doctors = db.session.query(models.Doctor).all()
         doctor = random.choice(doctors)
         child_doctor_visit = models.ChildDoctorVisit(
-            date=TODAY,
-            note=NOTE,
+            child_doctor_visit_date=TODAY,
+            child_doctor_visit_note=NOTE,
             child_id=child.id,
             doctor_id=doctor.id
         )
@@ -404,8 +406,8 @@ class TestAssociationCreation(unittest.TestCase):
         medications = db.session.query(models.Medication).all()
         medication = random.choice(medications)
         child_medication = models.ChildMedication(
-            start_date=TODAY,
-            end_date=TODAY,
+            child_medication_start_date=TODAY,
+            child_medication_end_date=TODAY,
             dosage1=0.0,
             dosage2=0.0,
             dosage3=0.0,

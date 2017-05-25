@@ -1,0 +1,22 @@
+{
+  "name": "evergreendb",
+  "version": "0.1.0",
+  "description": "A front end to access the Evergreen database",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "gulp",
+    "buildall": "electron-packager . evergreendb --out=dist --asar --overwrite --all",
+    "build": "electron-packager . evergreendb --out=dist --asar --overwrite" 
+  },
+  "devDependencies": {
+    "phantomjs-prebuilt": "latest",
+    "electron": "latest",
+	"gulp-qunit": "latest",
+    "qunitjs": "latest",
+    "gulp": "latest",
+    "devtron": "latest",
+    "electron-packager": "latest",
+    "node-rest-client": "latest"
+  }
+}

@@ -1,0 +1,35 @@
+Notes:
+1. remember interface should be multilingual!
+2. Need way to store variables for use between pages, might need to use IPC and store in main process instead of render process (or find another way)
+
+login:
+can enter username and password then submit/load another screen
+Saves the username and password (in memory only) for use in REST calls from other pages. (note2)
+
+query/child selection:
+dynamic table, columns and rows not hard coded
+way to select which columns are displayed
+way to filter (using filter REST endpoint) and see currently applied filters.
+(optional?) advanced filter button to allow direct sql queries (maybe also add some way to make table joins easier?)
+easy way to select multiple children
+next button to go to main page and pass selcted children (using note2 or maybe using url query variables)
+
+child view:
+tabbed interface with data for a child
+when data is changed a save button is enabled that puts changes
+list of children (that were selected in query) that when clicked 
+  a) warns unsaved changes will be lost if applicable with cancel and discard options 
+  b) loads/displays selected child's data and stays in current tab (or goes to main tab if you thin that's better instead)
+new child button that behaves similarly to selecting a child but empties all fields and somehow knows to post instead of put when save is clicked
+
+settings/management:
+language select! Though maybe this is better in the login screen?
+(optional) change password
+reset password (admins only)
+add/remove users (admins only)
+
+todo/flagged:
+show list of flagged notes
+clicking on one goes to notes tab of child view with that note/child
+(optional) clicking on one instead shows full text of note and child name to one side and clicking on child name goes to notes tab of child view
+

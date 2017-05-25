@@ -10,9 +10,9 @@ from flask_login import UserMixin
 class Child(db.Model):
     __tablename__ = 'child'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    child_english_name = db.Column(db.Unicode(255))
+    child_chinese_name = db.Column(db.Unicode(255))
+    child_pinyin_name = db.Column(db.Unicode(255))
     nickname = db.Column(db.Unicode(255))
     sex = db.Column(db.Unicode(1))
     birth_date = db.Column(db.DateTime)
@@ -22,7 +22,7 @@ class Child(db.Model):
     program_departure_reason = db.Column(db.UnicodeText)
     child_history = db.Column(db.UnicodeText)
     medical_history = db.Column(db.UnicodeText)
-    notes = db.relationship('ChildNote')
+    child_notes = db.relationship('ChildNote')
 
     # Association mapping
     partners = db.relationship('ChildPartner', back_populates='child')
@@ -42,18 +42,18 @@ class Child(db.Model):
 class ChildNote(db.Model):
     __tablename__ = 'child_note'
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime)
-    note = db.Column(db.UnicodeText)
-    flag = db.Column(db.Boolean)
+    child_note_date = db.Column(db.DateTime)
+    child_note = db.Column(db.UnicodeText)
+    child_note_flag = db.Column(db.Boolean)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
 
 
 class Partner(db.Model):
     __tablename__ = 'partner'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    partner_english_name = db.Column(db.Unicode(255))
+    partner_chinese_name = db.Column(db.Unicode(255))
+    partner_pinyin_name = db.Column(db.Unicode(255))
     email = db.Column(db.Unicode(255))
     address = db.Column(db.Unicode(255))
     phone = db.Column(db.Unicode(255))
@@ -66,9 +66,9 @@ class Partner(db.Model):
 class Caregiver(db.Model):
     __tablename__ = 'caregiver'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    caregiver_english_name = db.Column(db.Unicode(255))
+    caregiver_chinese_name = db.Column(db.Unicode(255))
+    caregiver_pinyin_name = db.Column(db.Unicode(255))
     children = db.relationship('ChildCaregiver', back_populates='caregiver')
 
     def __repr__(self):
@@ -78,9 +78,9 @@ class Caregiver(db.Model):
 class Specialist(db.Model):
     __tablename__ = 'specialist'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    specialist_english_name = db.Column(db.Unicode(255))
+    specialist_chinese_name = db.Column(db.Unicode(255))
+    specialist_pinyin_name = db.Column(db.Unicode(255))
     specialist_type_id = db.Column(db.Integer, db.ForeignKey('specialist_type.id'))
     children = db.relationship('ChildAssessment', back_populates='specialist')
 
@@ -91,9 +91,9 @@ class Specialist(db.Model):
 class SpecialistType(db.Model):
     __tablename__ = 'specialist_type'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    specialist_type_english_name = db.Column(db.Unicode(255))
+    specialist_type_chinese_name = db.Column(db.Unicode(255))
+    specialist_type_pinyin_name = db.Column(db.Unicode(255))
     specialists = db.relationship('Specialist')
 
     def __repr__(self):
@@ -103,9 +103,9 @@ class SpecialistType(db.Model):
 class MilestoneTypeCategory(db.Model):
     __tablename__ = 'milestone_type_category'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    milestone_type_category_english_name = db.Column(db.Unicode(255))
+    milestone_type_category_chinese_name = db.Column(db.Unicode(255))
+    milestone_type_category_pinyin_name = db.Column(db.Unicode(255))
     milestone_types = db.relationship('MilestoneType')
 
     def __repr__(self):
@@ -115,9 +115,9 @@ class MilestoneTypeCategory(db.Model):
 class MilestoneType(db.Model):
     __tablename__ = 'milestone_type'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    milestone_type_english_name = db.Column(db.Unicode(255))
+    milestone_type_chinese_name = db.Column(db.Unicode(255))
+    milestone_type_pinyin_name = db.Column(db.Unicode(255))
     milestone_type_category_id = db.Column(
         db.Unicode(16),
         db.ForeignKey('milestone_type_category.id')
@@ -131,9 +131,9 @@ class MilestoneType(db.Model):
 class DoctorType(db.Model):
     __tablename__ = 'doctor_type'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    doctor_type_english_name = db.Column(db.Unicode(255))
+    doctor_type_chinese_name = db.Column(db.Unicode(255))
+    doctor_type_pinyin_name = db.Column(db.Unicode(255))
     doctors = db.relationship('Doctor')
 
     def __repr__(self):
@@ -159,9 +159,9 @@ class Doctor(db.Model):
 class MeasurementType(db.Model):
     __tablename__ = 'measurement_type'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    measurement_type_english_name = db.Column(db.Unicode(255))
+    measurement_type_chinese_name = db.Column(db.Unicode(255))
+    measurement_type_pinyin_name = db.Column(db.Unicode(255))
     units = db.Column(db.Unicode(255))
     children = db.relationship('ChildMeasurement', back_populates='measurement_type')
 
@@ -172,27 +172,27 @@ class MeasurementType(db.Model):
 class Camp(db.Model):
     __tablename__ = 'camp'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    camp_english_name = db.Column(db.Unicode(255))
+    camp_chinese_name = db.Column(db.Unicode(255))
+    camp_pinyin_name = db.Column(db.Unicode(255))
     children = db.relationship('ChildCamp', back_populates='camp')
 
 
 class MedicalCondition(db.Model):
     __tablename__ = 'medical_condition'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    medical_condition_english_name = db.Column(db.Unicode(255))
+    medical_condition_chinese_name = db.Column(db.Unicode(255))
+    medical_condition_pinyin_name = db.Column(db.Unicode(255))
     children = db.relationship('ChildMedicalCondition', back_populates='medical_condition')
 
 
 class Medication(db.Model):
     __tablename__ = 'medication'
     id = db.Column(db.Integer, primary_key=True)
-    english_name = db.Column(db.Unicode(255))
-    chinese_name = db.Column(db.Unicode(255))
-    pinyin_name = db.Column(db.Unicode(255))
+    medication_english_name = db.Column(db.Unicode(255))
+    medication_chinese_name = db.Column(db.Unicode(255))
+    medication_pinyin_name = db.Column(db.Unicode(255))
     milligram_dose = db.Column(db.Float)
     children = db.relationship('ChildMedication', back_populates='medication')
 
@@ -202,71 +202,71 @@ class Medication(db.Model):
 class ChildPartner(db.Model):
     __tablename__ = 'child_partner'
     id = db.Column(db.Integer, primary_key=True)
-    start_date = db.Column(db.DateTime)
-    end_date = db.Column(db.DateTime)
-    note = db.Column(db.UnicodeText)
-    flag = db.Column(db.Boolean)
+    child_partner_start_date = db.Column(db.DateTime)
+    child_partner_end_date = db.Column(db.DateTime)
+    child_partner_note = db.Column(db.UnicodeText)
+    child_partner_note_flag = db.Column(db.Boolean)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
     partner_id = db.Column(db.Integer, db.ForeignKey('partner.id'))
     child = db.relationship('Child', back_populates='partners')
     partner = db.relationship('Partner', back_populates='children')
-    __table_args__ = (UniqueConstraint('child_id', 'partner_id', 'start_date'),)
+    __table_args__ = (UniqueConstraint('child_id', 'partner_id', 'child_partner_start_date'),)
 
 
 class ChildCamp(db.Model):
     __tablename__ = 'child_camp'
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime)
-    note = db.Column(db.UnicodeText)
+    child_camp_date = db.Column(db.DateTime)
+    child_camp_note = db.Column(db.UnicodeText)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
     camp_id = db.Column(db.Integer, db.ForeignKey('camp.id'))
     child = db.relationship('Child', back_populates='camps')
     camp = db.relationship('Camp', back_populates='children')
 
-    __table_args__ = (UniqueConstraint('child_id', 'camp_id', 'date'),)
+    __table_args__ = (UniqueConstraint('child_id', 'camp_id', 'child_camp_date'),)
 
 class ChildAssessment(db.Model):
     __tablename__ = 'child_assessment'
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime)
-    note = db.Column(db.UnicodeText)
-    flag = db.Column(db.Boolean)
+    child_assessment_date = db.Column(db.DateTime)
+    child_assessment_note = db.Column(db.UnicodeText)
+    child_assessment_note_flag = db.Column(db.Boolean)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
     specialist_id = db.Column(db.Integer, db.ForeignKey('specialist.id'))
     child = db.relationship('Child', back_populates='specialists')
     specialist = db.relationship('Specialist', back_populates='children')
 
-    __table_args__ = (UniqueConstraint('child_id', 'specialist_id', 'date'),)
+    __table_args__ = (UniqueConstraint('child_id', 'specialist_id', 'child_assessment_date'),)
 
 class ChildCaregiver(db.Model):
     __tablename__ = 'child_caregiver'
     id = db.Column(db.Integer, primary_key=True)
-    start_date = db.Column(db.DateTime)
-    end_date = db.Column(db.DateTime)
-    note = db.Column(db.UnicodeText)
+    child_caregiver_start_date = db.Column(db.DateTime)
+    child_caregiver_end_date = db.Column(db.DateTime)
+    child_caregiver_note = db.Column(db.UnicodeText)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
     caregiver_id = db.Column(db.Integer, db.ForeignKey('caregiver.id'))
     child = db.relationship('Child', back_populates='caregivers')
     caregiver = db.relationship('Caregiver', back_populates='children')
 
-    __table_args__ = (UniqueConstraint('child_id', 'caregiver_id', 'start_date'),)
+    __table_args__ = (UniqueConstraint('child_id', 'caregiver_id', 'child_caregiver_start_date'),)
 
 class ChildMeasurement(db.Model):
     __tablename__ = 'child_measurement'
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime)
-    value = db.Column(db.Float)
+    child_measurement_date = db.Column(db.DateTime)
+    child_measurement_value = db.Column(db.Float)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
     measurement_type_id = db.Column(db.Integer, db.ForeignKey('measurement_type.id'))
     child = db.relationship('Child', back_populates='measurement_types')
     measurement_type = db.relationship('MeasurementType', back_populates='children')
 
-    __table_args__ = (UniqueConstraint('child_id', 'measurement_type_id', 'date'),)
+    __table_args__ = (UniqueConstraint('child_id', 'measurement_type_id', 'child_measurement_date'),)
 
 class ChildMilestone(db.Model):
     __tablename__ = 'child_milestone'
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime)
+    child_milestone_date = db.Column(db.DateTime)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
     milestone_type_id = db.Column(db.Integer, db.ForeignKey('milestone_type.id'))
     child = db.relationship('Child', back_populates='milestone_types')
@@ -277,14 +277,14 @@ class ChildMilestone(db.Model):
 class ChildDoctorVisit(db.Model):
     __tablename__ = 'child_doctor_visit'
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime)
-    note = db.Column(db.UnicodeText)
+    child_doctor_visit_date = db.Column(db.DateTime)
+    child_doctor_visit_note = db.Column(db.UnicodeText)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
     doctor_id = db.Column(db.Integer, db.ForeignKey('doctor.id'))
     child = db.relationship('Child', back_populates='doctors')
     doctor = db.relationship('Doctor', back_populates='children')
 
-    __table_args__ = (UniqueConstraint('child_id', 'doctor_id', 'date'),)
+    __table_args__ = (UniqueConstraint('child_id', 'doctor_id', 'child_doctor_visit_date'),)
 
 class ChildMedicalCondition(db.Model):
     __tablename__ = 'child_medical_condition'
@@ -299,8 +299,8 @@ class ChildMedicalCondition(db.Model):
 class ChildMedication(db.Model):
     __tablename__ = 'child_medication'
     id = db.Column(db.Integer, primary_key=True)
-    start_date = db.Column(db.DateTime)
-    end_date = db.Column(db.DateTime)
+    child_medication_start_date = db.Column(db.DateTime)
+    child_medication_end_date = db.Column(db.DateTime)
     dosage1 = db.Column(db.Float)
     dosage2 = db.Column(db.Float)
     dosage3 = db.Column(db.Float)
@@ -309,7 +309,7 @@ class ChildMedication(db.Model):
     child = db.relationship('Child', back_populates='medications')
     medication = db.relationship('Medication', back_populates='children')
 
-    __table_args__ = (UniqueConstraint('child_id', 'medication_id', 'start_date'),)
+    __table_args__ = (UniqueConstraint('child_id', 'medication_id', 'child_medication_start_date'),)
 
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
