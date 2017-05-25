@@ -29,13 +29,12 @@ def get_test_data(num_records = 10):
                     else:
                         vals[field] = fpy.lorem_ipsum.paragraph()
                 if field_type == Date:
-                    vals[field] = fpy.date.date().strftime('%Y-%m-%d')
+                    vals[field] = fpy.date.date(past=True, min_delta=100, max_delta=4000).strftime('%Y-%m-%d')
                 if field_type == fields.Boolean:
                     #vals[field] = fpy.basic.random.choice([1, 0])
                     vals[field] = 1
     
     return test_data
-#pp(test_data)
 
 
 
