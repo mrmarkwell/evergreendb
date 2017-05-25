@@ -18,18 +18,20 @@
 	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
 	<link rel="stylesheet" type="text/css" href="css/chosen.css">
 	<!-- link rel="stylesheet" type="text/css" href="css/child.css"-->
-	<link rel="stylesheet" type="text/css" href="css/child.css">
+	<!--link rel="stylesheet" type="text/css" href="css/child.css"-->
 	<style>.datepicker{}</style>
 
 	<script>
 		$(document).ready(function() {
+			var child_id = getParameterByName("id");
 			jQuery("#childTab").tabs();
 			jQuery(".datepicker").datepicker({dateFormat: "yy-mm-dd"});
 			jQuery(".chosen-select").chosen({width: "95%"});
 			restGet(
-				"entity/child?"+jQuery.param({"id":getParameterByName("id")}),
+				"entity/child?"+jQuery.param({"id":child_id}),
 				fillChildTabData
 			);
+			requestMedicalConditions(child_id);
 		});
 	</script>
 
@@ -73,17 +75,7 @@
 				<fieldset>
 					<legend>Medical Information:</legend>
 					Diagnosis:
-					<select id="medical_condition" name="Diagnosis" class="chosen-select" multiple>
-						<option value="CP">CP</option>
-						<option value="Autism">Autism</option>
-						<option value="Intellectual Disability">Intellectual Disability</option>
-						<option value="ADHD">ADHD</option>
-						<option value="Lennox-Gastaut">Lennox-Gastaut</option>
-						<option value="Angelman Syndrome">Angelman Syndrome</option>
-						<option value="PKU">PKU</option>
-						<option value="Cleft Lip / Cleft Palate ">Cleft Lip / Cleft Palate </option>
-						<option value="Hepatitis B">Hepatitis B</option>
-					</select><br>
+					<select id="medical_condition" name="Diagnosis" class="chosen-select" multiple></select><br>
 					Medication:<br>
 					Measurements:<br>
 					Doctor Visits:<br>

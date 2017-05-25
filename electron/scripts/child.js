@@ -19,6 +19,10 @@ function fillChildTabData(json) {
 	} 
 }
 
+function fillMedicalTabData(json) {
+
+}
+
 function fillNormalFields(jsonDict) {
 	for (var key in jsonDict) {
 		var obj = document.getElementById(key);
@@ -39,6 +43,34 @@ function fillAge(birthdate_str) {
 	document.getElementById('age').innerHTML = age;
 }
 
-function fillMedicalConditionsDropdown(json) {
-
+function requestMedicalConditions(child_id) {
+	var med_cond_settings = {
+		"url": "http://127.0.0.1:5000/entity/medical_condition",
+		"async": true,"method": "GET","crossDomain": true,"headers": {"cache-control": "no-cache",}
+	};
+	var child_med_cond_settings = {
+		"url": "http://127.0.0.1:5000/entity/child_medical_condition?"+jQuery.param({"child_id":child_id}),
+		"async": true,"method": "GET","crossDomain": true,"headers": {"cache-control": "no-cache",}
+	};
+	
+	jQuery.when(
+		jQuery.ajax(med_cond_settings),
+		jQuery.ajax(child_med_cond_settings)
+	).then(function(a1,a2) {fillMedicalConditions(a1[0],a2[0])});
+}
+function fillMedicalConditions(all_conditions, child_conditions) {
+	console.log(all_conditions,child_conditions);
+	var select_box = document.getElementById('medical_condition');
+	for (var i in all_conditions) {
+		var opt = document.createElement('option');
+		opt.innerHTML = all_conditions[i].medical_condition_english_name;;
+		opt.value = all_conditions[i].id;
+		for (var j in child_conditions) {
+			if (all_conditions[i].id === child_conditions[j].medical_condition_id) {
+				opt.selected = true;
+			}
+		}
+		select_box.options.add(opt);
+	}
+	jQuery(".chosen-select").trigger('chosen:updated'); // Needed because chosen-select doesn't update ui automatically like regular select
 }
