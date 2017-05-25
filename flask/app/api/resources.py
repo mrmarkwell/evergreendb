@@ -36,7 +36,7 @@ class ResourceBase(Resource):
         if self.ed is None:
             self.ed = entity_data[name]
         self.ed_list.append(entity_data[name])
-        #self.query = self.session.query(self.ed.class_type)
+        self.query = self.session.query(self.ed.class_type)
  
     # For operations that can only be performed on one entity, get that entity by id
     # Throw an error if 'id' was not specified in the request.
