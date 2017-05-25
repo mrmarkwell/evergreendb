@@ -76,7 +76,7 @@ class ResourceBase(Resource):
         if name not in entity_names:
             abort(404, message="Invalid entity name: '" + name + "'. Legal entity names are: " + ", ".join(entity_names))
         if self.ed is None:
-        self.ed = entity_data[name]
+            self.ed = entity_data[name]
         self.ed_list.append(entity_data[name])
         self.query = self.session.query(self.ed.class_type)
  
@@ -256,28 +256,28 @@ class FilterResource(ResourceBase):
 
     def _build_filter(self, e_class, attributes):
         filters = []
-            for attribute in attributes:
-                    for op, val in attributes[attribute].items():
+        for attribute in attributes:
+            for op, val in attributes[attribute].items():
                 try:
                     val = datetime.strptime(val, DATE_FMT)
                 except ValueError:
                     pass
-                        if op == 'eq':
+                if op == 'eq':
                     filters.append(getattr(e_class, attribute) == val)
-                        elif op == 'lt':
+                elif op == 'lt':
                     filters.append(getattr(e_class, attribute) < val)
                 elif op == 'le':
                     filters.append(getattr(e_class, attribute) <= val)
-                        elif op == 'gt':
+                elif op == 'gt':
                     filters.append(getattr(e_class, attribute) > val)
                 elif op == 'ge':
                     filters.append(getattr(e_class, attribute) >= val)
-                        elif op == 'ne':
+                elif op == 'ne':
                     filters.append(getattr(e_class, attribute) != val)
-                        elif op == 'like':
+                elif op == 'like':
                     filters.append(getattr(e_class, attribute).like(val))
-                        else:
-                            raise AttributeError()
+                else:
+                    raise AttributeError()
         return filters
 
     def _get_entity_data(self):
