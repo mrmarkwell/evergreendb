@@ -1,14 +1,18 @@
 const settings = require('electron-settings')
 
 
-function setSetting(key, value) {
-    settings.set(key, value)
+function setSetting(key, val) {
+    settings.set(key, val)
+}
+
+function getSetting(key) {
+    return settings.get(key)
 }
 
 window.onload = function() {
     document.getElementById("myDropdown").onchange = function () {
         // value of options in select tag must have format "key,val"
-        var keyval = this.value
+        var keyval = this.value.split(",")
         var key = keyval[0]
         var val = keyval[1]
         setSetting(key, val)
@@ -23,7 +27,7 @@ function toggleDropdown() {
 
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
+  if (!event.target.matches('.dropbtn') && !event.target.matches('.dropdown-content')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
