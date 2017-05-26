@@ -193,3 +193,11 @@ child_medication_fields = {
     'dosage2': fields.Float,
     'dosage3': fields.Float
     }
+
+user_fields = {
+    'id': fields.Integer,
+    'username': fields.String,
+    #'password': fields.String
+    'is_admin': fields.Boolean,
+    'is_editor': fields.Boolean
+}

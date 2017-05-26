@@ -30,7 +30,7 @@ For Windows terminal emulator:
 pip install virtualenv
 cd flaskplayground
 source virtualize.sh
-python create_db.py
+python db_create.py
 python run.py
 ```
 

@@ -33,7 +33,8 @@ entity_data = {
     'child_milestone'        : EntityData(ChildMilestone, child_milestone_fields, child_milestone_parser, child_milestone_update_parser),
     'child_doctor_visit'     : EntityData(ChildDoctorVisit, child_doctor_visit_fields, child_doctor_visit_parser, child_doctor_visit_update_parser),
     'child_medical_condition': EntityData(ChildMedicalCondition, child_medical_condition_fields, child_medical_condition_parser, child_medical_condition_update_parser),
-    'child_medication'       : EntityData(ChildMedication, child_medication_fields, child_medication_parser, child_medication_update_parser)
+    'child_medication'       : EntityData(ChildMedication, child_medication_fields, child_medication_parser, child_medication_update_parser),
+    'user'                   : EntityData(User, user_fields, user_parser, user_update_parser)
 }
 
 entity_names = entity_data.keys()

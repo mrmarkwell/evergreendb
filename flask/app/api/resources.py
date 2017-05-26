@@ -1,12 +1,13 @@
 from datetime import datetime
 import json
 
+from flask import g
 from db import get_session
 from marshallers import DATE_FMT
 
 from sqlalchemy import text
 from sqlalchemy.sql.expression import and_
-from flask import request
+from flask import request, current_app
 from flask import jsonify
 
 from marshallers import DATE_FMT
@@ -19,10 +20,51 @@ from flask_restful import marshal_with
 from flask_restful import marshal
 from entity_data import entity_data, entity_names
 
+from app import login_manager
+from app.models import User
+from functools import wraps
+from flask_login import current_user, login_required
+
+
+def admin_required(f):
+    @wraps(f)
+    def wrapped(*args, **kwargs):
+        if current_app.config.get("LOGIN_DISABLED"): return f(*args, **kwargs)
+        if current_user.is_authenticated and current_user.is_admin:
+            # invoke the wrapped function
+            return f(*args, **kwargs)
+        else:
+            abort(403)
+    return wrapped
+
+
+def editor_required(f):
+    @wraps(f)
+    def wrapped(*args, **kwargs):
+        if current_app.config.get("LOGIN_DISABLED"): return f(*args, **kwargs)
+        if current_user.is_authenticated and current_user.is_editor:
+            # invoke the wrapped function
+            return f(*args, **kwargs)
+        else:
+            abort(403)
+    return wrapped
+
+
+@login_manager.request_loader
+def load_user_from_request(request):
+    if request.authorization:
+        username, password = request.authorization.username, request.authorization.password
+
+        user = User.query.filter_by(username=username).first()
+        if user and user.verify_password(password):
+            return user
+    return None
+
 ################ Resources ####################
 
 # Base resource class for resource data.
 class ResourceBase(Resource):
+    decorators = [login_required]
     def __init__(self):
         self.ed = None
         self.ed_list = list()
@@ -195,6 +237,8 @@ class FilterResource(ResourceBase):
         like: like
     """
 
+    # decorators = [editor_required]
+
     def post(self):
         """filter using eq, lt, gt, ne or like"""
         data = self._get_entity_data()
@@ -272,7 +316,54 @@ class RollbackResource(ResourceBase):
         return response, 200
 
 # Resource for checking online status
-class HeartbeatResource(ResourceBase):
+class HeartbeatResource(Resource):
     def get(self):
         response = {'message': 'beat'}
         return response, 200
+
+
+class UserResource(ResourceBase):
+    decorators = [admin_required]
+    def get(self):
+        self.get_entity_data("user")
+        self.verify_filters()
+        entity = self.query.filter_by(**request.args.to_dict()).all()
+        if not entity:
+            abort(404, message="Entity {}: {} doesn't exist".format("user", request.args.to_dict()))
+        return marshal(entity, self.ed.marshaller), 200
+
+    # DELETE to delete a single entity instance
+    def delete(self):
+        self.get_entity_data("user")
+        entity = self.get_entity_by_id()
+        self.session.delete(entity)
+        self.session.commit()
+        return {}, 204
+
+    # PUT to update a single entity instance
+    def put(self):
+        self.get_entity_data("user")
+        entity = self.get_entity_by_id()
+        entity_args = self.ed.update_parser.parse_args()
+        raw_json = request.get_json()
+        for key in entity_args.keys():
+            # Only update keys that are sent in the Json body
+            if key in raw_json.keys():
+                setattr(entity, key, entity_args[key])
+        if "password" in raw_json.keys() :
+            entity.hash_password(entity.password)
+        self.session.add(entity)
+        self.session.commit()
+        return marshal(entity, self.ed.marshaller), 201
+
+    # Post to create a new entity
+    def post(self):
+        self.get_entity_data("user")
+        entity_args = self.ed.create_parser.parse_args()
+        entity = self.ed.class_type()
+        for key in entity_args.keys():
+            setattr(entity, key, entity_args[key])
+        entity.hash_password(entity.password)
+        self.session.add(entity)
+        self.session.commit()
+        return marshal(entity, self.ed.marshaller), 201
