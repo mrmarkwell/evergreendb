@@ -2,21 +2,30 @@ const settings = require('electron-settings')
 
 
 function setSetting(key, val) {
-    settings.set(key, val)
+    settings.set(key, val);
 }
 
 function getSetting(key) {
-    return settings.get(key)
+    var curr = settings.get(key);
+    // capitalize first letter
+    return curr.charAt(0).toUpperCase() + curr.slice(1)
+}
+
+function updateCurrentSetting() {
+    var current = document.getElementById('currentSetting');
+    current.value = getSetting(current.name);
 }
 
 window.onload = function() {
     document.getElementById("myDropdown").onchange = function () {
         // value of options in select tag must have format "key,val"
-        var keyval = this.value.split(",")
-        var key = keyval[0]
-        var val = keyval[1]
-        setSetting(key, val)
+        var keyval = this.value.split(",");
+        var key = keyval[0];
+        var val = keyval[1];
+        setSetting(key, val);
+        updateCurrentSetting();
     }
+    updateCurrentSetting();
 }
 
 /* When the user clicks on the button, 
