@@ -6,7 +6,7 @@ function setSetting(key, val) {
 }
 
 function getSetting(key) {
-    var curr = settings.get(key);
+    let curr = settings.get(key);
     if (curr == undefined) {
         console.log("setting key " + key);
         console.log("to none")
@@ -18,16 +18,16 @@ function getSetting(key) {
 }
 
 function updateCurrentSetting() {
-    var current = document.getElementById('currentSetting');
+    let current = document.getElementById('currentSetting');
     current.value = getSetting(current.name);
 }
 
 window.onload = function() {
     document.getElementById("myDropdown").onchange = function () {
         // value of options in select tag must have format "key,val"
-        var keyval = this.value.split(",");
-        var key = keyval[0];
-        var val = keyval[1];
+        let keyval = this.value.split(",");
+        let key = keyval[0];
+        let val = keyval[1];
         setSetting(key, val);
         updateCurrentSetting();
     }
@@ -43,10 +43,10 @@ function toggleDropdown() {
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn') && !event.target.matches('.dropdown-content')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
+    let dropdowns = document.getElementsByClassName("dropdown-content");
+    let i;
     for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
+      let openDropdown = dropdowns[i];
       if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
       }
