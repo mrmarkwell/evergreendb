@@ -17,6 +17,7 @@
 
 	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
 	<link rel="stylesheet" type="text/css" href="css/chosen.css">
+	<link rel="stylesheet" type="text/css" href="css/table.css">
 	<!-- link rel="stylesheet" type="text/css" href="css/child.css"-->
 	<!--link rel="stylesheet" type="text/css" href="css/child.css"-->
 	<style>.datepicker{}</style>
@@ -26,7 +27,7 @@
 			var child_id = getParameterByName("id");
 			jQuery("#childTab").tabs();
 			jQuery(".datepicker").datepicker({dateFormat: "yy-mm-dd"});
-			jQuery(".chosen-select").chosen({width: "95%"});
+			jQuery(".chosen-select").chosen({width: "100%"});
 			restGet(
 				"entity/child?"+jQuery.param({"id":child_id}),
 				fillChildTabData
@@ -72,14 +73,22 @@
 		</div>
 		<div id="childTab-medical">
 			<form>
-				<fieldset>
-					<legend>Medical Information:</legend>
-					Diagnosis:
-					<select id="medical_condition" name="Diagnosis" class="chosen-select" multiple></select><br>
-					Medication:<br>
-					Measurements:<br>
-					Doctor Visits:<br>
-				</fieldset>
+				<h4>Basic Medical Information</h4>
+				Diagnosis: <select id="medical_condition" name="Diagnosis" class="chosen-select" multiple></select><br>
+				Significant Medical History: <textarea id="medical_history" rows="3" cols="70"></textarea><br>
+				<h4>Medication</h4>
+				<table id="child_medication_table">
+					<tr><th>Medication Name</th> <th colspan="3">Dosage</th> <th>Start Date</th> <th>End Date</th> <th>Stopped</th></tr>
+					<tr>
+						<td><select id="medication" class="chosen-select"></td>
+						<td>1</td> <td>0</td> <td>0</td>
+						<td><input type="text" class="datepicker" id="medication_start_date" size="9"></td>
+						<td><input type="text" class="datepicker" id="medication_end_date" size="9"></td>
+						<td><input type="checkbox" id="medication_finished"></td>
+					</tr>
+				</table>
+				<h4>Measurements</h4>
+				<h4>Doctor Visits</h4>
 			</form>
 		</div>
 		<div id="childTab-milestones">

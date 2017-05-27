@@ -19,10 +19,6 @@ function fillChildTabData(json) {
 	} 
 }
 
-function fillMedicalTabData(json) {
-
-}
-
 function fillNormalFields(jsonDict) {
 	for (var key in jsonDict) {
 		var obj = document.getElementById(key);
