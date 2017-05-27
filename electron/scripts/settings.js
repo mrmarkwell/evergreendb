@@ -7,6 +7,12 @@ function setSetting(key, val) {
 
 function getSetting(key) {
     var curr = settings.get(key);
+    if (curr == undefined) {
+        console.log("setting key " + key);
+        console.log("to none")
+        curr = "none"
+        setSetting(key, curr)
+    }
     // capitalize first letter
     return curr.charAt(0).toUpperCase() + curr.slice(1)
 }
