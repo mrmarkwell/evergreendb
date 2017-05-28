@@ -1,7 +1,6 @@
 "use strict";
 
-
-// global var for table entry data.
+// global var for table entry data
 let g_table_entries = [];
 
 // Class TableElements. Used to collect the elements needed in the table.
@@ -54,7 +53,7 @@ function populateTableElements(jdata, note_type) {
     return tes;
 }
 
-
+// Function to handle asynchronous HTTP requests with promises.
 /* Takes opts:
 {
   method: String,
@@ -101,11 +100,11 @@ function makeRequest(opts) {
 }
 
 
-// TableEntry data is collected - now build the 
+// TableEntry data is collected - now build the table itself.
 function constructTable() {
     console.log(g_table_entries);
     let headers = ["note_type", "child_english_name", "caregiver_english_name", "note"];
-    let table = document.getElementById("flagged_notes_table");
+    let tbody = document.getElementById("flagged_notes_table_body");
     for (let entry of g_table_entries) {
         let tr = document.createElement("tr");
         let td = document.createElement("td");
@@ -121,10 +120,12 @@ function constructTable() {
             td.appendChild(document.createTextNode(entry[header]));
             tr.appendChild(td);
         }
-        table.appendChild(tr);
+        tbody.appendChild(tr);
     }
 }
 
+// Main entry point. Do all the initial REST calls and get all the data.
+// Construct the table.
 function initializeTable() {
     const base_url = "http://127.0.0.1:5000";
     const child_note_url = base_url + "/entity/child,child_caregiver,caregiver,child_note?child_note_flag=1";
@@ -134,23 +135,35 @@ function initializeTable() {
     const child_url = base_url + "/entity/child";
     const caregiver_url = base_url + "/entity/caregiver"
 
-    //makeRequest({
-    //    method: "GET",
-    //    url: child_url
-    //}).then(function (datums) {
-    //    let jdata = JSON.parse(datums);
-    //    let child_select = document.getElementById("child_select")
-    //    for (let entry of datums) {
+    makeRequest({
+        method: "GET",
+        url: child_url
+    }).then(function (datums) {
+        let jdata = JSON.parse(datums);
+        let child_select = document.getElementById("child_select")
+        for (let entry of jdata) {
+            child_select.options[child_select.options.length] = new Option(entry.child_english_name, entry.child_english_name);
+        }
+    }).catch(function (err) {
+        console.error("Error setting up child select dropdown!", err.statusText);
+    });
 
-    //    }
-
-
-    //})
-
+    makeRequest({
+        method: "GET",
+        url: caregiver_url
+    }).then(function (datums) {
+        let jdata = JSON.parse(datums);
+        let caregiver_select = document.getElementById("caregiver_select")
+        for (let entry of jdata) {
+            caregiver_select.options[caregiver_select.options.length] = new Option(entry.caregiver_english_name, entry.caregiver_english_name);
+        }
+    }).catch(function (err) {
+        console.error("Error setting up caregiver select dropdown!", err.statusText);
+    });
 
 
     // decrements when each request succeeds so final request can call next step.
-    let requests_remaining = 3; 
+    let requests_remaining = 3;
     let table_names = ["child_note", "child_assessment", "child_partner"];
     let note_types = ["General", "Assessment", "Partner"];
     let urls = [child_note_url, child_assessment_url, child_partner_url];
@@ -170,14 +183,33 @@ function initializeTable() {
                 constructTable();
             }
         }).catch(function (err) {
-            console.error('Error getting data from ' + table_names[i] , err.statusText);
+            console.error('Error getting data from ' + table_names[i], err.statusText);
         });
     }
-   
+
 }
 
+// Result of a button click on the "Apply Filter" button
+// Applies the selected filter to the table by hiding the undesired rows.
 function filterTable() {
-
-
+    let tbody = document.getElementById("flagged_notes_table_body");
+    let selected_child = document.getElementById("child_select").value;
+    let selected_caregiver = document.getElementById("caregiver_select").value;
+    for (let row of tbody.rows) {
+        let child_name = row.cells[2].innerHTML;
+        let caregiver_name = row.cells[3].innerHTML;
+        if (selected_child === "All Children" || child_name === selected_child) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+            // If it is not the selected child, no need to check caregivers.
+            continue;
+        }
+        if (selected_caregiver === "All Caregivers" || caregiver_name === selected_caregiver) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    }
 }
 

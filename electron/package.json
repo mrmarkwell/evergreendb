@@ -12,12 +12,13 @@
   "devDependencies": {
     "phantomjs-prebuilt": "latest",
     "electron": "latest",
-	"gulp-qunit": "latest",
+    "gulp-qunit": "latest",
     "qunitjs": "latest",
     "gulp": "latest",
     "devtron": "latest",
     "electron-packager": "latest",
     "node-rest-client": "latest",
-    "electron-settings": "latest"
+    "electron-settings": "latest",
+    "tablesort": "latest"
   }
 }
