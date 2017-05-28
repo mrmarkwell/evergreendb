@@ -33,9 +33,14 @@
         </ul>
     </nav>
     <h2>Flagged Notes</h2>
-    <table>
-        <caption>All Notes Flagged For Children, Assessments, and Partners</caption>
+
+    <select id="child_select">hello</select>
+    <select id="caregiver_select"></select>
+    <button type="button" onclick="filterTable()">Apply Filter</button>
+
+    <table id="flagged_notes_table">
         <tr>
+            <th></th>
             <th>Note Type</th>
             <th>Child</th>
             <th>Caregiver</th>

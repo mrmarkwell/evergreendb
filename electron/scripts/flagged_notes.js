@@ -1,24 +1,8 @@
 "use strict";
 
 
-
-// THE RESPONSE WAY
-
-//var request = require('request');
-
-//var request = require("request");
-
-//var options = {
-//    method: 'GET',
-//    url: 'http://127.0.0.1:5000/entity/child_note',
-//    qs: { flag: '1' }
-//};
-
-//request(options, function (error, response, body) {
-//    if (error) throw new Error(error);
-
-//    console.log(body);
-//});
+// global var for table entry data.
+let g_table_entries = [];
 
 // Class TableElements. Used to collect the elements needed in the table.
 function TableElements() {
@@ -33,13 +17,24 @@ function TableElements() {
         caregiver_id: null,
         note_type: null,
         note: null,
+        href: null
     }
 }
 
 
 // Function to construct a TableElements object and return it.
-function populateTableElements(jdata, note_type, note_name) {
+function populateTableElements(jdata, note_type) {
     let tes = [];
+    let note_tab_map = {
+        General: "notes",
+        Assessment: "assessment",
+        Partner: "partnership"
+    }
+    let note_name_map = {
+        General: "child_note",
+        Assessment: "child_assessment_note",
+        Partner: "child_partner_note"
+    }
     console.log(jdata);
     for (let record of jdata) {
         //console.log(record);
@@ -49,7 +44,10 @@ function populateTableElements(jdata, note_type, note_name) {
             te[prop] = record.hasOwnProperty(prop) ? record[prop] : null;
         }
         te.note_type = note_type;
+        let note_name = note_name_map[note_type];
+        let tab_name = note_tab_map[note_type];
         te.note = record[note_name];
+        te.href = "child.html?id=" + record.child_id + "#childTab-" + tab_name;
         //console.log(te);
         tes.push(te);
     }
@@ -102,12 +100,29 @@ function makeRequest(opts) {
     });
 }
 
-// global var for table entry data.
-let g_table_entries = [];
+
 // TableEntry data is collected - now build the 
 function constructTable() {
     console.log(g_table_entries);
-
+    let headers = ["note_type", "child_english_name", "caregiver_english_name", "note"];
+    let table = document.getElementById("flagged_notes_table");
+    for (let entry of g_table_entries) {
+        let tr = document.createElement("tr");
+        let td = document.createElement("td");
+        let a = document.createElement("a");
+        let link_text = document.createTextNode("Go To Note");
+        a.appendChild(link_text);
+        a.title = "Go To Note";
+        a.href = entry.href;
+        td.appendChild(a);
+        tr.appendChild(td);
+        for (let header of headers) {
+            let td = document.createElement("td");
+            td.appendChild(document.createTextNode(entry[header]));
+            tr.appendChild(td);
+        }
+        table.appendChild(tr);
+    }
 }
 
 function initializeTable() {
@@ -115,63 +130,54 @@ function initializeTable() {
     const child_note_url = base_url + "/entity/child,child_caregiver,caregiver,child_note?child_note_flag=1";
     const child_assessment_url = base_url + "/entity/child,child_caregiver,caregiver,child_assessment,specialist?child_assessment_note_flag=1"
     const child_partner_url = base_url + "/entity/child,child_caregiver,caregiver,child_partner,partner?child_partner_note_flag=1"
-    
+
+    const child_url = base_url + "/entity/child";
+    const caregiver_url = base_url + "/entity/caregiver"
+
+    //makeRequest({
+    //    method: "GET",
+    //    url: child_url
+    //}).then(function (datums) {
+    //    let jdata = JSON.parse(datums);
+    //    let child_select = document.getElementById("child_select")
+    //    for (let entry of datums) {
+
+    //    }
+
+
+    //})
+
+
 
     // decrements when each request succeeds so final request can call next step.
-    let requests_remaining = 1; // MAKE THIS 3 EVENTUALLY
+    let requests_remaining = 3; 
+    let table_names = ["child_note", "child_assessment", "child_partner"];
+    let note_types = ["General", "Assessment", "Partner"];
+    let urls = [child_note_url, child_assessment_url, child_partner_url];
+    // Get the child_note data
 
-    makeRequest({
-        method: "GET",
-        url: child_note_url
-    }).then(function (datums) {
-        console.log("I got the child_note data!");
-        let jdata = JSON.parse(datums);
-        let tes = populateTableElements(jdata, "General", "child_note");
-        g_table_entries = g_table_entries.concat(tes);
-        requests_remaining--;
-        if (requests_remaining === 0) {
-            constructTable();
-        }
-    }).catch(function (err) {
-        console.error('Error getting child_note data! ', err.statusText);
-    });
+    for (let i = 0; i < table_names.length; i++) {
+        makeRequest({
+            method: "GET",
+            url: urls[i]
+        }).then(function (datums) {
+            //console.log("I got the data!");
+            let jdata = JSON.parse(datums);
+            let tes = populateTableElements(jdata, note_types[i]);
+            g_table_entries = g_table_entries.concat(tes);
+            requests_remaining--;
+            if (requests_remaining === 0) {
+                constructTable();
+            }
+        }).catch(function (err) {
+            console.error('Error getting data from ' + table_names[i] , err.statusText);
+        });
+    }
+   
+}
 
+function filterTable() {
 
-    //let assessment_flagged_notes = makeRequest(child_assessment_url);
-    //let partner_flagged_notes = makeRequest(child_partner_url);
-
-
-    //tes.concat(populateTableElements(child_flagged_notes, "General", "child_note"));
-    //tes.concat(populateTableElements(assessment_flagged_notes, "Assessment", "child_assessment_note"));
-    //tes.concat(populateTableElements(partner_flagged_notes, "Partner", "child_partner_note"));
 
 }
 
-
-// THE JQUERY WAY
-
-//let url = "http://127.0.0.1:5000/entity/child_note?flag=1";
-//$.getJSON(url, function (data) {
-//    //console.log(data);
-//    let headers = ["Child ID", "Date", "Flagged", "Note ID", "Note"];
-//    let tbl = document.createElement("TABLE");
-//    tbl.setAttribute("id", "note_table");
-//    let tbl_header = tbl.createTHead();
-//    let header_row = tbl_header.insertRow();
-//    for (i = 0; i < headers.length; i++) {
-//        let header_cell = header_row.insertCell();
-//        header_cell.appendChild(document.createTextNode(headers[i]));
-//    }
-//    document.body.appendChild(tbl);
-//    var tbl_body = document.createElement("tbody");
-//    $.each(data, function () {
-//        var tbl_row = tbl_body.insertRow();
-//        $.each(this, function (k, v) {
-//            var cell = tbl_row.insertCell();
-//            cell.appendChild(document.createTextNode(v.toString()));
-//            console.log(k);
-//            console.log(v);
-//        })
-//    })
-//    document.getElementById("note_table").appendChild(tbl_body);
-//});
