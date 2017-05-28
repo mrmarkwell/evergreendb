@@ -17,6 +17,7 @@
     "gulp": "latest",
     "devtron": "latest",
     "electron-packager": "latest",
-    "node-rest-client": "latest"
+    "node-rest-client": "latest",
+    "electron-settings": "latest"
   }
 }

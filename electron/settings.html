@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Child Info</title>
+
+	<!-- Insert this line above script imports  -->
+	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+	<!-- normal script imports etc  -->
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/jquery-ui.min.js"></script>
+	<script src="scripts/chosen.jquery.min.js"></script>
+	<!-- Insert this line after script imports -->
+	<script>if (window.module) module = window.module;</script>
+
+	<script src="scripts/settings.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/settings.css">
+</head>
+
+<body>
+	<p><a href=index.html>back</a></p>
+    <div class="dropdown">
+        <button onclick="toggleDropdown()" class="dropbtn">Preferred Language</button>
+        <select id="myDropdown" class="dropdown-content">
+            <option value="pref_lang,chinese">Chinese</option>
+            <option value="pref_lang,english">English</option>
+        </select>
+		<form action="">Current<input type="text" name="pref_lang" id="currentSetting" readonly></form>
+    </div>
+</body>
