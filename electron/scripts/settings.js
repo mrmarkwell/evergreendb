@@ -1,6 +1,17 @@
 const settings = require('electron-settings')
 
 
+function setSettingFromForm() {
+    let forms = document.getElementsByTagName('form')
+    for (let form = 0; form < forms.length; form++) {
+        if (forms[form].hasAttribute("id")) {
+            pref = forms[form].id.split("_form")[0]
+            val = document.getElementById(forms[form].id + "_input").value
+            setSetting(pref, val)
+        }
+    }
+}
+
 function setSetting(key, val) {
     settings.set(key, val);
 }
