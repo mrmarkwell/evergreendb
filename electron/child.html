@@ -28,10 +28,9 @@
 			jQuery("#childTab").tabs();
 			jQuery(".datepicker").datepicker({dateFormat: "yy-mm-dd"});
 			jQuery(".chosen-select").chosen({width: "100%"});
-			restGet(
-				"entity/child?"+jQuery.param({"id":child_id}),
-				fillChildTabData
-			);
+			restGet("entity/child?"+jQuery.param({"id":child_id}),fillChildTabData);
+			restGet("entity/medication",fillMedicationDropdown);
+			restGet("entity/child_medication,medication?"+jQuery.param({"child_id":child_id}),fillMedicationTable);
 			requestMedicalConditions(child_id);
 		});
 	</script>
@@ -78,13 +77,15 @@
 				Significant Medical History: <textarea id="medical_history" rows="3" cols="70"></textarea><br>
 				<h4>Medication</h4>
 				<table id="child_medication_table">
-					<tr><th>Medication Name</th> <th colspan="3">Dosage</th> <th>Start Date</th> <th>End Date</th> <th>Stopped</th></tr>
+					<tr><th>Medication Name</th><th colspan="3">Dosage</th><th>Start Date</th><th>End Date</th><th>Stopped</th></tr>
 					<tr>
-						<td><select id="medication" class="chosen-select"></td>
-						<td>1</td> <td>0</td> <td>0</td>
-						<td><input type="text" class="datepicker" id="medication_start_date" size="9"></td>
-						<td><input type="text" class="datepicker" id="medication_end_date" size="9"></td>
-						<td><input type="checkbox" id="medication_finished"></td>
+						<td><select data-placeholder="Add condition..." id="medication_new" class="chosen-select"></select></td>
+						<td><input type="number" id="dosage1_new" step="0.5"></td>
+						<td><input type="number" id="dosage2_new" step="0.5"></td>
+						<td><input type="number" id="dosage3_new" step="0.5"></td>
+						<td><input type="text" id="medication_start_date_new" class="datepicker" size="9"></td>
+						<td><input type="text" id="medication_end_date_new" class="datepicker" size="9"></td>
+						<td><input type="checkbox" id="medication_finished_new"></td>
 					</tr>
 				</table>
 				<h4>Measurements</h4>
