@@ -8,13 +8,11 @@ function setSetting(key, val) {
 function getSetting(key) {
     let curr = settings.get(key);
     if (curr == undefined) {
-        console.log("setting key " + key);
-        console.log("to none")
-        curr = "none"
-        setSetting(key, curr)
+        curr = "none";
+        setSetting(key, curr);
     }
     // capitalize first letter
-    return curr.charAt(0).toUpperCase() + curr.slice(1)
+    return curr.charAt(0).toUpperCase() + curr.slice(1);
 }
 
 function updateCurrentSetting() {
@@ -22,22 +20,36 @@ function updateCurrentSetting() {
     current.value = getSetting(current.name);
 }
 
+function getPreferences() {
+    let prefs = document.getElementsByName("preference");
+    let ret = [];
+    for (let select = 0; select < prefs.length; select++) {
+        ret.push(document.getElementById(prefs[select].id));
+    return ret;
+    }
+}
+
 window.onload = function() {
-    document.getElementById("myDropdown").onchange = function () {
-        // value of options in select tag must have format "key,val"
-        let keyval = this.value.split(",");
-        let key = keyval[0];
-        let val = keyval[1];
-        setSetting(key, val);
+    let prefs = getPreferences();
+    for (let pref of prefs) {
+        pref.onchange = function () {
+            // value of options in select tag must have format "key,val"
+            let key = pref.id;
+            let val = pref.value;
+            setSetting(key, val);
+            updateCurrentSetting();
+        }
         updateCurrentSetting();
     }
-    updateCurrentSetting();
 }
 
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
-function toggleDropdown() {
-    document.getElementById("myDropdown").classList.toggle("show");
+function toggleDropdown(dropdown) {
+    let prefs = getPreferences()
+    for (let pref of prefs) {
+        pref.classList.toggle("show");
+    }
 }
 
 // Close the dropdown menu if the user clicks outside of it

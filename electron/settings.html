@@ -18,10 +18,9 @@
 	<p><a href=index.html>back</a></p>
     <div class="dropdown">
         <button onclick="toggleDropdown()" class="dropbtn">Preferred Language</button>
-        <select id="myDropdown" class="dropdown-content">
-            <option value="pref_lang,none">None</option>
-            <option value="pref_lang,chinese">Chinese</option>
-            <option value="pref_lang,english">English</option>
+        <select name="preference" id="pref_lang" class="dropdown-content">
+            <option value="chinese">Chinese</option>
+            <option value="english">English</option>
         </select>
 		<form class="current-pref">Current<input type="text" name="pref_lang" id="currentSetting" readonly></form>
     </div>
