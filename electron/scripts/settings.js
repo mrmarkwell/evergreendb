@@ -16,8 +16,10 @@ function getSetting(key) {
 }
 
 function updateCurrentSetting() {
-    let current = document.getElementById('currentSetting');
-    current.value = getSetting(current.name);
+    let current = document.getElementsByClassName('currentSetting');
+    for (let elem = 0; elem < current.length; elem++) {
+        current[elem].value = getSetting(current[elem].name);
+    }
 }
 
 function getPreferences() {
@@ -25,12 +27,27 @@ function getPreferences() {
     let ret = [];
     for (let select = 0; select < prefs.length; select++) {
         ret.push(document.getElementById(prefs[select].id));
-    return ret;
     }
+    return ret;
+}
+
+function getButtons() {
+    let btns = document.getElementsByTagName('button');
+    ret = [];
+    for (let i = 0; i < btns.length; i++) {
+        ret.push(document.getElementById(btns[i].id));
+    }
+    return ret;
 }
 
 window.onload = function() {
+    let btns = getButtons();
     let prefs = getPreferences();
+    for (let btn of btns) {
+        btn.onclick = function () {
+            document.getElementById(btn.id.split('_btn')[0]).classList.toggle('show')
+        }
+    }
     for (let pref of prefs) {
         pref.onchange = function () {
             // value of options in select tag must have format "key,val"
@@ -40,15 +57,6 @@ window.onload = function() {
             updateCurrentSetting();
         }
         updateCurrentSetting();
-    }
-}
-
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function toggleDropdown(dropdown) {
-    let prefs = getPreferences()
-    for (let pref of prefs) {
-        pref.classList.toggle("show");
     }
 }
 

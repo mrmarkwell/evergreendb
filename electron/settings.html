@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<title>Child Info</title>
 
 	<!-- Insert this line above script imports  -->
@@ -10,18 +11,29 @@
 	<!-- Insert this line after script imports -->
 	<script>if (window.module) module = window.module;</script>
 
-
 	<link rel="stylesheet" type="text/css" href="css/settings.css">
+
 </head>
 
 <body>
+
 	<p><a href=index.html>back</a></p>
     <div class="dropdown">
-        <button onclick="toggleDropdown()" class="dropbtn">Preferred Language</button>
+        <button class="dropbtn" id="pref_lang_btn">Preferred Language</button>
         <select name="preference" id="pref_lang" class="dropdown-content">
             <option value="chinese">Chinese</option>
             <option value="english">English</option>
         </select>
-		<form class="current-pref">Current<input type="text" name="pref_lang" id="currentSetting" readonly></form>
+		<form class="current-pref">Current<input type="text" name="pref_lang" class="currentSetting" readonly></form>
     </div>
+
+    <div class="dropdown">
+        <button class="dropbtn" id="debug_btn">Debug</button>
+        <select name="preference" id="debug" class="dropdown-content">
+            <option value="true">True</option>
+            <option value="false">False</option>
+        </select>
+		<form class="current-pref">Current<input type="text" name="debug" class="currentSetting" readonly></form>
+    </div>
+
 </body>
