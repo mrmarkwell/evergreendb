@@ -4,6 +4,12 @@ const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
+// Load some sane default user settings
+const settings = require('electron-settings');
+settings.set('pref_lang', 'english')
+settings.set('debug', 'false')
+settings.set('url', 'http://127.0.0.1:5000/')
+
 const path = require('path')
 const url = require('url')
 
