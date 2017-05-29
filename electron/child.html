@@ -73,8 +73,10 @@
 		<div id="childTab-medical">
 			<form>
 				<h4>Basic Medical Information</h4>
-				Diagnosis: <select id="medical_condition" name="Diagnosis" class="chosen-select" multiple></select><br>
-				Significant Medical History: <textarea id="medical_history" rows="3" cols="70"></textarea><br>
+				Diagnosis: <select id="medical_condition" class="chosen-select" multiple></select>
+				<button id="submit_medical_conditions" type="button" onclick="updateMedicalConditions()">Update medical conditions</button><br>
+				Significant Medical History: <textarea id="medical_history" rows="3" cols="70"></textarea>
+				<button id="submit_medical_history" type="button" onclick="">Update medical history</button><br>
 				<h4>Medication</h4>
 				<table id="child_medication_table">
 					<tr><th>Medication Name</th><th colspan="3">Dosage</th><th>Start Date</th><th>End Date</th><th>Stopped</th></tr>

@@ -1,4 +1,5 @@
 var BASE_URL = "http://127.0.0.1:5000/"; // change this to get from settings later
+var g_child_medical_conditions = [];
 
 function fillChildTabData(json) {
 	// Make sure only one child is returned and get that child from array
@@ -69,6 +70,20 @@ function fillMedicalConditions(all_conditions, child_conditions) {
 		select_box.options.add(opt);
 	}
 	jQuery(".chosen-select").trigger('chosen:updated'); // Needed because chosen-select doesn't update ui automatically like regular select
+	g_child_medical_conditions = child_conditions.map(function(x) {return x.medical_condition_id;});
+}
+function updateMedicalConditions() {
+	let selected = jQuery('#medical_condition').chosen().val().map(function(x) {return Number(x);});
+	let deleted = g_child_medical_conditions.filter(function(x) {return !selected.includes(x);});
+	let added = selected.filter(function(x) {return !g_child_medical_conditions.includes(x);});
+
+	for (let i=0; i<deleted.length; i++) {
+		//TODO send REST delete
+	}
+	for (let i=0; i<added.length; i++) {
+		//TODO send REST post
+	}
+	//"child_id": Number(getParameterByName("id"))
 }
 
 function fillMedicationDropdown(json) {
