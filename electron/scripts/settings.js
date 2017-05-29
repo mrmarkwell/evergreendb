@@ -1,46 +1,83 @@
 const settings = require('electron-settings')
 
 
+function setSettingFromForm() {
+    let forms = document.getElementsByTagName('form')
+    for (let form = 0; form < forms.length; form++) {
+        if (forms[form].hasAttribute("id")) {
+            pref = forms[form].id.split("_form")[0]
+            val = document.getElementById(forms[form].id + "_input").value
+            setSetting(pref, val)
+        }
+    }
+}
+
 function setSetting(key, val) {
     settings.set(key, val);
 }
 
 function getSetting(key) {
-    var curr = settings.get(key);
+    let curr = settings.get(key);
+    if (curr == undefined) {
+        curr = "none";
+        setSetting(key, curr);
+    }
     // capitalize first letter
-    return curr.charAt(0).toUpperCase() + curr.slice(1)
+    return curr.charAt(0).toUpperCase() + curr.slice(1);
 }
 
 function updateCurrentSetting() {
-    var current = document.getElementById('currentSetting');
-    current.value = getSetting(current.name);
+    let current = document.getElementsByClassName('currentSetting');
+    for (let elem = 0; elem < current.length; elem++) {
+        current[elem].value = getSetting(current[elem].name);
+    }
+}
+
+function getPreferences() {
+    let prefs = document.getElementsByName("preference");
+    let ret = [];
+    for (let select = 0; select < prefs.length; select++) {
+        ret.push(document.getElementById(prefs[select].id));
+    }
+    return ret;
+}
+
+function getButtons() {
+    let btns = document.getElementsByTagName('button');
+    ret = [];
+    for (let i = 0; i < btns.length; i++) {
+        ret.push(document.getElementById(btns[i].id));
+    }
+    return ret;
 }
 
 window.onload = function() {
-    document.getElementById("myDropdown").onchange = function () {
-        // value of options in select tag must have format "key,val"
-        var keyval = this.value.split(",");
-        var key = keyval[0];
-        var val = keyval[1];
-        setSetting(key, val);
+    let btns = getButtons();
+    let prefs = getPreferences();
+    for (let btn of btns) {
+        btn.onclick = function () {
+            document.getElementById(btn.id.split('_btn')[0]).classList.toggle('show')
+        }
+    }
+    for (let pref of prefs) {
+        pref.onchange = function () {
+            // value of options in select tag must have format "key,val"
+            let key = pref.id;
+            let val = pref.value;
+            setSetting(key, val);
+            updateCurrentSetting();
+        }
         updateCurrentSetting();
     }
-    updateCurrentSetting();
-}
-
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-function toggleDropdown() {
-    document.getElementById("myDropdown").classList.toggle("show");
 }
 
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn') && !event.target.matches('.dropdown-content')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
+    let dropdowns = document.getElementsByClassName("dropdown-content");
+    let i;
     for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
+      let openDropdown = dropdowns[i];
       if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
       }
