@@ -62,6 +62,11 @@ class Partner(db.Model):
     def __repr__(self):
         return '<Partner %r>' % (self.english_name)
 
+    def __unicode__(self):
+        return '<Partner %r>' % (self.english_name)
+
+    
+
 
 class Caregiver(db.Model):
     __tablename__ = 'caregiver'
@@ -212,6 +217,9 @@ class ChildPartner(db.Model):
     partner = db.relationship('Partner', back_populates='children')
     __table_args__ = (UniqueConstraint('child_id', 'partner_id', 'child_partner_start_date'),)
 
+    def __unicode__(self):
+        p = Partner.query.get(self.partner_id)
+        return '%s' % (p.partner_english_name)
 
 class ChildCamp(db.Model):
     __tablename__ = 'child_camp'

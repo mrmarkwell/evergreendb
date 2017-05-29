@@ -2,13 +2,15 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
 from flask_login import LoginManager
-
+from flask_admin import Admin
+from model_views import ChildView
 
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
 rest_api = Api(app)
 login_manager = LoginManager(app)
+admin = Admin(app, name='evergreendb', template_mode='bootstrap3')
 
 from api.resources import QueryResource
 from api.resources import EntityResource
@@ -19,6 +21,12 @@ from api.resources import RollbackResource
 from api.upload import Upload
 from api.resources import UserResource
 
+from models import Child
+
+# Add Admin ModelViews
+admin.add_view(ChildView(Child, db.session))
+
+# Add REST API endpoints
 rest_api.add_resource(QueryResource, "/query", endpoint="query")
 rest_api.add_resource(EntityResource, "/entity/<string:entity_name>", endpoint="entity")
 rest_api.add_resource(FilterResource, "/filter")
