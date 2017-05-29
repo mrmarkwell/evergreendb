@@ -12,8 +12,8 @@
 	<!-- Insert this line after script imports -->
 	<script>if (window.module) module = window.module;</script>
 
-	<script src="scripts/child.js"></script>
 	<script src="scripts/lib.js"></script>
+	<script src="scripts/child.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
 	<link rel="stylesheet" type="text/css" href="css/chosen.css">
@@ -25,7 +25,7 @@
 	<script>
 		$(document).ready(function() {
 			var child_id = getParameterByName("id");
-			jQuery("#childTab").tabs();
+			jQuery("#childTab").tabs({activate: function(event, ui) {window.location.hash = ui.newPanel.attr('id');}});
 			jQuery(".datepicker").datepicker({dateFormat: "yy-mm-dd"});
 			jQuery(".chosen-select").chosen({width: "100%"});
 			restGet("entity/child?"+jQuery.param({"id":child_id}),fillChildTabData);
@@ -80,12 +80,12 @@
 					<tr><th>Medication Name</th><th colspan="3">Dosage</th><th>Start Date</th><th>End Date</th><th>Stopped</th></tr>
 					<tr>
 						<td><select data-placeholder="Add condition..." id="medication_new" class="chosen-select"></select></td>
-						<td><input type="number" id="dosage1_new" step="0.5"></td>
-						<td><input type="number" id="dosage2_new" step="0.5"></td>
-						<td><input type="number" id="dosage3_new" step="0.5"></td>
+						<td><input type="number" id="dosage1_new" step="0.5" min=0></td>
+						<td><input type="number" id="dosage2_new" step="0.5" min=0></td>
+						<td><input type="number" id="dosage3_new" step="0.5" min=0></td>
 						<td><input type="text" id="medication_start_date_new" class="datepicker" size="9"></td>
 						<td><input type="text" id="medication_end_date_new" class="datepicker" size="9"></td>
-						<td><input type="checkbox" id="medication_finished_new"></td>
+						<td><button id="add_new_medication" type="button" onclick="addChildMedication()">Add</button></td>
 					</tr>
 				</table>
 				<h4>Measurements</h4>

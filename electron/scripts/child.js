@@ -102,10 +102,13 @@ function fillMedicationTable(child_medications) {
 		// ended checkbox
 		table_str += '<td><input type="checkbox" id="medication_finished_' + child_med_id + '" onchange=\'endChildMedication("' + child_med_id + '",this)\'';
 		let today = new Date();
-		let end_date = jQuery.datepicker.parseDate("yy-mm-dd",child_medications[i].child_medication_end_date);
-		if (end_date <= today) {
-			table_str += ' checked';
-			//TODO: Grey out row
+		let end_date = child_medications[i].child_medication_end_date;
+		if (end_date !== null) {
+			end_date = jQuery.datepicker.parseDate("yy-mm-dd",end_date);
+			if (end_date <= today) {
+				table_str += ' checked';
+				//TODO: Grey out row
+			}
 		}
 		table_str += '></td>';
 		row.innerHTML = table_str;
@@ -122,4 +125,27 @@ function endChildMedication(child_med_id, checkbox) {
 	}
 	jQuery("#medication_end_date_" + child_med_id).datepicker("setDate",now);
 }
-
+function addChildMedication() {
+	// Set values
+	let e = document.getElementById('medication_new');
+	let child_medication_info = {
+		"medication_id": Number(e.options[e.selectedIndex].value),
+		"dosage1": Number(document.getElementById('dosage1_new').value),
+		"dosage2": Number(document.getElementById('dosage2_new').value),
+		"dosage3": Number(document.getElementById('dosage3_new').value),
+		"child_medication_start_date": document.getElementById('medication_start_date_new').value,
+		"child_id": Number(getParameterByName("id")) // From libs.js, no namespaces is annoying
+	};
+	let end_date = document.getElementById('medication_end_date_new').value;
+	if (end_date != "") { // Only add end_date if provided
+		child_medication_info.child_medication_end_date = end_date;
+	}
+	// Check values
+	if (child_medication_info.medication_id === 0) {window.alert("Select a medication first!"); return;}
+	if (child_medication_info.dosage1 === 0 && child_medication_info.dosage2 === 0 && child_medication_info.dosage3 === 0) {window.alert("At least one dosage must be not 0!"); return;}
+	if (child_medication_info.dosage1 < 0 || child_medication_info.dosage2 < 0 || child_medication_info.dosage3 < 0) {window.alert("Dosage cannot be negative!"); return;}
+	if (child_medication_info.child_medication_start_date === "") {window.alert("Select a start date first!"); return;}
+	console.log(child_medication_info);
+	// Send POST
+	restPost('entity/child_medication',child_medication_info,function(json) {location.reload();});
+}
