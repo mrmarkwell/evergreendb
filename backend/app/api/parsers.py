@@ -286,7 +286,7 @@ child_medication_parser.add_argument('child_id', type=int, required=True)
 child_medication_parser.add_argument('medication_id', type=int, required=True)
 
 child_medication_update_parser = child_medication_parser.copy()
-child_medication_update_parser.replace_argument('start_date', required=False, type=datetype, help=date_error_help)
+child_medication_update_parser.replace_argument('child_medication_start_date', required=False, type=datetype, help=date_error_help)
 child_medication_update_parser.replace_argument('child_id', type=int, required=False)
 child_medication_update_parser.replace_argument('medication_id', type=int, required=False)
 
