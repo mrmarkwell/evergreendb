@@ -129,7 +129,7 @@ function initializeCarerTable(child_id) {
             requests_remaining--;
             if (requests_remaining === 0) {
                 // sort g_table_entries by child_caregiver_end_date, most recent to least recent
-                g_table_entries.sort(function(a,b) {
+                g_table_entries.sort(function(a, b) {
                     // Turn your strings into dates, and then subtract them
                     // to get a value that is either negative, positive, or zero.
                     // make sure empty end date ends up at the top
@@ -147,5 +147,8 @@ function initializeCarerTable(child_id) {
             console.error('Error getting data from ' + table_names[i], err.statusText);
         });
     }
+}
 
+function submitNewCaregiver() {
+    pass
 }
