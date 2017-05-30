@@ -2,9 +2,17 @@ table,th,td {
   border : 1px solid black;
   border-collapse: collapse;
 }
+table {
+  table-layout: fixed;
+}
 th,td {
+  width: 5%;       /* effectively min-width */
   padding: 1px 3px;
 }
 input[type=number] {
   width: 99%;
+}
+table#carer_table tbody tr:first-child {
+  color: #ffffff;
+  background-color: #444444;
 }
