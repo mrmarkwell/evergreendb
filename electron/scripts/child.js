@@ -120,6 +120,7 @@ function fillMedicationTable(child_medications) {
 	for (let i=0; i<child_medications.length; i++) {
 		let row = document.createElement('TR');
 		let child_med_id = child_medications[i].id; 
+		row.id = "child_med_row_" + child_med_id;
 		// medication name
 		let table_str = '<td>' + child_medications[i].medication_english_name + '</td>';
 		// dosages
@@ -127,7 +128,8 @@ function fillMedicationTable(child_medications) {
 		// start/stop dates
 		table_str += '<td>' + child_medications[i].child_medication_start_date + '</td>';
 		let end_date_str = (child_medications[i].child_medication_end_date === null) ? "" : child_medications[i].child_medication_end_date;
-		table_str += '<td><input type="text" class="datepicker" id="medication_end_date_' + child_med_id + '" value="' + end_date_str + '" size="9"></td>';
+		//table_str += '<td><input type="text" class="datepicker" id="medication_end_date_' + child_med_id + '" value="' + end_date_str + '" size="9"></td>';
+		table_str += '<td id="medication_end_date_' + child_med_id + '">' + end_date_str + '</td>';
 		// ended checkbox
 		table_str += '<td><input type="checkbox" id="medication_finished_' + child_med_id + '" onchange=\'endChildMedication("' + child_med_id + '",this)\'';
 		let today = new Date();
@@ -136,6 +138,7 @@ function fillMedicationTable(child_medications) {
 			end_date = jQuery.datepicker.parseDate("yy-mm-dd",end_date);
 			if (end_date <= today) {
 				table_str += ' checked';
+				row.classList.add("grayedout");
 				//TODO: Grey out row
 			}
 		}
@@ -146,14 +149,21 @@ function fillMedicationTable(child_medications) {
 	jQuery(".datepicker").datepicker({dateFormat: "yy-mm-dd"});
 }
 function endChildMedication(child_med_id, checkbox) {
+	let now = null;
+	let now_str = "";
+	let row = document.getElementById('child_med_row_'+child_med_id);
 	if (checkbox.checked) {
-		var now = new Date();
+		now_str = jQuery.datepicker.formatDate("yy-mm-dd",new Date());
+		now = now_str;
+		row.classList.add("grayedout");
 	} else {
-		var now = null;
+		row.classList.remove("grayedout");
 	}
-	let end_date_box = jQuery("#medication_end_date_" + child_med_id);
-	end_date_box.datepicker("setDate",now);
-	restPut("entity/child_medication?id="+child_med_id, {"child_medication_end_date":end_date_box[0].value}, function(x) {console.log(x);});
+	//let end_date_box = jQuery("#medication_end_date_" + child_med_id);
+	//end_date_box.datepicker("setDate",now);
+	//restPut("entity/child_medication?id="+child_med_id, {"child_medication_end_date":end_date_box[0].value}, function(x) {console.log(x);});
+	document.getElementById('medication_end_date_'+child_med_id).innerHTML = now_str;
+	restPut("entity/child_medication?id="+child_med_id, {"child_medication_end_date":now}, function(x) {location.reload();});
 }
 function addChildMedication() {
 	// Set values
