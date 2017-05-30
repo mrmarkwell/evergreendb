@@ -39,13 +39,11 @@ function restPost(relative_url, body, callback) {
 			if (this.status >= 300) {
 				badRequest(this.status, JSON.parse(this.responseText));
 			} else {
-				console.log("response",this.responseText);
 				callback(JSON.parse(this.responseText));
 			}
 		}
 	});
 
-	console.log(relative_url);
 	xhr.open("POST", BASE_URL + relative_url);
 	xhr.setRequestHeader("content-type", "application/json");
 	xhr.setRequestHeader("accept", "application/json");
@@ -75,6 +73,31 @@ function restDelete(relative_url, callback) {
 	xhr.setRequestHeader("cache-control", "no-cache");
 
 	xhr.send(null);
+}
+
+function restPut(relative_url, body, callback) {
+	let data = JSON.stringify(body);
+
+	var xhr = new XMLHttpRequest();
+	xhr.withCredentials = true;
+
+	xhr.addEventListener("readystatechange", function () {
+		if (this.readyState === 4) {
+			console.log(this.responseText);
+			if (this.status >= 300) {
+				badRequest(this.status, JSON.parse(this.responseText));
+			} else {
+				callback(JSON.parse(this.responseText));
+			}
+		}
+	});
+
+	xhr.open("PUT", BASE_URL + relative_url);
+	xhr.setRequestHeader("content-type", "application/json");
+	xhr.setRequestHeader("accept", "application/json");
+	xhr.setRequestHeader("cache-control", "no-cache");
+
+	xhr.send(data);
 }
 
 function badRequest(ret_status, json) {

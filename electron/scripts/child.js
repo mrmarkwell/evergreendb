@@ -94,6 +94,11 @@ function updateMedicalConditions() {
 	}
 }
 
+function updateMedicalHistory() {
+	let data = {"medical_history": document.getElementById("medical_history").value};
+	restPut('entity/child?id=' + Number(getParameterByName("id")), data, function(x) {});
+}
+
 function fillMedicationDropdown(json) {
 	var select_box = document.getElementById('medication_new');
 	let opt = document.createElement('option');
@@ -121,7 +126,8 @@ function fillMedicationTable(child_medications) {
 		table_str += '<td>' + child_medications[i].dosage1 + '</td><td>' + child_medications[i].dosage2 + '</td><td>' + child_medications[i].dosage3 + '</td>';
 		// start/stop dates
 		table_str += '<td>' + child_medications[i].child_medication_start_date + '</td>';
-		table_str += '<td><input type="text" class="datepicker" id="medication_end_date_' + child_med_id + '" value="' + child_medications[i].child_medication_end_date + '" size="9"></td>';
+		let end_date_str = (child_medications[i].child_medication_end_date === null) ? "" : child_medications[i].child_medication_end_date;
+		table_str += '<td><input type="text" class="datepicker" id="medication_end_date_' + child_med_id + '" value="' + end_date_str + '" size="9"></td>';
 		// ended checkbox
 		table_str += '<td><input type="checkbox" id="medication_finished_' + child_med_id + '" onchange=\'endChildMedication("' + child_med_id + '",this)\'';
 		let today = new Date();
@@ -140,13 +146,14 @@ function fillMedicationTable(child_medications) {
 	jQuery(".datepicker").datepicker({dateFormat: "yy-mm-dd"});
 }
 function endChildMedication(child_med_id, checkbox) {
-	console.log(child_med_id)
 	if (checkbox.checked) {
 		var now = new Date();
 	} else {
 		var now = null;
 	}
-	jQuery("#medication_end_date_" + child_med_id).datepicker("setDate",now);
+	let end_date_box = jQuery("#medication_end_date_" + child_med_id);
+	end_date_box.datepicker("setDate",now);
+	restPut("entity/child_medication?id="+child_med_id, {"child_medication_end_date":end_date_box[0].value}, function(x) {console.log(x);});
 }
 function addChildMedication() {
 	// Set values
