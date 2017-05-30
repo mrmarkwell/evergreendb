@@ -1,9 +1,9 @@
 .DS_Store
 ~$*
 *.pyc
-flask/venv/
+backend/venv/
 *.db
-flask/uploads/
+backend/uploads/
 .vs/
 *.sln
 *.pyproj
