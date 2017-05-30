@@ -16,7 +16,11 @@ function restGet(relative_url, callback) {
 	xhr.withCredentials = true;
 	xhr.addEventListener("readystatechange", function () {
 		if (this.readyState === 4) {
-			callback(JSON.parse(this.responseText));
+			if (this.status >= 300) {
+				badRequest(this.status, JSON.parse(this.responseText));
+			} else {
+				callback(JSON.parse(this.responseText));
+			}
 		}
 	});
 	xhr.open("GET", BASE_URL + relative_url);
@@ -32,15 +36,16 @@ function restPost(relative_url, body, callback) {
 
 	xhr.addEventListener("readystatechange", function () {
 		if (this.readyState === 4) {
-			if (this.status === 400) {
-				badRequest(JSON.parse(this.responseText));
+			if (this.status >= 300) {
+				badRequest(this.status, JSON.parse(this.responseText));
 			} else {
-				console.log(this.responseText);
+				console.log("response",this.responseText);
 				callback(JSON.parse(this.responseText));
 			}
 		}
 	});
 
+	console.log(relative_url);
 	xhr.open("POST", BASE_URL + relative_url);
 	xhr.setRequestHeader("content-type", "application/json");
 	xhr.setRequestHeader("accept", "application/json");
@@ -49,10 +54,33 @@ function restPost(relative_url, body, callback) {
 	xhr.send(data);
 }
 
-function badRequest(json) {
+function restDelete(relative_url, callback) {
+	var xhr = new XMLHttpRequest();
+	xhr.withCredentials = true;
+
+	xhr.addEventListener("readystatechange", function () {
+		if (this.readyState === 4) {
+			if (this.status >= 300) {
+				badRequest(this.status, JSON.parse(this.responseText));
+			} else {
+				callback();
+			}
+		}
+	});
+
+	console.log(relative_url);
+	xhr.open("DELETE", BASE_URL + relative_url);
+	xhr.setRequestHeader("content-type", "application/json");
+	xhr.setRequestHeader("accept", "application/json");
+	xhr.setRequestHeader("cache-control", "no-cache");
+
+	xhr.send(null);
+}
+
+function badRequest(ret_status, json) {
 	let error_str = "";
 	for (let i in json.message) {
-		error_str += "Error with " + i + ":\n  " + json.message[i] + "\n";
+		error_str += "Error " + ret_status + " with " + i + ":\n  " + json.message[i] + "\n";
 	}
 	console.log(error_str);
 	window.alert(error_str);

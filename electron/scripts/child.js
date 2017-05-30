@@ -70,20 +70,28 @@ function fillMedicalConditions(all_conditions, child_conditions) {
 		select_box.options.add(opt);
 	}
 	jQuery(".chosen-select").trigger('chosen:updated'); // Needed because chosen-select doesn't update ui automatically like regular select
-	g_child_medical_conditions = child_conditions.map(function(x) {return x.medical_condition_id;});
+	g_child_medical_conditions = child_conditions;
 }
 function updateMedicalConditions() {
 	let selected = jQuery('#medical_condition').chosen().val().map(function(x) {return Number(x);});
-	let deleted = g_child_medical_conditions.filter(function(x) {return !selected.includes(x);});
-	let added = selected.filter(function(x) {return !g_child_medical_conditions.includes(x);});
+	let child_medical_cond = g_child_medical_conditions.map(function(x) {return x.medical_condition_id;});
+	let added = selected.filter(function(x) {return !child_medical_cond.includes(x);});
 
-	for (let i=0; i<deleted.length; i++) {
-		//TODO send REST delete
+	let to_remove = [];
+	for (let i=0; i<g_child_medical_conditions.length; i++) {
+		let itr = g_child_medical_conditions[i];
+		if (!selected.includes(itr.medical_condition_id)) {
+			to_remove.push(i);// Have to do this later or the iterator will get all messed up
+			restDelete('entity/child_medical_condition?id=' + itr.id, function() {});
+		}
+	}
+	for (let i=0; i<to_remove.length; i++) { 
+		g_child_medical_conditions.splice(to_remove[i],1);
 	}
 	for (let i=0; i<added.length; i++) {
-		//TODO send REST post
+		let data = {"child_id": Number(getParameterByName("id")), "medical_condition_id": added[i]};
+		restPost('entity/child_medical_condition', data, function(x) {g_child_medical_conditions.push(x);});
 	}
-	//"child_id": Number(getParameterByName("id"))
 }
 
 function fillMedicationDropdown(json) {
