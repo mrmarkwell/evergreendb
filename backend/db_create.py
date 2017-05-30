@@ -13,8 +13,8 @@ from app.api.db import get_session
 def add_admin():
     # adding a default admin user to db create so that there is a user populated for use by frontend
     admin_user = User()
-    admin_user.username = "admin"
-    admin_user.hash_password("admin")
+    admin_user.username = unicode("admin")
+    admin_user.hash_password(unicode("admin"))
     admin_user.is_admin = True
     admin_user.is_editor = True
     session = get_session()
