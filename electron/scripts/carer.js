@@ -2,6 +2,7 @@ const settings = require('electron-settings');
 
 // global var for table entry data
 let g_table_entries = [];
+const g_base_url = "http://127.0.0.1:5000";
 
 // log to console if in debug mode
 function d_log(record) {
@@ -107,8 +108,7 @@ function constructTable() {
 // Main entry point. Do all the initial REST calls and get all the data.
 // Construct the table.
 function initializeCarerTable(child_id) {
-    const base_url = "http://127.0.0.1:5000";
-    const caregiver_url = base_url + "/entity/child,child_caregiver,caregiver?child_id=" + child_id
+    const caregiver_url = g_base_url + "/entity/child,child_caregiver,caregiver?child_id=" + child_id
     d_log(caregiver_url)
 
     // decrements when each request succeeds so final request can call next step.
@@ -150,5 +150,16 @@ function initializeCarerTable(child_id) {
 }
 
 function submitNewCaregiver() {
-    pass
+    let caregiver_english_name = document.getElementById("caregiver_english_name_new").value;
+    let caregiver_chinese_name = document.getElementById("caregiver_chinese_name_new").value;
+    let caregiver_pinyin_name = document.getElementById("caregiver_pinyin_name_new").value;
+    let child_caregiver_start_date = document.getElementById("child_caregiver_start_date_new").value;
+    let child_caregiver_end_date = document.getElementById("child_caregiver_end_date_new").value;
+    let child_caregiver_note = document.getElementById("child_caregiver_note_new").value;
+    makeRequest({
+        method: "POST",
+        url: g_base_url + "/entity/caregiver",
+        headers: {"Content-Type": "application/json"},
+        params: '{"caregiver_english_name": caregiver_english_name, "caregiver_chinese_name": caregiver_chinese_name, "caregiver_pinyin_name": caregiver_pinyin_name, "caregiver_pinyin_name": caregiver_pinyin_name, "child_caregiver_start_date": child_caregiver_start_date, "child_caregiver_end_date": child_caregiver_end_date, "child_caregiver_end_date": child_caregiver_end_date, "child_caregiver_note": child_caregiver_note, }'
+    });
 }
