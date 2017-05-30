@@ -12,7 +12,7 @@ th,td {
 input[type=number] {
   width: 99%;
 }
-table#carer_table tbody tr:first-child {
+table#carer_table tbody#carer_table_body tr:first-child {
   color: #ffffff;
   background-color: #444444;
 }

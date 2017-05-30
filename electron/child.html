@@ -156,8 +156,19 @@
 							</tr>
 						</thead>
 						<tbody id="carer_table_body"></tbody>
+						<tbody id="new_carer_table_body">
+							<tr>
+								<td><input type="text" id="caregiver_english_name_new"></td>
+								<td><input type="text" id="caregiver_chinese_name_new"></td>
+								<td><input type="text" id="caregiver_pinyin_name_new" ></td>
+								<td><input type="text" id="child_caregiver_start_date_new" class="datepicker" size="9"></td>
+								<td><input type="text" id="child_caregiver_end_date_new" class="datepicker" size="9"></td>
+								<td><input type="text" id="child_caregiver_note_new" ></td>
+							</tr>
+						</tbody>
 					</table>
 				</fieldset>
+				<input type="submit" value="Submit New Carer" onclick="submitNewCaregiver()">
 			</form>
 		</div>
 		<div id="childTab-assessment">
