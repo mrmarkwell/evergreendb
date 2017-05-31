@@ -115,7 +115,11 @@ function fillMedicationDropdown(json) {
 function fillMedicationTable(child_medications) {
 	let medication_table = document.getElementById('child_medication_table');
 	child_medications.sort(function(a,b) {
-		return (a.child_medication_end_date > b.child_medication_end_date) ? 1 : ((a.child_medication_end_date < b.child_medication_end_date) ? -1 : 0);
+		let date1 = a.child_medication_end_date; let date2 = b.child_medication_end_date;
+		console.log(date1,date2);
+		if (date1 < date2 || (date1 !== null && date2 === null)) {return 1;}
+		if (date1 > date2 || (date1 === null && date2 !== null)) {return -1;}
+		return 0;
 	}); 
 	for (let i=0; i<child_medications.length; i++) {
 		let row = document.createElement('TR');
