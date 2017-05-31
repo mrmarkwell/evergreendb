@@ -323,16 +323,25 @@ class HeartbeatResource(Resource):
 
 
 class UserResource(ResourceBase):
-    decorators = [admin_required]
+    decorators = []
+
+    @login_required
     def get(self):
         self.get_entity_data("user")
         self.verify_filters()
-        entity = self.query.filter_by(**request.args.to_dict()).all()
-        if not entity:
-            abort(404, message="Entity {}: {} doesn't exist".format("user", request.args.to_dict()))
-        return marshal(entity, self.ed.marshaller), 200
+        if current_user.is_admin:
+            entity = self.query.filter_by(**request.args.to_dict()).all()
+            if not entity:
+                abort(404, message="Entity {}: {} doesn't exist".format("user", request.args.to_dict()))
+            return marshal(entity, self.ed.marshaller), 200
+        else:
+            if request.args.to_dict():
+                abort(403, message="Permission denied, pass with no args to get your user data")
+            else:
+                return marshal(current_user, self.ed.marshaller), 200
 
     # DELETE to delete a single entity instance
+    @admin_required
     def delete(self):
         self.get_entity_data("user")
         entity = self.get_entity_by_id()
@@ -341,22 +350,30 @@ class UserResource(ResourceBase):
         return {}, 204
 
     # PUT to update a single entity instance
+    @login_required
     def put(self):
         self.get_entity_data("user")
         entity = self.get_entity_by_id()
+        # prevent users that are not admins from changing other users settings
+        if entity.id != current_user.id and not current_user.is_admin:
+            abort(403, message="Permission denied, only admins can modify another user")
         entity_args = self.ed.update_parser.parse_args()
         raw_json = request.get_json()
+        # only allow admins to change other properties besides password
+        admin_only = ["is_admin", "is_editor", "username"]
         for key in entity_args.keys():
             # Only update keys that are sent in the Json body
             if key in raw_json.keys():
-                setattr(entity, key, entity_args[key])
-        if "password" in raw_json.keys() :
+                if key not in admin_only or current_user.is_admin:
+                    setattr(entity, key, entity_args[key])
+        if "password" in raw_json.keys():
             entity.hash_password(entity.password)
         self.session.add(entity)
         self.session.commit()
         return marshal(entity, self.ed.marshaller), 201
 
     # Post to create a new entity
+    @admin_required
     def post(self):
         self.get_entity_data("user")
         entity_args = self.ed.create_parser.parse_args()
