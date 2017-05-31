@@ -35,6 +35,10 @@
 			requestMedicalConditions(child_id);
 			initializeCarerTable(child_id);
 		});
+		function submitNewCaregiver() {
+			var child_id = getParameterByName("id");
+			makeNewCaregiver(child_id)
+		}
 	</script>
 
 </head>
@@ -143,7 +147,8 @@
 		<div id="childTab-carer">
 			<form>
 				 <fieldset>
-					<legend>Carer History: </legend>
+					<legend>Carers: </legend>
+					<p>Current carer is highlighted</p>
 					<table border=1 id="carer_table">
 						<thead id="carer_table_head">
 							<tr>
