@@ -46,6 +46,9 @@ function makeRequest(opts) {
                 xhr.setRequestHeader(key, opts.headers[key]);
             });
         }
+        if (opts.responseType) {
+            xhr.responseType = opts.responseType;
+        }
         var params = opts.params;
         // We'll need to stringify if we've been given an object
         // If we have a string, this is skipped.
@@ -72,22 +75,18 @@ function TableElements() {
 
 // Function to construct a TableElements object and return it.
 function populateTableElements(jdata) {
-    d_log(jdata)
     let tes = [];
     for (let record of jdata) {
-        d_log(record)
         let te = new TableElements();
         for (let prop in te) {
             te[prop] = record.hasOwnProperty(prop) ? record[prop] : null;
         }
-        d_log(te)
         tes.push(te);
     }
     return tes;
 }
 
 function constructTable() {
-    // d_log(g_table_entries);
     let headers = [
         "caregiver_english_name", "caregiver_chinese_name",
         "caregiver_pinyin_name", "child_caregiver_start_date",
@@ -96,6 +95,10 @@ function constructTable() {
     let tbody = document.getElementById("carer_table_body")
     for (let entry of g_table_entries) {
         let tr = document.createElement("tr");
+        if (!entry["child_caregiver_end_date"]) {   // current caregiver
+            tr.classList.add("highlight")
+            entry["child_caregiver_end_date"] = "Current"
+        }
         for (let header of headers) {
             let td = document.createElement("td");
             td.appendChild(document.createTextNode(entry[header]));
@@ -109,7 +112,6 @@ function constructTable() {
 // Construct the table.
 function initializeCarerTable(child_id) {
     const caregiver_url = g_base_url + "/entity/child,child_caregiver,caregiver?child_id=" + child_id
-    d_log(caregiver_url)
 
     // decrements when each request succeeds so final request can call next step.
     let requests_remaining = 1;
@@ -122,7 +124,6 @@ function initializeCarerTable(child_id) {
             method: "GET",
             url: urls[i]
         }).then(function (datums) {
-            d_log("I got the data!");
             let jdata = JSON.parse(datums);
             let tes = populateTableElements(jdata);
             g_table_entries = g_table_entries.concat(tes);
@@ -149,7 +150,7 @@ function initializeCarerTable(child_id) {
     }
 }
 
-function submitNewCaregiver() {
+function makeNewCaregiver(child_id) {
     let caregiver_english_name = document.getElementById("caregiver_english_name_new").value;
     let caregiver_chinese_name = document.getElementById("caregiver_chinese_name_new").value;
     let caregiver_pinyin_name = document.getElementById("caregiver_pinyin_name_new").value;
@@ -160,6 +161,30 @@ function submitNewCaregiver() {
         method: "POST",
         url: g_base_url + "/entity/caregiver",
         headers: {"Content-Type": "application/json"},
-        params: '{"caregiver_english_name": caregiver_english_name, "caregiver_chinese_name": caregiver_chinese_name, "caregiver_pinyin_name": caregiver_pinyin_name, "caregiver_pinyin_name": caregiver_pinyin_name, "child_caregiver_start_date": child_caregiver_start_date, "child_caregiver_end_date": child_caregiver_end_date, "child_caregiver_end_date": child_caregiver_end_date, "child_caregiver_note": child_caregiver_note, }'
+        responseType: "json",
+        params: JSON.stringify({
+            "caregiver_english_name": caregiver_english_name,
+            "caregiver_chinese_name": caregiver_chinese_name,
+            "caregiver_pinyin_name": caregiver_pinyin_name
+        })
+    }).then(function (datums) {
+        d_log("I got the data!");
+        d_log("DATUMS: " + datums)
+        let caregiver_id = datums.id;
+        makeRequest({
+            method: "POST",
+            url: g_base_url + "/entity/child_caregiver",
+            headers: {"Content-Type": "application/json"},
+            responseType: "json",
+            params: JSON.stringify({
+                "child_id": child_id,
+                "caregiver_id": caregiver_id,
+                "child_caregiver_start_date": child_caregiver_start_date,
+                "child_caregiver_end_date": child_caregiver_end_date,
+                "child_caregiver_note": child_caregiver_note
+            })
+        });
+    }).catch(function (err) {
+        console.error('Error posting data: ' + err.statusText);
     });
 }
