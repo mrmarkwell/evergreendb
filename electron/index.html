@@ -1,23 +1,25 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
     <!-- Insert this line above script imports  -->
-    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
     <!-- normal script imports etc  -->
-    <script src="scripts/jquery.min.js"></script>    
-    <script src="scripts/jquery-ui.min.js"></script>    
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/jquery-ui.min.js"></script>
     <!-- Insert this line after script imports -->
     <script>if (window.module) module = window.module;</script>
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
-  </head>
-  <body>
+</head>
+<body>
     <h1>Hello World!</h1>
     <script>require('./index.js')</script>
     <p><a href=query.html>Child selct</a></p>
-    <p><a href=child.html?id=2>Child id=2 view</a></p>
+    <p><a href=child.html?id =2>Child id=2 view</a></p>
     <p><a href="child.html?id=2#childTab-medical">Child id=2 medical tab</a></p>
     <p><a href=settings.html>User Settings</a></p>
-  </body>
+    <p><a href="flagged_notes.html">Flagged Notes</a></p>
+    <p><a href="flask_admin.html">Create, Update, or Delete Records</a></p>
+</body>
 </html>

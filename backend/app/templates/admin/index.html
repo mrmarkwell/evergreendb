@@ -1,0 +1,17 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<h1>EvergreenDB Records View</h1>
+<p>Use this page to add records to EvergreenDB.</p>
+<h2>Instructions For Use</h2>
+<p>Select the tab for the record type you'd like to add, update, or delete</p>
+<p>All records of this type will be displayed in a list</p>
+<ul>
+    <li>To <strong>create</strong> a new record of this type, select "Create" and fill in the fields. Don't forget to save when you're done!</li>
+    <li>To <strong>edit</strong> an existing record, select the pencil icon to the left of the record you'd like to edit.</li>
+    <li>To <strong>view details</strong> of a certain record, select the eye icon to the left of that record.</li>
+    <li>To <strong>export</strong> records to a CSV file, select "Export"</li>
+    <li>To <strong>delete</strong> a record, click the trash can icon to the left of the record.</li>
+    <li>To <strong>delete many</strong> records, check the box next to the records and select "With selecte -> delete"</li>
+</ul>
+{% endblock %}

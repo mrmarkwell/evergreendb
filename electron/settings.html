@@ -1,30 +1,63 @@
+<!--
+	To add a dropdown preference, in a div with class "dropdown", make a dropdown button
+	with class "dropbtn" and id "name_of_pref_btn" where "name_of_pref" is the desired
+	preference name (just drop it in). Then add a select with id "name_of_pref" and name
+	"preference" and options where the value attribute is the name of the preference.
+
+	To add a user input form preference, inside a div make a form with id "name_of_pref_form"
+	where "name_of_pref" is the desired preference name (just drop it in). Then add an input
+	type text with id "name_of_pref_form_input". Finally, add an input type "submit", value
+	"Submit" and onclick="setSettingFromForm".
+
+	After each preference create a readonly form to display the current user selection. The
+	class of the form should be "current-pref", the input should be type "text", name
+	"name_of_pref" and input class of "currentSetting"
+-->
 <!DOCTYPE html>
 <html>
 <head>
+
 	<title>Child Info</title>
 
-	<!-- Insert this line above script imports  -->
-	<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
-	<!-- normal script imports etc  -->
-	<script src="scripts/jquery.min.js"></script>
-	<script src="scripts/jquery-ui.min.js"></script>
-	<script src="scripts/chosen.jquery.min.js"></script>
-	<!-- Insert this line after script imports -->
-	<script>if (window.module) module = window.module;</script>
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <!-- normal script imports etc  -->
+    <script src="scripts/settings.js"></script>
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
 
-	<script src="scripts/settings.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/settings.css">
 
-	<link rel="stylesheet" type="text/css" href="css/settings.css">
 </head>
 
 <body>
-	<p><a href=index.html>back</a></p>
+
+    <p><a href=index.html>back</a></p>
     <div class="dropdown">
-        <button onclick="toggleDropdown()" class="dropbtn">Preferred Language</button>
-        <select id="myDropdown" class="dropdown-content">
-            <option value="pref_lang,chinese">Chinese</option>
-            <option value="pref_lang,english">English</option>
+        <button class="dropbtn" id="pref_lang_btn">Preferred Language</button>
+        <select name="preference" id="pref_lang" class="dropdown-content">
+            <option value="chinese">Chinese</option>
+            <option value="english">English</option>
         </select>
-		<form action="">Current<input type="text" name="pref_lang" id="currentSetting" readonly></form>
+        <form class="current-pref">Current<input type="text" name="pref_lang" class="currentSetting" readonly></form>
     </div>
+
+    <div class="dropdown">
+        <button class="dropbtn" id="debug_btn">Debug</button>
+        <select name="preference" id="debug" class="dropdown-content">
+            <option value="true">True</option>
+            <option value="false">False</option>
+        </select>
+        <form class="current-pref">Current<input type="text" name="debug" class="currentSetting" readonly></form>
+    </div>
+
+    <div class="dropdown">
+        <form id="url_form">
+            URL:<br>
+            <input type="text" id="url_form_input">
+            <input type="submit" value="Submit" onclick="setSettingFromForm()">
+        </form>
+        <form class="current-pref">Current<input type="text" name="url" class="currentSetting" readonly></form>
+    </div>
+
 </body>

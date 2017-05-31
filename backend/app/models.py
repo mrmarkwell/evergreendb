@@ -35,8 +35,8 @@ class Child(db.Model):
     medical_conditions = db.relationship('ChildMedicalCondition', back_populates='child')
     medications = db.relationship('ChildMedication', back_populates='child')
 
-    def __repr__(self):
-        return '<Child %r>' % (self.nickname)
+    def __unicode__(self):
+        return self.child_english_name
 
 
 class ChildNote(db.Model):
@@ -59,9 +59,8 @@ class Partner(db.Model):
     phone = db.Column(db.Unicode(255))
     children = db.relationship('ChildPartner', back_populates='partner')
 
-    def __repr__(self):
-        return '<Partner %r>' % (self.english_name)
-
+    def __unicode__(self):
+        return self.partner_english_name
 
 class Caregiver(db.Model):
     __tablename__ = 'caregiver'
@@ -84,8 +83,8 @@ class Specialist(db.Model):
     specialist_type_id = db.Column(db.Integer, db.ForeignKey('specialist_type.id'))
     children = db.relationship('ChildAssessment', back_populates='specialist')
 
-    def __repr__(self):
-        return '<Specialist %r>' % (self.english_name)
+    def __unicode__(self):
+        return self.specialist_english_name
 
 
 class SpecialistType(db.Model):
@@ -94,10 +93,10 @@ class SpecialistType(db.Model):
     specialist_type_english_name = db.Column(db.Unicode(255))
     specialist_type_chinese_name = db.Column(db.Unicode(255))
     specialist_type_pinyin_name = db.Column(db.Unicode(255))
-    specialists = db.relationship('Specialist')
+    specialists = db.relationship('Specialist', backref='specialist_type')
 
-    def __repr__(self):
-        return '<Specialist Type %r>' % (self.english_name)
+    def __unicode__(self):
+        return self.specialist_type_english_name
 
 
 class MilestoneTypeCategory(db.Model):
@@ -106,11 +105,10 @@ class MilestoneTypeCategory(db.Model):
     milestone_type_category_english_name = db.Column(db.Unicode(255))
     milestone_type_category_chinese_name = db.Column(db.Unicode(255))
     milestone_type_category_pinyin_name = db.Column(db.Unicode(255))
-    milestone_types = db.relationship('MilestoneType')
+    milestone_types = db.relationship('MilestoneType', backref='milestone_type_category')
 
-    def __repr__(self):
-        return '<Milestone Type Category %r>' % (self.english_name)
-
+    def __unicode__(self):
+        return self.milestone_type_category_english_name
 
 class MilestoneType(db.Model):
     __tablename__ = 'milestone_type'
@@ -124,9 +122,8 @@ class MilestoneType(db.Model):
     )
     children = db.relationship('ChildMilestone', back_populates='milestone_type')
 
-    def __repr__(self):
-        return '<Milestone Type Category %r>' % (self.english_name)
-
+    def __unicode__(self):
+        return self.milestone_type_english_name
 
 class DoctorType(db.Model):
     __tablename__ = 'doctor_type'
@@ -134,11 +131,10 @@ class DoctorType(db.Model):
     doctor_type_english_name = db.Column(db.Unicode(255))
     doctor_type_chinese_name = db.Column(db.Unicode(255))
     doctor_type_pinyin_name = db.Column(db.Unicode(255))
-    doctors = db.relationship('Doctor')
+    doctors = db.relationship('Doctor', backref='doctor_type')
 
-    def __repr__(self):
-        return '<Doctor Type %r>' % (self.english_name)
-
+    def __unicode__(self):
+        return self.doctor_type_english_name
 
 class Doctor(db.Model):
     __tablename__ = 'doctor'
@@ -152,9 +148,8 @@ class Doctor(db.Model):
     doctor_type_id = db.Column(db.Integer, db.ForeignKey('doctor_type.id'))
     children = db.relationship('ChildDoctorVisit', back_populates='doctor')
 
-    def __repr__(self):
-        return '<Doctor %r>' % (self.english_name)
-
+    def __unicode__(self):
+        return self.doctor_english_name
 
 class MeasurementType(db.Model):
     __tablename__ = 'measurement_type'
@@ -165,8 +160,8 @@ class MeasurementType(db.Model):
     units = db.Column(db.Unicode(255))
     children = db.relationship('ChildMeasurement', back_populates='measurement_type')
 
-    def __repr__(self):
-        return '<Measurement Type %r>' % (self.english_name)
+    def __unicode__(self):
+        return self.measurement_type_english_name
 
 
 class Camp(db.Model):
@@ -176,7 +171,8 @@ class Camp(db.Model):
     camp_chinese_name = db.Column(db.Unicode(255))
     camp_pinyin_name = db.Column(db.Unicode(255))
     children = db.relationship('ChildCamp', back_populates='camp')
-
+    def __unicode__(self):
+        return self.camp_english_name
 
 class MedicalCondition(db.Model):
     __tablename__ = 'medical_condition'
@@ -186,6 +182,8 @@ class MedicalCondition(db.Model):
     medical_condition_pinyin_name = db.Column(db.Unicode(255))
     children = db.relationship('ChildMedicalCondition', back_populates='medical_condition')
 
+    def __unicode__(self):
+        return self.medical_condition_english_name
 
 class Medication(db.Model):
     __tablename__ = 'medication'
@@ -196,6 +194,8 @@ class Medication(db.Model):
     milligram_dose = db.Column(db.Float)
     children = db.relationship('ChildMedication', back_populates='medication')
 
+    def __unicode__(self):
+        return self.medication_english_name
 # ------------------ Associations ------------------
 
 
@@ -211,6 +211,11 @@ class ChildPartner(db.Model):
     child = db.relationship('Child', back_populates='partners')
     partner = db.relationship('Partner', back_populates='children')
     __table_args__ = (UniqueConstraint('child_id', 'partner_id', 'child_partner_start_date'),)
+
+    def __unicode__(self):
+        p = Partner.query.get(self.partner_id);
+        c = Child.query.get(self.child_id);
+        return "CHILD: '" + c.child_english_name + "' PARTNER: '" + p.partner_english_name + "'"
 
 
 class ChildCamp(db.Model):

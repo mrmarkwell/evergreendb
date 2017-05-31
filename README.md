@@ -15,7 +15,7 @@ For Ubuntu:
 ```python
 pip install virtualenv
 sudo apt-get install python-dev
-cd flaskplayground
+cd backend
 sudo -s
 source virtualize.sh # Create the virtualenv
 deactivate
@@ -28,7 +28,7 @@ python run.py
 For Windows terminal emulator:
 ```
 pip install virtualenv
-cd flaskplayground
+cd backend
 source virtualize.sh
 python db_create.py
 python run.py
