@@ -2,6 +2,8 @@ from flask_restful import reqparse
 from datetime import datetime
 
 def datetype(x):
+    if not x:
+        return None
     return datetime.strptime(x, '%Y-%m-%d')
 date_error_help = "Date fields should be entered as: YYYY-MM-DD"
 

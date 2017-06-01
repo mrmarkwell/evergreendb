@@ -14,6 +14,7 @@
 
 	<script src="scripts/lib.js"></script>
 	<script src="scripts/child.js"></script>
+	<script src="scripts/carer.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
 	<link rel="stylesheet" type="text/css" href="css/chosen.css">
@@ -31,7 +32,12 @@
 			restGet("entity/medication",fillMedicationDropdown);
 			restGet("entity/medication,child_medication?"+jQuery.param({"child_id":child_id}),fillMedicationTable);
 			requestMedicalConditions(child_id);
+			initializeCarerTable(child_id);
 		});
+		function submitNewCaregiver() {
+			var child_id = getParameterByName("id");
+			makeNewCaregiver(child_id)
+		}
 	</script>
 
 </head>
@@ -141,45 +147,34 @@
 		</div>
 		<div id="childTab-carer">
 			<form>
-				<fieldset>
-					<legend>Current Carer:</legend>
-					<table border=1>
-						<tr>
-							<th><b>Name of Carer</b></th>
-							<th><b>Pinyin Name</b></th>
-							<th><b>From</b></th>
-							<th><b>To</b></th>
-							<th><b>Note</b></th>
-						</tr>
-						<tr>
-							<th><b>Jennifer</b></th>
-							<th><b>Chinchin</b></th>
-							<th><b>2016/1/23</b></th>
-							<th><b>2017/5/13</b></th>
-							<th><b>No notes</b></th>
-						</tr>
-					</table>
-
-				</fieldset>
 				 <fieldset>
-					<legend>Carer History: </legend>
-					<table border=1>
-						<tr>
-							<th><b>Name of Carer</b></th>
-							<th><b>Pinyin Name</b></th>
-							<th><b>From</b></th>
-							<th><b>To</b></th>
-							<th><b>Note</b></th>
-						</tr>
-						<tr>
-							<th><b>Jennifer</b></th>
-							<th><b>Chinchin</b></th>
-							<th><b>2016/1/23</b></th>
-							<th><b>2017/5/13</b></th>
-							<th><b>No notes</b></th>
-						</tr>
+					<legend>Carers: </legend>
+					<p>Current carer is highlighted</p>
+					<table border=1 id="carer_table">
+						<thead id="carer_table_head">
+							<tr>
+								<th><b>English Name</b></th>
+								<th><b>Chinese Name</b></th>
+								<th><b>Pinyin Name</b></th>
+								<th><b>Start Date</b></th>
+								<th><b>End Date</b></th>
+								<th><b>Note</b></th>
+							</tr>
+						</thead>
+						<tbody id="carer_table_body"></tbody>
+						<tbody id="new_carer_table_body">
+							<tr>
+								<td><input type="text" id="caregiver_english_name_new"></td>
+								<td><input type="text" id="caregiver_chinese_name_new"></td>
+								<td><input type="text" id="caregiver_pinyin_name_new" ></td>
+								<td><input type="text" id="child_caregiver_start_date_new" class="datepicker" size="9"></td>
+								<td><input type="text" id="child_caregiver_end_date_new" class="datepicker" size="9"></td>
+								<td><input type="text" id="child_caregiver_note_new" ></td>
+							</tr>
+						</tbody>
 					</table>
 				</fieldset>
+				<input type="submit" value="Submit New Carer" onclick="submitNewCaregiver()">
 			</form>
 		</div>
 		<div id="childTab-assessment">
@@ -209,7 +204,7 @@
 					<legend>Partnership:</legend>
 				</fieldset>
 			</form>
-		</div>	
+		</div>
 		<div id="childTab-adoption">
 			<form>
 				<fieldset>
