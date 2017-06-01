@@ -6,9 +6,14 @@ const BrowserWindow = electron.BrowserWindow
 
 // Load some sane default user settings
 const settings = require('electron-settings');
-settings.set('pref_lang', 'english')
-settings.set('debug', 'false')
-settings.set('url', 'http://127.0.0.1:5000/')
+function loadDefault(key, val) {
+    if (!settings.has(key)) {
+        settings.set(key, val)
+    }
+}
+loadDefault('pref_lang', 'english')
+loadDefault('debug', 'false')
+loadDefault('url', 'http://127.0.0.1:5000/')
 
 const path = require('path')
 const url = require('url')
