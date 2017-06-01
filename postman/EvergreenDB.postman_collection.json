@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "EvergreenDB",
-		"_postman_id": "e73aefa7-48c1-4c62-1bc7-788803d125e0",
+		"_postman_id": "63fdd4a8-8106-cb73-bcb5-96062b725458",
 		"description": "Collection of EvergreenDB API Calls.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -1012,6 +1012,96 @@
 						"body": {
 							"mode": "raw",
 							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Users as admin",
+					"request": {
+						"url": "{{api_base_uri}}/user",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Add user billy as admin",
+					"request": {
+						"url": "{{api_base_uri}}/user",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"billy\",\n\t\"is_admin\": false,\n\t\"is_editor\": false,\n\t\"password\": \"test\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User 3 as admin",
+					"request": {
+						"url": "{{api_base_uri}}/user?id=3",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update User 2 as admin",
+					"request": {
+						"url": "{{api_base_uri}}/user?id=2",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"ted\",\n\t\"is_admin\": false,\n\t\"is_editor\": true,\n\t\"password\": \"test\"\n}"
 						},
 						"description": ""
 					},
