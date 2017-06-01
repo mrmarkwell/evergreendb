@@ -4,17 +4,6 @@ const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
 
-// Load some sane default user settings
-const settings = require('electron-settings');
-function loadDefault(key, val) {
-    if (!settings.has(key)) {
-        settings.set(key, val)
-    }
-}
-loadDefault('pref_lang', 'english')
-loadDefault('debug', 'false')
-loadDefault('url', 'http://127.0.0.1:5000/')
-
 const path = require('path')
 const url = require('url')
 
@@ -75,3 +64,16 @@ exports.openWindow = () => {
     let win = new BrowserWindow({width:800, height:600})
     win.loadURL(`file://${__dirname}/flagged_notes.html`)
     }
+
+const settings = require('electron-settings');
+function loadDefault(key, val) {
+    if (!settings.has(key)) {
+        settings.set(key, val)
+    }
+}
+app.on('ready', function () {
+    // Load some sane default user settings
+    loadDefault('pref_lang', 'english')
+    loadDefault('debug', 'false')
+    loadDefault('url', 'http://127.0.0.1:5000/')
+})
