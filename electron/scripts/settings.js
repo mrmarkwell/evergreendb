@@ -13,14 +13,22 @@ function setSettingFromForm() {
 }
 
 function setSetting(key, val) {
+    if (val == "true") { val = 1; }
+    if (val == "false") { val = 0; }
     settings.set(key, val);
 }
 
-function getSetting(key) {
+function getSettingDisplay(key) {
     let curr = settings.get(key);
+    if (curr == 1) { curr = "true"; }
+    if (curr == 0) { curr = "false"; }
     if (curr == undefined) {
         curr = "none";
         setSetting(key, curr);
+    }
+    if (settings.get('debug')) {
+        console.log("getting setting: " + key)
+        console.log("it equals " + curr)
     }
     // capitalize first letter
     return curr.charAt(0).toUpperCase() + curr.slice(1);
@@ -29,7 +37,7 @@ function getSetting(key) {
 function updateCurrentSetting() {
     let current = document.getElementsByClassName('currentSetting');
     for (let elem = 0; elem < current.length; elem++) {
-        current[elem].value = getSetting(current[elem].name);
+        current[elem].value = getSettingDisplay(current[elem].name);
     }
 }
 
