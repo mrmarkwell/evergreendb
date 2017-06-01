@@ -4,7 +4,6 @@ function getAllChildren(callback) {
 
   xhr.addEventListener("readystatechange", function () {
     if (this.readyState === 4) {
-      console.log(this.responseText);
       callback(JSON.parse(this.responseText));
     }
   });
