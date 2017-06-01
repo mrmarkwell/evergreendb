@@ -66,7 +66,6 @@ function restDelete(relative_url, callback) {
 		}
 	});
 
-	console.log(relative_url);
 	xhr.open("DELETE", BASE_URL + relative_url);
 	xhr.setRequestHeader("content-type", "application/json");
 	xhr.setRequestHeader("accept", "application/json");
@@ -83,7 +82,6 @@ function restPut(relative_url, body, callback) {
 
 	xhr.addEventListener("readystatechange", function () {
 		if (this.readyState === 4) {
-			console.log(this.responseText);
 			if (this.status >= 300) {
 				badRequest(this.status, JSON.parse(this.responseText));
 			} else {
