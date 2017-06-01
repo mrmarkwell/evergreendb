@@ -1,7 +1,7 @@
 const settings = require('electron-settings');
 
 // global var for table entry data
-let g_table_entries = [];
+let g_carer_table_entries = [];
 const g_base_url = "http://127.0.0.1:5000";
 
 // log to console if in debug mode
@@ -25,38 +25,49 @@ function TableElements() {
 }
 
 // Function to construct a TableElements object and return it.
-function populateTableElements(jdata) {
+function populateCarerTableElements(jdata) {
     let tes = [];
     for (let record of jdata) {
         let te = new TableElements();
         for (let prop in te) {
             te[prop] = record.hasOwnProperty(prop) ? record[prop] : null;
         }
+        te.checkboxFuncKey = "exampleCheckboxFunction";
+        te.href = "child.html?id=" + record.child_id
         tes.push(te);
     }
     return tes;
 }
 
-function constructTable() {
+// Just an example to show off that a function can be called when you check the box.
+// This should be used to end the child carer relationship, i.e. set the end date
+function exampleCheckboxFunction(element, idx) {
+    let checkedText = element.checked ? "CHECKED" : "UNCHECKED";
+    alert("You " + checkedText + " the checkbox for row " + idx + " which is the row with child " + g_carer_table_entries[idx].child_english_name + " who has ID " + g_carer_table_carerentries[idx].child_id);
+}
+
+function constructCarerTable() {
     let headers = [
+        "", "",         // edit link and checkbox respectively
+        "English Name", "Chinese Name",
+        "Pinyin Name", "Start Date",
+        "End Date", "Note"
+    ];
+    let columnTypes = [
+        columnTypeEnum.editFormLink, columnTypeEnum.checkboxFunc,
+        columnTypeEnum.text, columnTypeEnum.text,
+        columnTypeEnum.text, columnTypeEnum.text,
+        columnTypeEnum.text, columnTypeEnum.text
+    ];
+    let fieldNames = [
+        "href", "checkboxFuncKey",
         "caregiver_english_name", "caregiver_chinese_name",
         "caregiver_pinyin_name", "child_caregiver_start_date",
         "child_caregiver_end_date", "child_caregiver_note"
-    ]
-    let tbody = document.getElementById("carer_table_body")
-    for (let entry of g_table_entries) {
-        let tr = document.createElement("tr");
-        if (!entry["child_caregiver_end_date"]) {   // current caregiver
-            tr.classList.add("highlight")
-            entry["child_caregiver_end_date"] = "Current"
-        }
-        for (let header of headers) {
-            let td = document.createElement("td");
-            td.appendChild(document.createTextNode(entry[header]));
-            tr.appendChild(td);
-        }
-        tbody.appendChild(tr);
-    }
+    ];
+    let columnData = new ColumnData(headers, columnTypes, fieldNames);
+    let tdata = new TableData("carer_table", columnData, g_carer_table_entries);
+    generateTable(tdata);
 }
 
 // Main entry point. Do all the initial REST calls and get all the data.
@@ -64,41 +75,30 @@ function constructTable() {
 function initializeCarerTable(child_id) {
     const caregiver_url = g_base_url + "/entity/child,child_caregiver,caregiver?child_id=" + child_id
 
-    // decrements when each request succeeds so final request can call next step.
-    let requests_remaining = 1;
-    let table_names = ["carer_data"];
-    let urls = [caregiver_url];
-
-
-    for (let i = 0; i < table_names.length; i++) {
-        makeRequest({
-            method: "GET",
-            url: urls[i]
-        }).then(function (datums) {
-            let jdata = JSON.parse(datums);
-            let tes = populateTableElements(jdata);
-            g_table_entries = g_table_entries.concat(tes);
-            requests_remaining--;
-            if (requests_remaining === 0) {
-                // sort g_table_entries by child_caregiver_end_date, most recent to least recent
-                g_table_entries.sort(function(a, b) {
-                    // Turn your strings into dates, and then subtract them
-                    // to get a value that is either negative, positive, or zero.
-                    // make sure empty end date ends up at the top
-                    if (a.child_caregiver_end_date == null) {
-                        return -1
-                    } else if (b.child_caregiver_end_date == null) {
-                        return 1
-                    } else {
-                        return new Date(b.child_caregiver_end_date) - new Date(a.child_caregiver_end_date);
-                    }
-                });
-                constructTable();
+    makeRequest({
+        method: "GET",
+        url: caregiver_url,
+        responseType: "json"
+    }).then(function (datums) {
+        let tes = populateCarerTableElements(datums);
+        g_carer_table_entries = g_carer_table_entries.concat(tes);
+        // sort g_carer_table_entries by child_caregiver_end_date, most recent to least recent
+        g_carer_table_entries.sort(function(a, b) {
+            // Turn your strings into dates, and then subtract them
+            // to get a value that is either negative, positive, or zero.
+            // make sure empty end date ends up at the top
+            if (a.child_caregiver_end_date == null) {
+                return -1
+            } else if (b.child_caregiver_end_date == null) {
+                return 1
+            } else {
+                return new Date(b.child_caregiver_end_date) - new Date(a.child_caregiver_end_date);
             }
-        }).catch(function (err) {
-            console.error('Error getting data from ' + table_names[i], err.statusText);
         });
-    }
+        constructCarerTable();
+    }).catch(function (err) {
+        console.error("Error getting data from caregiver table", err);
+    });
 }
 
 function makeNewCaregiver(child_id) {
