@@ -26,27 +26,43 @@ function TableElements() {
 
 // Function to construct a TableElements object and return it.
 function populateCarerTableElements(jdata) {
-    let tes = [];
+    let hist_tes = [];
+    let curr_tes = [];
+    let curr_caregiver = false;
     for (let record of jdata) {
         let te = new TableElements();
         for (let prop in te) {
-            te[prop] = record.hasOwnProperty(prop) ? record[prop] : null;
+            if (record.hasOwnProperty(prop)) {
+                if (prop == "child_caregiver_end_date" && record[prop] == null) {
+                    curr_caregiver = true;
+                }
+                te[prop] = record[prop];
+            } else {
+                te[prop] = null;
+            }
         }
         te.checkboxFuncKey = "exampleCheckboxFunction";
         te.href = "child.html?id=" + record.child_id
-        tes.push(te);
+        console.log(curr_caregiver);
+        if (curr_caregiver) {
+            curr_tes.push(te)
+            curr_caregiver = false;
+        } else {
+            hist_tes.push(te);
+        }
     }
-    return tes;
+    return [hist_tes, curr_tes];
 }
 
 // Just an example to show off that a function can be called when you check the box.
 // This should be used to end the child carer relationship, i.e. set the end date
-function exampleCheckboxFunction(element, idx) {
+function exampleCheckboxFunction(element, idx, entry) {
+    console.log(entry)
     let checkedText = element.checked ? "CHECKED" : "UNCHECKED";
-    alert("You " + checkedText + " the checkbox for row " + idx + " which is the row with child " + g_carer_table_entries[idx].child_english_name + " who has ID " + g_carer_table_carerentries[idx].child_id);
+    alert("You " + checkedText + " the checkbox for row " + idx + " which is the row with child " + entry.caregiver_english_name + " who has ID " + entry.caregiver_id);
 }
 
-function constructCarerTable() {
+function constructCarerTable(table_entries, table_id) {
     let headers = [
         "", "",         // edit link and checkbox respectively
         "English Name", "Chinese Name",
@@ -66,7 +82,7 @@ function constructCarerTable() {
         "child_caregiver_end_date", "child_caregiver_note"
     ];
     let columnData = new ColumnData(headers, columnTypes, fieldNames);
-    let tdata = new TableData("carer_table", columnData, g_carer_table_entries);
+    let tdata = new TableData(table_id, columnData, table_entries);
     generateTable(tdata);
 }
 
@@ -81,9 +97,10 @@ function initializeCarerTable(child_id) {
         responseType: "json"
     }).then(function (datums) {
         let tes = populateCarerTableElements(datums);
-        g_carer_table_entries = g_carer_table_entries.concat(tes);
+        let hist_tes = tes[0];
+        let curr_tes = tes[1];
         // sort g_carer_table_entries by child_caregiver_end_date, most recent to least recent
-        g_carer_table_entries.sort(function(a, b) {
+        hist_tes.sort(function(a, b) {
             // Turn your strings into dates, and then subtract them
             // to get a value that is either negative, positive, or zero.
             // make sure empty end date ends up at the top
@@ -95,7 +112,8 @@ function initializeCarerTable(child_id) {
                 return new Date(b.child_caregiver_end_date) - new Date(a.child_caregiver_end_date);
             }
         });
-        constructCarerTable();
+        constructCarerTable(curr_tes, "current_carer_table");
+        constructCarerTable(hist_tes, "carer_history_table");
     }).catch(function (err) {
         console.error("Error getting data from caregiver table", err);
     });

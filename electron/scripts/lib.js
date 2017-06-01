@@ -100,7 +100,7 @@ function generateTable(tdata) {
             } else if (type == columnTypeEnum.checkboxFunc) {
                 let input = document.createElement("input");
                 input.type = "checkbox";
-                input.setAttribute("onchange", "" + cellData + "(this, " + rowIdx + ")");
+                input.setAttribute("onchange", "" + cellData + "(this, " + rowIdx + ", " + JSON.stringify(obj).replace(/"/g, "'") + ")");
                 td.appendChild(input);
             } else {
                 console.error("Unknown column type in generateTable: " + type);
