@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
 from flask_login import LoginManager
 from flask_admin import Admin
+from flask_login import current_user
 
 app = Flask(__name__)
 app.config.from_object('config')
@@ -58,6 +59,9 @@ class MyBaseView(ModelView):
     column_type_formatters = MY_DEFAULT_FORMATTERS
     can_export = True
     can_view_details = True
+
+    def is_accessible(self):
+        return current_user.is_authenticated and current_user.is_admin
 
 class ChildView(MyBaseView):
     column_exclude_list = ['medical_history', 'child_history','program_departure_reason']
