@@ -16,7 +16,8 @@ function TableElements() {
         caregiver_id: null,
         note_type: null,
         note: null,
-        href: null
+        href: null,
+        checkboxFuncKey: null // DELETE THIS
     }
 }
 
@@ -47,6 +48,7 @@ function populateTableElements(jdata, note_type) {
         let tab_name = note_tab_map[note_type];
         te.note = record[note_name];
         te.href = "child.html?id=" + record.child_id + "#childTab-" + tab_name;
+        te.checkboxFuncKey = "exampleCheckboxFunction"; // DELETE THIS
         //console.log(te);
         tes.push(te);
     }
@@ -99,30 +101,53 @@ function makeRequest(opts) {
     });
 }
 
+// Just an example to show off that a function can be called when you check the box.
+function exampleCheckboxFunction(element, idx) {
+    let checkedText = element.checked ? "CHECKED" : "UNCHECKED";
+    alert("You " + checkedText + " the checkbox for row " + idx + " which is the row with child " + g_table_entries[idx].child_english_name + " who has ID " + g_table_entries[idx].child_id);
+}
 
 // TableEntry data is collected - now build the table itself.
 function constructTable() {
-    console.log(g_table_entries);
-    let headers = ["note_type", "child_english_name", "caregiver_english_name", "note"];
-    let tbody = document.getElementById("flagged_notes_table_body");
-    for (let entry of g_table_entries) {
-        let tr = document.createElement("tr");
-        let td = document.createElement("td");
-        let a = document.createElement("a");
-        let link_text = document.createTextNode("Go To Note");
-        a.appendChild(link_text);
-        a.title = "Go To Note";
-        a.href = entry.href;
-        td.appendChild(a);
-        tr.appendChild(td);
-        for (let header of headers) {
-            let td = document.createElement("td");
-            td.appendChild(document.createTextNode(entry[header]));
-            tr.appendChild(td);
-        }
-        tbody.appendChild(tr);
-    }
+    let headers = ["", "EXAMPLE EDIT", "EXAMPLE CHECKBOX", "Note Type",
+        "Child", "Caregiver", "Note"];
+    let columnTypes = [columnTypeEnum.viewDetailLink,
+    columnTypeEnum.editFormLink,
+    columnTypeEnum.checkboxFunc,
+    columnTypeEnum.text,
+    columnTypeEnum.text,
+    columnTypeEnum.text,
+    columnTypeEnum.text];
+    let fieldNames = ["href", "href", "checkboxFuncKey", "note_type",
+        "child_english_name", "caregiver_english_name", "note"];
+    let columnData = new ColumnData(headers, columnTypes, fieldNames);
+    let tdata = new TableData("flagged_notes_table", columnData, g_table_entries);
+    generateTable(tdata);
 }
+
+// THE OLD WAY - Leaving this here for reference. TO BE REMOVED.
+//function constructTable() {
+//    console.log(g_table_entries);
+//    let headers = ["note_type", "child_english_name", "caregiver_english_name", "note"];
+//    let tbody = document.getElementById("flagged_notes_table_body");
+//    for (let entry of g_table_entries) {
+//        let tr = document.createElement("tr");
+//        let td = document.createElement("td");
+//        let a = document.createElement("a");
+//        let link_text = document.createTextNode("Go To Note");
+//        a.appendChild(link_text);
+//        a.title = "Go To Note";
+//        a.href = entry.href;
+//        td.appendChild(a);
+//        tr.appendChild(td);
+//        for (let header of headers) {
+//            let td = document.createElement("td");
+//            td.appendChild(document.createTextNode(entry[header]));
+//            tr.appendChild(td);
+//        }
+//        tbody.appendChild(tr);
+//    }
+//}
 
 // Main entry point. Do all the initial REST calls and get all the data.
 // Construct the table.
@@ -145,7 +170,7 @@ function initializeTable() {
             child_select.options[child_select.options.length] = new Option(entry.child_english_name, entry.child_english_name);
         }
     }).catch(function (err) {
-        console.error("Error setting up child select dropdown!", err.statusText);
+        console.error("Error setting up child select dropdown!", err);
     });
 
     makeRequest({
@@ -158,7 +183,7 @@ function initializeTable() {
             caregiver_select.options[caregiver_select.options.length] = new Option(entry.caregiver_english_name, entry.caregiver_english_name);
         }
     }).catch(function (err) {
-        console.error("Error setting up caregiver select dropdown!", err.statusText);
+        console.error("Error setting up caregiver select dropdown!", err);
     });
 
 
@@ -183,7 +208,7 @@ function initializeTable() {
                 constructTable();
             }
         }).catch(function (err) {
-            console.error('Error getting data from ' + table_names[i], err.statusText);
+            console.error('Error getting data from ' + table_names[i], err);
         });
     }
 

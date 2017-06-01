@@ -8,9 +8,9 @@
     <!-- normal script imports etc  -->
     <script src="scripts/jquery.min.js"></script>
     <script src="scripts/jquery-ui.min.js"></script>
+    <script src="scripts/lib.js"></script>
     <script src="scripts/flagged_notes.js"></script>
     <script src="scripts/tablesort.min.js"></script>
-    <script src="scripts/tablesort.number.js"></script>
     <!-- Insert this line after script imports -->
     <script>if (window.module) module = window.module;</script>
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
@@ -40,18 +40,7 @@
         <option selected>All Caregivers</option>
     </select>
     <button type="button" onclick="filterTable()">Apply Filter</button>
-    <table class="tablesorter" id="flagged_notes_table">
-        <thead id="flagged_notes_table_head">
-            <tr>
-                <th></th>
-                <th>Note Type</th>
-                <th>Child</th>
-                <th>Caregiver</th>
-                <th>Note</th>
-            </tr>
-        </thead>
-        <tbody id="flagged_notes_table_body"></tbody>
-    </table>
+    <table id="flagged_notes_table"></table>
     <footer>
         <p>©Copyright 2017 by Matthew Markwell. All rights reserved.</p>
     </footer>
