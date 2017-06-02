@@ -56,9 +56,9 @@ function populateTableElements(jdata, note_type) {
 }
 
 // Just an example to show off that a function can be called when you check the box.
-function exampleCheckboxFunction(element, idx) {
+function exampleCheckboxFunction(element, idx, entry) {
     let checkedText = element.checked ? "CHECKED" : "UNCHECKED";
-    alert("You " + checkedText + " the checkbox for row " + idx + " which is the row with child " + g_table_entries[idx].child_english_name + " who has ID " + g_table_entries[idx].child_id);
+    alert("You " + checkedText + " the checkbox for row " + idx + " which is the row with child " + entry.caregiver_english_name + " who has ID " + entry.caregiver_id);
 }
 
 // TableEntry data is collected - now build the table itself.
