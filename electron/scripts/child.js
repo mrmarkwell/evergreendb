@@ -195,3 +195,22 @@ function addChildMedication() {
 	// Send POST
 	restPost('entity/child_medication',child_medication_info,function(json) {location.reload();});
 }
+
+function createMeasurementSection(measurement_types) {
+	let measurements_p = document.getElementById("child_measurements");
+	let language = "english";
+	for (let measure_type of measurement_types) {
+		let header = document.createElement('H6');
+		header.innerHTML = measure_type['measurement_type_' + language + '_name'];
+		let table = document.createElement('TABLE');
+		table.id = 'measurement_table_type' + measure_type.id;
+		restGet("entity/measurement_type,child_measurement?"+jQuery.param({"child_id":getParameterByName("id"),"measurement_type_id":measure_type.id}),
+			function(json) {fillMeasurementTable(json,table.id);}
+		);
+		measurements_p.appendChild(header);
+		measurements_p.appendChild(table);
+	}
+}
+function fillMeasurementTable(measurements,table_id) {
+	console.log(table_id,measurements);
+}
