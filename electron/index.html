@@ -10,14 +10,26 @@
     <script src="scripts/jquery-ui.min.js"></script>
     <!-- Insert this line after script imports -->
     <script>if (window.module) module = window.module;</script>
-    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
 </head>
 <body>
-    <h1>Evergreen Management System</h1>
+    <header>
+        <h1>Evergreen Management System</h1>
+    </header>
     <script>require('./index.js')</script>
-    <p><a href=query.html>Child selct</a></p>
-    <p><a href=settings.html>User Settings</a></p>
-    <p><a href="flagged_notes.html">Flagged Notes</a></p>
-    <p><a href="flask_admin.html">Create, Update, or Delete Records</a></p>
+    <nav>
+        <div class="main_nav">
+            <h2><a href=query.html>Child selct</a></h2>
+        </div>
+        <div class="main_nav">
+            <h2><a href=settings.html>User Settings</a></h2>
+        </div>
+        <div class="main_nav">
+            <h2><a href="flagged_notes.html">Flagged Notes</a></h2>
+        </div>
+        <div class="main_nav">
+            <h2><a href="flask_admin.html">Admin</a></h2>
+        </div>
+    </nav>
 </body>
 </html>

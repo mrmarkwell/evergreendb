@@ -1,0 +1,42 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+header h1 {
+    color: #000000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+nav {
+    background-color: #000000;
+}
+
+nav .main_nav {
+ /*   outline-color: #000000;
+    outline-style: solid;
+    outline-width: 2px; */
+    padding: 5px;
+    min-width: 20%;
+    text-align: center;
+}
+
+nav .main_nav a {
+    outline: none;
+    color: #ffffff;
+    text-decoration: none;
+    white-space: nowrap;
+}
