@@ -30,7 +30,7 @@ function ColumnData(headerList, columnTypeList, fieldNameList) {
         columnType: columnTypeList,
 
         // List of names of the fields to be extracted from the data object for this column.
-        fieldName: fieldNameList,
+        fieldName: fieldNameList
     }
 }
 
