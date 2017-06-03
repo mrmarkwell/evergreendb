@@ -30,12 +30,12 @@ function ColumnData(headerList, columnTypeList, fieldNameList) {
         columnType: columnTypeList,
 
         // List of names of the fields to be extracted from the data object for this column.
-        fieldName: fieldNameList
+        fieldName: fieldNameList,
     }
 }
 
 // TableData Class. An instance of this class is passed to tableGenerator() to construct a table.
-function TableData(id, columns, objects) {
+function TableData(id, columns, objects, checkedDecision) {
     return {
         // ID of the table in the HTML. 
         // Table should be defined in HTML but have no elements within.
@@ -49,7 +49,11 @@ function TableData(id, columns, objects) {
         // construct a row of the table. One object per row.
         // Fields in these objects should have names matching the "fieldName" 
         // element of the ColumnData objects.
-        tableElementObjects: objects
+        tableElementObjects: objects,
+
+        // if a checkbox is included, this function should return true if the box should
+        // be checked on window load, false otherwise
+        checkedDecisionFunc: checkedDecision
     }
 }
 
@@ -101,6 +105,9 @@ function generateTable(tdata) {
                 let input = document.createElement("input");
                 input.type = "checkbox";
                 input.setAttribute("onchange", "" + cellData + "(this, " + rowIdx + ", " + JSON.stringify(obj).replace(/"/g, "'") + ")");
+                if (typeof tdata.checkedDecisionFunc != 'undefined') {
+                    input.checked = tdata.checkedDecisionFunc(JSON.stringify(obj))
+                }
                 td.appendChild(input);
             } else {
                 console.error("Unknown column type in generateTable: " + type);

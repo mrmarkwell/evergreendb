@@ -75,7 +75,16 @@ function constructTable() {
     let fieldNames = ["href", "href", "checkboxFuncKey", "note_type",
         "child_english_name", "caregiver_english_name", "note"];
     let columnData = new ColumnData(headers, columnTypes, fieldNames);
-    let tdata = new TableData("flagged_notes_table", columnData, g_table_entries);
+    let checkDecision = function(row_json) {
+        let row_obj = JSON.parse(row_json)
+        if (row_obj.child_id == 1) {
+            console.log(row_obj)
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    let tdata = new TableData("flagged_notes_table", columnData, g_table_entries, checkDecision);
     generateTable(tdata);
 }
 
