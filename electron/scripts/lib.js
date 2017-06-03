@@ -106,7 +106,7 @@ function generateTable(tdata) {
                 input.type = "checkbox";
                 input.setAttribute("onchange", "" + cellData + "(this, " + rowIdx + ", " + JSON.stringify(obj).replace(/"/g, "'") + ")");
                 if (typeof tdata.checkedDecisionFunc != 'undefined') {
-                    input.checked = tdata.checkedDecisionFunc(JSON.stringify(obj))
+                    input.checked = tdata.checkedDecisionFunc(obj)
                 }
                 td.appendChild(input);
             } else {
