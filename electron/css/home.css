@@ -16,19 +16,13 @@ header h1 {
 }
 
 nav {
+    background-color: #000000;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
 }
 
-nav {
-    background-color: #000000;
-}
-
 nav .main_nav {
- /*   outline-color: #000000;
-    outline-style: solid;
-    outline-width: 2px; */
     padding: 5px;
     min-width: 20%;
     text-align: center;
