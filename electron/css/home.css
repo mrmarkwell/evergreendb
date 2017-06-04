@@ -9,9 +9,14 @@ header {
     justify-content: center;
     align-items: center;
     align-content: center;
+    border-bottom-color: #000000;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding: 2px;
 }
 
 header h1 {
+    margin: 5px;
     color: #000000;
 }
 
