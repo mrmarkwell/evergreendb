@@ -1,8 +1,7 @@
 const settings = require('electron-settings');
-
-// global var for table entry data
-let g_carer_table_entries = [];
-const g_base_url = "http://127.0.0.1:5000";
+let carer = {
+    base_url: settings.get('url')
+}
 
 // log to console if in debug mode
 function d_log(record) {
@@ -79,7 +78,7 @@ function constructCarerTable(table_entries, table_id) {
 // Main entry point. Do all the initial REST calls and get all the data.
 // Construct the table.
 function initializeCarerTable(child_id) {
-    const caregiver_url = g_base_url + "/entity/child,child_caregiver,caregiver?child_id=" + child_id
+    const caregiver_url = carer.base_url + "entity/child,child_caregiver,caregiver?child_id=" + child_id
 
     makeRequest({
         method: "GET",
@@ -109,40 +108,39 @@ function initializeCarerTable(child_id) {
     });
 }
 
-function makeNewCaregiver(child_id) {
-    let caregiver_english_name = document.getElementById("caregiver_english_name_new").value;
-    let caregiver_chinese_name = document.getElementById("caregiver_chinese_name_new").value;
-    let caregiver_pinyin_name = document.getElementById("caregiver_pinyin_name_new").value;
+function initializeNewCarerForm(child_id) {
+    const caregiver_url = carer.base_url + "entity/caregiver";
+    makeRequest({
+        method: "GET",
+        url: caregiver_url
+    }).then(function (datums) {
+        let jdata = JSON.parse(datums);
+        let caregiver_select = document.getElementById("carer_caregiver_select")
+        for (let entry of jdata) {
+            caregiver_select.options[caregiver_select.options.length] = new Option(entry.caregiver_english_name, entry.id);
+        }
+    }).catch(function (err) {
+        console.error("Error setting up caregiver select dropdown!", err);
+    });
+}
+
+
+function makeNewCaregiverRelationship(child_id) {
+    let delay = 1  // millisecond
+    let caregiver_id = document.getElementById("carer_caregiver_select").value;
     let child_caregiver_start_date = document.getElementById("child_caregiver_start_date_new").value;
-    let child_caregiver_end_date = document.getElementById("child_caregiver_end_date_new").value;
     let child_caregiver_note = document.getElementById("child_caregiver_note_new").value;
     makeRequest({
         method: "POST",
-        url: g_base_url + "/entity/caregiver",
+        url: carer.base_url + "entity/child_caregiver",
         headers: {"Content-Type": "application/json"},
         responseType: "json",
         params: JSON.stringify({
-            "caregiver_english_name": caregiver_english_name,
-            "caregiver_chinese_name": caregiver_chinese_name,
-            "caregiver_pinyin_name": caregiver_pinyin_name
+            "child_id": child_id,
+            "caregiver_id": caregiver_id,
+            "child_caregiver_start_date": child_caregiver_start_date,
+            "child_caregiver_note": child_caregiver_note
         })
-    }).then(function (datums) {
-        d_log("I got the data!");
-        d_log("DATUMS: " + datums)
-        let caregiver_id = datums.id;
-        makeRequest({
-            method: "POST",
-            url: g_base_url + "/entity/child_caregiver",
-            headers: {"Content-Type": "application/json"},
-            responseType: "json",
-            params: JSON.stringify({
-                "child_id": child_id,
-                "caregiver_id": caregiver_id,
-                "child_caregiver_start_date": child_caregiver_start_date,
-                "child_caregiver_end_date": child_caregiver_end_date,
-                "child_caregiver_note": child_caregiver_note
-            })
-        });
     }).catch(function (err) {
         console.error('Error posting data: ' + err.statusText);
     });
