@@ -32,6 +32,7 @@
 			restGet("entity/child?"+jQuery.param({"id":child_id}),fillChildTabData);
 			restGet("entity/medication",fillMedicationDropdown);
 			restGet("entity/medication,child_medication?"+jQuery.param({"child_id":child_id}),fillMedicationTable);
+			restGet("entity/measurement_type",createMeasurementSection);
 			requestMedicalConditions(child_id);
 			initializeCarerTable(child_id);
 		});
@@ -107,6 +108,7 @@
 					</tr>
 				</table>
 				<h4>Measurements</h4>
+				<p id="child_measurements"></p>
 				<h4>Doctor Visits</h4>
 			</form>
 		</div>
