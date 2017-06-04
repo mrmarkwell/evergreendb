@@ -41,6 +41,12 @@ function fillAge(birthdate_str) {
 	document.getElementById('age').innerHTML = age;
 }
 
+function updateMedicalHistory() {
+	let data = {"medical_history": document.getElementById("medical_history").value};
+	restPut('entity/child?id=' + Number(getParameterByName("id")), data, function(x) {});
+}
+
+// Medical Conditions
 function requestMedicalConditions(child_id) {
 	var med_cond_req_settings = {
 		"url": BASE_URL + "entity/medical_condition",
@@ -99,11 +105,7 @@ function updateMedicalConditions() {
 	}
 }
 
-function updateMedicalHistory() {
-	let data = {"medical_history": document.getElementById("medical_history").value};
-	restPut('entity/child?id=' + Number(getParameterByName("id")), data, function(x) {});
-}
-
+// Medications
 function fillMedicationDropdown(json) {
 	var select_box = document.getElementById('medication_new');
 	let opt = document.createElement('option');
@@ -146,7 +148,6 @@ function fillMedicationTable(child_medications) {
 			if (end_date <= today) {
 				table_str += ' checked';
 				row.classList.add("grayedout");
-				//TODO: Grey out row
 			}
 		}
 		table_str += '></td>';
@@ -196,6 +197,7 @@ function addChildMedication() {
 	restPost('entity/child_medication',child_medication_info,function(json) {location.reload();});
 }
 
+// Measurements
 function createMeasurementSection(measurement_types) {
 	let measurements_p = document.getElementById("child_measurements");
 	let language = "english";
@@ -213,4 +215,11 @@ function createMeasurementSection(measurement_types) {
 }
 function fillMeasurementTable(measurements,table_id) {
 	console.log(table_id,measurements);
+	let headers = ["","Date","Measurement","Unit","Comments"]; // "" is edit column
+	let column_types = [columnTypeEnum.editFormLink, columnTypeEnum.text,
+		columnTypeEnum.text, columnTypeEnum.text, columnTypeEnum.text];
+	let field_names = ['href',"child_measurement_date","child_measurement_value","units","comment"];
+	let column_data = new ColumnData(headers, column_types, field_names);
+	let tdata = new TableData(table_id, column_data, measurements);
+	generateTable(tdata);
 }
