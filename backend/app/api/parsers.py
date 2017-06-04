@@ -233,6 +233,7 @@ child_caregiver_update_parser.replace_argument('caregiver_id', type=int, require
 child_measurement_parser = reqparse.RequestParser()
 child_measurement_parser.add_argument('child_measurement_date', required=True, type=datetype, help=date_error_help)
 child_measurement_parser.add_argument('child_measurement_value', required=True, type=float)
+child_measurement_parser.add_argument('child_measurement_comment')
 child_measurement_parser.add_argument('child_id', type=int, required=True)
 child_measurement_parser.add_argument('measurement_type_id', type=int, required=True)
 

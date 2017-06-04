@@ -158,6 +158,7 @@ child_measurement_fields = {
     'id': fields.Integer,
     'child_measurement_date': Date,
     'child_id': fields.Integer,
+    'child_measurement_comment': fields.String,
     'child_measurement_value': fields.Float,
     'measurement_type_id': fields.Integer
     }

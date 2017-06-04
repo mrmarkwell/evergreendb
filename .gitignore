@@ -8,5 +8,6 @@ backend/uploads/
 *.sln
 *.pyproj
 .hypothesis/
+.vscode/
 node_modules
 electron/dist/
