@@ -41,7 +41,6 @@ function populateCarerTableElements(jdata) {
                 te[prop] = null;
             }
         }
-        te.checkboxFuncKey = "exampleCheckboxFunction";
         te.href = "child.html?id=" + record.child_id
         if (curr_caregiver) {
             curr_tes.push(te)
@@ -53,28 +52,21 @@ function populateCarerTableElements(jdata) {
     return [hist_tes, curr_tes];
 }
 
-// Just an example to show off that a function can be called when you check the box.
-// This should be used to end the child carer relationship, i.e. set the end date
-function exampleCheckboxFunction(element, idx, entry) {
-    let checkedText = element.checked ? "CHECKED" : "UNCHECKED";
-    alert("You " + checkedText + " the checkbox for row " + idx + " which is the row with child " + entry.caregiver_english_name + " who has ID " + entry.caregiver_id);
-}
-
 function constructCarerTable(table_entries, table_id) {
     let headers = [
-        "", "Set End Date",         // edit link and checkbox respectively
+        "",          // edit link
         "English Name", "Chinese Name",
         "Pinyin Name", "Start Date",
         "End Date", "Note"
     ];
     let columnTypes = [
-        columnTypeEnum.editFormLink, columnTypeEnum.checkboxFunc,
+        columnTypeEnum.editFormLink,
         columnTypeEnum.text, columnTypeEnum.text,
         columnTypeEnum.text, columnTypeEnum.text,
         columnTypeEnum.text, columnTypeEnum.text
     ];
     let fieldNames = [
-        "href", "checkboxFuncKey",
+        "href",
         "caregiver_english_name", "caregiver_chinese_name",
         "caregiver_pinyin_name", "child_caregiver_start_date",
         "child_caregiver_end_date", "child_caregiver_note"
