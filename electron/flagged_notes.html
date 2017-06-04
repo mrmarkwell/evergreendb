@@ -16,6 +16,7 @@
     <script>if (window.module) module = window.module;</script>
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="css/table.css" />
+    <link rel="stylesheet" type="text/css" href="css/home.css" />
     <script>
         $(document).ready(function () {
             new Tablesort(document.getElementById("flagged_notes_table"));
@@ -24,15 +25,17 @@
     </script>
 </head>
 <body>
-    <header>
-        <h1>EvergreenDB</h1>
-    </header>
     <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="settings.html">Settings</a></li>
-        </ul>
+        <div class="main_nav">
+            <h2><a href="index.html">Home</a></h2>
+        </div>
+        <div class="main_nav">
+            <h2><a href="settings.html">Settings</a></h2>
+        </div>
     </nav>
+    <header>
+        <h1>Evergreen Management System</h1>
+    </header>
     <h2>Flagged Notes</h2>
     <select id="child_select">
         <option selected>All Children</option>
