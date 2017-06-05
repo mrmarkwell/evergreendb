@@ -261,6 +261,7 @@ class ChildMeasurement(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     child_measurement_date = db.Column(db.DateTime)
     child_measurement_value = db.Column(db.Float)
+    child_measurement_comment = db.Column(db.UnicodeText)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
     measurement_type_id = db.Column(db.Integer, db.ForeignKey('measurement_type.id'))
     child = db.relationship('Child', back_populates='measurement_types')
