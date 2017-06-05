@@ -11,10 +11,12 @@
     <script src="scripts/lib.js"></script>
     <script src="scripts/flagged_notes.js"></script>
     <script src="scripts/tablesort.min.js"></script>
+    <script src="scripts/tablesort.number.min.js"></script>
     <!-- Insert this line after script imports -->
     <script>if (window.module) module = window.module;</script>
     <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="css/table.css" />
+    <link rel="stylesheet" type="text/css" href="css/home.css" />
     <script>
         $(document).ready(function () {
             new Tablesort(document.getElementById("flagged_notes_table"));
@@ -23,15 +25,17 @@
     </script>
 </head>
 <body>
-    <header>
-        <h1>EvergreenDB</h1>
-    </header>
     <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="settings.html">Settings</a></li>
-        </ul>
+        <div class="main_nav">
+            <h2><a href="index.html">Home</a></h2>
+        </div>
+        <div class="main_nav">
+            <h2><a href="settings.html">Settings</a></h2>
+        </div>
     </nav>
+    <header>
+        <h1>Evergreen Management System</h1>
+    </header>
     <h2>Flagged Notes</h2>
     <select id="child_select">
         <option selected>All Children</option>
@@ -42,7 +46,7 @@
     <button type="button" onclick="filterTable()">Apply Filter</button>
     <table id="flagged_notes_table"></table>
     <footer>
-        <p>©Copyright 2017 by Matthew Markwell. All rights reserved.</p>
+        <p>©Copyright 2017. All rights reserved.</p>
     </footer>
 </body>
 </html>

@@ -45,6 +45,7 @@ child_note_parser.add_argument('child_id', required=True)
 child_note_update_parser = child_note_parser.copy()
 child_note_update_parser.replace_argument('note', required=False)
 child_note_update_parser.replace_argument('child_id', required=False)
+child_note_update_parser.replace_argument('child_note', required=False)
 
 # partner
 partner_parser = base_parser.copy()

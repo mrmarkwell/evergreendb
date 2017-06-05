@@ -152,6 +152,6 @@ function makeNewCaregiver(child_id) {
             })
         });
     }).catch(function (err) {
-        console.error('Error posting data: ' + err.statusText);
+        console.error('Error posting data: ' + err);
     });
 }

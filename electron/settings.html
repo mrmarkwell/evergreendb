@@ -16,30 +16,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-	<title>Child Info</title>
-
+	<title>EvMS</title>
     <!-- Insert this line above script imports  -->
     <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
     <!-- normal script imports etc  -->
     <script src="scripts/settings.js"></script>
     <!-- Insert this line after script imports -->
     <script>if (window.module) module = window.module;</script>
-
     <link rel="stylesheet" type="text/css" href="css/settings.css">
-
+    <link rel="stylesheet" type="text/css" href="css/home.css">
 </head>
-
 <body>
-
-    <header>
-        <h1>EvergreenDB</h1>
-    </header>
     <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-        </ul>
+        <div class="main_nav">
+            <h2><a href="index.html">Home</a></h2>
+        </div>
+        <div class="main_nav">
+            <h2><a href=query.html>Child selct</a></h2>
+        </div>
+        <div class="main_nav">
+            <h2><a href="flagged_notes.html">Flagged Notes</a></h2>
+        </div>
+        <div class="main_nav">
+            <h2><a href="flask_admin.html">Admin</a></h2>
+        </div>
     </nav>
+    <header>
+        <h1>Evergreen Management System</h1>
+    </header>
     <h2>Settings</h2>
 
     <div class="dropdown">

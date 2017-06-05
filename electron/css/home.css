@@ -1,0 +1,41 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    border-bottom-color: #000000;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding: 2px;
+}
+
+header h1 {
+    margin: 5px;
+    color: #000000;
+}
+
+nav {
+    background-color: #000000;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+nav .main_nav {
+    padding: 5px;
+    min-width: 20%;
+    text-align: center;
+}
+
+nav .main_nav a {
+    outline: none;
+    color: #ffffff;
+    text-decoration: none;
+    white-space: nowrap;
+}
