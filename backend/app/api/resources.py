@@ -338,7 +338,7 @@ class UserResource(ResourceBase):
             if request.args.to_dict():
                 abort(403, message="Permission denied, pass with no args to get your user data")
             else:
-                return marshal(current_user, self.ed.marshaller), 200
+                return marshal([current_user], self.ed.marshaller), 200
 
     # DELETE to delete a single entity instance
     @admin_required
