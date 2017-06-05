@@ -257,6 +257,18 @@ function makeRequest(opts) {
                 statusText: xhr.statusText
             });
         };
+        
+        //if request is not using auth try and add it from cached auth created from login
+        if (!opts.headers) {
+            opts.headers = {};
+        }
+        if (!opts.headers.hasOwnProperty('Authorization')) {
+            var username = sessionStorage.getItem("username");
+            var password = sessionStorage.getItem("password");
+            if (sessionStorage.getItem("username") != null) {
+                opts.headers.Authorization = "Basic " + btoa(username + ":" + password);
+            }
+        }
         if (opts.headers) {
             Object.keys(opts.headers).forEach(function (key) {
                 xhr.setRequestHeader(key, opts.headers[key]);
