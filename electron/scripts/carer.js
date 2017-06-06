@@ -1,7 +1,7 @@
 const settings = require('electron-settings');
 let carer = {
     base_url: settings.get('url'),
-    child_id: null
+    child_id: null,
 }
 
 // log to console if in debug mode
@@ -66,17 +66,22 @@ function endChildCaregiverRelationship(element, idx, row_obj) {
     if(mm < 10) { mm = '0' + mm; }
     today = yyyy + '-' + mm + '-' + dd;
     makeRequest({
-        method: "POST",
-        url: carer.base_url + "entity/child_caregiver",
-        headers: {"Content-Type": "application/json"},
-        responseType: "json",
-        params: JSON.stringify({
-            "child_caregiver_end_date": today,
-            "child_caregiver_start_date": row_obj.child_caregiver_start_date,
-            "child_caregiver_note": row_obj.child_caregiver_note,
-            "child_id": carer.child_id,
-            "caregiver_id": row_obj.caregiver_id,
-        })
+        method: "GET",
+        url: carer.base_url + "entity/child_caregiver?caregiver_id=" + row_obj.caregiver_id + "&child_id=" + carer.child_id +"&child_caregiver_start_date=" + row_obj.child_caregiver_start_date,
+        responseType: "json"
+    }).then(function (datums) {
+        console.log(datums);
+        makeRequest({
+            method: "PUT",
+            url: carer.base_url + "entity/child_caregiver?id=" + datums[0].id,
+            headers: {"Content-Type": "application/json"},
+            responseType: "json",
+            params: JSON.stringify({
+                "child_caregiver_end_date": today,
+                "child_id": carer.child_id,
+                "caregiver_id": row_obj.caregiver_id,
+            })
+        });
     });
 }
 
@@ -177,4 +182,5 @@ function makeNewCaregiverRelationship(child_id) {
     }).catch(function (err) {
         console.error('Error posting data: ' + err.statusText);
     });
+    location.reload(1);
 }
