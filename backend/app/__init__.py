@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, current_app
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
 from flask_login import LoginManager
@@ -61,7 +61,7 @@ class MyBaseView(ModelView):
     can_view_details = True
 
     def is_accessible(self):
-        return current_user.is_authenticated and current_user.is_admin
+        return current_app.config.get("LOGIN_DISABLED") or (current_user.is_authenticated and current_user.is_admin)
 
 class ChildView(MyBaseView):
     column_exclude_list = ['medical_history', 'child_history','program_departure_reason']
