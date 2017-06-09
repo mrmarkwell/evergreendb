@@ -12,20 +12,30 @@
     <script>if (window.module) module = window.module;</script>
     <link rel="stylesheet" type="text/css" href="css/table.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
-  </head>
-  <body>
+ </head>
+<body>
+    <script src="scripts/query.js"></script>
+    <header>Evergreen Management System</header>
     <nav>
         <div class="main_nav">
-            <h2><a href="index.html">Home</a></h2>
+            <a href=index.html>Home</a>
         </div>
         <div class="main_nav">
-            <h2><a href="settings.html">Settings</a></h2>
+            <a href=login.html>Login</a>
+        </div>
+        <div class="main_nav">
+            <a class="active" href=query.html>Child Select</a>
+        </div>
+        <div class="main_nav">
+            <a href=settings.html>User Settings</a>
+        </div>
+        <div class="main_nav">
+            <a href="flagged_notes.html">Flagged Notes</a>
+        </div>
+        <div class="main_nav" style="float:right">
+            <a href="flask_admin.html">Admin</a>
         </div>
     </nav>
-    <header>
-        <h1>Evergreen Management System</h1>
-    </header>
-    <script src="scripts/query.js"></script>
     <h2>table</h2>
     <p>
         <table id=child_table></table>
