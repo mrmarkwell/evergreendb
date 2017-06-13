@@ -1,6 +1,5 @@
-const settings = require('electron-settings');
 let carer = {
-    base_url: settings.get('url'),
+    base_url: getBaseURL(),
     child_id: null,
 }
 

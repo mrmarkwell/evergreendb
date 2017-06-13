@@ -90,8 +90,7 @@ function populateTableElements(jdata, note_type) {
 
 // Just an example to show off that a function can be called when you check the box.
 function editFlag(element, idx, entry) {
-    const settings = require('electron-settings')
-    let base_url = settings.get('url')
+    const base_url = getBaseURL();
     let flag_set_val = element.checked ? true : false;
     let note_flag_name = flagged_notes.note_flag_map[entry.note_type];
     let body = {};
@@ -136,8 +135,7 @@ function constructTable() {
 // Main entry point. Do all the initial REST calls and get all the data.
 // Construct the table.
 function initializeTable() {
-    const settings = require('electron-settings')
-    let base_url = settings.get('url')
+    const base_url = getBaseURL();
     const child_note_url = base_url + "entity/child,child_caregiver,caregiver,child_note?child_note_flag=1";
     const child_assessment_url = base_url + "entity/child,child_caregiver,caregiver,child_assessment?child_assessment_note_flag=1"
     const child_partner_url = base_url + "entity/child,child_caregiver,caregiver,child_partner?child_partner_note_flag=1"

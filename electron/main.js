@@ -1,3 +1,4 @@
+const base_url = getBaseURL();
 const electron = require('electron')
 // Module to control application life.
 const app = electron.app
@@ -65,7 +66,6 @@ exports.openWindow = () => {
     win.loadURL(`file://${__dirname}/flagged_notes.html`)
     }
 
-const settings = require('electron-settings');
 function loadDefault(key, val) {
     if (!settings.has(key)) {
         settings.set(key, val)
@@ -73,7 +73,7 @@ function loadDefault(key, val) {
 }
 app.on('ready', function () {
     // Load some sane default user settings
-    loadDefault('pref_lang', 'english')
-    loadDefault('debug', 'false')
-    loadDefault('url', 'http://127.0.0.1:5000/')
+    loadDefault('pref_lang', 'english');
+    loadDefault('debug', 'false');
+    loadDefault('url', base_url);
 })

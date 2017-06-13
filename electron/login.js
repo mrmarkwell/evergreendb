@@ -1,4 +1,4 @@
-const g_base_url = "http://127.0.0.1:5000";
+const g_base_url = getBaseURL();
 
 function findUserByName(datums, username) {
     return datums.find(function(obj) {
@@ -13,7 +13,7 @@ function validate(){
     var user;
     makeRequest({
         method: "GET",
-        url: g_base_url + "/user",
+        url: g_base_url + "user",
         headers: {"Authorization": "Basic " + btoa(username + ":" + password)},
         responseType: "json"
     }).then(function(datums) {
@@ -35,7 +35,7 @@ function validate(){
             document.getElementById("password").value = "";
         }
         else {
-            console.error('Error logging in ' + err);
+            console.error('Error logging in ' + err.statusText);
         }
     });
 }

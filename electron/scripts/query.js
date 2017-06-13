@@ -1,3 +1,5 @@
+let url = getBaseURL() + "entity/child";
+
 function getAllChildren(callback) {
   var xhr = new XMLHttpRequest();
   xhr.withCredentials = true;
@@ -7,9 +9,10 @@ function getAllChildren(callback) {
       callback(JSON.parse(this.responseText));
     }
   });
-  xhr.open("GET", "http://127.0.0.1:5000/entity/child");
+  xhr.open("GET", url);
   xhr.send(null);
 }
+
 
 function jsonTable(json, table_ref, columns) {
   // header row
@@ -34,3 +37,7 @@ function jsonTable(json, table_ref, columns) {
 function loadChild(child_id) {
 	window.document.location="child.html?id="+child_id;
 }
+
+getAllChildren(function (json) {
+    jsonTable(json, document.getElementById("child_table"), ["child_english_name", "birth_date"]);
+});

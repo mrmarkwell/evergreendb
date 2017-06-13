@@ -1,5 +1,4 @@
-var BASE_URL = "http://127.0.0.1:5000/"; // change this to get from settings later
-var g_child_medical_conditions = [];
+const child_base_url = getBaseURL();
 
 function fillChildTabData(json) {
 	// Make sure only one child is returned and get that child from array
@@ -49,11 +48,11 @@ function updateMedicalHistory() {
 // Medical Conditions
 function requestMedicalConditions(child_id) {
 	var med_cond_req_settings = {
-		"url": BASE_URL + "entity/medical_condition",
+		"url": child_base_url + "entity/medical_condition",
 		"async": true,"method": "GET","crossDomain": true,"headers": {"cache-control": "no-cache",}
 	};
 	var child_med_cond_req_settings = {
-		"url": BASE_URL + "entity/child_medical_condition?"+jQuery.param({"child_id":child_id}),
+		"url": child_base_url + "entity/child_medical_condition?"+jQuery.param({"child_id":child_id}),
 		"async": true,"method": "GET","crossDomain": true,"headers": {"cache-control": "no-cache",}
 	};
 	

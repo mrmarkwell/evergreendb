@@ -10,11 +10,12 @@
     <script src="scripts/jquery-ui.min.js"></script>
     <!-- Insert this line after script imports -->
     <script>if (window.module) module = window.module;</script>
+	<script src="scripts/lib.js"></script>
+    <script src="scripts/query.js"></script>
     <link rel="stylesheet" type="text/css" href="css/table.css">
     <link rel="stylesheet" type="text/css" href="css/home.css">
  </head>
 <body>
-    <script src="scripts/query.js"></script>
     <header>Evergreen Management System</header>
     <nav>
         <div class="main_nav">
@@ -40,10 +41,5 @@
     <p>
         <table id=child_table></table>
     </p>
-    <script>
-        getAllChildren(function (json) {
-            jsonTable(json, document.getElementById("child_table"), ["child_english_name", "birth_date"]);
-        });
-    </script>
 </body>
 </html>

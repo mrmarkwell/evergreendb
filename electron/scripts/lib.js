@@ -1,4 +1,12 @@
-var BASE_URL = "http://127.0.0.1:5000/";
+
+function getBaseURL() {
+    if (typeof settings === 'undefined') {
+        var settings = require('electron-settings');
+    }
+    return settings.get('url');
+}
+
+const base_url = getBaseURL();
 
 
 // Enum of legal column types for tableGenerator
@@ -143,7 +151,7 @@ function restGet(relative_url, callback) {
             }
         }
     });
-    xhr.open("GET", BASE_URL + relative_url);
+    xhr.open("GET", base_url + relative_url);
     xhr.setRequestHeader("cache-control", "no-cache");
     xhr.send(null);
 }
