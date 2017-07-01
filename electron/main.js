@@ -1,5 +1,7 @@
-const base_url = getBaseURL();
 const electron = require('electron')
+
+const settings = require('electron-settings')
+
 // Module to control application life.
 const app = electron.app
 // Module to create native browser window.
@@ -75,5 +77,5 @@ app.on('ready', function () {
     // Load some sane default user settings
     loadDefault('pref_lang', 'english');
     loadDefault('debug', 'false');
-    loadDefault('url', base_url);
+    loadDefault('url', settings.get('url'));
 })

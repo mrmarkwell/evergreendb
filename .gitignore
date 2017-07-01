@@ -9,5 +9,6 @@ backend/uploads/
 *.pyproj
 .hypothesis/
 .vscode/
+npm-debug.log
 node_modules
 electron/dist/

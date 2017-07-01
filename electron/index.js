@@ -7,5 +7,5 @@
 // in this file now. We want this because we want the main thread,
 // not the render thread, to do the work of opening the new \
 // window (among other things).
-const remote = require('electron').remote
-const main = remote.require('./main.js')
+const remote = require('electron').remote;
+const main = remote.require('./main.js');
