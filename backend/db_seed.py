@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from tests.rest_test_data import get_test_data
-from app.api.db import get_session
-from app import app
+from app import app, db
 from app.models import MedicalCondition, DoctorType, Medication, MeasurementType
 from app.models import MilestoneTypeCategory, MilestoneType, SpecialistType, Camp
 import sys
@@ -11,7 +10,7 @@ if len(sys.argv) > 1:
     num_records = int(sys.argv[1])
 
 custom_seed_tables = ["user", "medical_condition", "doctor_type", "medication", "measurement_type",
-                      "milestone_type_category", "milestone_type", "specialist_type", "camp"]
+                      "milestone_type_category", "milestone_type", "specialist_type", "camp", "fss_child"]
 
 medical_conditions = [
     u"CP",
@@ -91,7 +90,7 @@ camps = [
     u"Bridge of Hope",
     u"Joy in the Journey"]
 
-session = get_session()
+session = db.session
 test_data = get_test_data(num_records)
 client = app.test_client()
 

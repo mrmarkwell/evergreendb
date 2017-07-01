@@ -8,6 +8,26 @@ class Date(fields.Raw):
 
 ################ Marshallers ####################
 
+#-------------- FSS Marshallers ----------------#
+
+fss_child_fields = {
+    'id': fields.Integer,
+    'child_english_name': fields.String,
+    'child_chinese_name': fields.String,
+    'child_pinyin_name': fields.String,
+    'nickname': fields.String,
+    'gender': fields.String,
+    'birth_date': Date,
+    'referred_by': fields.String,
+    'status': fields.String,
+    'primary_diagnosis': fields.String,
+    'secondary_diagnosis': fields.String,
+    'further_diagnosis': fields.String,
+    'reason_for_referral': fields.String,
+}
+
+#-------------- SOAR Marshallers ----------------#
+
 child_fields = {
     'id': fields.Integer,
     'child_english_name': fields.String,

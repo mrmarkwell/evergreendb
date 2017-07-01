@@ -11,6 +11,10 @@ class EntityData:
         self.update_parser = update_parser
 
 entity_data = {
+    # FSS Entities
+    'fss_child'              : EntityData(FSSChild, fss_child_fields, fss_child_parser, fss_child_parser),
+
+    # SOAR Entities
     'child'                  : EntityData(Child, child_fields, child_parser, child_update_parser),
     'child_note'             : EntityData(ChildNote, child_note_fields, child_note_parser, child_note_update_parser),
     'partner'                : EntityData(Partner, partner_fields, partner_parser, partner_update_parser),

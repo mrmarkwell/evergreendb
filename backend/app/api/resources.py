@@ -2,7 +2,6 @@ from datetime import datetime
 import json
 
 from flask import g
-from db import get_session
 from marshallers import DATE_FMT
 
 from sqlalchemy import text
@@ -20,7 +19,7 @@ from flask_restful import marshal_with
 from flask_restful import marshal
 from entity_data import entity_data, entity_names
 
-from app import login_manager
+from app import login_manager, db
 from app.models import User
 from functools import wraps
 from flask_login import current_user, login_required
@@ -69,7 +68,7 @@ class ResourceBase(Resource):
         self.ed = None
         self.ed_list = list()
         self.query = None
-        self.session = get_session()
+        self.session = db.session
 
     # Call this right away to populate the entity data object.
     def get_entity_data(self, name):

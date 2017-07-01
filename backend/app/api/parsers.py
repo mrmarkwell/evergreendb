@@ -7,12 +7,28 @@ def datetype(x):
     return datetime.strptime(x, '%Y-%m-%d')
 date_error_help = "Date fields should be entered as: YYYY-MM-DD"
 
-
 ################ Parsers ####################
-
 
 # A base entity parser for other parsers to derive from
 base_parser = reqparse.RequestParser()
+
+#============== FSS Parsers ================#
+
+fss_child_parser = reqparse.RequestParser()
+fss_child_parser.add_argument('child_english_name')
+fss_child_parser.add_argument('child_chinese_name')
+fss_child_parser.add_argument('child_pinyin_name')
+fss_child_parser.add_argument('nickname')
+fss_child_parser.add_argument('gender')
+fss_child_parser.add_argument('birth_date', type=datetype, help=date_error_help)
+fss_child_parser.add_argument('referred_by')
+fss_child_parser.add_argument('status')
+fss_child_parser.add_argument('primary_diagnosis', type=int)
+fss_child_parser.add_argument('secondary_diagnosis', type=int)
+fss_child_parser.add_argument('further_diagnosis')
+fss_child_parser.add_argument('reason_for_referral')
+
+#============== SOAR Parsers ================#
 
 # Parser for input date related to a child object.
 child_parser = base_parser.copy()
@@ -21,7 +37,7 @@ child_parser.add_argument('child_chinese_name')
 child_parser.add_argument('child_pinyin_name')
 child_parser.add_argument('nickname')
 child_parser.add_argument('sex', required=True)
-child_parser.add_argument('birth_date', type=datetype,)# help=date_error_help)
+child_parser.add_argument('birth_date', type=datetype, help=date_error_help)
 child_parser.add_argument('abandonment_date', type=datetype, help=date_error_help)
 child_parser.add_argument('program_entry_date', type=datetype, help=date_error_help)
 child_parser.add_argument('program_departure_date', type=datetype, help=date_error_help)
@@ -40,11 +56,11 @@ child_note_parser = reqparse.RequestParser()
 child_note_parser.add_argument('child_note_date', type=datetype, help=date_error_help)
 child_note_parser.add_argument('child_note', required=True)
 child_note_parser.add_argument('child_note_flag', type=bool)
-child_note_parser.add_argument('child_id', required=True)
+child_note_parser.add_argument('child_id', type=int, required=True)
 
 child_note_update_parser = child_note_parser.copy()
 child_note_update_parser.replace_argument('note', required=False)
-child_note_update_parser.replace_argument('child_id', required=False)
+child_note_update_parser.replace_argument('child_id', type=int, required=False)
 child_note_update_parser.replace_argument('child_note', required=False)
 
 # partner
