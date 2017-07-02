@@ -26,13 +26,18 @@ class FSSChild(db.Model):
 
 
     # Medical information tab
-    primary_diagnosis = db.Column(db.Integer, db.ForeignKey('fss_medical_condition.id'))
-    secondary_diagnosis = db.Column(db.Integer, db.ForeignKey('fss_medical_condition.id'))
+    primary_diagnosis_id = db.Column(db.Integer, db.ForeignKey('fss_medical_condition.id'))
+    primary_diagnosis_note = db.Column(db.Unicode(255))
+    secondary_diagnosis_id = db.Column(db.Integer, db.ForeignKey('fss_medical_condition.id'))
+    secondary_diagnosis_note = db.Column(db.Unicode(255))
     further_diagnosis = db.Column(db.Unicode(255))
     reason_for_referral = db.Column(db.Unicode(255))
-    child_primary_diagnosis = db.relationship('FSSMedicalCondition', foreign_keys=[primary_diagnosis])
-    child_secondary_diagnosis = db.relationship('FSSMedicalCondition', foreign_keys=[secondary_diagnosis])
 
+    primary_diagnosis_relationship = db.relationship('FSSMedicalCondition', foreign_keys=[primary_diagnosis_id], backref='child_primary_diagnosis')
+    secondary_diagnosis_relationship = db.relationship('FSSMedicalCondition', foreign_keys=[secondary_diagnosis_id], backref='child_secondary_diagnosis')
+
+
+    family_members = db.relationship('FSSFamilyMember', backref='child')
 
 
 class FSSMedicalCondition(db.Model):
@@ -41,11 +46,18 @@ class FSSMedicalCondition(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     condition_name = db.Column(db.Unicode(255))
     
-    
-
-
-
-
+class FSSFamilyMember(db.Model):
+    __tablename__ = 'fss_family_member'
+    __bind_key__ = 'fss'
+    id = db.Column(db.Integer, primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('fss_child.id'))
+    relationship = db.Column(db.Unicode(255))
+    family_member_name = db.Column(db.Unicode(255))
+    family_member_phone = db.Column(db.Unicode(255))
+    family_member_email = db.Column(db.Unicode(255))
+    family_member_wechat = db.Column(db.Unicode(255))
+    family_member_address = db.Column(db.Unicode(255))
+    family_member_notes = db.Column(db.Unicode(255))
 
 ########## SOAR Tables #############
 

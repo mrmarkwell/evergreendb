@@ -2,15 +2,16 @@
 from tests.rest_test_data import get_test_data
 from app import app, db
 from app.models import MedicalCondition, DoctorType, Medication, MeasurementType
-from app.models import MilestoneTypeCategory, MilestoneType, SpecialistType, Camp
+from app.models import MilestoneTypeCategory, MilestoneType, SpecialistType, Camp, FSSMedicalCondition
 import sys
+from pprint import pprint as pp
 
 num_records = 10
 if len(sys.argv) > 1:
     num_records = int(sys.argv[1])
 
 custom_seed_tables = ["user", "medical_condition", "doctor_type", "medication", "measurement_type",
-                      "milestone_type_category", "milestone_type", "specialist_type", "camp", "fss_child"]
+                      "milestone_type_category", "milestone_type", "specialist_type", "camp", "fss_medical_condition"]
 
 medical_conditions = [
     u"CP",
@@ -21,7 +22,17 @@ medical_conditions = [
     u"Angelman Syndrome",
     u"PKU",
     u"Cleft Lip / Cleft Palate",
-    u"Hepatitis B"]
+    u"Hepatitis B",
+    u"Heart Defect",
+    u"Intestinal Malrotation",
+    u"Congenital Heart Defect",
+    u"Spina Bifida",
+    u"Down Syndrome",
+    u"Physical Abnormality",
+    u"Seizures",
+    u"Umbilical Hernia / Gastroschisis"]
+
+fss_medical_conditions = list(medical_conditions)
 
 medications = [
     (u"Carbamazepine", u"卡马西平", 100),
@@ -104,6 +115,13 @@ for condition_name in medical_conditions:
     session.add(mc)
     session.commit()
 
+for fss_condition_name in fss_medical_conditions:
+    mc = FSSMedicalCondition()
+    print "adding " + mc.__tablename__
+    mc.condition_name = fss_condition_name
+    session.add(mc)
+    session.commit()
+
 for medication in medications:
     m = Medication()
     print "adding " + m.__tablename__
@@ -179,4 +197,6 @@ for entity in autoseed_list:
         response = client.post('/entity/' + entity, data=data)
         if response.status_code != 201:
             print "Something bad happened during DB seed! Attempting a rollback..."
+            pp(response.status)
+            pp(data)
             session.rollback()

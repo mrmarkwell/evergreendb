@@ -23,10 +23,25 @@ fss_child_parser.add_argument('gender')
 fss_child_parser.add_argument('birth_date', type=datetype, help=date_error_help)
 fss_child_parser.add_argument('referred_by')
 fss_child_parser.add_argument('status')
-fss_child_parser.add_argument('primary_diagnosis', type=int)
-fss_child_parser.add_argument('secondary_diagnosis', type=int)
+fss_child_parser.add_argument('primary_diagnosis_id', type=int)
+fss_child_parser.add_argument('primary_diagnosis_note')
+fss_child_parser.add_argument('secondary_diagnosis_id', type=int)
+fss_child_parser.add_argument('secondary_diagnosis_note')
 fss_child_parser.add_argument('further_diagnosis')
 fss_child_parser.add_argument('reason_for_referral')
+
+fss_medical_condition_parser = reqparse.RequestParser()
+fss_medical_condition_parser.add_argument('condition_name', required=True)
+
+fss_family_member_parser = reqparse.RequestParser()
+fss_family_member_parser.add_argument('child_id', type=int)
+fss_family_member_parser.add_argument('relationship')
+fss_family_member_parser.add_argument('family_member_name')
+fss_family_member_parser.add_argument('family_member_phone')
+fss_family_member_parser.add_argument('family_member_email')
+fss_family_member_parser.add_argument('family_member_wechat')
+fss_family_member_parser.add_argument('family_member_address')
+fss_family_member_parser.add_argument('family_member_notes')
 
 #============== SOAR Parsers ================#
 

@@ -20,10 +20,30 @@ fss_child_fields = {
     'birth_date': Date,
     'referred_by': fields.String,
     'status': fields.String,
-    'primary_diagnosis': fields.String,
-    'secondary_diagnosis': fields.String,
+    'primary_diagnosis_id': fields.Integer,
+    'primary_diagnosis_note': fields.String,
+    'secondary_diagnosis_id': fields.Integer,
+    'secondary_diagnosis_note': fields.String,
     'further_diagnosis': fields.String,
     'reason_for_referral': fields.String,
+}
+
+fss_medical_condition_fields = {
+    'id': fields.Integer,
+    'condition_name': fields.String
+}
+
+fss_family_member_fields = {
+    'id': fields.Integer,
+    'child_id': fields.Integer,
+    'relationship': fields.String,
+    'family_member_name': fields.String,
+    'family_member_phone': fields.String,
+    'family_member_email': fields.String,
+    'family_member_wechat': fields.String,
+    'family_member_address': fields.String,
+    'family_member_notes': fields.String
+
 }
 
 #-------------- SOAR Marshallers ----------------#
