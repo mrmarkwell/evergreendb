@@ -13,8 +13,9 @@ class EntityData:
 entity_data = {
     # FSS Entities
     'fss_child'              : EntityData(FSSChild, fss_child_fields, fss_child_parser, fss_child_parser),
-    'fss_medical_condition'  : EntityData(FSSMedicalCondition, fss_medical_condition_fields, fss_medical_condition_parser, fss_medical_condition_parser),
     'fss_family_member'      : EntityData(FSSFamilyMember, fss_family_member_fields, fss_family_member_parser, fss_family_member_parser),
+    'fss_projected_pathway'  : EntityData(FSSProjectedPathway, fss_projected_pathway_fields, fss_projected_pathway_parser, fss_projected_pathway_parser),
+    'fss_interaction' : EntityData(FSSInteraction, fss_interaction_fields, fss_interaction_parser, fss_interaction_parser),
 
     # SOAR Entities
     'child'                  : EntityData(Child, child_fields, child_parser, child_update_parser),

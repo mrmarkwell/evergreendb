@@ -5,6 +5,39 @@ from flask_restful import fields
 from pprint import pprint as pp
 import random
 
+medical_conditions = [
+    u"CP",
+    u"Autism",
+    u"Intellectual Disability",
+    u"ADHD",
+    u"Lennox-Gastaut",
+    u"Angelman Syndrome",
+    u"PKU",
+    u"Cleft Lip / Cleft Palate",
+    u"Hepatitis B",
+    u"Heart Defect",
+    u"Intestinal Malrotation",
+    u"Congenital Heart Defect",
+    u"Spina Bifida",
+    u"Down Syndrome",
+    u"Physical Abnormality",
+    u"Seizures",
+    u"Umbilical Hernia / Gastroschisis"]
+
+interaction_types = [
+    u'Consultation SOAR Village',
+    u'Consultation FSS Centre',
+    u'Home visit',
+    u'Phone call',
+    u'E-Mail',
+    u'WeChat',
+    u'To Do'
+]
+
+interaction_coordinators = [
+    'Tabatha Broxholme',
+    'Hou Aiping'
+]
 
 def get_test_data(num_records=10):
     test_data = dict()
@@ -32,7 +65,7 @@ def get_test_data(num_records=10):
                         maxval = 3
                     if field == "medication_id":
                         maxval = 8
-                    if field == "medical_condition_id" or field == "primary_diagnosis_id" or field == "secondary_diagnosis_id":
+                    if field == "medical_condition_id":
                         maxval = 17
                     vals[field] = fpy.basic.random.randint(1, maxval)
                 if field_type == fields.Float:
@@ -43,7 +76,13 @@ def get_test_data(num_records=10):
                         vals[field] = fpy.name.full_name()
                     elif 'phone' in field or 'wechat' in field:
                         vals[field] = fpy.address.phone()
-                    elif 'relationship' in field:
+                    elif 'interaction_coordinator' in field:
+                        vals[field] = random.choice(interaction_coordinators)
+                    elif 'interaction_type' in field:
+                        vals[field] = random.choice(interaction_types)
+                    elif field.endswith('diagnosis'):
+                        vals[field] = random.choice(medical_conditions)
+                    elif 'relationship' in field or 'people_present' in field:
                         vals[field] = random.choice(["Mother", "Father", "Grandmother", "Grandfather", "Other"])
                     elif 'email' in field:
                         vals[field] = fpy.internet.email_address()

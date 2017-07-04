@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from tests.rest_test_data import get_test_data
+from tests.rest_test_data import get_test_data, medical_conditions
 from app import app, db
 from app.models import MedicalCondition, DoctorType, Medication, MeasurementType
-from app.models import MilestoneTypeCategory, MilestoneType, SpecialistType, Camp, FSSMedicalCondition
+from app.models import MilestoneTypeCategory, MilestoneType, SpecialistType, Camp 
 import sys
 from pprint import pprint as pp
 
@@ -12,27 +12,6 @@ if len(sys.argv) > 1:
 
 custom_seed_tables = ["user", "medical_condition", "doctor_type", "medication", "measurement_type",
                       "milestone_type_category", "milestone_type", "specialist_type", "camp", "fss_medical_condition"]
-
-medical_conditions = [
-    u"CP",
-    u"Autism",
-    u"Intellectual Disability",
-    u"ADHD",
-    u"Lennox-Gastaut",
-    u"Angelman Syndrome",
-    u"PKU",
-    u"Cleft Lip / Cleft Palate",
-    u"Hepatitis B",
-    u"Heart Defect",
-    u"Intestinal Malrotation",
-    u"Congenital Heart Defect",
-    u"Spina Bifida",
-    u"Down Syndrome",
-    u"Physical Abnormality",
-    u"Seizures",
-    u"Umbilical Hernia / Gastroschisis"]
-
-fss_medical_conditions = list(medical_conditions)
 
 medications = [
     (u"Carbamazepine", u"卡马西平", 100),
@@ -112,13 +91,6 @@ for condition_name in medical_conditions:
     mc.medical_condition_english_name = condition_name
     mc.medical_condition_chinese_name = condition_name
     mc.medical_condition_pinyin_name = condition_name
-    session.add(mc)
-    session.commit()
-
-for fss_condition_name in fss_medical_conditions:
-    mc = FSSMedicalCondition()
-    print "adding " + mc.__tablename__
-    mc.condition_name = fss_condition_name
     session.add(mc)
     session.commit()
 

@@ -26,11 +26,8 @@ fss_child_fields = {
     'secondary_diagnosis_note': fields.String,
     'further_diagnosis': fields.String,
     'reason_for_referral': fields.String,
-}
-
-fss_medical_condition_fields = {
-    'id': fields.Integer,
-    'condition_name': fields.String
+    'birth_history': fields.String,
+    'medical_history': fields.String,
 }
 
 fss_family_member_fields = {
@@ -43,8 +40,32 @@ fss_family_member_fields = {
     'family_member_wechat': fields.String,
     'family_member_address': fields.String,
     'family_member_notes': fields.String
-
 }
+
+fss_projected_pathway_fields = {
+    'id': fields.Integer,
+    'child_id': fields.Integer,
+    'pathway_step_number': fields.Integer,
+    'pathway_short_description': fields.String,
+    'pathway_details': fields.String,
+    'pathway_completion_date': Date
+}
+
+fss_interaction_fields = {
+    'id': fields.Integer,
+    'child_id': fields.Integer,
+    'interaction_date': Date,
+    'interaction_type': fields.String,
+    'interaction_coordinator': fields.String,
+    'people_present': fields.String,
+    'is_initial_interaction': fields.Boolean,
+    'current_concerns': fields.String,
+    'dev_history': fields.String,
+    'dev_since_last_visit': fields.String,
+    'follow_up': fields.String,
+    'interaction_notes': fields.String
+}
+
 
 #-------------- SOAR Marshallers ----------------#
 

@@ -5,7 +5,7 @@ def datetype(x):
     if not x:
         return None
     return datetime.strptime(x, '%Y-%m-%d')
-date_error_help = "Date fields should be entered as: YYYY-MM-DD"
+date_error_help = 'Date fields should be entered as: YYYY-MM-DD'
 
 ################ Parsers ####################
 
@@ -29,9 +29,8 @@ fss_child_parser.add_argument('secondary_diagnosis_id', type=int)
 fss_child_parser.add_argument('secondary_diagnosis_note')
 fss_child_parser.add_argument('further_diagnosis')
 fss_child_parser.add_argument('reason_for_referral')
-
-fss_medical_condition_parser = reqparse.RequestParser()
-fss_medical_condition_parser.add_argument('condition_name', required=True)
+fss_child_parser.add_argument('birth_history')
+fss_child_parser.add_argument('medical_history')
 
 fss_family_member_parser = reqparse.RequestParser()
 fss_family_member_parser.add_argument('child_id', type=int)
@@ -42,6 +41,26 @@ fss_family_member_parser.add_argument('family_member_email')
 fss_family_member_parser.add_argument('family_member_wechat')
 fss_family_member_parser.add_argument('family_member_address')
 fss_family_member_parser.add_argument('family_member_notes')
+
+fss_projected_pathway_parser = reqparse.RequestParser()
+fss_projected_pathway_parser.add_argument('child_id', type=int)
+fss_projected_pathway_parser.add_argument('pathway_step_number')
+fss_projected_pathway_parser.add_argument('pathway_short_description')
+fss_projected_pathway_parser.add_argument('pathway_details')
+fss_projected_pathway_parser.add_argument('pathway_completion_date', type=datetype, help=date_error_help)
+
+fss_interaction_parser = reqparse.RequestParser()
+fss_interaction_parser.add_argument('child_id', type=int)
+fss_interaction_parser.add_argument('interaction_date', type=datetype, help=date_error_help)
+fss_interaction_parser.add_argument('interaction_type')
+fss_interaction_parser.add_argument('interaction_coordinator')
+fss_interaction_parser.add_argument('people_present')
+fss_interaction_parser.add_argument('is_initial_interaction', type=bool)
+fss_interaction_parser.add_argument('current_concerns')
+fss_interaction_parser.add_argument('dev_history')
+fss_interaction_parser.add_argument('dev_since_last_visit')
+fss_interaction_parser.add_argument('follow_up')
+fss_interaction_parser.add_argument('interaction_notes')
 
 #============== SOAR Parsers ================#
 

@@ -24,28 +24,20 @@ class FSSChild(db.Model):
     # This can ONLY have values ACTIVE, CURRENT, IN SITU, or RESOLVED.
     status = db.Column(db.Unicode(255))
 
-
     # Medical information tab
-    primary_diagnosis_id = db.Column(db.Integer, db.ForeignKey('fss_medical_condition.id'))
+    primary_diagnosis = db.Column(db.Unicode(255))
     primary_diagnosis_note = db.Column(db.Unicode(255))
-    secondary_diagnosis_id = db.Column(db.Integer, db.ForeignKey('fss_medical_condition.id'))
+    secondary_diagnosis = db.Column(db.Unicode(255))
     secondary_diagnosis_note = db.Column(db.Unicode(255))
     further_diagnosis = db.Column(db.Unicode(255))
     reason_for_referral = db.Column(db.Unicode(255))
-
-    primary_diagnosis_relationship = db.relationship('FSSMedicalCondition', foreign_keys=[primary_diagnosis_id], backref='child_primary_diagnosis')
-    secondary_diagnosis_relationship = db.relationship('FSSMedicalCondition', foreign_keys=[secondary_diagnosis_id], backref='child_secondary_diagnosis')
-
+    birth_history = db.Column(db.Unicode(255))
+    medical_history = db.Column(db.Unicode(255))
 
     family_members = db.relationship('FSSFamilyMember', backref='child')
+    projceted_pathway = db.relationship('FSSProjectedPathway', backref='child')
 
 
-class FSSMedicalCondition(db.Model):
-    __tablename__ = 'fss_medical_condition'
-    __bind_key__ = 'fss'
-    id = db.Column(db.Integer, primary_key=True)
-    condition_name = db.Column(db.Unicode(255))
-    
 class FSSFamilyMember(db.Model):
     __tablename__ = 'fss_family_member'
     __bind_key__ = 'fss'
@@ -58,6 +50,32 @@ class FSSFamilyMember(db.Model):
     family_member_wechat = db.Column(db.Unicode(255))
     family_member_address = db.Column(db.Unicode(255))
     family_member_notes = db.Column(db.Unicode(255))
+
+class FSSProjectedPathway(db.Model):
+    __tablename__ = 'fss_projected_pathway'
+    __bind_key__ = 'fss'
+    id = db.Column(db.Integer, primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('fss_child.id'))
+    pathway_step_number = db.Column(db.Integer())
+    pathway_short_description = db.Column(db.Unicode(255))
+    pathway_details = db.Column(db.Unicode(255))
+    pathway_completion_date = db.Column(db.DateTime)
+
+class FSSInteraction(db.Model):
+    __tablename__ = 'fss_interaction'
+    __bind_key__ = 'fss'
+    id = db.Column(db.Integer, primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('fss_child.id'))
+    interaction_date = db.Column(db.DateTime)
+    interaction_type = db.Column(db.Unicode(255))
+    interaction_coordinator = db.Column(db.Unicode(255))
+    people_present = db.Column(db.Unicode(255))
+    is_initial_interaction = db.Column(db.Boolean)
+    current_concerns = db.Column(db.Unicode(255))
+    dev_history = db.Column(db.Unicode(255))
+    dev_since_last_visit = db.Column(db.Unicode(255))
+    follow_up = db.Column(db.Unicode(255))
+    interaction_notes = db.Column(db.Unicode(255))
 
 ########## SOAR Tables #############
 
