@@ -6,7 +6,30 @@ from security import pwd_context
 from flask_login import UserMixin
 
 
+
+
 ########## FSS Tables ##############
+
+#------ Enum String Lists ---------#
+
+fss_medical_conditions = [
+    u"CP",
+    u"Autism",
+    u"Intellectual Disability",
+    u"ADHD",
+    u"Lennox-Gastaut",
+    u"Angelman Syndrome",
+    u"PKU",
+    u"Cleft Lip / Cleft Palate",
+    u"Hepatitis B",
+    u"Heart Defect",
+    u"Intestinal Malrotation",
+    u"Congenital Heart Defect",
+    u"Spina Bifida",
+    u"Down Syndrome",
+    u"Physical Abnormality",
+    u"Seizures",
+    u"Umbilical Hernia / Gastroschisis"]
 
 class FSSChild(db.Model):
     __tablename__ = 'fss_child'
