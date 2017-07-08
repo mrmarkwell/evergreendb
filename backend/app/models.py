@@ -5,31 +5,8 @@ from sqlalchemy import UniqueConstraint
 from security import pwd_context
 from flask_login import UserMixin
 
-
-
-
 ########## FSS Tables ##############
 
-#------ Enum String Lists ---------#
-
-fss_medical_conditions = [
-    u"CP",
-    u"Autism",
-    u"Intellectual Disability",
-    u"ADHD",
-    u"Lennox-Gastaut",
-    u"Angelman Syndrome",
-    u"PKU",
-    u"Cleft Lip / Cleft Palate",
-    u"Hepatitis B",
-    u"Heart Defect",
-    u"Intestinal Malrotation",
-    u"Congenital Heart Defect",
-    u"Spina Bifida",
-    u"Down Syndrome",
-    u"Physical Abnormality",
-    u"Seizures",
-    u"Umbilical Hernia / Gastroschisis"]
 
 class FSSChild(db.Model):
     __tablename__ = 'fss_child'
@@ -48,14 +25,41 @@ class FSSChild(db.Model):
     status = db.Column(db.Unicode(255))
 
     # Medical information tab
-    primary_diagnosis = db.Column(db.Unicode(255))
+    primary_diagnosis = db.Column(db.Unicode(255)) # Enum
     primary_diagnosis_note = db.Column(db.Unicode(255))
-    secondary_diagnosis = db.Column(db.Unicode(255))
+    secondary_diagnosis = db.Column(db.Unicode(255)) # Enum
     secondary_diagnosis_note = db.Column(db.Unicode(255))
     further_diagnosis = db.Column(db.Unicode(255))
     reason_for_referral = db.Column(db.Unicode(255))
     birth_history = db.Column(db.Unicode(255))
     medical_history = db.Column(db.Unicode(255))
+
+    # Child Development
+    milk_feeding = db.Column(db.Boolean)
+    solid_feeding = db.Column(db.Boolean)
+    self_feeding = db.Column(db.Boolean)
+    texture_preferences = db.Column(db.Unicode(255))
+    feeding_recommendations = db.Column(db.Unicode(255))
+    developmental_notes = db.Column(db.Unicode(255))
+    developmental_recommendations = db.Column(db.Unicode(255))
+    ot_notes = db.Column(db.Unicode(255)) 
+    ot_recommendations = db.Column(db.Unicode(255))
+    sensory_notes = db.Column(db.Unicode(255))
+    sensory_recommendations = db.Column(db.Unicode(255))
+    speech_notes = db.Column(db.Unicode(255))
+    speech_recommendations = db.Column(db.Unicode(255))
+    head_control = db.Column(db.Boolean)
+    rolling = db.Column(db.Boolean)
+    sitting = db.Column(db.Boolean)
+    standing = db.Column(db.Boolean)
+    walking = db.Column(db.Boolean)
+    physical_recommendations = db.Column(db.Unicode(255))
+    gross_motor_notes = db.Column(db.Unicode(255))
+    gross_motor_recommendations = db.Column(db.Unicode(255))
+    fine_motor_notes = db.Column(db.Unicode(255))
+    fine_motor_recommendations = db.Column(db.Unicode(255))
+    weakness_notes = db.Column(db.Unicode(255))
+    weakness_recommendations = db.Column(db.Unicode(255))
 
     family_members = db.relationship('FSSFamilyMember', backref='child')
     projceted_pathway = db.relationship('FSSProjectedPathway', backref='child')
@@ -91,7 +95,7 @@ class FSSInteraction(db.Model):
     child_id = db.Column(db.Integer, db.ForeignKey('fss_child.id'))
     interaction_date = db.Column(db.DateTime)
     interaction_type = db.Column(db.Unicode(255))
-    interaction_coordinator = db.Column(db.Unicode(255))
+    interaction_coordinator = db.Column(db.Unicode(255)) # Enum
     people_present = db.Column(db.Unicode(255))
     is_initial_interaction = db.Column(db.Boolean)
     current_concerns = db.Column(db.Unicode(255))
