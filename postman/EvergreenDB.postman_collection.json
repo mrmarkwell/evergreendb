@@ -610,7 +610,119 @@
 						"description": ""
 					},
 					"response": []
+				}
+			]
+		},
+		{
+			"name": "Enums",
+			"description": "",
+			"item": [
+				{
+					"name": "Update FSS Medical Condition Enum",
+					"request": {
+						"url": "{{api_base_uri}}/enum/fss_medical_condition",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    \"CP\",\n    \"Autism\",\n    \"Intellectual Disability\",\n    \"ADHD\",\n    \"Lennox-Gastaut\",\n    \"Angelman Syndrome\",\n    \"PKU\",\n    \"Cleft Lip / Cleft Palate\",\n    \"Hepatitis B\",\n    \"Heart Defect\",\n    \"Intestinal Malrotation\",\n    \"Congenital Heart Defect\",\n    \"Spina Bifida\",\n    \"Down Syndrome\",\n    \"Physical Abnormality\",\n    \"Seizures\",\n    \"Umbilical Hernia / Gastroschisis\"]"
+						},
+						"description": ""
+					},
+					"response": []
 				},
+				{
+					"name": "Get FSS Medical Condition Enum",
+					"request": {
+						"url": "{{api_base_uri}}/enum/fss_medical_condition",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Update FSS Interaction Coordinator",
+					"request": {
+						"url": "{{api_base_uri}}/enum/fss_interaction_coordinator",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t\"Tabatha Broxholme\",\n\t\"Hou Aiping\"\n]"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get FSS Interaction Coordinator",
+					"request": {
+						"url": "{{api_base_uri}}/enum/fss_interaction_coordinator",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FSS",
+			"description": "",
+			"item": [
 				{
 					"name": "Create FSS Child",
 					"request": {
@@ -631,6 +743,62 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"birth_date\": null,\n    \"child_chinese_name\": null,\n    \"child_english_name\": \"Tom\",\n    \"child_pinyin_name\": null,\n    \"further_diagnosis\": null,\n    \"gender\": \"M\",\n    \"id\": 1,\n    \"nickname\": null,\n    \"primary_diagnosis\": null,\n    \"reason_for_referral\": null,\n    \"referred_by\": null,\n    \"secondary_diagnosis\": null,\n    \"status\": null\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all fss children",
+					"request": {
+						"url": "{{api_base_uri}}/entity/fss_child",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all fss medical conditions",
+					"request": {
+						"url": "{{api_base_uri}}/entity/fss_medical_condition",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all fss family members",
+					"request": {
+						"url": "{{api_base_uri}}/entity/fss_family_member",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all fss projected pathway",
+					"request": {
+						"url": "{{api_base_uri}}/entity/fss_family_member",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
 						},
 						"description": ""
 					},
@@ -1093,87 +1261,6 @@
 						"description": ""
 					},
 					"response": []
-				},
-				{
-					"name": "Get all fss children",
-					"request": {
-						"url": "{{api_base_uri}}/entity/fss_child",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all fss medical conditions",
-					"request": {
-						"url": "{{api_base_uri}}/entity/fss_medical_condition",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all fss family members",
-					"request": {
-						"url": "{{api_base_uri}}/entity/fss_family_member",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get all fss projected pathway",
-					"request": {
-						"url": "{{api_base_uri}}/entity/fss_family_member",
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
-				},
-				{
-					"name": "Get FSS Medical Condition Enum",
-					"request": {
-						"url": "{{api_base_uri}}/enum/fss_medical_condition",
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"description": ""
-							},
-							{
-								"key": "Accept",
-								"value": "application/json",
-								"description": ""
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"description": ""
-					},
-					"response": []
 				}
 			]
 		},
@@ -1491,31 +1578,6 @@
 							"value": ""
 						}
 					]
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "Update FSS Medical Condition Enum",
-			"request": {
-				"url": "{{api_base_uri}}/enum/fss_medical_condition",
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					},
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"description": ""
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\n    \"CP\",\n    \"Autism\",\n    \"Intellectual Disability\",\n    \"ADHD\",\n    \"Lennox-Gastaut\",\n    \"Angelman Syndrome\",\n    \"PKU\",\n    \"Cleft Lip / Cleft Palate\",\n    \"Hepatitis B\",\n    \"Heart Defect\",\n    \"Intestinal Malrotation\",\n    \"Congenital Heart Defect\",\n    \"Spina Bifida\",\n    \"Down Syndrome\",\n    \"Physical Abnormality\",\n    \"Seizures\",\n    \"Umbilical Hernia / Gastroschisis\"]"
 				},
 				"description": ""
 			},
