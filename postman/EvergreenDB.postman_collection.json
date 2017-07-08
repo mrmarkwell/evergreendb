@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "EvergreenDB",
-		"_postman_id": "63fdd4a8-8106-cb73-bcb5-96062b725458",
+		"_postman_id": "fc394b4c-fac7-2b62-d92c-6c40fc18e1e4",
 		"description": "Collection of EvergreenDB API Calls.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -610,6 +610,31 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "Create FSS Child",
+					"request": {
+						"url": "{{api_base_uri}}/entity/fss_child",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"birth_date\": null,\n    \"child_chinese_name\": null,\n    \"child_english_name\": \"Tom\",\n    \"child_pinyin_name\": null,\n    \"further_diagnosis\": null,\n    \"gender\": \"M\",\n    \"id\": 1,\n    \"nickname\": null,\n    \"primary_diagnosis\": null,\n    \"reason_for_referral\": null,\n    \"referred_by\": null,\n    \"secondary_diagnosis\": null,\n    \"status\": null\n}"
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
@@ -634,7 +659,23 @@
 				{
 					"name": "Get Child Entity ID=2",
 					"request": {
-						"url": "{{api_base_uri}}/entity/child?id=2",
+						"url": {
+							"raw": "{{api_base_uri}}/entity/child?id=2",
+							"host": [
+								"{{api_base_uri}}"
+							],
+							"path": [
+								"entity",
+								"child"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							],
+							"variable": []
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -673,7 +714,27 @@
 				{
 					"name": "Get Filter Example",
 					"request": {
-						"url": "{{api_base_uri}}/entity/child?english_name=Bobby DropTables&sex=M",
+						"url": {
+							"raw": "{{api_base_uri}}/entity/child?english_name=Bobby DropTables&sex=M",
+							"host": [
+								"{{api_base_uri}}"
+							],
+							"path": [
+								"entity",
+								"child"
+							],
+							"query": [
+								{
+									"key": "english_name",
+									"value": "Bobby DropTables"
+								},
+								{
+									"key": "sex",
+									"value": "M"
+								}
+							],
+							"variable": []
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -701,7 +762,23 @@
 				{
 					"name": "Get all Child 1 Partners",
 					"request": {
-						"url": "{{api_base_uri}}/entity/child_partner?child_id=1",
+						"url": {
+							"raw": "{{api_base_uri}}/entity/child_partner?child_id=1",
+							"host": [
+								"{{api_base_uri}}"
+							],
+							"path": [
+								"entity",
+								"child_partner"
+							],
+							"query": [
+								{
+									"key": "child_id",
+									"value": "1"
+								}
+							],
+							"variable": []
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -1016,6 +1093,87 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "Get all fss children",
+					"request": {
+						"url": "{{api_base_uri}}/entity/fss_child",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all fss medical conditions",
+					"request": {
+						"url": "{{api_base_uri}}/entity/fss_medical_condition",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all fss family members",
+					"request": {
+						"url": "{{api_base_uri}}/entity/fss_family_member",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get all fss projected pathway",
+					"request": {
+						"url": "{{api_base_uri}}/entity/fss_family_member",
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get FSS Medical Condition Enum",
+					"request": {
+						"url": "{{api_base_uri}}/enum/fss_medical_condition",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		},
@@ -1035,7 +1193,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -1068,7 +1229,22 @@
 				{
 					"name": "Delete User 3 as admin",
 					"request": {
-						"url": "{{api_base_uri}}/user?id=3",
+						"url": {
+							"raw": "{{api_base_uri}}/user?id=3",
+							"host": [
+								"{{api_base_uri}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							],
+							"variable": []
+						},
 						"method": "DELETE",
 						"header": [
 							{
@@ -1077,7 +1253,10 @@
 								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"description": ""
 					},
 					"response": []
@@ -1085,7 +1264,22 @@
 				{
 					"name": "Update User 2 as admin",
 					"request": {
-						"url": "{{api_base_uri}}/user?id=2",
+						"url": {
+							"raw": "{{api_base_uri}}/user?id=2",
+							"host": [
+								"{{api_base_uri}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							],
+							"variable": []
+						},
 						"method": "PUT",
 						"header": [
 							{
@@ -1112,7 +1306,23 @@
 		{
 			"name": "Delete Child 5",
 			"request": {
-				"url": "{{api_base_uri}}/entity/child?id=5",
+				"url": {
+					"raw": "{{api_base_uri}}/entity/child?id=5",
+					"host": [
+						"{{api_base_uri}}"
+					],
+					"path": [
+						"entity",
+						"child"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5"
+						}
+					],
+					"variable": []
+				},
 				"method": "DELETE",
 				"header": [
 					{
@@ -1157,7 +1367,23 @@
 		{
 			"name": "Update Child 2 Fields",
 			"request": {
-				"url": "{{api_base_uri}}/entity/child?id=2",
+				"url": {
+					"raw": "{{api_base_uri}}/entity/child?id=2",
+					"host": [
+						"{{api_base_uri}}"
+					],
+					"path": [
+						"entity",
+						"child"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "2"
+						}
+					],
+					"variable": []
+				},
 				"method": "PUT",
 				"header": [
 					{
@@ -1261,11 +1487,35 @@
 						{
 							"key": "upload",
 							"type": "file",
-							"enabled": true,
 							"src": "testfile.txt",
 							"value": ""
 						}
 					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Update FSS Medical Condition Enum",
+			"request": {
+				"url": "{{api_base_uri}}/enum/fss_medical_condition",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    \"CP\",\n    \"Autism\",\n    \"Intellectual Disability\",\n    \"ADHD\",\n    \"Lennox-Gastaut\",\n    \"Angelman Syndrome\",\n    \"PKU\",\n    \"Cleft Lip / Cleft Palate\",\n    \"Hepatitis B\",\n    \"Heart Defect\",\n    \"Intestinal Malrotation\",\n    \"Congenital Heart Defect\",\n    \"Spina Bifida\",\n    \"Down Syndrome\",\n    \"Physical Abnormality\",\n    \"Seizures\",\n    \"Umbilical Hernia / Gastroschisis\"]"
 				},
 				"description": ""
 			},

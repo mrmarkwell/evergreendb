@@ -12,4 +12,3 @@ backend/uploads/
 npm-debug.log
 node_modules
 electron/dist/
-backend/enums/

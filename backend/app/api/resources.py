@@ -327,30 +327,22 @@ class EnumResource(Resource):
 
     @classmethod
     def set_list_by_name(cls, name, vals):
-        filepath = os.path.join("enums", name + ".json") 
-        filemode = "r+" if os.path.exists(filepath) else "w+"
+        filepath = os.path.join("enums", name + ".csv") 
         
-        with open(os.path.join("enums", name + ".json"), filemode) as f:
-            
-            #try:
-            j = json.load(f)
-            #except ValueError:
-            #    j = {}
-
-            j[datetime.now().strftime("%I:%M%p on %B %d, %Y")] = vals
-            json.dump(j, f)
+        with open(filepath, "a+") as f:
+            f.write(",".join(vals) + "\n")
     
     @classmethod
     def get_list_by_name(cls, name):
-        with open(os.path.join("enums", name + ".json"), "w+") as f:
-            j = json.load(f)
-            # Sort by date keys
-            dates = j.keys().sort(key=lambda x: datetime.strptime(x, "%I:%M%p on %B %d, %Y"))
-            
-            if (len(dates) == 0):
+        filepath = os.path.join("enums", name + ".csv") 
+        if not os.path.exists(filepath):
+            return None
+        with open(filepath, "r") as f:
+            lines = f.readlines()
+            if len(lines) == 0:
                 return None
-            # Grab the most recent list
-            return j[dates[-1]]
+            result = lines[-1].strip().split(",")
+            return result
 
 # Resource for calling a session.rollback()
 class RollbackResource(ResourceBase):
