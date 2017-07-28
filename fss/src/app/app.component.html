@@ -1,14 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <md-sidenav-container>
-	<md-sidenav #sidenav mode="side" opened="true">
-		<a routerLink='/children' routerLinkActive="active">Children</a><br>
-		<a routerLink='/reminders' routerLinkActive="active">Reminders</a><br>
-		<a routerLink='/calendar' routerLinkActive="active">Calendar</a><br>
+	<md-sidenav #sidenav class="fss-sidenav" mode="side" opened="true">
+			<h1>{{title}}</h1>
+			<a routerLink='/children' routerLinkActive="active">Children</a><br><br>
+			<a routerLink='/reminders' routerLinkActive="active">Reminders</a><br><br>
+			<a routerLink='/calendar' routerLinkActive="active">Calendar</a><br><br>
 	</md-sidenav>
-	<div style="text-align:center">
-		<h1>
-			Welcome to {{title}}!
-		</h1>
-	</div>
 	<router-outlet></router-outlet>
 </md-sidenav-container>
