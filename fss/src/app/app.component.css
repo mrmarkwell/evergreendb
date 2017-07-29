@@ -5,9 +5,8 @@
 
 md-sidenav a {
 	color: black;
-	text-decoration: none;
 }
 
 md-sidenav-container {
-	min-height: 95vh;
+	min-height: 100vh;
 }
