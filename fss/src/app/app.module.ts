@@ -8,13 +8,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { ChildrenTab } from './children/children-tab.component';
 import { RemindersTab } from './reminders/reminders-tab.component';
 import { CalendarTab } from './calendar/calendar-tab.component';
+import { SettingsTab } from './settings/settings-tab.component';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		ChildrenTab,
 		RemindersTab,
-		CalendarTab
+		CalendarTab,
+		SettingsTab
 	],
 	imports: [
 		BrowserModule,
