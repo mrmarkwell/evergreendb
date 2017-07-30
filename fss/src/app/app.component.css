@@ -1,10 +1,16 @@
 .fss-sidenav {
-	background-color: lightgray;
+	background-color: lightgreen;
 	padding: 10px;
 }
 
 md-sidenav a {
 	color: black;
+	text-decoration: none;
+}
+
+md-sidenav a.active {
+	background-color: darkgreen;
+	color: white;
 }
 
 md-sidenav-container {
