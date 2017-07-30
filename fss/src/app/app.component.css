@@ -1,18 +1,24 @@
 .fss-sidenav {
-	background-color: lightgreen;
-	padding: 10px;
+	background-color: #CCFFCC;
+}
+
+md-sidenav-container {
+	min-height: 100vh;
+}
+
+md-sidenav h1 {
+	text-align: center;
+	padding-top: 1em;
+	color: darkgreen;
 }
 
 md-sidenav a {
-	color: black;
-	text-decoration: none;
+	color: darkgreen;
+	width: 100%;
+	text-align: left;
 }
 
 md-sidenav a.active {
 	background-color: darkgreen;
 	color: white;
-}
-
-md-sidenav-container {
-	min-height: 100vh;
 }

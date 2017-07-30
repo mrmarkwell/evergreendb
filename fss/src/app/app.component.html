@@ -1,11 +1,10 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<md-sidenav-container>
+<md-sidenav-container class="mat-typography">
 	<md-sidenav #sidenav class="fss-sidenav" mode="side" opened="true">
 			<h1>{{title}}</h1>
-			<a routerLink='/children' routerLinkActive="active">Children</a><br><br>
-			<a routerLink='/reminders' routerLinkActive="active">Reminders</a><br><br>
-			<a routerLink='/calendar' routerLinkActive="active">Calendar</a><br><br>
-			<a routerLink='/settings' routerLinkActive="active">Settings</a><br><br>
+			<div><a md-button routerLink='/children' routerLinkActive="active">Children</a></div>
+			<div><a md-button routerLink='/reminders' routerLinkActive="active">Reminders</a></div>
+			<div><a md-button routerLink='/calendar' routerLinkActive="active">Calendar</a></div>
+			<div><a md-button routerLink='/settings' routerLinkActive="active">Settings</a></div>
 	</md-sidenav>
 	<router-outlet></router-outlet>
 </md-sidenav-container>
