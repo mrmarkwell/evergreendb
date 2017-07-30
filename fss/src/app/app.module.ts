@@ -4,24 +4,23 @@ import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
-import { ChildrenTab } from './children/children-tab.component';
-import { RemindersTab } from './reminders/reminders-tab.component';
-import { CalendarTab } from './calendar/calendar-tab.component';
-import { SettingsTab } from './settings/settings-tab.component';
+import { CalendarModule } from './calendar/calendar.module';
+import { ChildrenModule } from './children/children.module';
+import { RemindersModule } from './reminders/reminders.module';
+import { SettingsModule } from './settings/settings.module';
 
 @NgModule({
 	declarations: [
-		AppComponent,
-		ChildrenTab,
-		RemindersTab,
-		CalendarTab,
-		SettingsTab
+		AppComponent
 	],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
-		MaterialModule
+		MaterialModule,
+		CalendarModule,
+		ChildrenModule,
+		RemindersModule,
+		SettingsModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
