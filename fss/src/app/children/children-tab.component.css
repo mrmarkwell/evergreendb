@@ -1,0 +1,15 @@
+#childsearchcolumn {
+	float: left;
+	width: auto;
+	height: 100vh;
+	padding: 0 5px 0 5px;
+	border-right-color: lightgreen;
+	border-right-style: solid;
+	border-right-width: thin;
+}
+
+#childinfocolumn {
+	float: left;
+	width: auto;
+	padding: 5px;
+}
