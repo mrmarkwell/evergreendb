@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "EvergreenDB",
-		"_postman_id": "fc394b4c-fac7-2b62-d92c-6c40fc18e1e4",
+		"_postman_id": "729f19a9-a7b5-ed25-7986-6ad26ece05ea",
 		"description": "Collection of EvergreenDB API Calls.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -763,9 +763,9 @@
 					"response": []
 				},
 				{
-					"name": "Get all fss medical conditions",
+					"name": "Get all fss interactions",
 					"request": {
-						"url": "{{api_base_uri}}/entity/fss_medical_condition",
+						"url": "{{api_base_uri}}/entity/fss_interaction",
 						"method": "GET",
 						"header": [],
 						"body": {
@@ -793,7 +793,7 @@
 				{
 					"name": "Get all fss projected pathway",
 					"request": {
-						"url": "{{api_base_uri}}/entity/fss_family_member",
+						"url": "{{api_base_uri}}/entity/fss_projected_pathway",
 						"method": "GET",
 						"header": [],
 						"body": {
