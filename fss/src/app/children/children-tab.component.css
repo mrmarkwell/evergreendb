@@ -1,15 +1,6 @@
-#childsearchcolumn {
-	float: left;
-	width: auto;
-	height: 100vh;
-	padding: 0 5px 0 5px;
-	border-right-color: #CCFFCC;
-	border-right-style: solid;
-	border-right-width: thin;
+table {
+	width: 100%;
 }
-
-#childinfocolumn {
-	float: left;
-	width: auto;
-	padding: 5px;
+td {
+	vertical-align: top;
 }

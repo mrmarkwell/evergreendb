@@ -1,0 +1,53 @@
+<form id="child-details-form">
+	<table>
+		<colgroup>
+			<col id="names-col">
+			<col id="age-col">
+			<col id="medical-col">
+			<col id="status-col">
+		</colgroup>
+		<tbody>
+			<tr>
+				<td><md-input-container>
+					<input mdInput placeholder="Chinese Name">
+				</md-input-container></td>
+				<td>
+					<md-input-container>
+						<input mdInput [mdDatepicker]="picker" placeholder="DOB">
+						<button mdSuffix [mdDatepickerToggle]="picker"></button>
+					</md-input-container>
+					<md-datepicker #picker></md-datepicker>
+				</td>
+				<td><md-input-container>
+					<input mdInput placeholder="Primary Diagnosis">
+				</md-input-container></td>
+				<td rowspan="3"><md-input-container>
+					<textarea mdInput placeholder="status"></textarea>
+				</md-input-container></td>
+			</tr>
+			<tr>
+				<td><md-input-container>
+					<input mdInput placeholder="Pinyin Name">
+				</md-input-container></td>
+				<td><md-input-container>
+					<input mdInput placeholder="Age" disabled>
+				</md-input-container></td>
+				<td><md-input-container>
+					<input mdInput placeholder="Secondary Diagnosis">
+				</md-input-container></td>
+			</tr>
+			<tr>
+				<td><md-input-container>
+					<input mdInput placeholder="Nickname">
+				</md-input-container></td>
+				<td><md-select placeholder="Sex">
+					<md-option value="M">Male</md-option>
+					<md-option value="F">Female</md-option>
+				</md-select></td>
+				<td><md-input-container>
+					<input mdInput placeholder="Referred By">
+				</md-input-container></td>
+			</tr>
+		</tbody>
+	</table>
+</form>

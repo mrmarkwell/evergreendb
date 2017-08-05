@@ -1,7 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MaterialModule } from '@angular/material';
+import { MaterialModule, MdNativeDateModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpModule } from '@angular/http';
 
+import { RestService } from './rest.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CalendarModule } from './calendar/calendar.module';
@@ -16,13 +19,16 @@ import { SettingsModule } from './settings/settings.module';
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
+		HttpModule,
 		MaterialModule,
+		MdNativeDateModule,
+		BrowserAnimationsModule,
 		CalendarModule,
 		ChildrenModule,
 		RemindersModule,
 		SettingsModule
 	],
-	providers: [],
+	providers: [RestService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }
