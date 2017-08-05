@@ -8,6 +8,95 @@ class Date(fields.Raw):
 
 ################ Marshallers ####################
 
+#-------------- FSS Marshallers ----------------#
+
+fss_child_fields = {
+    'id': fields.Integer,
+    'child_english_name': fields.String,
+    'child_chinese_name': fields.String,
+    'child_pinyin_name': fields.String,
+    'nickname': fields.String,
+    'gender': fields.String,
+    'birth_date': Date,
+    'referred_by': fields.String,
+    'status': fields.String,
+    'primary_diagnosis': fields.String,
+    'primary_diagnosis_note': fields.String,
+    'secondary_diagnosis': fields.String,
+    'secondary_diagnosis_note': fields.String,
+    'further_diagnosis': fields.String,
+    'reason_for_referral': fields.String,
+    'birth_history': fields.String,
+    'medical_history': fields.String,
+
+    'milk_feeding': fields.Boolean,
+    'solid_feeding': fields.Boolean,
+    'self_feeding': fields.Boolean,
+    'texture_preferences': fields.String,
+    'feeding_recommendations': fields.String,
+    'developmental_notes': fields.String,
+    'developmental_recommendations': fields.String,
+    'ot_notes': fields.String, 
+    'ot_recommendations': fields.String,
+    'sensory_notes': fields.String,
+    'sensory_recommendations': fields.String,
+    'speech_notes': fields.String,
+    'speech_recommendations': fields.String,
+    'head_control': fields.Boolean,
+    'rolling': fields.Boolean,
+    'sitting': fields.Boolean,
+    'standing': fields.Boolean,
+    'walking': fields.Boolean,
+    'physical_recommendations': fields.String,
+    'gross_motor_notes': fields.String,
+    'gross_motor_recommendations': fields.String,
+    'fine_motor_notes': fields.String,
+    'fine_motor_recommendations': fields.String,
+    'weakness_notes': fields.String,
+    'weakness_recommendations': fields.String,
+
+
+}
+
+fss_family_member_fields = {
+    'id': fields.Integer,
+    'child_id': fields.Integer,
+    'relationship': fields.String,
+    'family_member_name': fields.String,
+    'family_member_phone': fields.String,
+    'family_member_email': fields.String,
+    'family_member_wechat': fields.String,
+    'family_member_address': fields.String,
+    'family_member_notes': fields.String
+}
+
+fss_projected_pathway_fields = {
+    'id': fields.Integer,
+    'child_id': fields.Integer,
+    'pathway_step_number': fields.Integer,
+    'pathway_short_description': fields.String,
+    'pathway_details': fields.String,
+    'pathway_completion_date': Date
+}
+
+fss_interaction_fields = {
+    'id': fields.Integer,
+    'child_id': fields.Integer,
+    'interaction_date': Date,
+    'interaction_type': fields.String,
+    'interaction_coordinator': fields.String,
+    'people_present': fields.String,
+    'is_initial_interaction': fields.Boolean,
+    'current_concerns': fields.String,
+    'dev_history': fields.String,
+    'dev_since_last_visit': fields.String,
+    'follow_up': fields.String,
+    'interaction_notes': fields.String
+}
+
+
+#-------------- SOAR Marshallers ----------------#
+
 child_fields = {
     'id': fields.Integer,
     'child_english_name': fields.String,

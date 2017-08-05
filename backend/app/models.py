@@ -5,10 +5,112 @@ from sqlalchemy import UniqueConstraint
 from security import pwd_context
 from flask_login import UserMixin
 
+########## FSS Tables ##############
+
+
+class FSSChild(db.Model):
+    __tablename__ = 'fss_child'
+    __bind_key__ = 'fss'
+
+    # General information
+    id = db.Column(db.Integer, primary_key=True)    
+    child_english_name = db.Column(db.Unicode(255))
+    child_chinese_name = db.Column(db.Unicode(255))
+    child_pinyin_name = db.Column(db.Unicode(255))
+    nickname = db.Column(db.Unicode(255))
+    gender = db.Column(db.Unicode(1))
+    birth_date = db.Column(db.DateTime)
+    referred_by = db.Column(db.Unicode(255))
+    # This can ONLY have values ACTIVE, CURRENT, IN SITU, or RESOLVED.
+    status = db.Column(db.Unicode(255))
+
+    # Medical information tab
+    primary_diagnosis = db.Column(db.Unicode(255)) # Enum
+    primary_diagnosis_note = db.Column(db.Unicode(255))
+    secondary_diagnosis = db.Column(db.Unicode(255)) # Enum
+    secondary_diagnosis_note = db.Column(db.Unicode(255))
+    further_diagnosis = db.Column(db.Unicode(255))
+    reason_for_referral = db.Column(db.Unicode(255))
+    birth_history = db.Column(db.Unicode(255))
+    medical_history = db.Column(db.Unicode(255))
+
+    # Child Development
+    milk_feeding = db.Column(db.Boolean)
+    solid_feeding = db.Column(db.Boolean)
+    self_feeding = db.Column(db.Boolean)
+    texture_preferences = db.Column(db.Unicode(255))
+    feeding_recommendations = db.Column(db.Unicode(255))
+    developmental_notes = db.Column(db.Unicode(255))
+    developmental_recommendations = db.Column(db.Unicode(255))
+    ot_notes = db.Column(db.Unicode(255)) 
+    ot_recommendations = db.Column(db.Unicode(255))
+    sensory_notes = db.Column(db.Unicode(255))
+    sensory_recommendations = db.Column(db.Unicode(255))
+    speech_notes = db.Column(db.Unicode(255))
+    speech_recommendations = db.Column(db.Unicode(255))
+    head_control = db.Column(db.Boolean)
+    rolling = db.Column(db.Boolean)
+    sitting = db.Column(db.Boolean)
+    standing = db.Column(db.Boolean)
+    walking = db.Column(db.Boolean)
+    physical_recommendations = db.Column(db.Unicode(255))
+    gross_motor_notes = db.Column(db.Unicode(255))
+    gross_motor_recommendations = db.Column(db.Unicode(255))
+    fine_motor_notes = db.Column(db.Unicode(255))
+    fine_motor_recommendations = db.Column(db.Unicode(255))
+    weakness_notes = db.Column(db.Unicode(255))
+    weakness_recommendations = db.Column(db.Unicode(255))
+
+    family_members = db.relationship('FSSFamilyMember', backref='child')
+    projceted_pathway = db.relationship('FSSProjectedPathway', backref='child')
+
+
+class FSSFamilyMember(db.Model):
+    __tablename__ = 'fss_family_member'
+    __bind_key__ = 'fss'
+    id = db.Column(db.Integer, primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('fss_child.id'))
+    relationship = db.Column(db.Unicode(255))
+    family_member_name = db.Column(db.Unicode(255))
+    family_member_phone = db.Column(db.Unicode(255))
+    family_member_email = db.Column(db.Unicode(255))
+    family_member_wechat = db.Column(db.Unicode(255))
+    family_member_address = db.Column(db.Unicode(255))
+    family_member_notes = db.Column(db.Unicode(255))
+
+class FSSProjectedPathway(db.Model):
+    __tablename__ = 'fss_projected_pathway'
+    __bind_key__ = 'fss'
+    id = db.Column(db.Integer, primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('fss_child.id'))
+    pathway_step_number = db.Column(db.Integer())
+    pathway_short_description = db.Column(db.Unicode(255))
+    pathway_details = db.Column(db.Unicode(255))
+    pathway_completion_date = db.Column(db.DateTime)
+
+class FSSInteraction(db.Model):
+    __tablename__ = 'fss_interaction'
+    __bind_key__ = 'fss'
+    id = db.Column(db.Integer, primary_key=True)
+    child_id = db.Column(db.Integer, db.ForeignKey('fss_child.id'))
+    interaction_date = db.Column(db.DateTime)
+    interaction_type = db.Column(db.Unicode(255))
+    interaction_coordinator = db.Column(db.Unicode(255)) # Enum
+    people_present = db.Column(db.Unicode(255))
+    is_initial_interaction = db.Column(db.Boolean)
+    current_concerns = db.Column(db.Unicode(255))
+    dev_history = db.Column(db.Unicode(255))
+    dev_since_last_visit = db.Column(db.Unicode(255))
+    follow_up = db.Column(db.Unicode(255))
+    interaction_notes = db.Column(db.Unicode(255))
+
+########## SOAR Tables #############
+
 # ------------------ Entities ------------------
 
 class Child(db.Model):
     __tablename__ = 'child'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     child_english_name = db.Column(db.Unicode(255))
     child_chinese_name = db.Column(db.Unicode(255))
@@ -41,6 +143,7 @@ class Child(db.Model):
 
 class ChildNote(db.Model):
     __tablename__ = 'child_note'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     child_note_date = db.Column(db.DateTime)
     child_note = db.Column(db.UnicodeText)
@@ -50,6 +153,7 @@ class ChildNote(db.Model):
 
 class Partner(db.Model):
     __tablename__ = 'partner'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     partner_english_name = db.Column(db.Unicode(255))
     partner_chinese_name = db.Column(db.Unicode(255))
@@ -64,6 +168,7 @@ class Partner(db.Model):
 
 class Caregiver(db.Model):
     __tablename__ = 'caregiver'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     caregiver_english_name = db.Column(db.Unicode(255))
     caregiver_chinese_name = db.Column(db.Unicode(255))
@@ -76,6 +181,7 @@ class Caregiver(db.Model):
 
 class Specialist(db.Model):
     __tablename__ = 'specialist'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     specialist_english_name = db.Column(db.Unicode(255))
     specialist_chinese_name = db.Column(db.Unicode(255))
@@ -89,6 +195,7 @@ class Specialist(db.Model):
 
 class SpecialistType(db.Model):
     __tablename__ = 'specialist_type'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     specialist_type_english_name = db.Column(db.Unicode(255))
     specialist_type_chinese_name = db.Column(db.Unicode(255))
@@ -101,6 +208,7 @@ class SpecialistType(db.Model):
 
 class MilestoneTypeCategory(db.Model):
     __tablename__ = 'milestone_type_category'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     milestone_type_category_english_name = db.Column(db.Unicode(255))
     milestone_type_category_chinese_name = db.Column(db.Unicode(255))
@@ -112,6 +220,7 @@ class MilestoneTypeCategory(db.Model):
 
 class MilestoneType(db.Model):
     __tablename__ = 'milestone_type'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     milestone_type_english_name = db.Column(db.Unicode(255))
     milestone_type_chinese_name = db.Column(db.Unicode(255))
@@ -127,6 +236,7 @@ class MilestoneType(db.Model):
 
 class DoctorType(db.Model):
     __tablename__ = 'doctor_type'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     doctor_type_english_name = db.Column(db.Unicode(255))
     doctor_type_chinese_name = db.Column(db.Unicode(255))
@@ -138,6 +248,7 @@ class DoctorType(db.Model):
 
 class Doctor(db.Model):
     __tablename__ = 'doctor'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     doctor_english_name = db.Column(db.Unicode(255))
     doctor_chinese_name = db.Column(db.Unicode(255))
@@ -153,6 +264,7 @@ class Doctor(db.Model):
 
 class MeasurementType(db.Model):
     __tablename__ = 'measurement_type'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     measurement_type_english_name = db.Column(db.Unicode(255))
     measurement_type_chinese_name = db.Column(db.Unicode(255))
@@ -166,6 +278,7 @@ class MeasurementType(db.Model):
 
 class Camp(db.Model):
     __tablename__ = 'camp'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     camp_english_name = db.Column(db.Unicode(255))
     camp_chinese_name = db.Column(db.Unicode(255))
@@ -176,6 +289,7 @@ class Camp(db.Model):
 
 class MedicalCondition(db.Model):
     __tablename__ = 'medical_condition'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     medical_condition_english_name = db.Column(db.Unicode(255))
     medical_condition_chinese_name = db.Column(db.Unicode(255))
@@ -187,6 +301,7 @@ class MedicalCondition(db.Model):
 
 class Medication(db.Model):
     __tablename__ = 'medication'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     medication_english_name = db.Column(db.Unicode(255))
     medication_chinese_name = db.Column(db.Unicode(255))
@@ -201,6 +316,7 @@ class Medication(db.Model):
 
 class ChildPartner(db.Model):
     __tablename__ = 'child_partner'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     child_partner_start_date = db.Column(db.DateTime)
     child_partner_end_date = db.Column(db.DateTime)
@@ -220,6 +336,7 @@ class ChildPartner(db.Model):
 
 class ChildCamp(db.Model):
     __tablename__ = 'child_camp'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     child_camp_date = db.Column(db.DateTime)
     child_camp_note = db.Column(db.UnicodeText)
@@ -232,6 +349,7 @@ class ChildCamp(db.Model):
 
 class ChildAssessment(db.Model):
     __tablename__ = 'child_assessment'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     child_assessment_date = db.Column(db.DateTime)
     child_assessment_note = db.Column(db.UnicodeText)
@@ -245,6 +363,7 @@ class ChildAssessment(db.Model):
 
 class ChildCaregiver(db.Model):
     __tablename__ = 'child_caregiver'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     child_caregiver_start_date = db.Column(db.DateTime)
     child_caregiver_end_date = db.Column(db.DateTime)
@@ -258,6 +377,7 @@ class ChildCaregiver(db.Model):
 
 class ChildMeasurement(db.Model):
     __tablename__ = 'child_measurement'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     child_measurement_date = db.Column(db.DateTime)
     child_measurement_value = db.Column(db.Float)
@@ -271,6 +391,7 @@ class ChildMeasurement(db.Model):
 
 class ChildMilestone(db.Model):
     __tablename__ = 'child_milestone'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     child_milestone_date = db.Column(db.DateTime)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
@@ -282,6 +403,7 @@ class ChildMilestone(db.Model):
 
 class ChildDoctorVisit(db.Model):
     __tablename__ = 'child_doctor_visit'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     child_doctor_visit_date = db.Column(db.DateTime)
     child_doctor_visit_note = db.Column(db.UnicodeText)
@@ -294,6 +416,7 @@ class ChildDoctorVisit(db.Model):
 
 class ChildMedicalCondition(db.Model):
     __tablename__ = 'child_medical_condition'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     child_id = db.Column(db.Integer, db.ForeignKey('child.id'))
     medical_condition_id = db.Column(db.Integer, db.ForeignKey('medical_condition.id'))
@@ -304,6 +427,7 @@ class ChildMedicalCondition(db.Model):
 
 class ChildMedication(db.Model):
     __tablename__ = 'child_medication'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     child_medication_start_date = db.Column(db.DateTime)
     child_medication_end_date = db.Column(db.DateTime)
@@ -319,6 +443,7 @@ class ChildMedication(db.Model):
 
 class User(UserMixin, db.Model):
     __tablename__ = 'user'
+    __bind_key__ = 'soar'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.Unicode(255), unique=True, index=True)
     password_hash = db.Column(db.Unicode(255))

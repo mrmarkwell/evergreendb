@@ -5,14 +5,90 @@ def datetype(x):
     if not x:
         return None
     return datetime.strptime(x, '%Y-%m-%d')
-date_error_help = "Date fields should be entered as: YYYY-MM-DD"
-
+date_error_help = 'Date fields should be entered as: YYYY-MM-DD'
 
 ################ Parsers ####################
 
-
 # A base entity parser for other parsers to derive from
 base_parser = reqparse.RequestParser()
+
+#============== FSS Parsers ================#
+
+fss_child_parser = reqparse.RequestParser()
+fss_child_parser.add_argument('child_english_name')
+fss_child_parser.add_argument('child_chinese_name')
+fss_child_parser.add_argument('child_pinyin_name')
+fss_child_parser.add_argument('nickname')
+fss_child_parser.add_argument('gender')
+fss_child_parser.add_argument('birth_date', type=datetype, help=date_error_help)
+fss_child_parser.add_argument('referred_by')
+fss_child_parser.add_argument('status')
+fss_child_parser.add_argument('primary_diagnosis')
+fss_child_parser.add_argument('primary_diagnosis_note')
+fss_child_parser.add_argument('secondary_diagnosis')
+fss_child_parser.add_argument('secondary_diagnosis_note')
+fss_child_parser.add_argument('further_diagnosis')
+fss_child_parser.add_argument('reason_for_referral')
+fss_child_parser.add_argument('birth_history')
+fss_child_parser.add_argument('medical_history')
+fss_child_parser.add_argument('milk_feeding', type=bool)
+fss_child_parser.add_argument('solid_feeding', type=bool)
+fss_child_parser.add_argument('self_feeding', type=bool)
+fss_child_parser.add_argument('texture_preferences')
+fss_child_parser.add_argument('feeding_recommendations')
+fss_child_parser.add_argument('developmental_notes')
+fss_child_parser.add_argument('developmental_recommendations')
+fss_child_parser.add_argument('ot_notes') 
+fss_child_parser.add_argument('ot_recommendations')
+fss_child_parser.add_argument('sensory_notes')
+fss_child_parser.add_argument('sensory_recommendations')
+fss_child_parser.add_argument('speech_notes')
+fss_child_parser.add_argument('speech_recommendations')
+fss_child_parser.add_argument('head_control', type=bool)
+fss_child_parser.add_argument('rolling', type=bool)
+fss_child_parser.add_argument('sitting', type=bool)
+fss_child_parser.add_argument('standing', type=bool)
+fss_child_parser.add_argument('walking', type=bool)
+fss_child_parser.add_argument('physical_recommendations')
+fss_child_parser.add_argument('gross_motor_notes')
+fss_child_parser.add_argument('gross_motor_recommendations')
+fss_child_parser.add_argument('fine_motor_notes')
+fss_child_parser.add_argument('fine_motor_recommendations')
+fss_child_parser.add_argument('weakness_notes')
+fss_child_parser.add_argument('weakness_recommendations')
+
+
+fss_family_member_parser = reqparse.RequestParser()
+fss_family_member_parser.add_argument('child_id', type=int)
+fss_family_member_parser.add_argument('relationship')
+fss_family_member_parser.add_argument('family_member_name')
+fss_family_member_parser.add_argument('family_member_phone')
+fss_family_member_parser.add_argument('family_member_email')
+fss_family_member_parser.add_argument('family_member_wechat')
+fss_family_member_parser.add_argument('family_member_address')
+fss_family_member_parser.add_argument('family_member_notes')
+
+fss_projected_pathway_parser = reqparse.RequestParser()
+fss_projected_pathway_parser.add_argument('child_id', type=int)
+fss_projected_pathway_parser.add_argument('pathway_step_number')
+fss_projected_pathway_parser.add_argument('pathway_short_description')
+fss_projected_pathway_parser.add_argument('pathway_details')
+fss_projected_pathway_parser.add_argument('pathway_completion_date', type=datetype, help=date_error_help)
+
+fss_interaction_parser = reqparse.RequestParser()
+fss_interaction_parser.add_argument('child_id', type=int)
+fss_interaction_parser.add_argument('interaction_date', type=datetype, help=date_error_help)
+fss_interaction_parser.add_argument('interaction_type')
+fss_interaction_parser.add_argument('interaction_coordinator')
+fss_interaction_parser.add_argument('people_present')
+fss_interaction_parser.add_argument('is_initial_interaction', type=bool)
+fss_interaction_parser.add_argument('current_concerns')
+fss_interaction_parser.add_argument('dev_history')
+fss_interaction_parser.add_argument('dev_since_last_visit')
+fss_interaction_parser.add_argument('follow_up')
+fss_interaction_parser.add_argument('interaction_notes')
+
+#============== SOAR Parsers ================#
 
 # Parser for input date related to a child object.
 child_parser = base_parser.copy()
@@ -21,7 +97,7 @@ child_parser.add_argument('child_chinese_name')
 child_parser.add_argument('child_pinyin_name')
 child_parser.add_argument('nickname')
 child_parser.add_argument('sex', required=True)
-child_parser.add_argument('birth_date', type=datetype,)# help=date_error_help)
+child_parser.add_argument('birth_date', type=datetype, help=date_error_help)
 child_parser.add_argument('abandonment_date', type=datetype, help=date_error_help)
 child_parser.add_argument('program_entry_date', type=datetype, help=date_error_help)
 child_parser.add_argument('program_departure_date', type=datetype, help=date_error_help)
@@ -40,11 +116,11 @@ child_note_parser = reqparse.RequestParser()
 child_note_parser.add_argument('child_note_date', type=datetype, help=date_error_help)
 child_note_parser.add_argument('child_note', required=True)
 child_note_parser.add_argument('child_note_flag', type=bool)
-child_note_parser.add_argument('child_id', required=True)
+child_note_parser.add_argument('child_id', type=int, required=True)
 
 child_note_update_parser = child_note_parser.copy()
 child_note_update_parser.replace_argument('note', required=False)
-child_note_update_parser.replace_argument('child_id', required=False)
+child_note_update_parser.replace_argument('child_id', type=int, required=False)
 child_note_update_parser.replace_argument('child_note', required=False)
 
 # partner

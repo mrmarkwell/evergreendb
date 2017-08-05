@@ -1,28 +1,17 @@
 # -*- coding: utf-8 -*-
-from tests.rest_test_data import get_test_data
-from app.api.db import get_session
-from app import app
+from tests.rest_test_data import get_test_data, medical_conditions
+from app import app, db
 from app.models import MedicalCondition, DoctorType, Medication, MeasurementType
-from app.models import MilestoneTypeCategory, MilestoneType, SpecialistType, Camp
+from app.models import MilestoneTypeCategory, MilestoneType, SpecialistType, Camp 
 import sys
+from pprint import pprint as pp
 
 num_records = 10
 if len(sys.argv) > 1:
     num_records = int(sys.argv[1])
 
 custom_seed_tables = ["user", "medical_condition", "doctor_type", "medication", "measurement_type",
-                      "milestone_type_category", "milestone_type", "specialist_type", "camp"]
-
-medical_conditions = [
-    u"CP",
-    u"Autism",
-    u"Intellectual Disability",
-    u"ADHD",
-    u"Lennox-Gastaut",
-    u"Angelman Syndrome",
-    u"PKU",
-    u"Cleft Lip / Cleft Palate",
-    u"Hepatitis B"]
+                      "milestone_type_category", "milestone_type", "specialist_type", "camp", "fss_medical_condition"]
 
 medications = [
     (u"Carbamazepine", u"卡马西平", 100),
@@ -91,7 +80,7 @@ camps = [
     u"Bridge of Hope",
     u"Joy in the Journey"]
 
-session = get_session()
+session = db.session
 test_data = get_test_data(num_records)
 client = app.test_client()
 
@@ -180,4 +169,6 @@ for entity in autoseed_list:
         response = client.post('/entity/' + entity, data=data)
         if response.status_code != 201:
             print "Something bad happened during DB seed! Attempting a rollback..."
+            pp(response.status)
+            pp(data)
             session.rollback()

@@ -20,7 +20,7 @@ from api.resources import HeartbeatResource
 from api.resources import RollbackResource
 from api.upload import Upload
 from api.resources import UserResource
-
+from api.resources import EnumResource
 
 
 # Add REST API endpoints
@@ -32,6 +32,7 @@ rest_api.add_resource(HeartbeatResource, "/heartbeat", endpoint="heartbeat")
 rest_api.add_resource(RollbackResource, "/rollback", endpoint="rollback")
 rest_api.add_resource(Upload, "/upload")
 rest_api.add_resource(UserResource, "/user")
+rest_api.add_resource(EnumResource, "/enum/<string:enum_name>", endpoint="enum")
 
 from datetime import date
 from flask_admin.contrib.sqla import ModelView

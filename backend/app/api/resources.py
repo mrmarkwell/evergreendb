@@ -2,7 +2,6 @@ from datetime import datetime
 import json
 
 from flask import g
-from db import get_session
 from marshallers import DATE_FMT
 
 from sqlalchemy import text
@@ -20,10 +19,14 @@ from flask_restful import marshal_with
 from flask_restful import marshal
 from entity_data import entity_data, entity_names
 
-from app import login_manager
+from app import login_manager, db
 from app.models import User
 from functools import wraps
 from flask_login import current_user, login_required
+import os
+
+
+from pprint import pprint as pp
 
 
 def admin_required(f):
@@ -69,7 +72,7 @@ class ResourceBase(Resource):
         self.ed = None
         self.ed_list = list()
         self.query = None
-        self.session = get_session()
+        self.session = db.session
 
     # Call this right away to populate the entity data object.
     def get_entity_data(self, name):
@@ -307,7 +310,40 @@ class QueryResource(ResourceBase):
         for row in result:
             result_dict.append(dict(zip(row.keys(), row)))
         return result_dict, 200
- 
+
+
+class EnumResource(Resource):
+    def put(self, enum_name):
+        l = request.get_json()
+        EnumResource.set_list_by_name(enum_name, l)
+        return l, 201
+
+    def get(self, enum_name):
+        result = EnumResource.get_list_by_name(enum_name)
+        if not result:
+            abort(404, message="No enum exists with name " + enum_name + "!")
+        return result, 200
+
+
+    @classmethod
+    def set_list_by_name(cls, name, vals):
+        filepath = os.path.join("enums", name + ".csv") 
+        
+        with open(filepath, "a+") as f:
+            f.write(",".join(vals) + "\n")
+    
+    @classmethod
+    def get_list_by_name(cls, name):
+        filepath = os.path.join("enums", name + ".csv") 
+        if not os.path.exists(filepath):
+            return None
+        with open(filepath, "r") as f:
+            lines = f.readlines()
+            if len(lines) == 0:
+                return None
+            result = lines[-1].strip().split(",")
+            return result
+
 # Resource for calling a session.rollback()
 class RollbackResource(ResourceBase):
     def post(self):
