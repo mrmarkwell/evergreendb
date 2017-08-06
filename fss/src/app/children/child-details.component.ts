@@ -15,7 +15,6 @@ export class ChildDetails implements OnInit {
 	) {}
 	ngOnInit(): void {
 		this.restService.getChildren().then(children => this.children = children);
-		console.log(this.children);
 	}
 	private children: Child[];
 	private child: Child;

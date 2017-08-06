@@ -11,8 +11,8 @@ export class RestService {
 	getChildren(): Promise<Child[]> {
 		let childrenUrl = this.evergreenUrl + '/entity/fss_child';
 		console.log(childrenUrl);
-		return this.http.get(childrenUrl, this.headers)
-			.toPromise().then(responce => responce.json().data as Child[])
+		return this.http.get(childrenUrl)
+			.toPromise().then(response => response.json() as Child[])
 			.catch(this.handleError);
 	}
 	private handleError(error: any): Promise<any> {
@@ -21,5 +21,5 @@ export class RestService {
 	}
 
 	private evergreenUrl = 'http://127.0.0.1:5000';
-	private headers = new Headers({'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'});
+	private headers = new Headers({'Content-Type': 'application/json'});
 }
