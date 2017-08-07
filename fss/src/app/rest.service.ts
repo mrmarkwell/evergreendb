@@ -8,6 +8,7 @@ import { Child } from './child';
 export class RestService {
 	constructor(private http: Http) {}
 
+	// If we add cache to getChildren, it would reduce bandwidth.
 	getChildren(): Promise<Child[]> {
 		let childrenUrl = this.evergreenUrl + '/entity/fss_child';
 		console.log(childrenUrl);
@@ -15,6 +16,10 @@ export class RestService {
 			.toPromise().then(response => response.json() as Child[])
 			.catch(this.handleError);
 	}
+	getChild(id): Promise<Child> {
+		return this.getChildren().then(children => children.find(child => child.id === id))
+	}
+
 	private handleError(error: any): Promise<any> {
 		console.error('An error occurred', error);
 		return Promise.reject(error.message || error);

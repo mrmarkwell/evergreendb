@@ -1,4 +1,4 @@
-<form id="child-details-form">
+<form id="child-details-form" *ngIf="child">
 	<table>
 		<colgroup>
 			<col id="names-col">
@@ -9,7 +9,7 @@
 		<tbody>
 			<tr>
 				<td><md-input-container>
-					<input mdInput placeholder="Chinese Name">
+					<input mdInput placeholder="Chinese Name" [(value)]="child.child_chinese_name">
 				</md-input-container></td>
 				<td>
 					<md-input-container>
@@ -19,33 +19,33 @@
 					<md-datepicker #picker></md-datepicker>
 				</td>
 				<td><md-input-container>
-					<input mdInput placeholder="Primary Diagnosis">
+					<input mdInput placeholder="Primary Diagnosis" [(value)]="child.primary_diagnosis">
 				</md-input-container></td>
 				<td rowspan="3"><md-input-container>
-					<textarea mdInput placeholder="status"></textarea>
+					<textarea mdInput placeholder="status" [(value)]="child.status"></textarea>
 				</md-input-container></td>
 			</tr>
 			<tr>
 				<td><md-input-container>
-					<input mdInput placeholder="Pinyin Name">
+					<input mdInput placeholder="Pinyin Name" [(value)]="child.child_pinyin_name">
 				</md-input-container></td>
 				<td><md-input-container>
 					<input mdInput placeholder="Age" disabled>
 				</md-input-container></td>
 				<td><md-input-container>
-					<input mdInput placeholder="Secondary Diagnosis">
+					<input mdInput placeholder="Secondary Diagnosis" [(value)]="child.secondary_diagnosis">
 				</md-input-container></td>
 			</tr>
 			<tr>
 				<td><md-input-container>
-					<input mdInput placeholder="Nickname">
+					<input mdInput placeholder="Nickname" [(value)]="child.child_english_name">
 				</md-input-container></td>
 				<td><md-select placeholder="Sex">
 					<md-option value="M">Male</md-option>
 					<md-option value="F">Female</md-option>
 				</md-select></td>
 				<td><md-input-container>
-					<input mdInput placeholder="Referred By">
+					<input mdInput placeholder="Referred By" [(value)]="child.referred_by">
 				</md-input-container></td>
 			</tr>
 		</tbody>
