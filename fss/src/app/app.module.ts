@@ -4,6 +4,7 @@ import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from './calendar/calendar.module';
 import { ChildrenModule } from './children/children.module';
 import { RemindersModule } from './reminders/reminders.module';
@@ -16,6 +17,7 @@ import { SettingsModule } from './settings/settings.module';
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
+		BrowserAnimationsModule,
 		MaterialModule,
 		CalendarModule,
 		ChildrenModule,
