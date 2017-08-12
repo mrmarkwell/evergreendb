@@ -40,7 +40,7 @@
 				<td><md-input-container>
 					<input mdInput placeholder="Nickname" [(value)]="child.child_english_name">
 				</md-input-container></td>
-				<td><md-select placeholder="Sex">
+				<td><md-select placeholder="Sex" [(ngModel)]="child.gender" name="sex">
 					<md-option value="M">Male</md-option>
 					<md-option value="F">Female</md-option>
 				</md-select></td>
