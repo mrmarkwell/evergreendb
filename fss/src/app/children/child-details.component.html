@@ -21,9 +21,7 @@
 				<td><md-input-container>
 					<input mdInput placeholder="Primary Diagnosis" [(value)]="child.primary_diagnosis">
 				</md-input-container></td>
-				<td rowspan="3"><md-input-container>
-					<textarea mdInput placeholder="status" [(value)]="child.status"></textarea>
-				</md-input-container></td>
+				<td><button md-raised-button (click)="saveChild()">Save</button></td>
 			</tr>
 			<tr>
 				<td><md-input-container>
@@ -34,6 +32,9 @@
 				</md-input-container></td>
 				<td><md-input-container>
 					<input mdInput placeholder="Secondary Diagnosis" [(value)]="child.secondary_diagnosis">
+				</md-input-container></td>
+				<td rowspan="2"><md-input-container>
+					<textarea mdInput placeholder="status" [(value)]="child.status"></textarea>
 				</md-input-container></td>
 			</tr>
 			<tr>

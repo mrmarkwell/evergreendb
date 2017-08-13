@@ -19,6 +19,18 @@ export class RestService {
 	getChild(id): Promise<Child> {
 		return this.getChildren().then(children => children.find(child => child.id === id))
 	}
+	addChild(child: Child): Promise<Child> {
+		let childrenUrl = this.evergreenUrl + '/entity/fss_child';
+		return this.http.post(childrenUrl, JSON.stringify(child), {headers: this.headers})
+			.toPromise().then(res => res.json().data as Child)
+			.catch(this.handleError);
+	}
+	updateChild(child: Child) {
+		const childUrl = this.evergreenUrl + '/entity/fss_child?id=' + child.id;
+		console.log(JSON.stringify(child));
+		return this.http.put(childUrl, JSON.stringify(child), {headers: this.headers})
+			.toPromise().then(() => child).catch(this.handleError);
+	}
 
 	private handleError(error: any): Promise<any> {
 		console.error('An error occurred', error);

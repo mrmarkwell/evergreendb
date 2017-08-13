@@ -14,7 +14,7 @@ md-input-container {
 	width: 100%;
 }
 textarea {
-	height: 112.4px;
+	/* height: 112.4px; */
 	resize: none;
 }
 /* Had to do weird stuff to make the padding not rediculously large on the input text boxes */
