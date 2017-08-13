@@ -21,7 +21,7 @@
 				<td><md-input-container>
 					<input mdInput placeholder="Primary Diagnosis" [(ngModel)]="child.primary_diagnosis" name="primary-diagnosis">
 				</md-input-container></td>
-				<td><button md-raised-button (click)="saveChild()">Save</button></td>
+				<td><button md-raised-button (click)="saveChild()">Save</button><button md-button (click)="deleteChild()">Delete</button></td>
 			</tr>
 			<tr>
 				<td><md-input-container>

@@ -24,11 +24,16 @@ export class RestService {
 			.toPromise().then(res => res.json().data as Child)
 			.catch(this.handleError);
 	}
-	updateChild(child: Child) {
-		const childUrl = this.evergreenUrl + '/entity/fss_child?id=' + child.id;
+	updateChild(child: Child): Promise<Child> {
+		const childUrl = `${this.evergreenUrl}/entity/fss_child?id=${child.id}`;
 		console.log(JSON.stringify(child));
 		return this.http.put(childUrl, JSON.stringify(child), {headers: this.headers})
 			.toPromise().then(() => child).catch(this.handleError);
+	}
+	deleteChild(id: number): Promise<void> {
+		const url = `${this.evergreenUrl}/entity/fss_child?id=${id}`;
+		return this.http.delete(url, {headers: this.headers})
+			.toPromise().then( () => null ).catch(this.handleError);
 	}
 
 	private handleError(error: any): Promise<any> {
