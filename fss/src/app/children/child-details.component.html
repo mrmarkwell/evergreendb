@@ -9,7 +9,7 @@
 		<tbody>
 			<tr>
 				<td><md-input-container>
-					<input mdInput placeholder="Chinese Name" [(value)]="child.child_chinese_name">
+					<input mdInput placeholder="Chinese Name" [(ngModel)]="child.child_chinese_name" name="child-chinese-name">
 				</md-input-container></td>
 				<td>
 					<md-input-container>
@@ -19,34 +19,34 @@
 					<md-datepicker #picker></md-datepicker>
 				</td>
 				<td><md-input-container>
-					<input mdInput placeholder="Primary Diagnosis" [(value)]="child.primary_diagnosis">
+					<input mdInput placeholder="Primary Diagnosis" [(ngModel)]="child.primary_diagnosis" name="primary-diagnosis">
 				</md-input-container></td>
 				<td><button md-raised-button (click)="saveChild()">Save</button></td>
 			</tr>
 			<tr>
 				<td><md-input-container>
-					<input mdInput placeholder="Pinyin Name" [(value)]="child.child_pinyin_name">
+					<input mdInput placeholder="Pinyin Name" [(ngModel)]="child.child_pinyin_name" name="child-pinyin-name">
 				</md-input-container></td>
 				<td><md-input-container>
 					<input mdInput placeholder="Age" disabled>
 				</md-input-container></td>
 				<td><md-input-container>
-					<input mdInput placeholder="Secondary Diagnosis" [(value)]="child.secondary_diagnosis">
+					<input mdInput placeholder="Secondary Diagnosis" [(ngModel)]="child.secondary_diagnosis" name="secondary-diagnosis">
 				</md-input-container></td>
 				<td rowspan="2"><md-input-container>
-					<textarea mdInput placeholder="status" [(value)]="child.status"></textarea>
+					<textarea mdInput placeholder="status" [(ngModel)]="child.status" name="child-status"></textarea>
 				</md-input-container></td>
 			</tr>
 			<tr>
 				<td><md-input-container>
-					<input mdInput placeholder="Nickname" [(value)]="child.child_english_name">
+					<input mdInput placeholder="Nickname" [(ngModel)]="child.child_english_name" name="child-nickname">
 				</md-input-container></td>
 				<td><md-select placeholder="Sex" [(ngModel)]="child.gender" name="sex">
 					<md-option value="M">Male</md-option>
 					<md-option value="F">Female</md-option>
 				</md-select></td>
 				<td><md-input-container>
-					<input mdInput placeholder="Referred By" [(value)]="child.referred_by">
+					<input mdInput placeholder="Referred By" [(ngModel)]="child.referred_by" name="referred-by">
 				</md-input-container></td>
 			</tr>
 		</tbody>

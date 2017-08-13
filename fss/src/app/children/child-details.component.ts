@@ -14,10 +14,10 @@ export class ChildDetails implements OnInit {
 		private restService: RestService
 	) {}
 	ngOnInit(): void {
-		this.restService.getChild(1).then(child => {console.log(child); this.child = child;});
+		this.restService.getChild(1).then(child => this.child = child);
 	}
 	saveChild(): void {
-		this.restService.updateChild(this.child);	
+		this.restService.updateChild(this.child);
 	}
 	private child: Child;
 }

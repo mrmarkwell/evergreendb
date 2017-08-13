@@ -11,7 +11,6 @@ export class RestService {
 	// If we add cache to getChildren, it would reduce bandwidth.
 	getChildren(): Promise<Child[]> {
 		let childrenUrl = this.evergreenUrl + '/entity/fss_child';
-		console.log(childrenUrl);
 		return this.http.get(childrenUrl)
 			.toPromise().then(response => response.json() as Child[])
 			.catch(this.handleError);
