@@ -18,9 +18,11 @@ export class ChildDetails implements OnInit {
 	}
 	saveChild(): void {
 		this.restService.updateChild(this.child);
+		this.restService.addChild(this.child);
 	}
 	deleteChild(): void {
-		this.restService.deleteChild(this.child.id);
+		//Add warning or something before making this function delete anything but the dummy child created above.
+		this.restService.deleteChild(11);
 	}
 	private child: Child;
 }
