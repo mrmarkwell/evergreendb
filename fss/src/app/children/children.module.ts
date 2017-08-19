@@ -8,12 +8,21 @@ import { ChildDetails } from './child-details.component';
 import { ChildList } from './child-list.component';
 import { ChildTabs } from './child-tabs.component';
 
+import { FamilyTabComponent } from './tabs/family-info-tab.component';
+import { MedicalTabComponent } from './tabs/medical-info-tab.component';
+import { InteractionsTabComponent } from './tabs/interactions-tab.component';
+import { ProjectedPathwayTabComponent } from './tabs/projected-pathway-tab.component';
+
 @NgModule({
 	declarations: [
 		ChildrenTab,
 		ChildList,
 		ChildDetails,
-		ChildTabs
+		ChildTabs,
+		FamilyTabComponent,
+		MedicalTabComponent,
+		InteractionsTabComponent,
+		ProjectedPathwayTabComponent
 	],
 	imports: [
 		BrowserModule,

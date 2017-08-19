@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 import { RestService } from './rest.service';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from './calendar/calendar.module';
 import { ChildrenModule } from './children/children.module';
 import { RemindersModule } from './reminders/reminders.module';
