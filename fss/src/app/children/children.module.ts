@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
 import { ChildrenTab } from './children-tab.component';
 import { ChildDetails } from './child-details.component';
@@ -25,7 +26,8 @@ import { ProjectedPathwayTabComponent } from './tabs/projected-pathway-tab.compo
 	],
 	imports: [
 		BrowserModule,
-		MaterialModule
+		MaterialModule,
+		FormsModule
 	],
 	providers: [],
 	bootstrap: [ChildrenTab]

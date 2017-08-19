@@ -1,0 +1,54 @@
+<form id="child-details-form" *ngIf="child">
+	<table>
+		<colgroup>
+			<col id="names-col">
+			<col id="age-col">
+			<col id="medical-col">
+			<col id="status-col">
+		</colgroup>
+		<tbody>
+			<tr>
+				<td><md-input-container>
+					<input mdInput placeholder="Chinese Name" [(ngModel)]="child.child_chinese_name" name="child-chinese-name">
+				</md-input-container></td>
+				<td>
+					<md-input-container>
+						<input mdInput [mdDatepicker]="picker" placeholder="DOB">
+						<button mdSuffix [mdDatepickerToggle]="picker"></button>
+					</md-input-container>
+					<md-datepicker #picker></md-datepicker>
+				</td>
+				<td><md-input-container>
+					<input mdInput placeholder="Primary Diagnosis" [(ngModel)]="child.primary_diagnosis" name="primary-diagnosis">
+				</md-input-container></td>
+				<td><button md-raised-button (click)="saveChild()">Save</button><button md-button (click)="deleteChild()">Delete</button></td>
+			</tr>
+			<tr>
+				<td><md-input-container>
+					<input mdInput placeholder="Pinyin Name" [(ngModel)]="child.child_pinyin_name" name="child-pinyin-name">
+				</md-input-container></td>
+				<td><md-input-container>
+					<input mdInput placeholder="Age" disabled>
+				</md-input-container></td>
+				<td><md-input-container>
+					<input mdInput placeholder="Secondary Diagnosis" [(ngModel)]="child.secondary_diagnosis" name="secondary-diagnosis">
+				</md-input-container></td>
+				<td rowspan="2"><md-input-container>
+					<textarea mdInput placeholder="status" [(ngModel)]="child.status" name="child-status"></textarea>
+				</md-input-container></td>
+			</tr>
+			<tr>
+				<td><md-input-container>
+					<input mdInput placeholder="Nickname" [(ngModel)]="child.child_english_name" name="child-nickname">
+				</md-input-container></td>
+				<td><md-select placeholder="Sex" [(ngModel)]="child.gender" name="sex">
+					<md-option value="M">Male</md-option>
+					<md-option value="F">Female</md-option>
+				</md-select></td>
+				<td><md-input-container>
+					<input mdInput placeholder="Referred By" [(ngModel)]="child.referred_by" name="referred-by">
+				</md-input-container></td>
+			</tr>
+		</tbody>
+	</table>
+</form>

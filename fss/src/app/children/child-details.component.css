@@ -1,0 +1,26 @@
+table {
+	width: 100%;
+}
+td {
+	vertical-align: bottom;
+}
+#age-col {
+	width: 100px;
+}
+md-select {
+	width: 100%;
+}
+md-input-container {
+	width: 100%;
+}
+textarea {
+	/* height: 112.4px; */
+	resize: none;
+}
+/* Had to do weird stuff to make the padding not rediculously large on the input text boxes */
+/deep/ .mat-input-wrapper {
+	padding-bottom: 0 !important;
+}
+/deep/ .mat-input-underline {
+	bottom: 0 !important;
+}
