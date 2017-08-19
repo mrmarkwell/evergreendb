@@ -13,7 +13,8 @@
 				</md-input-container></td>
 				<td>
 					<md-input-container>
-						<input mdInput [mdDatepicker]="picker" placeholder="DOB">
+						<input mdInput [mdDatepicker]="picker" placeholder="DOB" name="birth-date"
+							[ngModel]="child.birth_date" (ngModelChange)="setDoB($event)">
 						<button mdSuffix [mdDatepickerToggle]="picker"></button>
 					</md-input-container>
 					<md-datepicker #picker></md-datepicker>
