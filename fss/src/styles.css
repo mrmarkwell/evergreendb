@@ -5,3 +5,11 @@
 body {
 	margin: 0 0 0 0;
 }
+
+ul {
+	list-style-type: none;
+	padding-left: 0px;
+}
+td {
+	vertical-align: top;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ParamMap } from '@angular/router';
 
 import { FamilyMember } from '../../family-member';
@@ -6,7 +6,8 @@ import { RestService } from '../../rest.service';
 
 @Component({
     selector: 'family-list',
-    templateUrl: './family-list.component.html'
+    templateUrl: './family-list.component.html',
+    styleUrls: ['./family-list.component.css']
 })
 export class FamilyListComponent implements OnInit {
     constructor(
@@ -17,8 +18,9 @@ export class FamilyListComponent implements OnInit {
     }
     onSelect(selected: FamilyMember) : void {
       this.selected_family_member = selected;
-			console.log(this.selected_family_member);
+      this.notifySelected.emit(selected);
     }
     private family_members: FamilyMember[];
     private selected_family_member: FamilyMember;
+    @Output() notifySelected = new EventEmitter<FamilyMember>();
 }
