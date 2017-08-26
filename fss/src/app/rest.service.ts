@@ -22,13 +22,13 @@ export class RestService {
 	addEntity(type: string, entity: any): Promise<any> {
 		let url = `${this.evergreenUrl}/entity/${type}`;
 		return this.http.post(url, JSON.stringify(entity), {headers: this.headers})
-			.toPromise().then(res => res.json().data)
+			.toPromise().then(res => { console.log(res); console.log(res.json()); console.log(res.json().data); return res.json() })
 			.catch(this.handleError);
 	}
 	updateEntity(type:string, entity: any): Promise<any> {
 		const url = `${this.evergreenUrl}/entity/${type}?id=${entity.id}`;
 		return this.http.put(url, JSON.stringify(entity), {headers: this.headers})
-			.toPromise().then(res => res.json().data)
+			.toPromise().then(res => res.json())
 			.catch(this.handleError);
 	}
 	deleteEntity(type: string, id: number): Promise<void> {
@@ -83,7 +83,7 @@ export class RestService {
 		return this.getEntity('fss_family_member',`child_id=${child_id}`).then( results => results as FamilyMember[] );
 	}
 	addFamilyMember(family_member: FamilyMember): Promise<FamilyMember> {
-		return this.addEntity('fss_family_member', family_member).then(results => results as FamilyMember);
+		return this.addEntity('fss_family_member', family_member).then(results => { console.log(results); return results as FamilyMember });
 	}
 	updateFamilyMember(family_member: FamilyMember): Promise<FamilyMember> {
 		return this.updateEntity('fss_family_member', family_member).then(results => results as FamilyMember);

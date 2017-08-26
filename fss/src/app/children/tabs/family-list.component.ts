@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { ParamMap } from '@angular/router';
 
 import { FamilyMember } from '../../family-member';
@@ -13,8 +13,9 @@ export class FamilyListComponent implements OnInit {
     constructor(
         private restService: RestService
     ) {}
+    @Input() child_id: number;
     ngOnInit(): void {
-        this.restService.getFamilyMembers(1).then(family_members => { console.log(family_members); this.family_members =  family_members });
+        this.getFamilyMembers();
     }
     onSelect(selected: FamilyMember) : void {
       this.selected_family_member = selected;
@@ -23,4 +24,19 @@ export class FamilyListComponent implements OnInit {
     private family_members: FamilyMember[];
     private selected_family_member: FamilyMember;
     @Output() notifySelected = new EventEmitter<FamilyMember>();
+    createFamilyMember() : void {
+        let family_member = new FamilyMember();
+        family_member.relationship = "Family Member";
+        family_member.child_id = this.child_id;
+        this.restService.addFamilyMember(family_member).then(new_family_member => {
+            console.log(new_family_member)
+            this.getFamilyMembers();
+            this.onSelect(new_family_member);
+        });
+    }
+    getFamilyMembers(): void {
+        this.restService.getFamilyMembers(this.child_id).then(family_members => {
+            console.log(family_members); this.family_members =  family_members
+        });
+    }
 }
