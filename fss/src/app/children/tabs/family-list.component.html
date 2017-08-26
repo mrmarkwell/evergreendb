@@ -1,6 +1,7 @@
-<md-list>
-    <md-list-item *ngFor="let family_member of this.family_members"
-      [id]="family_member.id" (click)="onSelect(family_member)">
-        {{family_member.family_member_name}}
-    </md-list-item>
-</md-list>
+<ul>
+    <li *ngFor="let family_member of this.family_members">
+        <button md-button [id]="family_member.id" (click)="onSelect(family_member)" [class.selected]="family_member === selected_family_member">
+          {{family_member.family_member_name}}
+        </button>
+    </li>
+</ul>

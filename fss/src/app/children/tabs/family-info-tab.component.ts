@@ -6,7 +6,8 @@ import { RestService } from '../../rest.service';
 
 @Component({
     selector: 'family-info-tab',
-    templateUrl: './family-info-tab.component.html'
+    templateUrl: './family-info-tab.component.html',
+    styleUrls: ['./family-info-tab.component.css']
 })
 export class FamilyTabComponent implements OnInit {
     constructor(
@@ -14,4 +15,9 @@ export class FamilyTabComponent implements OnInit {
     ) {}
     ngOnInit(): void {
     }
+		onSelect(family_member: FamilyMember): void {
+		  this.family_member = family_member;
+			console.log("yay",this.family_member);
+		}
+    private family_member: FamilyMember;
 }
