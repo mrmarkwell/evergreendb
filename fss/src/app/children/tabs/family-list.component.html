@@ -1,0 +1,6 @@
+<md-list>
+    <md-list-item *ngFor="let family_member of this.family_members"
+      [id]="family_member.id" (click)="onSelect(family_member)">
+        {{family_member.family_member_name}}
+    </md-list-item>
+</md-list>
