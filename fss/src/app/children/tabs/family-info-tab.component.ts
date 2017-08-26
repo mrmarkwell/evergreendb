@@ -13,7 +13,5 @@ export class FamilyTabComponent implements OnInit {
         private restService: RestService
     ) {}
     ngOnInit(): void {
-        this.restService.getFamilyMembers(1).then(family_members => { console.log(family_members); this.family_members =  family_members });
     }
-    private family_members: FamilyMember[];
 }
