@@ -1,6 +1,6 @@
 <table><tr>
 <td id='family-member-list'>
-  <family-list (notifySelected)="onSelect($event)"></family-list>
+  <family-list (notifySelected)="onSelect($event)" [child_id]="child_id"></family-list>
 </td>
 <td id='family-member-details'>
   <form *ngIf="family_member" id='family-member-details-form'>
