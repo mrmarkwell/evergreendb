@@ -19,9 +19,10 @@
 					</md-input-container>
 					<md-datepicker #picker></md-datepicker>
 				</td>
-				<td><md-input-container>
-					<input mdInput placeholder="Primary Diagnosis" [(ngModel)]="child.primary_diagnosis" name="primary-diagnosis">
-				</md-input-container></td>
+				<td><md-select placeholder="Primary Diagnosis" [(ngModel)]="child.primary_diagnosis" name="primary-diagnosis">
+					<md-option value=""></md-option>
+					<md-option *ngFor="let condition of medical_conditions" [value]="condition">{{condition}}</md-option>
+				</md-select></td>
 				<td><button md-raised-button (click)="saveChild()">Save</button><button md-button (click)="deleteChild()">Delete</button></td>
 			</tr>
 			<tr>
@@ -31,9 +32,10 @@
 				<td><md-input-container>
 					<input mdInput placeholder="Age" disabled [(ngModel)]="age" name="age">
 				</md-input-container></td>
-				<td><md-input-container>
-					<input mdInput placeholder="Secondary Diagnosis" [(ngModel)]="child.secondary_diagnosis" name="secondary-diagnosis">
-				</md-input-container></td>
+				<td><md-select placeholder="Secondary Diagnosis" [(ngModel)]="child.secondary_diagnosis" name="secondary-diagnosis">
+					<md-option value=""></md-option>
+					<md-option *ngFor="let condition of medical_conditions" [value]="condition">{{condition}}</md-option>
+				</md-select></td>
 				<td rowspan="2"><md-input-container>
 					<textarea mdInput placeholder="status" [(ngModel)]="child.status" name="child-status"></textarea>
 				</md-input-container></td>
