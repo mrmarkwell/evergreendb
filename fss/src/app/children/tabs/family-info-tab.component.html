@@ -5,6 +5,10 @@
 <td id='family-member-details'>
   <form *ngIf="family_member" id='family-member-details-form'>
 		<ul>
+      <li>
+        <button md-raised-button (click)="save()">Save</button>
+        <button md-button (click)="delete()" type='button'>Delete</button>
+      </li>
 			<li>
 				<md-input-container>
 					<input mdInput placeholder="Name" [(ngModel)]="family_member.family_member_name" name="family-member-name">
