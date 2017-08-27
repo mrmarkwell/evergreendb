@@ -22,13 +22,13 @@ export class RestService {
 	addEntity(type: string, entity: any): Promise<any> {
 		let url = `${this.evergreenUrl}/entity/${type}`;
 		return this.http.post(url, JSON.stringify(entity), {headers: this.headers})
-			.toPromise().then(res => res.json().data)
+			.toPromise().then(res => res.json())
 			.catch(this.handleError);
 	}
 	updateEntity(type:string, entity: any): Promise<any> {
 		const url = `${this.evergreenUrl}/entity/${type}?id=${entity.id}`;
 		return this.http.put(url, JSON.stringify(entity), {headers: this.headers})
-			.toPromise().then(res => res.json().data)
+			.toPromise().then(res => res.json())
 			.catch(this.handleError);
 	}
 	deleteEntity(type: string, id: number): Promise<void> {

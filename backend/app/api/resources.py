@@ -314,9 +314,9 @@ class QueryResource(ResourceBase):
 
 class EnumResource(Resource):
     def put(self, enum_name):
-        l = request.get_json()
-        EnumResource.set_list_by_name(enum_name, l)
-        return l, 201
+        vals = set(request.get_json())
+        EnumResource.set_list_by_name(enum_name, vals)
+        return list(vals), 201
 
     def get(self, enum_name):
         result = EnumResource.get_list_by_name(enum_name)
@@ -324,17 +324,16 @@ class EnumResource(Resource):
             abort(404, message="No enum exists with name " + enum_name + "!")
         return result, 200
 
-
     @classmethod
     def set_list_by_name(cls, name, vals):
-        filepath = os.path.join("enums", name + ".csv") 
-        
+        filepath = os.path.join("enums", name + ".csv")
+
         with open(filepath, "a+") as f:
             f.write(",".join(vals) + "\n")
-    
+
     @classmethod
     def get_list_by_name(cls, name):
-        filepath = os.path.join("enums", name + ".csv") 
+        filepath = os.path.join("enums", name + ".csv")
         if not os.path.exists(filepath):
             return None
         with open(filepath, "r") as f:
