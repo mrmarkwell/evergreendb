@@ -29,7 +29,7 @@
 					<input mdInput placeholder="Pinyin Name" [(ngModel)]="child.child_pinyin_name" name="child-pinyin-name">
 				</md-input-container></td>
 				<td><md-input-container>
-					<input mdInput placeholder="Age" disabled>
+					<input mdInput placeholder="Age" disabled [(ngModel)]="age" name="age">
 				</md-input-container></td>
 				<td><md-input-container>
 					<input mdInput placeholder="Secondary Diagnosis" [(ngModel)]="child.secondary_diagnosis" name="secondary-diagnosis">
@@ -40,7 +40,7 @@
 			</tr>
 			<tr>
 				<td><md-input-container>
-					<input mdInput placeholder="Nickname" [(ngModel)]="child.child_english_name" name="child-nickname">
+					<input mdInput placeholder="Nickname" [(ngModel)]="child.nickname" name="child-nickname">
 				</md-input-container></td>
 				<td><md-select placeholder="Sex" [(ngModel)]="child.gender" name="sex">
 					<md-option value="M">Male</md-option>

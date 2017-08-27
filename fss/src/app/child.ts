@@ -1,4 +1,17 @@
 export class Child {
+	constructor(jsondata){
+		for (let attr in jsondata) {
+			this[attr] = jsondata[attr];
+		}
+	}
+
+	getAge(): number {
+		let bdate_split = this.birth_date.split('-');
+		let today = new Date();
+		let no_bday_yet = Number( bdate_split[1] + bdate_split[2] ) > ( (today.getMonth()+1)*100 + today.getDate() ); // Not elegant, I know...
+		return today.getFullYear() - Number(bdate_split[0]) + (no_bday_yet ? -1 : 0);
+	}
+
 	id: number;
 	birth_date: string;
 	birth_history: string;
