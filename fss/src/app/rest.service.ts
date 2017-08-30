@@ -47,7 +47,7 @@ export class RestService {
 	// Child functions
 	getChildren(refresh: boolean = true): Promise<Child[]> {
 		if (refresh || !this.childrenCache) {
-			return this.getEntity('fss_child').then( results => this.childrenCache = results as Child[] );
+			return this.getEntity('fss_child').then( results => this.childrenCache = results.map(child => new Child(child)) );
 		} else {
 			return new Promise( (resolve,reject) => resolve(this.childrenCache) );
 		}

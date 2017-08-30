@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { ParamMap } from '@angular/router';
 
 import { FamilyMember } from '../../family-member';
@@ -11,11 +11,10 @@ import { FamilyListComponent } from './family-list.component';
     templateUrl: './family-info-tab.component.html',
     styleUrls: ['./family-info-tab.component.css']
 })
-export class FamilyTabComponent implements OnInit {
+export class FamilyTabComponent {
     constructor(
         private restService: RestService
     ) {}
-    ngOnInit(): void {}
     onSelect(family_member: FamilyMember): void {
       this.family_member = family_member;
     }

@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { MaterialModule, MdNativeDateModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
+import { DatePipe } from '@angular/common';
 
 import { RestService } from './rest.service';
 import { AppComponent } from './app.component';
@@ -26,9 +27,12 @@ import { SettingsModule } from './settings/settings.module';
 		CalendarModule,
 		ChildrenModule,
 		RemindersModule,
-		SettingsModule
+		SettingsModule,
 	],
-	providers: [RestService],
+	providers: [
+		RestService,
+		DatePipe,
+	],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

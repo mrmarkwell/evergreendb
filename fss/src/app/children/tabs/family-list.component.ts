@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, EventEmitter, Output, Input } from '@angular/core';
 import { ParamMap } from '@angular/router';
 
 import { FamilyMember } from '../../family-member';
@@ -9,12 +9,15 @@ import { RestService } from '../../rest.service';
     templateUrl: './family-list.component.html',
     styleUrls: ['./family-list.component.css']
 })
-export class FamilyListComponent implements OnInit {
+export class FamilyListComponent implements OnInit, OnChanges {
     constructor(
-        private restService: RestService
+      private restService: RestService
     ) {}
     ngOnInit(): void {
-        this.getFamilyMembers();
+    }
+    ngOnChanges(): void {
+      this.getFamilyMembers();
+      this.notifySelected.emit(null);
     }
     isSelected(family_member): boolean {
       // Object equality doesn't work in js/ts. It just checks if instances are the same not contents are equal
