@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Child } from './child';
 
 @Component({
 	selector: 'children-tab',
@@ -6,5 +7,8 @@ import { Component, Input } from '@angular/core';
 	styleUrls: ['./children-tab.component.css']
 })
 export class ChildrenTab {
+	onSelect(child: Child): void {
+		this.child_id = child.id;
+	  	}
 	@Input() child_id = 1;//: number;
 }
