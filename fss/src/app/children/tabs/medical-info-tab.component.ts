@@ -1,7 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, OnInit, Input } from '@angular/core';
+
+import { Child } from '../../child';
+import { RestService } from '../../rest.service';
 
 @Component({
-	selector: 'medical-info-tab',
-	templateUrl: './medical-info-tab.component.html'
+    selector: 'medical-info-tab',
+    templateUrl: './medical-info-tab.component.html'
 })
-export class MedicalTabComponent {}
+export class MedicalTabComponent implements OnInit, OnChanges {
+    private child: Child;
+    private conditions: String[];
+    constructor(
+        private restService: RestService
+    ) {}
+	ngOnInit(): void {
+        this.getChild();
+        this.getMedicalConditions();
+    }
+    ngOnChanges(): void {
+        this.getChild();
+    }
+    getChild(): void {
+        this.restService.getChild(this.child_id).then(child => this.child = child);
+    }
+    getMedicalConditions(): void {
+        this.restService.getEnum('fss_medical_condition').then(conditions => this.conditions = conditions)
+    }
+    @Input() child_id: number;
+}
