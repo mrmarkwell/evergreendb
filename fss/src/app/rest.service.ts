@@ -49,25 +49,27 @@ export class RestService {
 
 	// Child functions
 	getChildren(refresh: boolean = true): Promise<Child[]> {
-		if (refresh || !this.childrenCache) {
-			return this.getEntity('fss_child').then( results => this.childrenCache = results.map(child => new Child(child)) );
-		} else {
-			return new Promise( (resolve,reject) => resolve(this.childrenCache) );
-		}
+		return this.getEntity('fss_child').then( results => this.childrenCache = results.map(child => new Child(child)) );
 	}
 	getChild(child_id: number): Promise<Child> {
-		return this.getChildren(false).then(children => {
-			let new_child = children.find(child => child.id === child_id);
-			return Object.assign(Object.create(Object.getPrototypeOf(new_child)), new_child);
-		})
+		return this.getChildren(false).then(children => children.find(child => child.id === child_id));
 	}
 	addChild(child: Child): Promise<Child> {
-		return this.addEntity('fss_child', child).then(results => results as Child);
+		return this.addEntity('fss_child', child).then(results => {
+			let new_child = results as Child;
+			this.childrenCache.push(new_child);
+			return new_child;
+		});
 	}
 	updateChild(child: Child): Promise<Child> {
-		return this.updateEntity('fss_child', child).then(results => results as Child);
+		return this.updateEntity('fss_child', child).then(results => {
+			let updated_child = results as Child;
+			this.childrenCache[this.childrenCache.findIndex(child => child.id === updated_child.id)] = updated_child;
+			return updated_child;
+		});
 	}
 	deleteChild(id: number): Promise<void> {
+		this.childrenCache.splice(this.childrenCache.findIndex(child => child.id === id), 1)
 		return this.deleteEntity('fss_child',id);
 	}
 
