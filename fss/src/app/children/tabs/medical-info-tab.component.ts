@@ -20,6 +20,9 @@ export class MedicalTabComponent implements OnInit, OnChanges {
     ngOnChanges(): void {
         this.getChild();
     }
+    save(): void {
+        this.restService.updateChild(this.child)
+    }
     getChild(): void {
         this.restService.getChild(this.child_id).then(child => this.child = child);
     }
