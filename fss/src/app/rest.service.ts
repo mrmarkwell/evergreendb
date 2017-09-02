@@ -55,21 +55,12 @@ export class RestService {
 		return this.getChildren(false).then(children => children.find(child => child.id === child_id));
 	}
 	addChild(child: Child): Promise<Child> {
-		return this.addEntity('fss_child', child).then(results => {
-			let new_child = results as Child;
-			this.childrenCache.push(new_child);
-			return new_child;
-		});
+		return this.addEntity('fss_child', child).then(results => results as Child);
 	}
 	updateChild(child: Child): Promise<Child> {
-		return this.updateEntity('fss_child', child).then(results => {
-			let updated_child = results as Child;
-			this.childrenCache[this.childrenCache.findIndex(child => child.id === updated_child.id)] = updated_child;
-			return updated_child;
-		});
+		return this.updateEntity('fss_child', child).then(results => results as Child);
 	}
 	deleteChild(id: number): Promise<void> {
-		this.childrenCache.splice(this.childrenCache.findIndex(child => child.id === id), 1)
 		return this.deleteEntity('fss_child',id);
 	}
 
