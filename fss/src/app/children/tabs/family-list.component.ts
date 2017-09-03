@@ -14,6 +14,7 @@ export class FamilyListComponent implements OnInit, OnChanges {
       private restService: RestService
     ) {}
     ngOnInit(): void {
+        this.restService.changeEmitter.subscribe(() => this.ngOnChanges())
     }
     ngOnChanges(): void {
       this.getFamilyMembers();
