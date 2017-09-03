@@ -17,6 +17,7 @@ export class ChildDetails implements OnInit, OnChanges {
 	) {}
 	ngOnInit(): void {
 		this.restService.getEnum("fss_medical_condition").then(conditions => this.medical_conditions = conditions);
+		this.restService.changeEmitter.subscribe(() => this.ngOnChanges())
 	}
 	ngOnChanges(): void {
 		console.log(this.child_id);

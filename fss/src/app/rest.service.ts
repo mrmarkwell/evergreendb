@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Child } from './child';
@@ -9,7 +9,10 @@ import { ProjectedPathway } from './projected-pathway';
 
 @Injectable()
 export class RestService {
+	changeEmitter: EventEmitter<any> = new EventEmitter();
 	constructor(private http: Http) {}
+
+	emit(): void { this.changeEmitter.emit(); }
 
 	// Generic functions
 	getEntity(type: string, query?:string): Promise<any> {
@@ -22,19 +25,19 @@ export class RestService {
 	addEntity(type: string, entity: any): Promise<any> {
 		let url = `${this.evergreenUrl}/entity/${type}`;
 		return this.http.post(url, JSON.stringify(entity), {headers: this.headers})
-			.toPromise().then(res => res.json())
+			.toPromise().then(res => { this.emit(); return res.json() })
 			.catch(this.handleError);
 	}
 	updateEntity(type:string, entity: any): Promise<any> {
 		const url = `${this.evergreenUrl}/entity/${type}?id=${entity.id}`;
 		return this.http.put(url, JSON.stringify(entity), {headers: this.headers})
-			.toPromise().then(res => res.json())
+			.toPromise().then(res => { this.emit(); return res.json() })
 			.catch(this.handleError);
 	}
 	deleteEntity(type: string, id: number): Promise<void> {
 		const url = `${this.evergreenUrl}/entity/${type}?id=${id}`;
 		return this.http.delete(url, {headers: this.headers})
-			.toPromise().then( () => null ).catch(this.handleError);
+			.toPromise().then( () => { this.emit(); return null }).catch(this.handleError);
 	}
 
 	getEnum(field: string): Promise<string[]> {
@@ -46,14 +49,10 @@ export class RestService {
 
 	// Child functions
 	getChildren(refresh: boolean = true): Promise<Child[]> {
-		if (refresh || !this.childrenCache) {
-			return this.getEntity('fss_child').then( results => this.childrenCache = results.map(child => new Child(child)) );
-		} else {
-			return new Promise( (resolve,reject) => resolve(this.childrenCache) );
-		}
+		return this.getEntity('fss_child').then( results => this.childrenCache = results.map(child => new Child(child)) );
 	}
 	getChild(child_id: number): Promise<Child> {
-		return this.getChildren(false).then(children => children.find(child => child.id === child_id))
+		return this.getChildren(false).then(children => children.find(child => child.id === child_id));
 	}
 	addChild(child: Child): Promise<Child> {
 		return this.addEntity('fss_child', child).then(results => results as Child);
