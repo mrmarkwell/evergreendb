@@ -1,0 +1,6 @@
+tr.initialInteraction {
+	background-color: lightpink;
+}
+tr.selected {
+	background-color: lightgrey;
+}

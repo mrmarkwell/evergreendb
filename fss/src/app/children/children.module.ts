@@ -12,6 +12,7 @@ import { FamilyTabComponent } from './tabs/family-info-tab.component';
 import { FamilyListComponent } from './tabs/family-list.component';
 import { MedicalTabComponent } from './tabs/medical-info-tab.component';
 import { InteractionsTabComponent } from './tabs/interactions-tab.component';
+import { InteractionsFormComponent } from './tabs/interactions-form.component';
 import { ProjectedPathwayTabComponent } from './tabs/projected-pathway-tab.component';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { ProjectedPathwayTabComponent } from './tabs/projected-pathway-tab.compo
 		FamilyListComponent,
 		MedicalTabComponent,
 		InteractionsTabComponent,
+		InteractionsFormComponent,
 		ProjectedPathwayTabComponent
 	],
 	imports: [

@@ -1,1 +1,20 @@
-<h1>Interactions content</h1>
+<interactions-form [child_id]="child_id" [interaction]="expanded_interaction" (notifyDeleted)="getInteractions()"></interactions-form>
+<table>
+	<tr>
+		<th>Date</th>
+		<th>Type</th>
+		<th>Coordinator</th>
+		<th>People Present</th>
+	</tr>
+	<tr *ngFor="let interaction of interactions"
+			(click)="selectInteraction(interaction.id)"
+			[ngClass]="{initialInteraction:interaction.is_initial_interaction, selected:isSelected(interaction)}"
+	>
+		<td>{{interaction.interaction_date}}</td>
+		<td>{{interaction.interaction_type}}</td>
+		<td>{{interaction.interaction_coordinator}}</td>
+		<td>{{interaction.people_present}}</td>
+	</tr>
+</table>
+<br>
+<button md-raised-button (click)="createInteraction()">New Interaction</button>

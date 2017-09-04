@@ -10,6 +10,12 @@ ul {
 	list-style-type: none;
 	padding-left: 0px;
 }
+table {
+	border-collapse: collapse;
+}
 td {
 	vertical-align: top;
+}
+th {
+	text-align: left;
 }
