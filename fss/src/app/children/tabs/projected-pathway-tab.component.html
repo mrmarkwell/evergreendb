@@ -5,20 +5,18 @@
     <div id="secondary-diagnosis-div">
         <h2>Secondary Diagnosis: {{child.secondary_diagnosis}}</h2>
     </div>
-
+    <button md-raised-button (click)="save()">Save</button>
     <div class="table-container mat-elevation-z8">
         <md-table #table [dataSource]="dataSource">
 
             <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
-            <!-- Position Column -->
             <ng-container mdColumnDef="stepNumber">
                 <md-header-cell *mdHeaderCellDef> Step No. </md-header-cell>
                 <md-cell *mdCellDef="let element"> {{element.pathway_step_number}} </md-cell>
             </ng-container>
 
-            <!-- Name Column -->
             <ng-container mdColumnDef="shortDescription">
                 <md-header-cell *mdHeaderCellDef> Short Description </md-header-cell>
                 <md-cell *mdCellDef="let element">
@@ -28,7 +26,6 @@
                 </md-cell>
             </ng-container>
 
-            <!-- Weight Column -->
             <ng-container mdColumnDef="details">
                 <md-header-cell *mdHeaderCellDef> Details </md-header-cell>
                 <md-cell *mdCellDef="let element">
@@ -38,10 +35,16 @@
                 </md-cell>
             </ng-container>
 
-            <!-- Color Column -->
             <ng-container mdColumnDef="completionDate">
                 <md-header-cell *mdHeaderCellDef> Completion Date </md-header-cell>
-                <md-cell *mdCellDef="let element"> {{element.pathway_completion_date}} </md-cell>
+                <md-cell *mdCellDef="let element">
+
+                    <md-input-container>
+                        <input mdInput [mdDatepicker]="picker" [(ngModel)]="element.pathway_completion_date_object" name="datepicker">
+                        <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+                    </md-input-container>
+                    <md-datepicker #picker></md-datepicker>
+                </md-cell>
             </ng-container>
 
             <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>

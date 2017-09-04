@@ -11,14 +11,14 @@
 				<td><md-input-container>
 					<input mdInput placeholder="Chinese Name" [(ngModel)]="child.child_chinese_name" name="child-chinese-name">
 				</md-input-container></td>
-				<td>
+<!--				<td>
 					<md-input-container>
 						<input mdInput [mdDatepicker]="picker" placeholder="DOB" name="birth-date"
 							[ngModel]="child.birth_date" (ngModelChange)="setDoB($event)">
 						<button mdSuffix [mdDatepickerToggle]="picker"></button>
 					</md-input-container>
 					<md-datepicker #picker></md-datepicker>
-				</td>
+				</td>-->
 				<td><md-select placeholder="Primary Diagnosis" [(ngModel)]="child.primary_diagnosis" name="primary-diagnosis">
 					<md-option value=""></md-option>
 					<md-option *ngFor="let condition of medical_conditions" [value]="condition">{{condition}}</md-option>

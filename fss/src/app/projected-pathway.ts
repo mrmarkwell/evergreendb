@@ -5,4 +5,5 @@ export class ProjectedPathway {
 	pathway_details: string;
 	pathway_short_description: string;
 	pathway_step_number: number;
+	pathway_completion_date_object: Date;
 }
