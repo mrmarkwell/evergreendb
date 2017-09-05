@@ -15,7 +15,7 @@ import { RestService } from '../../rest.service';
 
 export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
 	private child: Child;
-
+	projectedPathways: ProjectedPathway[];
 
 	@Input() child_id: number;
 
@@ -24,76 +24,81 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
 	) { }
 	ngOnInit(): void {
 		this.getChild();
-		this.getProjectedPathway();
+		this.getProjectedPathways();
 		this.restService.changeEmitter.subscribe(() => this.ngOnChanges())
 	}
 
 	ngOnChanges(): void {
 		this.getChild();
-		this.getProjectedPathway();
+		this.getProjectedPathways();
 	}
 
-	displayedColumns = ['stepNumber', 'shortDescription', 'details', 'completionDate'];
-	dataSource = new PathwayDataSource();
-
 	save(): void {
-		for (let pathway of this.dataSource.projectedPathway) {
+		for (let pathway of this.projectedPathways) {
 			// Update the pathway completion date with the object that is tied to the datepicker.
 			pathway.pathway_completion_date = this.formatDate(pathway.pathway_completion_date_object);
 			this.restService.updateProjectedPathway(pathway);
 		}
 	}
 
-	formatDate(date: Date): string {
-		let day = date.getDate();
-		let month = date.getMonth() + 1;
-		let year = date.getFullYear();
-		let date_string = year + "-" + month + "-" + day;
+	addNewStep(): void {
+		let next_step = 1;
+		let latest_pathway = this.projectedPathways.slice(-1)[0];
+		if (latest_pathway) {
+			next_step = latest_pathway.pathway_step_number + 1;
+		}
+		let new_pathway = new ProjectedPathway();
+		new_pathway.pathway_step_number = next_step;
+		new_pathway.child_id = this.child_id;
+		this.restService.addProjectedPathway(new_pathway);
 
-		console.log("formatDate: Date string: ", date.toString());
-		console.log("formatDate: Date Formatted string", date_string);
-		return date_string;
+	}
+
+	formatDate(date: Date): string {
+		if (date) {
+			let day = date.getDate();
+			let month = date.getMonth() + 1;
+			let year = date.getFullYear();
+			let date_string = year + "-" + month + "-" + day;
+
+			return date_string;
+		}
+		else {
+			return "";
+		}
 	}
 
 	getChild(): void {
 		this.restService.getChild(this.child_id).then(child => this.child = child);
 	}
-	getProjectedPathway(): void {
-		this.restService.getProjectedPathway(this.child_id).then(pathway => {
-			this.dataSource.projectedPathway = pathway
+	getProjectedPathways(): void {
+		this.restService.getProjectedPathway(this.child_id).then(pathways => {
+			// Sort them by step number
+			pathways.sort(
+				function (a, b) {
+					return (a.pathway_step_number > b.pathway_step_number) ? 1
+						: ((a.pathway_step_number < b.pathway_step_number) ? -1
+							: 0);
+				}
+			);
+			this.projectedPathways = pathways
 
-			// Clear the pathway completion dates dictionary before recreating it.
-			//this.dataSource.pathwayCompletionDates = {};
-			for (let pathway of this.dataSource.projectedPathway) {
-				let theDate = new Date(pathway.pathway_completion_date.replace(/-/g, '\/').replace(/T.+/, ''));
-				console.log("Pathway Completion Date Object before assignment: ", pathway.pathway_completion_date_object);
+			for (let pathway of this.projectedPathways) {
+				if (pathway.pathway_completion_date) {
 
-				//this.dataSource.pathwayCompletionDates[pathway.id] = theDate;
-				pathway.pathway_completion_date_object = theDate;
-				console.log("Pathway Completion Date String: ", pathway.pathway_completion_date);
-				console.log("Pathway Completion Date Object: ", theDate);
-				console.log("Pathway Completion Date Object Local Time: ", theDate.toString());
+					let theDate = new Date(pathway.pathway_completion_date.replace(/-/g, '\/').replace(/T.+/, ''));
+
+					pathway.pathway_completion_date_object = theDate;
+				}
+				else {
+					pathway.pathway_completion_date_object = null;
+				}
+			}
+			for (let p of this.projectedPathways) {
+				console.log(p)
 			}
 		});
 	}
 
 
-}
-
-// Create a type for storing projectedPathway ID to Date object mappings.
-export interface pathwayCompletionDate {
-	[pathwayID: number]: Date;
-}
-
-export class PathwayDataSource extends DataSource<any> {
-
-	projectedPathway: ProjectedPathway[];
-	//pathwayCompletionDates: pathwayCompletionDate = {};
-
-	/** Connect function called by the table to retrieve one stream containing the data to render. */
-	connect(): Observable<ProjectedPathway[]> {
-		return Observable.of(this.projectedPathway);
-	}
-
-	disconnect() { }
 }

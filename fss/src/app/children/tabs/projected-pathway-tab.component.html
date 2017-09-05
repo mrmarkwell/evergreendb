@@ -6,49 +6,45 @@
         <h2>Secondary Diagnosis: {{child.secondary_diagnosis}}</h2>
     </div>
     <button md-raised-button (click)="save()">Save</button>
-    <div class="table-container mat-elevation-z8">
-        <md-table #table [dataSource]="dataSource">
+    <button md-raised-button (click)="addNewStep()">Add Step</button>
+    <div>
+        <table>
+            <colgroup>
+                <col id="step-no-col">
+                <col id="short-description-col">
+                <col id="details-col">
+                <col id="completion-col">
+            </colgroup>
 
-            <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
 
-            <ng-container mdColumnDef="stepNumber">
-                <md-header-cell *mdHeaderCellDef> Step No. </md-header-cell>
-                <md-cell *mdCellDef="let element"> {{element.pathway_step_number}} </md-cell>
-            </ng-container>
-
-            <ng-container mdColumnDef="shortDescription">
-                <md-header-cell *mdHeaderCellDef> Short Description </md-header-cell>
-                <md-cell *mdCellDef="let element">
-                    <md-input-container>
-                        <textarea mdInput [(ngModel)]="element.pathway_short_description" name="short_description"></textarea>
-                    </md-input-container>
-                </md-cell>
-            </ng-container>
-
-            <ng-container mdColumnDef="details">
-                <md-header-cell *mdHeaderCellDef> Details </md-header-cell>
-                <md-cell *mdCellDef="let element">
-                    <md-input-container>
-                        <textarea mdInput [(ngModel)]="element.pathway_details" name="details"></textarea>
-                    </md-input-container>
-                </md-cell>
-            </ng-container>
-
-            <ng-container mdColumnDef="completionDate">
-                <md-header-cell *mdHeaderCellDef> Completion Date </md-header-cell>
-                <md-cell *mdCellDef="let element">
-
-                    <md-input-container>
-                        <input mdInput [mdDatepicker]="picker" [(ngModel)]="element.pathway_completion_date_object" name="datepicker">
-                        <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
-                    </md-input-container>
-                    <md-datepicker #picker></md-datepicker>
-                </md-cell>
-            </ng-container>
-
-            <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
-            <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
-        </md-table>
+            <tbody>
+                <tr>
+                    <th>Step No.</th>
+                    <th>Short Description</th>
+                    <th>Details</th>
+                    <th>Completion Date</th>
+                </tr>
+                <tr *ngFor="let pathway of projectedPathways">
+                    <td>{{pathway.pathway_step_number}}</td>
+                    <td>
+                        <md-input-container>
+                            <textarea mdInput [(ngModel)]="pathway.pathway_short_description" name="{{pathway.id}}_short_description"></textarea>
+                        </md-input-container>
+                    </td>
+                    <td>
+                        <md-input-container>
+                            <textarea mdInput [(ngModel)]="pathway.pathway_details" name="{{pathway.id}}_details"></textarea>
+                        </md-input-container>
+                    </td>
+                    <td>
+                        <md-input-container>
+                            <input mdInput [mdDatepicker]="picker" [(ngModel)]="pathway.pathway_completion_date_object" name="{{pathway.id}}_datepicker">
+                            <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+                        </md-input-container>
+                        <md-datepicker #picker></md-datepicker>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </form>
