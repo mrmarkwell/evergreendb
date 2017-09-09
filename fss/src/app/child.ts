@@ -54,4 +54,5 @@ export class Child {
 	walking: boolean;
 	weakness_notes: string;
 	weakness_recommendations: string;
+	birth_date_object: Date;
 }

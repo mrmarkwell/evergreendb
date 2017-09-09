@@ -11,4 +11,5 @@ export class Interaction {
 	interaction_type: string;
 	is_initial_interaction: boolean;
 	people_present: string;
+	interaction_date_object: Date;
 }

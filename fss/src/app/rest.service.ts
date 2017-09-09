@@ -104,6 +104,26 @@ export class RestService {
 		return this.deleteEntity('fss_projected_pathway',id);
 	}
 
+	// Utility function for creating Date objects from strings for binding to datepickers.
+	getDateFromString(date_string: string): Date {
+		return new Date(date_string.replace(/-/g, '\/').replace(/T.+/, ''));
+	}	
+
+	// Utility function for creating a string from a Date object.
+	getStringFromDate(date_obj: Date): string {
+		if (date_obj) {
+			let day = date_obj.getDate();
+			let month = date_obj.getMonth() + 1;
+			let year = date_obj.getFullYear();
+			let date_string = year + "-" + month + "-" + day;
+
+			return date_string;
+		}
+		else {
+			return "";
+		}
+	}
+
 	private handleError(error: any): Promise<any> {
 		console.error('An error occurred', error);
 		return Promise.reject(error.message || error);
