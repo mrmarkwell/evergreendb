@@ -1,0 +1,8 @@
+<h3>type in bar to search by name</h3>
+<input (keyup)="filterChildren($event)">
+<p>{{values}}</p>
+<ul class="children">
+    <li *ngFor="let child of filteredChildren" [class.selected]="child === selectedChild" (click)="onSelect(child)">
+        {{child.child_pinyin_name}}
+    </li>
+</ul>

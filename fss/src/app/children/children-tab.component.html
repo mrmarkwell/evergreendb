@@ -3,7 +3,7 @@
 		<td id="childsearchcolumn">
 			<child-list (notifySelected)="onSelect($event)"></child-list>
 		</td>
-		<td id="childinfocolumn">
+		<td *ngIf="child_id" id="childinfocolumn">
 			<child-details [child_id]="child_id"></child-details>
 			<child-tabs [child_id]="child_id"></child-tabs>
 		</td>
