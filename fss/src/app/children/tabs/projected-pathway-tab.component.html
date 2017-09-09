@@ -19,12 +19,16 @@
 
             <tbody>
                 <tr>
+                    <th></th>
                     <th>Step No.</th>
                     <th>Short Description</th>
                     <th>Details</th>
                     <th>Completion Date</th>
                 </tr>
                 <tr *ngFor="let pathway of projectedPathways">
+                    <td>
+                        <md-icon svgIcon="trash_icon" (click)="delete(pathway.id)"></md-icon>
+                    </td>
                     <td>{{pathway.pathway_step_number}}</td>
                     <td>
                         <md-input-container>

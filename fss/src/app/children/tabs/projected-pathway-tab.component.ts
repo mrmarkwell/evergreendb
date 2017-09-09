@@ -1,6 +1,8 @@
 import { Component, OnChanges, OnInit, Input } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MdIconRegistry } from '@angular/material';
 import 'rxjs/add/observable/of';
 
 import { Child } from '../../child';
@@ -20,8 +22,14 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
 	@Input() child_id: number;
 
 	constructor(
-		private restService: RestService
-	) { }
+		iconRegistry: MdIconRegistry,
+		sanitizer: DomSanitizer,
+		private restService: RestService) {
+		iconRegistry.addSvgIcon(
+			'trash_icon',
+			sanitizer.bypassSecurityTrustResourceUrl('assets/trash_icon.svg'));
+	}
+
 	ngOnInit(): void {
 		this.getChild();
 		this.getProjectedPathways();
@@ -39,6 +47,10 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
 			pathway.pathway_completion_date = this.formatDate(pathway.pathway_completion_date_object);
 			this.restService.updateProjectedPathway(pathway);
 		}
+	}
+
+	delete(pathway_id: number): void {
+		this.restService.deleteProjectedPathway(pathway_id);
 	}
 
 	addNewStep(): void {
@@ -81,11 +93,15 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
 							: 0);
 				}
 			);
-			this.projectedPathways = pathways
-
+			this.projectedPathways = pathways;
+			let step_number = 1;
 			for (let pathway of this.projectedPathways) {
-				if (pathway.pathway_completion_date) {
+				// Reset the pathway numbers to increment starting at 1.
+				// This ensures that the steps are numbered appropriately even if steps are deleted. 
+				pathway.pathway_step_number = step_number++;
 
+				// Make a Date object for the pathway_completion_date. Datepicker wants to be tied to a date object.
+				if (pathway.pathway_completion_date) {
 					let theDate = new Date(pathway.pathway_completion_date.replace(/-/g, '\/').replace(/T.+/, ''));
 
 					pathway.pathway_completion_date_object = theDate;
