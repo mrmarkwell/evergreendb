@@ -1,1 +1,54 @@
-<h1>Projected Pathway content</h1>
+<form *ngIf="child" id="projected-pathway-form">
+    <div id="primary-diagnosis-div">
+        <h2>Primary Diagnosis: {{child.primary_diagnosis}}</h2>
+    </div>
+    <div id="secondary-diagnosis-div">
+        <h2>Secondary Diagnosis: {{child.secondary_diagnosis}}</h2>
+    </div>
+    <button md-raised-button (click)="save()">Save</button>
+    <button md-raised-button (click)="addNewStep()">Add Step</button>
+    <div>
+        <table>
+            <colgroup>
+                <col id="step-no-col">
+                <col id="short-description-col">
+                <col id="details-col">
+                <col id="completion-col">
+            </colgroup>
+
+
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th>Step No.</th>
+                    <th>Short Description</th>
+                    <th>Details</th>
+                    <th>Completion Date</th>
+                </tr>
+                <tr *ngFor="let pathway of projectedPathways">
+                    <td>
+                        <md-icon svgIcon="trash_icon" (click)="delete(pathway.id)"></md-icon>
+                    </td>
+                    <td>{{pathway.pathway_step_number}}</td>
+                    <td>
+                        <md-input-container>
+                            <textarea mdInput [(ngModel)]="pathway.pathway_short_description" name="{{pathway.id}}_short_description"></textarea>
+                        </md-input-container>
+                    </td>
+                    <td>
+                        <md-input-container>
+                            <textarea mdInput [(ngModel)]="pathway.pathway_details" name="{{pathway.id}}_details"></textarea>
+                        </md-input-container>
+                    </td>
+                    <td>
+                        <md-input-container>
+                            <input mdInput [mdDatepicker]="picker" [(ngModel)]="pathway.pathway_completion_date_object" name="{{pathway.id}}_datepicker">
+                            <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+                        </md-input-container>
+                        <md-datepicker #picker></md-datepicker>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
