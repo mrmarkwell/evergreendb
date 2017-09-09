@@ -21,9 +21,13 @@ export class ChildDetails implements OnInit, OnChanges {
 	}
 	ngOnChanges(): void {
 		console.log(this.child_id);
-		this.restService.getChild(this.child_id).then(child => {this.child = child; this.age = child.getAge()});
+		this.restService.getChild(this.child_id).then(child => {
+			this.child = child; 
+			this.age = child.getAge()
+			this.child.birth_date_object = this.restService.getDateFromString(this.child.birth_date)});
 	}
 	saveChild(): void {
+		this.child.birth_date = this.restService.getStringFromDate(this.child.birth_date_object);
 		this.restService.updateChild(this.child);
 	}
 	deleteChild(): void {
@@ -49,13 +53,6 @@ export class ChildDetails implements OnInit, OnChanges {
 		}
 	}
 
-	setDoB(date): void {
-		console.log(date);
-		this.child.birth_date = this.datePipe.transform(date, 'yyyy-MM-dd');
-		console.log(this.child.birth_date);
-		this.age = this.child.getAge();
-		console.log(this.age);
-	}
 	@Input() child_id: number;
 	private child: Child;
 	private age: number;

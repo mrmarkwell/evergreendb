@@ -44,7 +44,7 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
 	save(): void {
 		for (let pathway of this.projectedPathways) {
 			// Update the pathway completion date with the object that is tied to the datepicker.
-			pathway.pathway_completion_date = this.formatDate(pathway.pathway_completion_date_object);
+			pathway.pathway_completion_date = this.restService.getStringFromDate(pathway.pathway_completion_date_object);	
 			this.restService.updateProjectedPathway(pathway);
 		}
 	}
@@ -66,19 +66,7 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
 
 	}
 
-	formatDate(date: Date): string {
-		if (date) {
-			let day = date.getDate();
-			let month = date.getMonth() + 1;
-			let year = date.getFullYear();
-			let date_string = year + "-" + month + "-" + day;
 
-			return date_string;
-		}
-		else {
-			return "";
-		}
-	}
 
 	getChild(): void {
 		this.restService.getChild(this.child_id).then(child => this.child = child);
@@ -102,7 +90,7 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
 
 				// Make a Date object for the pathway_completion_date. Datepicker wants to be tied to a date object.
 				if (pathway.pathway_completion_date) {
-					let theDate = new Date(pathway.pathway_completion_date.replace(/-/g, '\/').replace(/T.+/, ''));
+					let theDate = this.restService.getDateFromString(pathway.pathway_completion_date);
 
 					pathway.pathway_completion_date_object = theDate;
 				}

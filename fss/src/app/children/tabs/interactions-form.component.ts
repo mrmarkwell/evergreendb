@@ -41,7 +41,8 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
 		this.restService.getEnum('fss_interaction_type').then(types => this.interaction_types = types);
 	}
 	saveInteraction(): void {
-		this.restService.updateInteraction(this.interaction).then(interaction => this.interaction = interaction);
+		this.interaction.interaction_date = this.restService.getStringFromDate(this.interaction.interaction_date_object);
+		this.restService.updateInteraction(this.interaction);
 		this.restService.updateChild(this.child).then(child => this.child = child);
 	}
 	deleteInteraction(): void {
