@@ -4,6 +4,7 @@ import { MaterialModule, MdNativeDateModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { DatePipe } from '@angular/common';
+import { MaterializeModule } from "angular2-materialize";
 
 import { RestService } from './rest.service';
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { SettingsModule } from './settings/settings.module';
 		HttpModule,
 		MaterialModule,
 		MdNativeDateModule,
+        MaterializeModule,
 		BrowserAnimationsModule,
 		CalendarModule,
 		ChildrenModule,
