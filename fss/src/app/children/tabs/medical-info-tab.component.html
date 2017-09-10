@@ -1,53 +1,57 @@
 <form *ngIf="child" id="meidcal-information-form">
-    <ul>
-        <li>
-            <button md-raised-button (click)="save()">Save</button>
-        </li>
-        <li>
-            <md-select placeholder="Primary Diagnosis" [(ngModel)]="child.primary_diagnosis" name="primary-diagnosis">
-                <md-option value=""></md-option>
-                <md-option *ngFor="let condition of conditions" [value]="condition">
-                    {{ condition }}
-                </md-option>
-            </md-select>
-        </li>
-        <li>
-            <md-input-container>
-                <textarea mdInput placeholder="Primary Diagnosis Notes" [(ngModel)]="child.primary_diagnosis_note" name="primary-diagnosis-notes"></textarea>
-            </md-input-container>
-        </li>
-        <li>
-            <md-select placeholder="Secondary Diagnosis" [(ngModel)]="child.secondary_diagnosis" name="secondary-diagnosis">
-                <md-option value=""></md-option>
-                <md-option *ngFor="let condition of conditions" [value]="condition">
-                    {{ condition }}
-                </md-option>
-            </md-select>
-        </li>
-        <li>
-            <md-input-container>
-                <textarea mdInput placeholder="Secondary Diagnosis Notes" [(ngModel)]="child.secondary_diagnosis_note" name="secondary-diagnosis-notes"></textarea>
-            </md-input-container>
-        </li>
-        <li>
+    <div class="flex-item button-fi">
+        <button md-raised-button (click)="save()">Save</button>
+    </div>
+    <div class="flex-col">
+        <div class="flex-row">
+            <div class="flex-item select-fi">
+                <md-select placeholder="Primary Diagnosis" [(ngModel)]="child.primary_diagnosis" name="primary-diagnosis">
+                    <md-option value=""></md-option>
+                    <md-option *ngFor="let condition of conditions" [value]="condition">
+                        {{ condition }}
+                    </md-option>
+                </md-select>
+            </div>
+            <div class="flex-item">
+                <md-input-container>
+                    <textarea mdInput placeholder="Primary Diagnosis Notes" [(ngModel)]="child.primary_diagnosis_note" name="primary-diagnosis-notes"></textarea>
+                </md-input-container>
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-item select-fi">
+                <md-select placeholder="Secondary Diagnosis" [(ngModel)]="child.secondary_diagnosis" name="secondary-diagnosis">
+                    <md-option value=""></md-option>
+                    <md-option *ngFor="let condition of conditions" [value]="condition">
+                        {{ condition }}
+                    </md-option>
+                </md-select>
+            </div>
+            <div class="flex-item">
+                <md-input-container>
+                    <textarea mdInput placeholder="Secondary Diagnosis Notes" [(ngModel)]="child.secondary_diagnosis_note" name="secondary-diagnosis-notes"></textarea>
+                </md-input-container>
+            </div>
+        </div>
+        <div class="flex-item">
             <md-input-container>
                 <textarea mdInput placeholder="Further Diagnosis" [(ngModel)]="child.further_diagnosis" name="further-diagnosis-notes"></textarea>
             </md-input-container>
-        </li>
-        <li>
+        </div>
+        <div class="flex-item">
             <md-input-container>
                 <textarea mdInput placeholder="Reason For Referral" [(ngModel)]="child.reason_for_referral" name="reason-for-referral-notes"></textarea>
             </md-input-container>
-        </li>
-        <li>
+        </div>
+        <div class="flex-item">
             <md-input-container>
                 <textarea mdInput placeholder="Birth History" [(ngModel)]="child.birth_history" name="birth-history-notes"></textarea>
             </md-input-container>
-        </li>
-        <li>
+        </div>
+        <div class="flex-item">
             <md-input-container>
                 <textarea mdInput placeholder="Medical History" [(ngModel)]="child.medical_history" name="medical-history-notes"></textarea>
             </md-input-container>
-        </li>
-    </ul>
+        </div>
+    </div>
 </form>
