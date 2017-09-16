@@ -3,9 +3,12 @@ import { ParamMap } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MdIconRegistry } from '@angular/material';
+import { FileUploader } from 'ng2-file-upload';
 
 import { Child } from '../child';
 import { RestService } from '../rest.service';
+
+const URL = 'https://127.0.0.1';
 
 @Component({
     selector: 'child-details',
@@ -54,8 +57,20 @@ export class ChildDetails implements OnInit, OnChanges {
         }
     }
 
-    @Input() child_id: number;
-    child: Child;
-    private age: number;
-    private medical_conditions: string[];
+
+	@Input() child_id: number;
+	
+	private child: Child;
+	private age: number;
+	private medical_conditions: string[];
+	public uploader:FileUploader = new FileUploader( {url: URL} );
+	public hasBaseDropZoneOver:boolean = false;
+	public picOverBase(e:any):void {
+		this.hasBaseDropZoneOver = e;
+	}
+
+	//parameter not getting passed correctly, not sure we need it though...
+	public fileDropped(files:File[]):void {
+		console.log("got a file")
+	}
 }
