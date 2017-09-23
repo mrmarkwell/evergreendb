@@ -1,43 +1,11 @@
 import forgery_py as fpy
 from app.api.marshallers import Date
+from production_seed_data import *
 from app.api.entity_data import entity_data
 from flask_restful import fields
 from pprint import pprint as pp
 import random
 
-medical_conditions = [
-    u"CP",
-    u"Autism",
-    u"Intellectual Disability",
-    u"ADHD",
-    u"Lennox-Gastaut",
-    u"Angelman Syndrome",
-    u"PKU",
-    u"Cleft Lip / Cleft Palate",
-    u"Hepatitis B",
-    u"Heart Defect",
-    u"Intestinal Malrotation",
-    u"Congenital Heart Defect",
-    u"Spina Bifida",
-    u"Down Syndrome",
-    u"Physical Abnormality",
-    u"Seizures",
-    u"Umbilical Hernia / Gastroschisis"]
-
-interaction_types = [
-    u'Consultation SOAR Village',
-    u'Consultation FSS Centre',
-    u'Home visit',
-    u'Phone call',
-    u'E-Mail',
-    u'WeChat',
-    u'To Do'
-]
-
-interaction_coordinators = [
-    'Tabatha Broxholme',
-    'Hou Aiping'
-]
 
 def get_test_data(num_records=10):
     test_data = dict()
