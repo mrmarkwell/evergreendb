@@ -26,7 +26,10 @@
                         <md-option *ngFor="let condition of medical_conditions" [value]="condition">{{condition}}</md-option>
                     </md-select>
                 </td>
-                <td><button md-raised-button (click)="saveChild()">Save</button><button md-button (click)="deleteChild()">Delete</button></td>
+                <td>
+                  <md-icon svgIcon="save_icon" (click)="saveChild()"></md-icon>
+                  <md-icon svgIcon="trash_icon" (click)="deleteChild()"></md-icon>
+                </td>
             </tr>
             <tr>
                 <td>

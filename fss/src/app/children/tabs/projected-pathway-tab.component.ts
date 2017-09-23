@@ -1,8 +1,6 @@
 import { Component, OnChanges, OnInit, Input } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
-import { DomSanitizer } from '@angular/platform-browser';
-import { MdIconRegistry } from '@angular/material';
 import 'rxjs/add/observable/of';
 
 import { Child } from '../../child';
@@ -11,7 +9,8 @@ import { RestService } from '../../rest.service';
 
 @Component({
     selector: 'projected-pathway-tab',
-    templateUrl: './projected-pathway-tab.component.html'
+    templateUrl: './projected-pathway-tab.component.html',
+    styleUrls: ['./projected-pathway-tab.component.css']
 })
 
 
@@ -22,13 +21,8 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
     @Input() child_id: number;
 
     constructor(
-        iconRegistry: MdIconRegistry,
-        sanitizer: DomSanitizer,
-        private restService: RestService) {
-        iconRegistry.addSvgIcon(
-            'trash_icon',
-            sanitizer.bypassSecurityTrustResourceUrl('assets/trash_icon.svg'));
-    }
+        private restService: RestService
+    ) {}
 
     ngOnInit(): void {
         this.getChild();
@@ -44,7 +38,7 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
     save(): void {
         for (let pathway of this.projectedPathways) {
             // Update the pathway completion date with the object that is tied to the datepicker.
-            pathway.pathway_completion_date = this.restService.getStringFromDate(pathway.pathway_completion_date_object);	
+            pathway.pathway_completion_date = this.restService.getStringFromDate(pathway.pathway_completion_date_object);
             this.restService.updateProjectedPathway(pathway);
         }
     }
@@ -85,7 +79,7 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
             let step_number = 1;
             for (let pathway of this.projectedPathways) {
                 // Reset the pathway numbers to increment starting at 1.
-                // This ensures that the steps are numbered appropriately even if steps are deleted. 
+                // This ensures that the steps are numbered appropriately even if steps are deleted.
                 pathway.pathway_step_number = step_number++;
 
                 // Make a Date object for the pathway_completion_date. Datepicker wants to be tied to a date object.

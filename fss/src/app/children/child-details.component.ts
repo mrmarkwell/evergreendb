@@ -1,6 +1,8 @@
 import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { ParamMap } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MdIconRegistry } from '@angular/material';
 
 import { Child } from '../child';
 import { RestService } from '../rest.service';
@@ -12,9 +14,18 @@ import { RestService } from '../rest.service';
 })
 export class ChildDetails implements OnInit, OnChanges {
 	constructor(
+		iconRegistry: MdIconRegistry,
+		sanitizer: DomSanitizer,
 		private restService: RestService,
 		private datePipe: DatePipe
-	) {}
+	) {
+		iconRegistry.addSvgIcon(
+			'trash_icon',
+			sanitizer.bypassSecurityTrustResourceUrl('assets/trash_icon.svg'));
+			iconRegistry.addSvgIcon(
+				'save_icon',
+				sanitizer.bypassSecurityTrustResourceUrl('assets/save_icon.svg'));
+		}
 	ngOnInit(): void {
 		this.restService.getEnum("fss_medical_condition").then(conditions => this.medical_conditions = conditions);
 		this.restService.changeEmitter.subscribe(() => this.ngOnChanges())
@@ -22,7 +33,7 @@ export class ChildDetails implements OnInit, OnChanges {
 	ngOnChanges(): void {
 		console.log(this.child_id);
 		this.restService.getChild(this.child_id).then(child => {
-			this.child = child; 
+			this.child = child;
 			this.age = child.getAge()
 			this.child.birth_date_object = this.restService.getDateFromString(this.child.birth_date)});
 	}
