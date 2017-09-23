@@ -56,9 +56,7 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
 		this.interaction = null;
 	}
 	setDate(date): void {
-		console.log(date);
 		this.interaction.interaction_date = this.datePipe.transform(date, 'yyyy-MM-dd');
-		console.log(this.interaction.interaction_date);
 	}
 	showDetails(): boolean {
 		let t = this.interaction.interaction_type;

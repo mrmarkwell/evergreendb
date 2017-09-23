@@ -92,9 +92,6 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
                     pathway.pathway_completion_date_object = null;
                 }
             }
-            for (let p of this.projectedPathways) {
-                console.log(p)
-            }
         });
     }
 

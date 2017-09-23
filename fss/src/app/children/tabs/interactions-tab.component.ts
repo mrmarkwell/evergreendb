@@ -40,7 +40,6 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
             });
     }
     selectInteraction(id: number): void {
-        console.log(id);
         this.expanded_interaction = this.interactions.find(interaction => interaction.id === id);
     }
     isSelected(interaction): boolean {

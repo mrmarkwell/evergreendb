@@ -31,7 +31,6 @@ export class ChildDetails implements OnInit, OnChanges {
 		this.restService.changeEmitter.subscribe(() => this.ngOnChanges())
 	}
 	ngOnChanges(): void {
-		console.log(this.child_id);
 		this.restService.getChild(this.child_id).then(child => {
 			this.child = child;
 			this.age = child.getAge()
