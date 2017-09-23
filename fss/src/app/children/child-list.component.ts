@@ -3,9 +3,9 @@ import { RestService } from '../rest.service';
 import { Child } from '../child';
 
 @Component({
-        selector: 'child-list',
-        templateUrl: 'child-list.component.html',
-        styleUrls: ['child-list.component.css']
+    selector: 'child-list',
+    templateUrl: 'child-list.component.html',
+    styleUrls: ['child-list.component.css']
 })
 
 export class ChildList implements OnInit, OnChanges {
@@ -18,12 +18,12 @@ export class ChildList implements OnInit, OnChanges {
         this.getChildren();
         this.restService.changeEmitter.subscribe(() => this.ngOnChanges())
     }
-    
+
     ngOnChanges(): void {
-        this.getChildren()
+        this.getChildren();
     }
-    
-    constructor(private restService: RestService) {}
+
+    constructor(private restService: RestService) { }
 
     createNewChild(): void {
         let new_child = new Child(null);
@@ -32,8 +32,8 @@ export class ChildList implements OnInit, OnChanges {
     }
 
     isSelected(child): boolean {
-      // Object equality doesn't work in js/ts. It just checks if instances are the same not contents are equal
-      return this.selectedChild && child.id === this.selectedChild.id;
+        // Object equality doesn't work in js/ts. It just checks if instances are the same not contents are equal
+        return this.selectedChild && child.id === this.selectedChild.id;
     }
 
     onSelect(child: Child): void {
@@ -56,5 +56,5 @@ export class ChildList implements OnInit, OnChanges {
         }
     }
 
-    
+
 }

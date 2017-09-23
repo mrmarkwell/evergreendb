@@ -19,7 +19,9 @@
                 </tr>
                 <tr *ngFor="let pathway of projectedPathways">
                     <td>
+                    <button md-icon-button>
                         <md-icon svgIcon="trash_icon" (click)="delete(pathway.id)"></md-icon>
+                    </button>
                     </td>
                     <td>{{pathway.pathway_step_number}}</td>
                     <td>
