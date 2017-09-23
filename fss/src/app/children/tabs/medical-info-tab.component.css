@@ -1,0 +1,29 @@
+.flex-col {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+}
+
+.flex-item {
+	width: 100%;
+}
+.select-fi {
+	width: auto;
+}
+.button-fi {
+	padding-top: 8px;
+}
+
+md-select {
+	width: 200px;
+}
+md-input-container {
+	width: 100%;
+	padding-top: 6px;
+}
