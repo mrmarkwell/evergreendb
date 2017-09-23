@@ -28,9 +28,6 @@ fss_child_fields = {
     'reason_for_referral': fields.String,
     'birth_history': fields.String,
     'medical_history': fields.String,
-
-
-
 }
 
 fss_family_member_fields = {
@@ -66,7 +63,7 @@ fss_interaction_fields = {
     'dev_history': fields.String,
     'dev_since_last_visit': fields.String,
     'follow_up': fields.String,
-    'interaction_notes': fields.String
+    'interaction_notes': fields.String,
 
     'milk_feeding': fields.Boolean,
     'solid_feeding': fields.Boolean,
