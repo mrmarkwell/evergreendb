@@ -1,10 +1,13 @@
 <md-sidenav-container class="mat-typography">
-	<md-sidenav #sidenav class="fss-sidenav" mode="side" opened="true">
-			<h1>{{title}}</h1>
-			<div><a md-button routerLink='/children' routerLinkActive="active">Children</a></div>
-			<div><a md-button routerLink='/reminders' routerLinkActive="active">Reminders</a></div>
-			<div><a md-button routerLink='/calendar' routerLinkActive="active">Calendar</a></div>
-			<div><a md-button routerLink='/settings' routerLinkActive="active">Settings</a></div>
-	</md-sidenav>
-	<router-outlet></router-outlet>
+    <md-sidenav #sidenav class="fss-sidenav" mode="side" opened="true">
+        <button md-icon-button>
+            <md-icon svgIcon="refresh_icon" (click)="refresh()"></md-icon>
+        </button>
+        <h1>{{title}}</h1>
+        <div><a md-button routerLink='/children' routerLinkActive="active">Children</a></div>
+        <div><a md-button routerLink='/reminders' routerLinkActive="active">Reminders</a></div>
+        <div><a md-button routerLink='/calendar' routerLinkActive="active">Calendar</a></div>
+        <div><a md-button routerLink='/settings' routerLinkActive="active">Settings</a></div>
+    </md-sidenav>
+    <router-outlet></router-outlet>
 </md-sidenav-container>

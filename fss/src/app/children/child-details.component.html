@@ -27,8 +27,12 @@
                     </md-select>
                 </td>
                 <td>
-                  <md-icon svgIcon="save_icon" (click)="saveChild()"></md-icon>
-                  <md-icon svgIcon="trash_icon" (click)="deleteChild()"></md-icon>
+                    <button md-icon-button>
+                        <md-icon svgIcon="save_icon" (click)="saveChild()"></md-icon>
+                    </button>
+                    <button md-icon-button>
+                        <md-icon svgIcon="trash_icon" (click)="deleteChild()"></md-icon>
+                    </button>
                 </td>
             </tr>
             <tr>
