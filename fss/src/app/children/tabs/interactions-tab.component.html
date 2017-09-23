@@ -1,17 +1,19 @@
-<interactions-form [child_id]="child_id" [interaction]="expanded_interaction" (notifyDeleted)="getInteractions()"></interactions-form>
-<table>
+<button md-raised-button (click)="createInteraction()">New Interaction</button>
+<table *ngIf="interactions != null && interactions.length != 0">
     <tr>
         <th>Date</th>
         <th>Type</th>
         <th>Coordinator</th>
         <th>People Present</th>
+        <th></th>
     </tr>
     <tr *ngFor="let interaction of interactions" (click)="selectInteraction(interaction.id)" [ngClass]="{initialInteraction:interaction.is_initial_interaction, selected:isSelected(interaction)}">
         <td>{{interaction.interaction_date}}</td>
         <td>{{interaction.interaction_type}}</td>
         <td>{{interaction.interaction_coordinator}}</td>
         <td>{{interaction.people_present}}</td>
+        <td>{{interaction.is_initial_interaction ? "Initial Interaction" : ""}}</td>
     </tr>
 </table>
 <br>
-<button md-raised-button (click)="createInteraction()">New Interaction</button>
+<interactions-form [child_id]="child_id" [interaction]="expanded_interaction" (notifyDeleted)="getInteractions()"></interactions-form>

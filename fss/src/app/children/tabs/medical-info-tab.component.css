@@ -1,7 +1,6 @@
 .flex-col {
 	display: flex;
 	flex-direction: column;
-	width: 100%;
 }
 
 .flex-row {
@@ -12,6 +11,7 @@
 
 .flex-item {
 	width: 100%;
+	margin-right: 3px;
 }
 .select-fi {
 	width: auto;

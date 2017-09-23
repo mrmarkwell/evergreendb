@@ -3,9 +3,9 @@ import { RestService } from '../rest.service';
 import { Child } from '../child';
 
 @Component({
-        selector: 'child-list',
-        templateUrl: 'child-list.component.html',
-        styleUrls: ['child-list.component.css']
+    selector: 'child-list',
+    templateUrl: 'child-list.component.html',
+    styleUrls: ['child-list.component.scss']
 })
 
 export class ChildList implements OnInit, OnChanges {
@@ -17,12 +17,12 @@ export class ChildList implements OnInit, OnChanges {
     ngOnInit(): void {
         this.getChildren();
     }
-    
+
     ngOnChanges(): void {
         this.getChildren()
         this.restService.changeEmitter.subscribe(() => this.ngOnChanges())
     }
-    
+
     constructor(private restService: RestService) {
 
     }
@@ -47,5 +47,5 @@ export class ChildList implements OnInit, OnChanges {
         }
     }
 
-    
+
 }

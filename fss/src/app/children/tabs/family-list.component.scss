@@ -1,0 +1,12 @@
+@import '../../../theme.scss';
+
+.selected {
+	color: $accent;
+}
+button {
+	width: 100%;
+	text-align: left;
+}
+ul {
+	margin-right: 1em;
+}

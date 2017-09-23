@@ -1,24 +1,26 @@
+@import '../theme.scss';
+
 .fss-sidenav {
-	background-color: #CCFFCC;
+	background-color: $dark;
 }
 
 md-sidenav-container {
 	min-height: 100vh;
-}
 
+}
 md-sidenav h1 {
+	color: white;
 	text-align: center;
 	padding-top: 1em;
-	color: darkgreen;
 }
 
 md-sidenav a {
-	color: darkgreen;
+	color: white;
 	width: 100%;
 	text-align: left;
 }
 
 md-sidenav a.active {
-	background-color: darkgreen;
 	color: white;
+	background-color: $accent;
 }
