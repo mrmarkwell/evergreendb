@@ -12,4 +12,30 @@ export class Interaction {
 	is_initial_interaction: boolean;
 	people_present: string;
 	interaction_date_object: Date;
+
+	milk_feeding: boolean;
+	solid_feeding: boolean;
+	self_feeding: boolean;
+	texture_preferences: string;
+	feeding_recommendations: string;
+	developmental_notes: string;
+	developmental_recommendations: string;
+	ot_notes: string;
+	ot_recommendations: string;
+	sensory_notes: string;
+	sensory_recommendations: string;
+	speech_notes: string;
+	speech_recommendations: string;
+	head_control: boolean;
+	rolling: boolean;
+	sitting: boolean;
+	standing: boolean;
+	walking: boolean;
+	weakness_notes: string;
+	weakness_recommendations: string;
+	physical_recommendations: string;
+	gross_motor_notes: string;
+	gross_motor_recommendations: string;
+	fine_motor_notes: string;
+	fine_motor_recommendations: string;
 }
