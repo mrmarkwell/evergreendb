@@ -1,3 +1,32 @@
+table {
+  width: 100%;
+}
+textarea {
+  height: 3em;
+  width: 100%;
+  box-sizing: border-box;
+}
+md-input-container {
+	width: 100%;
+}
 td {
   vertical-align: bottom;
+}
+th, td {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+.align-middle {
+  vertical-align: middle;
+  text-align: center;
+  font-size: 2em;
+}
+#completion-col {
+  width: 8em;
+}
+#delete-col, #step-no-col {
+  width: 2em;
+}
+#short-description-col {
+  width: 25%;
 }

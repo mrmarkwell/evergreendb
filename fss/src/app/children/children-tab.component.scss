@@ -1,0 +1,22 @@
+@import '../../theme.scss';
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+	min-height: 100vh;
+}
+
+#childsearchcolumn {
+	padding: 1em;
+	background-color: $medium;
+	min-height: 100vh;
+	max-width: 80em;
+}
+
+#childinfocolumn {
+	padding: 1em;
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+}

@@ -5,7 +5,7 @@ import { Child } from '../child';
 @Component({
     selector: 'child-list',
     templateUrl: 'child-list.component.html',
-    styleUrls: ['child-list.component.css']
+    styleUrls: ['child-list.component.scss']
 })
 
 export class ChildList implements OnInit, OnChanges {

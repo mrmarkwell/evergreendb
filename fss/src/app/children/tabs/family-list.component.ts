@@ -7,7 +7,7 @@ import { RestService } from '../../rest.service';
 @Component({
     selector: 'family-list',
     templateUrl: './family-list.component.html',
-    styleUrls: ['./family-list.component.css']
+    styleUrls: ['./family-list.component.scss']
 })
 export class FamilyListComponent implements OnInit, OnChanges {
     constructor(

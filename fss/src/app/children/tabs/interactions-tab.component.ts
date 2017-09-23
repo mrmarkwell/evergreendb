@@ -7,7 +7,7 @@ import { RestService } from '../../rest.service';
 @Component({
     selector: 'interactions-tab',
     templateUrl: './interactions-tab.component.html',
-    styleUrls: ['./interactions-tab.component.css']
+    styleUrls: ['./interactions-tab.component.scss']
 })
 export class InteractionsTabComponent implements OnInit, OnChanges {
     @Input() child_id: number;
@@ -47,12 +47,12 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
         return this.expanded_interaction && interaction.id === this.expanded_interaction.id;
     }
     createInteraction() : void {
-            let interaction = new Interaction();
-            interaction.interaction_type = 'To Do';
-            interaction.child_id = this.child_id;
-            interaction.interaction_date = '2017-09-04';
-            this.restService.addInteraction(interaction).then(new_interaction => {
-                    this.getInteractions().then(interactions => this.selectInteraction(new_interaction.id));
-            });
+        let interaction = new Interaction();
+        interaction.interaction_type = 'To Do';
+        interaction.child_id = this.child_id;
+        interaction.interaction_date = '2017-09-04';
+        this.restService.addInteraction(interaction).then(new_interaction => {
+            this.getInteractions().then(interactions => this.selectInteraction(new_interaction.id));
+        });
     }
 }

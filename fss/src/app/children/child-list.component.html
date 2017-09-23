@@ -1,6 +1,6 @@
-<h3>type in bar to search by name</h3>
-<input (keyup)="filterChildren($event)">
-<p>{{values}}</p>
+<md-input-container>
+    <input mdInput placeholder="Search" name="search bar" (keyup)="filterChildren($event)">
+</md-input-container>
 <button md-raised-button (click)="createNewChild()">Create New</button>
 <ul class="children">
     <li *ngFor="let child of filteredChildren" [class.selected]="isSelected(child)" (click)="onSelect(child)">
