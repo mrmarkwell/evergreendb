@@ -20,7 +20,9 @@
                 </tr>
                 <tr *ngFor="let pathway of projectedPathways">
                     <td class="align-middle">
+                    <button md-icon-button>
                         <md-icon svgIcon="trash_icon" (click)="delete(pathway.id)"></md-icon>
+                    </button>
                     </td>
                     <td class="align-middle">{{pathway.pathway_step_number}}</td>
                     <td>

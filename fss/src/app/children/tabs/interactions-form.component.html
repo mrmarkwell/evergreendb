@@ -77,11 +77,11 @@
             <tr>
                 <th>Feeding:</th>
                 <td>
-                    <md-checkbox [(ngModel)]="child.milk_feeding">milk</md-checkbox>
+                    <md-checkbox [(ngModel)]="interaction.milk_feeding">milk</md-checkbox>
                 </td>
                 <td rowspan="4">
                     <md-input-container>
-                        <textarea mdInput placeholder="Feeding recommendations" [(ngModel)]="child.feeding_recommendations" id="feeding-recommendations"
+                        <textarea mdInput placeholder="Feeding recommendations" [(ngModel)]="interaction.feeding_recommendations" id="feeding-recommendations"
                             name="feeding-recommendations">
                         </textarea>
                     </md-input-container>
@@ -90,20 +90,20 @@
             <tr>
                 <td></td>
                 <td>
-                    <md-checkbox [(ngModel)]="child.solid_feeding">solids</md-checkbox>
+                    <md-checkbox [(ngModel)]="interaction.solid_feeding">solids</md-checkbox>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <md-checkbox [(ngModel)]="child.self_feeding">self-feeding</md-checkbox>
+                    <md-checkbox [(ngModel)]="interaction.self_feeding">self-feeding</md-checkbox>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
                     <md-input-container>
-                        <input mdInput placeholder="Texture preferences" [(ngModel)]="child.texture_preferences" name="texture-preferences">
+                        <input mdInput placeholder="Texture preferences" [(ngModel)]="interaction.texture_preferences" name="texture-preferences">
                     </md-input-container>
                 </td>
             </tr>
@@ -111,12 +111,12 @@
                 <th>Developmental:<br>and behavioural:</th>
                 <td>
                     <md-input-container>
-                        <input mdInput placeholder="Notes" [(ngModel)]="child.developmental_notes" name="development-notes">
+                        <input mdInput placeholder="Notes" [(ngModel)]="interaction.developmental_notes" name="development-notes">
                     </md-input-container>
                 </td>
                 <td>
                     <md-input-container>
-                        <input mdInput placeholder="Recommendations" [(ngModel)]="child.developmental_recommendations" name="development-recommendations">
+                        <input mdInput placeholder="Recommendations" [(ngModel)]="interaction.developmental_recommendations" name="development-recommendations">
                     </md-input-container>
                 </td>
             </tr>
@@ -124,12 +124,12 @@
                 <th>OT:</th>
                 <td>
                     <md-input-container>
-                        <input mdInput placeholder="Notes" [(ngModel)]="child.ot_notes" name="ot-notes">
+                        <input mdInput placeholder="Notes" [(ngModel)]="interaction.ot_notes" name="ot-notes">
                     </md-input-container>
                 </td>
                 <td>
                     <md-input-container>
-                        <input mdInput placeholder="Recommendations" [(ngModel)]="child.ot_recommendations" name="ot-recommendations">
+                        <input mdInput placeholder="Recommendations" [(ngModel)]="interaction.ot_recommendations" name="ot-recommendations">
                     </md-input-container>
                 </td>
             </tr>
@@ -137,12 +137,12 @@
                 <th>Sensory issues:</th>
                 <td>
                     <md-input-container>
-                        <input mdInput placeholder="Notes" [(ngModel)]="child.sensory_notes" name="sensory-notes">
+                        <input mdInput placeholder="Notes" [(ngModel)]="interaction.sensory_notes" name="sensory-notes">
                     </md-input-container>
                 </td>
                 <td>
                     <md-input-container>
-                        <input mdInput placeholder="Recommendations" [(ngModel)]="child.sensory_recommendations" name="sensory-recommendations">
+                        <input mdInput placeholder="Recommendations" [(ngModel)]="interaction.sensory_recommendations" name="sensory-recommendations">
                     </md-input-container>
                 </td>
             </tr>
@@ -150,23 +150,23 @@
                 <th>Speech:</th>
                 <td>
                     <md-input-container>
-                        <input mdInput placeholder="Notes" [(ngModel)]="child.speech_notes" name="speech-notes">
+                        <input mdInput placeholder="Notes" [(ngModel)]="interaction.speech_notes" name="speech-notes">
                     </md-input-container>
                 </td>
                 <td>
                     <md-input-container>
-                        <input mdInput placeholder="Recommendations" [(ngModel)]="child.speech_recommendations" name="speech-recommendations">
+                        <input mdInput placeholder="Recommendations" [(ngModel)]="interaction.speech_recommendations" name="speech-recommendations">
                     </md-input-container>
                 </td>
             </tr>
             <tr>
                 <th>Physical:</th>
                 <td>
-                    <md-checkbox [(ngModel)]="child.head_control">Head control</md-checkbox>
+                    <md-checkbox [(ngModel)]="interaction.head_control">Head control</md-checkbox>
                 </td>
                 <td rowspan="5">
                     <md-input-container>
-                        <textarea mdInput placeholder="Physical Recommendations" [(ngModel)]="child.physical_recommendations" id="physical-recommendations"
+                        <textarea mdInput placeholder="Physical Recommendations" [(ngModel)]="interaction.physical_recommendations" id="physical-recommendations"
                             name="physical-recommendations">
                         </textarea>
                     </md-input-container>
@@ -175,50 +175,37 @@
             <tr>
                 <td></td>
                 <td>
-                    <md-checkbox [(ngModel)]="child.rolling">Rolling</md-checkbox>
+                    <md-checkbox [(ngModel)]="interaction.rolling">Rolling</md-checkbox>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <md-checkbox [(ngModel)]="child.sitting">Sitting</md-checkbox>
+                    <md-checkbox [(ngModel)]="interaction.sitting">Sitting</md-checkbox>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <md-checkbox [(ngModel)]="child.standing">Standing</md-checkbox>
+                    <md-checkbox [(ngModel)]="interaction.standing">Standing</md-checkbox>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
-                    <md-checkbox [(ngModel)]="child.walking">Walking</md-checkbox>
+                    <md-checkbox [(ngModel)]="interaction.walking">Walking</md-checkbox>
                 </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
                     <md-input-container>
-                        <input mdInput placeholder="Gross Motor Notes" [(ngModel)]="child.gross_motor_notes" name="gross-moter-notes">
+                        <input mdInput placeholder="Gross Motor Notes" [(ngModel)]="interaction.gross_motor_notes" name="gross-moter-notes">
                     </md-input-container>
                 </td>
                 <td>
                     <md-input-container>
-                        <input mdInput placeholder="Gross Motor Recommendations" [(ngModel)]="child.gross_motor_recommendations" name="gross-motor-recommendations">
-                    </md-input-container>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <md-input-container>
-                        <input mdInput placeholder="Fine Motor Notes" [(ngModel)]="child.fine_motor_notes" name="fine-moter-notes">
-                    </md-input-container>
-                </td>
-                <td>
-                    <md-input-container>
-                        <input mdInput placeholder="Fine Motor Recommendations" [(ngModel)]="child.fine_motor_recommendations" name="fine-motor-recommendations">
+                        <input mdInput placeholder="Gross Motor Recommendations" [(ngModel)]="interaction.gross_motor_recommendations" name="gross-motor-recommendations">
                     </md-input-container>
                 </td>
             </tr>
@@ -226,12 +213,25 @@
                 <td></td>
                 <td>
                     <md-input-container>
-                        <input mdInput placeholder="Weakness Notes" [(ngModel)]="child.weakness_notes" name="weakness-notes">
+                        <input mdInput placeholder="Fine Motor Notes" [(ngModel)]="interaction.fine_motor_notes" name="fine-moter-notes">
                     </md-input-container>
                 </td>
                 <td>
                     <md-input-container>
-                        <input mdInput placeholder="Weakness Recommendations" [(ngModel)]="child.weakness_recommendations" name="weakness-recommendations">
+                        <input mdInput placeholder="Fine Motor Recommendations" [(ngModel)]="interaction.fine_motor_recommendations" name="fine-motor-recommendations">
+                    </md-input-container>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <md-input-container>
+                        <input mdInput placeholder="Weakness Notes" [(ngModel)]="interaction.weakness_notes" name="weakness-notes">
+                    </md-input-container>
+                </td>
+                <td>
+                    <md-input-container>
+                        <input mdInput placeholder="Weakness Recommendations" [(ngModel)]="interaction.weakness_recommendations" name="weakness-recommendations">
                     </md-input-container>
                 </td>
             </tr>

@@ -70,7 +70,7 @@ class TestEntityEndpoint(unittest.TestCase):
         login_manager._login_disabled = True
         self.app = app.test_client()
         self.debug = False # set this to true for more logging
-        self.seed = None # set the random seed here if we want to reproduce a bug found by TravisCI
+        self.seed = None#3310 # set the random seed here if we want to reproduce a bug found by TravisCI
 
     def tearDown(self):
         db.session.remove()
@@ -87,14 +87,16 @@ class TestEntityEndpoint(unittest.TestCase):
             e_name = random.choice(test_data.keys())
             #skipping user because its actually not valid currently...
             if (e_name == "user"):
-                break
+                continue
             e_body = random.choice(test_data[e_name])
             if self.debug: pp(e_name)
+            if self.debug: pp("THE POSTED DATA")
             if self.debug: pp(e_body)
             if self.debug: print
             post_response = self.app.post('/entity/' + e_name, data=e_body)
-            if self.debug: pp(post_response.get_data())
+            #if self.debug: pp(post_response.get_data())
             res_body = json.loads(post_response.get_data())
+            if self.debug: pp("THE RESULT")
             if self.debug: pp(res_body)
             id = res_body.pop('id', None)
             delete_response = self.app.delete('/entity/' + e_name + "?id=" + str(id))
