@@ -1,11 +1,30 @@
+/* Change to flexbox.
+Have picture/save del first col
+next have name-col, then age-col, then medical-col
+then status col that can wrap to be wide and short under name/age/med cols
+*/
 table {
 	width: 100%;
 }
 td {
 	vertical-align: bottom;
 }
+#picture-col {
+	width: 128px;
+}
+#name-col {
+	min-width: 12em;
+	max-width: 16em;
+}
 #age-col {
-	width: 100px;
+	width: 8em;
+}
+#medical-col {
+	min-width: 12em;
+	max-width: 16em;
+}
+#status-col {
+	min-width: 12em;
 }
 md-select {
 	width: 100%;
@@ -16,11 +35,4 @@ md-input-container {
 textarea {
 	height: 4em;
 	resize: none;
-}
-/* Had to do weird stuff to make the padding not rediculously large on the input text boxes */
-/deep/ .mat-input-wrapper {
-	padding-bottom: 0 !important;
-}
-/deep/ .mat-input-underline {
-	bottom: 0 !important;
 }

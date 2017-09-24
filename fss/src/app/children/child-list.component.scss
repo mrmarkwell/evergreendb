@@ -1,9 +1,27 @@
 @import '../../theme.scss';
 
-.selected {
+li .selected {
   color: $accent;
   font-weight: bold;
 }
-li {
+#new-child-btn {
+  background-color: $light;
+}
+#new-child-div {
+  padding-bottom: 1em;
+}
+li button {
+  line-height: 1.2em;
   color: white;
+  width: 100%;
+  text-align: left;
+  padding: 0;
+}
+
+/* Had to do weird stuff to make the padding not rediculously large on the input text boxes */
+/deep/ .mat-input-wrapper {
+	padding-bottom: 0 !important;
+}
+/deep/ .mat-input-underline {
+	bottom: 0 !important;
 }

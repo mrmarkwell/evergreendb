@@ -1,6 +1,7 @@
 <form id="child-details-form" *ngIf="child">
     <table>
         <colgroup>
+            <col id="picture-col">
             <col id="names-col">
             <col id="age-col">
             <col id="medical-col">
@@ -8,6 +9,14 @@
         </colgroup>
         <tbody>
             <tr>
+                <td>
+                    <button md-icon-button>
+                        <md-icon svgIcon="save_icon" (click)="saveChild()"></md-icon>
+                    </button>
+                    <button md-icon-button>
+                        <md-icon svgIcon="trash_icon" (click)="deleteChild()"></md-icon>
+                    </button>
+                </td>
                 <td>
                     <md-input-container>
                         <input mdInput placeholder="Chinese Name" [(ngModel)]="child.child_chinese_name" name="child-chinese-name">
@@ -26,16 +35,11 @@
                         <md-option *ngFor="let condition of medical_conditions" [value]="condition">{{condition}}</md-option>
                     </md-select>
                 </td>
-                <td>
-                    <button md-icon-button>
-                        <md-icon svgIcon="save_icon" (click)="saveChild()"></md-icon>
-                    </button>
-                    <button md-icon-button>
-                        <md-icon svgIcon="trash_icon" (click)="deleteChild()"></md-icon>
-                    </button>
-                </td>
             </tr>
             <tr>
+                <td rowspan="2">
+                    (picture placeholder)
+                </td>
                 <td>
                     <md-input-container>
                         <input mdInput placeholder="Pinyin Name" [(ngModel)]="child.child_pinyin_name" name="child-pinyin-name">
@@ -52,7 +56,7 @@
                         <md-option *ngFor="let condition of medical_conditions" [value]="condition">{{condition}}</md-option>
                     </md-select>
                 </td>
-                <td rowspan="2">
+                <td rowspan="3">
                     <md-input-container>
                         <textarea mdInput placeholder="status" [(ngModel)]="child.status" name="child-status"></textarea>
                     </md-input-container>
