@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnChanges, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { Child } from '../../child';
@@ -26,10 +26,13 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
 		this.getChild();
 		this.getInteractionCoordinators();
 		this.getInteractionTypes();
-		this.restService.changeEmitter.subscribe(() => this.ngOnChanges());
+		this.restService.changeEmitter.subscribe(() => this.ngOnChanges(null));
 	}
-	ngOnChanges(): void {
+	ngOnChanges(changes: SimpleChanges): void {
 		this.getChild();
+		if (changes.child_id) {
+			this.hideForm();
+		}
 	}
 	getChild(): void {
 		this.restService.getChild(this.child_id).then(child => this.child = child);
