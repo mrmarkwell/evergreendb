@@ -11,11 +11,14 @@ li .selected {
   padding-bottom: 1em;
 }
 li button {
-  line-height: 1.2em;
+  line-height: 1.5em;
   color: white;
   width: 100%;
   text-align: left;
   padding: 0;
+}
+#search-container {
+	width: 10em;
 }
 
 /* Had to do weird stuff to make the padding not rediculously large on the input text boxes */

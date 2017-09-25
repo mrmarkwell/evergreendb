@@ -30,7 +30,7 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
 	}
 	ngOnChanges(changes: SimpleChanges): void {
 		this.getChild();
-		if (changes.child_id) {
+		if ('child_id' in changes) {
 			this.hideForm();
 		}
 	}
