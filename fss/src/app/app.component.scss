@@ -24,3 +24,7 @@ md-sidenav a.active {
 	color: white;
 	background-color: $accent;
 }
+
+md-sidenav md-icon {
+	color: white; // CSS can change .svg color!
+}

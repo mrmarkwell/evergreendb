@@ -1,9 +1,13 @@
-<md-input-container>
-    <input mdInput placeholder="Search" name="search bar" (keyup)="filterChildren($event)">
+<div id="new-child-div">
+  <button md-raised-button (click)="createNewChild()" id="new-child-btn">Create New</button>
+</div>
+<md-input-container mdBlock id="search-container">
+    <input mdInput placeholder="Search" id="search-bar" (keyup)="filterChildren($event)">
 </md-input-container>
-<button md-raised-button (click)="createNewChild()">Create New</button>
 <ul class="children">
-    <li *ngFor="let child of filteredChildren" [class.selected]="isSelected(child)" (click)="onSelect(child)">
-        {{child.child_pinyin_name}}
+    <li *ngFor="let child of filteredChildren">
+        <button md-button (click)="onSelect(child)" [class.selected]="isSelected(child)">
+          {{child.child_pinyin_name}}
+        </button>
     </li>
 </ul>

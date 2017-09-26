@@ -8,12 +8,19 @@ textarea {
 td {
 	vertical-align: bottom;
 }
+#category-col {
+	width: 9em;
+}
+#recommendations-col {
+	width: 50%;
+}
+
+#development-table {
+	width: 100%;
+}
 #feeding-recommendations {
 	height: 6em;
 }
 #physical-recommendations {
 	height: 7em;
-}
-#development-table {
-	width: 100%;
 }

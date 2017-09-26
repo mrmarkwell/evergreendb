@@ -6,8 +6,12 @@
 	<form *ngIf="family_member" id='family-member-details-form'>
 		<ul>
 			<li>
-				<md-icon svgIcon="save_icon" (click)="save()"></md-icon>
-				<md-icon svgIcon="trash_icon" (click)="delete()"></md-icon>
+				<button md-icon-button>
+					<md-icon svgIcon="save_icon" (click)="save()"></md-icon>
+				</button>
+				<button md-icon-button>
+					<md-icon svgIcon="trash_icon" (click)="delete()"></md-icon>
+				</button>
 			</li>
 			<li>
 				<md-input-container>
