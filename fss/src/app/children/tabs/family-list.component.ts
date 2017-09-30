@@ -42,6 +42,6 @@ export class FamilyListComponent implements OnInit, OnChanges {
     }
     @Input() child_id: number;
     @Output() notifySelected = new EventEmitter<FamilyMember>();
-    private family_members: FamilyMember[];
+    family_members: FamilyMember[];
     private selected_family_member: FamilyMember;
 }

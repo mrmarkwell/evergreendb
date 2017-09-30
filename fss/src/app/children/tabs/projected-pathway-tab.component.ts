@@ -15,14 +15,14 @@ import { RestService } from '../../rest.service';
 
 
 export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
-    private child: Child;
+    child: Child;
     projectedPathways: ProjectedPathway[];
 
     @Input() child_id: number;
 
     constructor(
         private restService: RestService
-    ) {}
+    ) { }
 
     ngOnInit(): void {
         this.getChild();
@@ -44,7 +44,9 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
     }
 
     delete(pathway_id: number): void {
-        this.restService.deleteProjectedPathway(pathway_id);
+        if (confirm("Are you sure you want to delete this step?")) {
+            this.restService.deleteProjectedPathway(pathway_id);
+        }
     }
 
     addNewStep(): void {

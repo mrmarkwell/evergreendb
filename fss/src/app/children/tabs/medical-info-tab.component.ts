@@ -9,7 +9,7 @@ import { RestService } from '../../rest.service';
     templateUrl: './medical-info-tab.component.html'
 })
 export class MedicalTabComponent implements OnInit, OnChanges {
-    private child: Child;
+    child: Child;
     private conditions: String[];
     constructor(
         private restService: RestService

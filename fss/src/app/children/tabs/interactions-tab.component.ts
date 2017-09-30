@@ -12,8 +12,8 @@ import { RestService } from '../../rest.service';
 export class InteractionsTabComponent implements OnInit, OnChanges {
     @Input() child_id: number;
     private child: Child;
-    private interactions: Interaction[];
-    private expanded_interaction: Interaction;
+    interactions: Interaction[];
+    expanded_interaction: Interaction;
     constructor(
         private restService: RestService
     ) {}

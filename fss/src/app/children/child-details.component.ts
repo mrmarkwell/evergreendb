@@ -65,7 +65,7 @@ export class ChildDetails implements OnInit, OnChanges {
 	}
 
 	@Input() child_id: number;
-	private child: Child;
+    child: Child;
 	private age: number;
 	private medical_conditions: string[];
 }
