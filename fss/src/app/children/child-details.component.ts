@@ -32,6 +32,7 @@ export class ChildDetails implements OnInit, OnChanges {
 	}
 	ngOnChanges(): void {
 		this.restService.getChild(this.child_id).then(child => {
+            if (child == undefined) return;
 			this.child = child;
 			this.age = child.getAge()
 			this.child.birth_date_object = this.restService.getDateFromString(this.child.birth_date)});
@@ -42,7 +43,6 @@ export class ChildDetails implements OnInit, OnChanges {
 	}
 	deleteChild(): void {
 		if (confirm("Are you sure you want to delete this child and all associated data?")) {
-			this.restService.deleteChild(this.child.id);
 			//TODO: Delete associated family members, pathways, and interactions
 			this.restService.getFamilyMembers(this.child.id).then(fam_mems => {
 				for (let member of fam_mems) {
@@ -59,6 +59,7 @@ export class ChildDetails implements OnInit, OnChanges {
 					this.restService.deleteFamilyMember(pathway.id);
 				}
 			});
+			this.restService.deleteChild(this.child.id);
 			this.child = null;
 		}
 	}

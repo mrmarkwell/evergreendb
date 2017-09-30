@@ -6,7 +6,8 @@ export class Child {
 	}
 
 	getAge(): number {
-		let bdate_split = this.birth_date.split('-');
+		if (this.birth_date == null || this.birth_date.length == 0) return null;
+        let bdate_split = this.birth_date.split('-');
 		let today = new Date();
 		let no_bday_yet = Number( bdate_split[1] + bdate_split[2] ) > ( (today.getMonth()+1)*100 + today.getDate() ); // Not elegant, I know...
 		return today.getFullYear() - Number(bdate_split[0]) + (no_bday_yet ? -1 : 0);

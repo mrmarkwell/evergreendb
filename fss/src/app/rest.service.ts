@@ -106,6 +106,7 @@ export class RestService {
 
 	// Utility function for creating Date objects from strings for binding to datepickers.
 	getDateFromString(date_string: string): Date {
+		if (date_string == null || date_string.length == 0) return null;
 		return new Date(date_string.replace(/-/g, '\/').replace(/T.+/, ''));
 	}	
 
@@ -129,7 +130,8 @@ export class RestService {
 		return Promise.reject(error.message || error);
 	}
 
-	private evergreenUrl = 'http://127.0.0.1:5000';
+	private testUrl = 'http://127.0.0.1:5000';
+    private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
 	private headers = new Headers({'Content-Type': 'application/json'});
 	private childrenCache: Child[];
 }

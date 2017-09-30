@@ -16,4 +16,4 @@
     </tr>
 </table>
 <br>
-<interactions-form [child_id]="child_id" [interaction]="expanded_interaction" (notifyDeleted)="getInteractions()"></interactions-form>
+<interactions-form [child_id]="child_id" [interaction]="expanded_interaction" (notifyDeletedOrHidden)="handleNotification($event)"></interactions-form>

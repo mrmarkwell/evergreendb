@@ -13,7 +13,8 @@ import { RestService } from '../../rest.service';
 export class InteractionsFormComponent implements OnInit, OnChanges {
 	@Input() child_id: number;
 	@Input() interaction: Interaction;
-	@Output() notifyDeleted = new EventEmitter<null>();
+    // Send the string "deleted" or "hidden"
+	@Output() notifyDeletedOrHidden = new EventEmitter<string>();
 	private child: Child;
 	private interaction_coordinators: String[];
 	private interaction_types: String[];
@@ -30,9 +31,6 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
 	}
 	ngOnChanges(changes: SimpleChanges): void {
 		this.getChild();
-		if ('child_id' in changes) {
-			this.hideForm();
-		}
 	}
 	getChild(): void {
 		this.restService.getChild(this.child_id).then(child => this.child = child);
@@ -46,17 +44,16 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
 	saveInteraction(): void {
 		this.interaction.interaction_date = this.restService.getStringFromDate(this.interaction.interaction_date_object);
 		this.restService.updateInteraction(this.interaction);
-		this.restService.updateChild(this.child).then(child => this.child = child);
 	}
 	deleteInteraction(): void {
 		if (confirm("Are you sure you want to delete this interaction?")) {
 			this.restService.deleteInteraction(this.interaction.id);
 			this.interaction = null;
-			this.notifyDeleted.emit();
+			this.notifyDeletedOrHidden.emit("deleted");
 		}
 	}
 	hideForm(): void {
-		this.interaction = null;
+        this.notifyDeletedOrHidden.emit("hidden");
 	}
 	setDate(date): void {
 		this.interaction.interaction_date = this.datePipe.transform(date, 'yyyy-MM-dd');

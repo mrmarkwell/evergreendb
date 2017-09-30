@@ -25,6 +25,11 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
     }
     ngOnChanges(): void {
         this.getChild();
+        if (this.child_id != null 
+            && this.expanded_interaction != null 
+            && this.child_id !== this.expanded_interaction.child_id) {
+                this.expanded_interaction = null;
+            }
         this.getInteractions();
     }
     getChild(): void {
@@ -38,6 +43,13 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
                 }
                 return this.interactions = interactions;
             });
+    }
+    handleNotification(type: string): void {
+        if (type == "hidden") {
+            this.expanded_interaction = null;
+          } else if (type == "deleted")  {
+            this.getInteractions();
+          }
     }
     selectInteraction(id: number): void {
         this.expanded_interaction = this.interactions.find(interaction => interaction.id === id);
