@@ -47,12 +47,13 @@ export class RestService {
 			.catch(this.handleError);
 	}
 
+    // TODO: Better error handling of bad backend responses.
 	// Child functions
 	getChildren(refresh: boolean = true): Promise<Child[]> {
-		return this.getEntity('fss_child').then( results => this.childrenCache = results.map(child => new Child(child)) );
+		return this.getEntity('fss_child').then( results => results.map(child => new Child(child)));
 	}
 	getChild(child_id: number): Promise<Child> {
-		return this.getChildren(false).then(children => children.find(child => child.id === child_id));
+        return this.getEntity('fss_child', `id=${child_id}`).then(child => new Child(child[0]));
 	}
 	addChild(child: Child): Promise<Child> {
 		return this.addEntity('fss_child', child).then(results => results as Child);
@@ -61,7 +62,7 @@ export class RestService {
 		return this.updateEntity('fss_child', child).then(results => results as Child);
 	}
 	deleteChild(id: number): Promise<void> {
-		return this.deleteEntity('fss_child',id);
+		return this.deleteEntity('fss_child', id);
 	}
 
 	// Interactions, family members, and projected pathways are all pretty much the same except the url and return class
@@ -133,5 +134,4 @@ export class RestService {
 	private testUrl = 'http://127.0.0.1:5000';
     private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
 	private headers = new Headers({'Content-Type': 'application/json'});
-	private childrenCache: Child[];
 }

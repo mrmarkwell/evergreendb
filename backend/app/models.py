@@ -34,9 +34,9 @@ class FSSChild(db.Model):
     birth_history = db.Column(db.Unicode(255))
     medical_history = db.Column(db.Unicode(255))
 
-    family_members = db.relationship('FSSFamilyMember', backref='child')
-    projceted_pathway = db.relationship('FSSProjectedPathway', backref='child')
-
+    family_members = db.relationship('FSSFamilyMember', cascade="all, delete", backref='child')
+    projected_pathway = db.relationship('FSSProjectedPathway', cascade="all, delete", backref='child')
+    interactions = db.relationship('FSSInteraction', cascade="all, delete", backref='child')
 
 class FSSFamilyMember(db.Model):
     __tablename__ = 'fss_family_member'

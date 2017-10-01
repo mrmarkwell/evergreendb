@@ -1,8 +1,12 @@
 <div *ngIf="interaction">
     <div>
         <button md-raised-button (click)="hideForm()">Hide</button>
-        <md-icon svgIcon="save_icon" (click)="saveInteraction()"></md-icon>
-        <md-icon svgIcon="trash_icon" (click)="deleteInteraction()"></md-icon>
+        <button md-icon-button>
+            <md-icon svgIcon="save_icon" (click)="saveInteraction()"></md-icon>
+        </button>
+        <button md-icon-button>
+            <md-icon svgIcon="trash_icon" (click)="deleteInteraction()"></md-icon>
+        </button>
     </div>
     <table>
         <tbody>

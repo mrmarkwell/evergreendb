@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ChildrenTab } from './children/children-tab.component';
+import { ChildrenPage } from './children/children-page.component';
 import { RemindersTab } from './reminders/reminders-tab.component';
 import { CalendarTab } from './calendar/calendar-tab.component';
 import { SettingsTab } from './settings/settings-tab.component';
 
 const routes : Routes = [
 	{ path: '', redirectTo:'/reminders', pathMatch:'full' },
-	{ path: 'children', component: ChildrenTab },
+	{ path: 'children', component: ChildrenPage },
 	{ path: 'reminders', component: RemindersTab },
 	{ path: 'calendar', component: CalendarTab },
 	{ path: 'settings', component: SettingsTab },

@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { MaterialModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
-import { ChildrenTab } from './children-tab.component';
+import { ChildrenPage } from './children-page.component';
 import { ChildDetails } from './child-details.component';
 import { ChildList } from './child-list.component';
 import { ChildTabs } from './child-tabs.component';
@@ -17,7 +17,7 @@ import { ProjectedPathwayTabComponent } from './tabs/projected-pathway-tab.compo
 
 @NgModule({
 	declarations: [
-		ChildrenTab,
+		ChildrenPage,
 		ChildList,
 		ChildDetails,
 		ChildTabs,
@@ -34,6 +34,6 @@ import { ProjectedPathwayTabComponent } from './tabs/projected-pathway-tab.compo
 		FormsModule
 	],
 	providers: [],
-	bootstrap: [ChildrenTab]
+	bootstrap: [ChildrenPage]
 })
 export class ChildrenModule { }

@@ -3,7 +3,7 @@
 		<child-list (notifySelected)="onSelect($event)"></child-list>
 	</div>
 	<div *ngIf="child_id" id="childinfocolumn">
-		<child-details [child_id]="child_id"></child-details>
+		<child-details [child_id]="child_id" (notifyDeleted)="childDeleted()"></child-details>
 		<child-tabs [child_id]="child_id"></child-tabs>
 	</div>
 </div>
