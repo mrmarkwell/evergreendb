@@ -66,7 +66,7 @@
                 <textarea mdInput placeholder="status" [(ngModel)]="child.status" name="child-status"></textarea>
             </md-input-container>
         </div>
-        <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="picOverBase($event)" (onFileDrop)="fileDropped($files)"
+        <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="picOverBase($event)" (onFileDrop)="fileDropped($event)"
             [uploader]="uploader" class="grid-item well my-drop-zone">
             Drop picture here to upload
         </div>

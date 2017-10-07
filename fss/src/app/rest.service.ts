@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Child } from './child';
+import { ChildPhoto } from './child-photo'
 import { Interaction } from './interaction';
 import { FamilyMember } from './family-member';
 import { ProjectedPathway } from './projected-pathway';
@@ -125,6 +126,15 @@ export class RestService {
 			return "";
 		}
 	}
+
+    uploadChildPhoto(photo: ChildPhoto): string {
+	    let url = `${this.evergreenUrl}/upload`;
+       return this.http.post(url, JSON.stringify(entity), {headers: this.headers})
+			.toPromise().then(res => { this.emit(); return res.json() })
+			.catch(this.handleError); 
+        
+
+    }
 
 	private handleError(error: any): Promise<any> {
 		console.error('An error occurred', error);

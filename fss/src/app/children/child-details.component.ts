@@ -72,5 +72,12 @@ export class ChildDetails implements OnInit, OnChanges {
 	//parameter not getting passed correctly, not sure we need it though...
 	public fileDropped(files:File[]):void {
 		console.log("got a file")
+        if (files.length == 0) {
+            console.log("No file in the file list!!")
+        } else {
+            console.log("Sending file to backend")
+            
+        }
+        console.log(files)
 	}
 }
