@@ -131,7 +131,7 @@ export class RestService {
 		return Promise.reject(error.message || error);
 	}
 
-	private testUrl = 'http://127.0.0.1:5000';
-    private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
+	private evergreenUrl = 'http://127.0.0.1:5000';
+  //  private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
 	private headers = new Headers({'Content-Type': 'application/json'});
 }
