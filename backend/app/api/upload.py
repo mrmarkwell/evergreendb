@@ -3,13 +3,15 @@ import os
 from app import app
 from config import basedir
 from flask import request
-from flask_uploads import UploadSet, configure_uploads, AllExcept, SCRIPTS, EXECUTABLES
+from flask_uploads import UploadSet, configure_uploads, AllExcept, SCRIPTS, EXECUTABLES, IMAGES
 from flask_restful import abort, Resource
 
 uploads = UploadSet('uploads', AllExcept(SCRIPTS + EXECUTABLES))
+photos = UploadSet('photos', IMAGES)
 
-app.config['UPLOADS_DEFAULT_DEST'] = os.path.join(basedir, 'uploads')
-configure_uploads(app, uploads)
+
+app.config['UPLOADS_DEFAULT_DEST'] = os.path.join(basedir, 'app', 'static')
+configure_uploads(app, photos)
 
 
 class Upload(Resource):
@@ -23,8 +25,8 @@ class Upload(Resource):
     """
 
     def post(self):
-        if 'upload' in request.files:
-            filename = uploads.save(request.files['upload'])
+        if 'photos' in request.files:
+            filename = photos.save(request.files['photos'])
             return filename, 201
         else:
             msg = 'No file included in upload request'

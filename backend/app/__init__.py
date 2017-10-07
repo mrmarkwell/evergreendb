@@ -1,11 +1,11 @@
-from flask import Flask, current_app
+from flask import Flask, current_app, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import Api
 from flask_login import LoginManager
 from flask_admin import Admin
 from flask_login import current_user
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.config.from_object('config')
 db = SQLAlchemy(app)
 rest_api = Api(app)
@@ -21,6 +21,11 @@ from api.resources import RollbackResource
 from api.upload import Upload
 from api.resources import UserResource
 from api.resources import EnumResource
+
+
+@app.route('/photos/<path:path>')
+def send_photo(path):
+    return send_from_directory('photos', path)
 
 
 # Add REST API endpoints
