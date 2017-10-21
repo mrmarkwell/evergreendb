@@ -69,14 +69,13 @@ export class ChildDetails implements OnInit, OnChanges {
 		this.hasBaseDropZoneOver = e;
 	}
 
-	//parameter not getting passed correctly, not sure we need it though...
 	public fileDropped(files:File[]):void {
-		console.log("got a file")
+		console.log("got a file");
         if (files.length == 0) {
-            console.log("No file in the file list!!")
+            console.log("No file in the file list!!");
         } else {
-            console.log("Sending file to backend")
-            
+            console.log("Sending file to backend");
+           // this.restService.uploadChildPhoto(files[0]);
         }
         console.log(files)
 	}

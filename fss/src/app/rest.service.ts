@@ -127,9 +127,9 @@ export class RestService {
 		}
 	}
 
-    uploadChildPhoto(photo: ChildPhoto): string {
+    uploadChildPhoto(photo: File): Promise<any> {
 	    let url = `${this.evergreenUrl}/upload`;
-       return this.http.post(url, JSON.stringify(entity), {headers: this.headers})
+       return this.http.post(url, JSON.stringify(photo), {headers: this.headers})
 			.toPromise().then(res => { this.emit(); return res.json() })
 			.catch(this.handleError); 
         
