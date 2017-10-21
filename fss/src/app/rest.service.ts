@@ -127,21 +127,36 @@ export class RestService {
 		}
 	}
 
-    uploadChildPhoto(photo: File): Promise<any> {
-	    let url = `${this.evergreenUrl}/upload`;
-       return this.http.post(url, JSON.stringify(photo), {headers: this.headers})
-			.toPromise().then(res => { this.emit(); return res.json() })
-			.catch(this.handleError); 
-        
+    // uploadChildPhoto(photo: File): Promise<any> {
+	//     let url = `${this.evergreenUrl}/upload`;
+    //    return this.http.post(url, JSON.stringify(photo), {headers: this.headers})
+	// 		.toPromise().then(res => { this.emit(); return res.json() })
+	// 		.catch(this.handleError); 
+    // }
 
+    getPhotoUploadUrl(): string {
+        return this.evergreenUrl + "/upload";
+    } 
+	getChildPhotoUrl(id: number): string {
+        return `${this.evergreenUrl}/static/photos/child${id}.jpeg`;
     }
+    // tryGetChildPhoto(id: number): Promise<File> {
+	// 	let url = this.getChildPhotoUrl(id); 
+	// 	return this.http.get(url)
+	// 		.toPromise()
+	// 		.catch(error => null); 
+	// } 
 
-	private handleError(error: any): Promise<any> {
+
+
+    private handleError(error: any): Promise<any> {
 		console.error('An error occurred', error);
 		return Promise.reject(error.message || error);
 	}
 
+    //File uploader needs the photo upload 
+
 	private evergreenUrl = 'http://127.0.0.1:5000';
-  //  private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
+    // private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
 	private headers = new Headers({'Content-Type': 'application/json'});
 }

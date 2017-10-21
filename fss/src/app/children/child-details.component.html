@@ -9,13 +9,20 @@
 			</button>
         </div>
         <div class="grid-item" id="profile-pic-cell">
-        <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="picOverBase($event)" (onFileDrop)="fileDropped($event)"
-            [uploader]="uploader" class="grid-item well my-drop-zone">
-            Drop picture here to upload
-        </div>
-        <div class="grid-item" *ngFor="let item of uploader.queue">
-            {{ item?.file?.name }}
-        </div>
+            <div *ngIf="child_photo;then showphoto else showdropzone">here is ignored</div>
+
+            <ng-template #showdropzone>
+                <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="picOverBase($event)" (onFileDrop)="fileDropped($event)"
+                    [uploader]="uploader" class="grid-item well my-drop-zone">
+                    Drop picture here to upload
+                </div>
+                <div class="grid-item" *ngFor="let item of uploader.queue">
+                    {{ item?.file?.name }}
+                </div>
+            </ng-template>
+            <ng-template #showphoto>
+                <img src={restService.getChildPhotoUrl(child_id)}>
+            </ng-template>
         </div>
         <div class="grid-item" id="chinese-name-cell">
             <md-input-container>
