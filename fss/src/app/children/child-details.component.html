@@ -2,27 +2,17 @@
     <div class="grid">
         <div class="grid-item" id="save-del-cell">
             <button md-icon-button>
-				<md-icon svgIcon="save_icon" (click)="saveChild()"></md-icon>
-			</button>
+                <md-icon svgIcon="save_icon" (click)="saveChild()"></md-icon>
+            </button>
             <button md-icon-button>
-				<md-icon svgIcon="trash_icon" (click)="deleteChild()"></md-icon>
-			</button>
+                <md-icon svgIcon="trash_icon" (click)="deleteChild()"></md-icon>
+            </button>
         </div>
         <div class="grid-item" id="profile-pic-cell">
-            <div *ngIf="child_photo;then showphoto else showdropzone">here is ignored</div>
-
-            <ng-template #showdropzone>
-                <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="picOverBase($event)" (onFileDrop)="fileDropped($event)"
+            <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="picOverBase($event)" (onFileDrop)="fileDropped($event)"
                     [uploader]="uploader" class="grid-item well my-drop-zone">
-                    Drop picture here to upload
-                </div>
-                <div class="grid-item" *ngFor="let item of uploader.queue">
-                    {{ item?.file?.name }}
-                </div>
-            </ng-template>
-            <ng-template #showphoto>
-                <img src={restService.getChildPhotoUrl(child_id)}>
-            </ng-template>
+                <img src={{restService.getChildPhotoUrl(child_id)}} onerror="this.src='assets/person.svg'" height="128" width="128">
+            </div>
         </div>
         <div class="grid-item" id="chinese-name-cell">
             <md-input-container>
