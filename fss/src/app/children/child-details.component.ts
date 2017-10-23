@@ -36,7 +36,7 @@ export class ChildDetails implements OnInit, OnChanges {
             sanitizer.bypassSecurityTrustResourceUrl('assets/save_icon.svg'));
     }
     ngOnInit(): void {
-        this.uploader = new FileUploader({ url: this.restService.getPhotoUploadUrl()}); 
+        this.uploader = new FileUploader({ url: this.restService.getPhotoUploadUrl()});
         this.restService.getEnum("fss_medical_condition").then(conditions => this.medical_conditions = conditions);
         this.restService.changeEmitter.subscribe(() => this.ngOnChanges());
         //this.restService.tryGetChildPhoto(this.child_id).then(photo => {console.log(photo); this.child_photo = photo; return photo;});
@@ -76,9 +76,10 @@ export class ChildDetails implements OnInit, OnChanges {
             console.log("No file in the file list!!");
         } else {
             console.log("Sending file to backend");
+            console.log(files)
+            this.uploader.addToQueue(File[0]);
             this.uploader.uploadItem(File[0]);
             // this.restService.uploadChildPhoto(files[0]);
         }
-        console.log(files)
     }
 }

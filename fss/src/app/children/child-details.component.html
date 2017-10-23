@@ -3,14 +3,14 @@
         <div class="grid-item" id="save-del-cell">
             <button md-icon-button>
                 <md-icon svgIcon="save_icon" (click)="saveChild()"></md-icon>
-            </button>
+            </button><br />
             <button md-icon-button>
                 <md-icon svgIcon="trash_icon" (click)="deleteChild()"></md-icon>
             </button>
         </div>
         <div class="grid-item" id="profile-pic-cell">
             <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="picOverBase($event)" (onFileDrop)="fileDropped($event)"
-                    [uploader]="uploader" class="grid-item well my-drop-zone">
+                    [uploader]="uploader" class="well my-drop-zone">
                 <img src={{restService.getChildPhotoUrl(child_id)}} onerror="this.src='assets/person.svg'" height="128" width="128">
             </div>
         </div>
