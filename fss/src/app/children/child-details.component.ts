@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { ParamMap } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -22,6 +22,7 @@ export class ChildDetails implements OnInit, OnChanges {
     private child_photo_url: string;
     private on_changes_count = 0;
     private uploader: FileUploader;
+    @ViewChild('fileInput') fileInput: any;
     private allowed_mime_type = ['image/png', 'image/jpg', 'image/jpeg'];
     public hasBaseDropZoneOver: boolean = false;
 
@@ -42,11 +43,11 @@ export class ChildDetails implements OnInit, OnChanges {
     }
     ngOnInit(): void {
         this.uploader = new FileUploader({
-            url: this.restService.getPhotoUploadUrl(), 
+            url: this.restService.getPhotoUploadUrl(),
             itemAlias: 'photos',
             allowedMimeType: this.allowed_mime_type
         });
-        this.uploader.onWhenAddingFileFailed = (file: FileLikeObject, filter:any, options: any) => {
+        this.uploader.onWhenAddingFileFailed = (file: FileLikeObject, filter: any, options: any) => {
             this.snackBar.open("Invalid File Type!", null, {
                 duration: 2000
             })
@@ -66,6 +67,7 @@ export class ChildDetails implements OnInit, OnChanges {
             this.snackBar.open(snackbar_message, null, {
                 duration: 2000,
             });
+            this.fileInput.nativeElement.value = '';
             this.ngOnChanges();
         }
         this.restService.getEnum("fss_medical_condition").then(conditions => this.medical_conditions = conditions);
