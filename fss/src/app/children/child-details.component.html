@@ -10,8 +10,8 @@
         </div>
         <div class="grid-item" id="profile-pic-cell">
             <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="picOverBase($event)" (onFileDrop)="fileDropped($event)"
-                    [uploader]="uploader" class="well my-drop-zone">
-                <img src={{restService.getChildPhotoUrl(child_id)}} onerror="this.src='assets/person.svg'" height="128" width="128">
+                [uploader]="uploader" class="well my-drop-zone">
+                <img src={{child_photo_url}} onerror="this.src='assets/person.svg'" height="128" width="128">
             </div>
         </div>
         <div class="grid-item" id="chinese-name-cell">
@@ -68,6 +68,14 @@
             <md-input-container flex>
                 <textarea mdInput placeholder="status" [(ngModel)]="child.status" name="child-status"></textarea>
             </md-input-container>
+        </div>
+        <div class="grid-item" id="file-upload-button">
+            <!-- File input for the file-upload plugin, with special ng2-file-upload directive called ng2FileSelect -->
+            <input type="file" name="photo" ng2FileSelect [uploader]="uploader"  [accept]="allowed_mime_type.toString()"/>
+            <!-- button to trigger the file upload when submitted -->
+            <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                Upload
+            </button>
         </div>
     </div>
 </form>

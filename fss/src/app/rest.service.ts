@@ -129,7 +129,7 @@ export class RestService {
 
 	//File uploader needs the photo upload
 	getPhotoUploadUrl(): string {
-		return this.evergreenUrl + "/upload/photos/";
+		return this.evergreenUrl + "/upload";
 	}
 	getChildPhotoUrl(id: number): string {
 		return `${this.evergreenUrl}/static/photos/child${id}.jpeg`;
