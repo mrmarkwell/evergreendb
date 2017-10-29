@@ -7,10 +7,12 @@ from flask_uploads import UploadSet, configure_uploads, AllExcept, SCRIPTS, EXEC
 from flask_restful import abort, Resource
 
 uploads = UploadSet('uploads', AllExcept(SCRIPTS + EXECUTABLES))
-photos = UploadSet('photos', IMAGES)
+photos_sub = 'photos'
+photos = UploadSet(photos_sub, IMAGES)
 
+dest = os.path.join(basedir, 'app', 'static')
 
-app.config['UPLOADS_DEFAULT_DEST'] = os.path.join(basedir, 'app', 'static')
+app.config['UPLOADS_DEFAULT_DEST'] = dest
 configure_uploads(app, photos)
 
 
@@ -26,10 +28,11 @@ class Upload(Resource):
 
     def post(self):
         if 'photos' in request.files:
+            path = os.path.join(dest, photos_sub, request.files['photos'].filename)
+            if os.path.exists(path):
+                os.remove(path)
             filename = photos.save(request.files['photos'])
             return filename, 201
         else:
             msg = 'No file included in upload request'
             abort(400, message=msg)
-
-
