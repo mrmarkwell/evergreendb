@@ -71,11 +71,8 @@
         </div>
         <div class="grid-item" id="file-upload-button">
             <!-- File input for the file-upload plugin, with special ng2-file-upload directive called ng2FileSelect -->
-            <input #fileInput type="file" name="photo" ng2FileSelect [uploader]="uploader" [accept]="allowed_mime_type.toString()"/>
-            <!-- button to trigger the file upload when submitted -->
-            <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
-                Upload
-            </button>
+            <input #fileInput id=profile-pic-file-select type="file" name="photo" ng2FileSelect [uploader]="uploader" [accept]="allowed_mime_type.toString()"/>
+            <button md-raised-button (click)="openFileSelect()">Upload...</button>
         </div>
     </div>
 </form>

@@ -56,6 +56,7 @@ export class ChildDetails implements OnInit, OnChanges {
             files.forEach(fileItem => {
                 fileItem.file.name = `child${this.child_id}.jpeg`;
             })
+            this.uploader.uploadAll();
         }
         this.uploader.onCompleteItem = (file: FileItem, message: string, status: number) => {
             let snackbar_message: string;
@@ -111,5 +112,10 @@ export class ChildDetails implements OnInit, OnChanges {
             console.log(files)
             this.uploader.uploadAll();
         }
+    }
+
+    // Dirty hack to style <input type=file> with angular meterial. Also can use label and style that, but that doesn't work well with angular meterial
+    public openFileSelect(): void {
+        document.getElementById("profile-pic-file-select").click();
     }
 }
