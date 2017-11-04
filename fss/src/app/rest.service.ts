@@ -3,6 +3,7 @@ import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { Child } from './child';
+import { ChildPhoto } from './child-photo'
 import { Interaction } from './interaction';
 import { FamilyMember } from './family-member';
 import { ProjectedPathway } from './projected-pathway';
@@ -47,13 +48,13 @@ export class RestService {
 			.catch(this.handleError);
 	}
 
-    // TODO: Better error handling of bad backend responses.
+		// TODO: Better error handling of bad backend responses.
 	// Child functions
 	getChildren(refresh: boolean = true): Promise<Child[]> {
 		return this.getEntity('fss_child').then( results => results.map(child => new Child(child)));
 	}
 	getChild(child_id: number): Promise<Child> {
-        return this.getEntity('fss_child', `id=${child_id}`).then(child => new Child(child[0]));
+				return this.getEntity('fss_child', `id=${child_id}`).then(child => new Child(child[0]));
 	}
 	addChild(child: Child): Promise<Child> {
 		return this.addEntity('fss_child', child).then(results => results as Child);
@@ -109,7 +110,7 @@ export class RestService {
 	getDateFromString(date_string: string): Date {
 		if (date_string == null || date_string.length == 0) return null;
 		return new Date(date_string.replace(/-/g, '\/').replace(/T.+/, ''));
-	}	
+	}
 
 	// Utility function for creating a string from a Date object.
 	getStringFromDate(date_obj: Date): string {
@@ -126,12 +127,20 @@ export class RestService {
 		}
 	}
 
+	//File uploader needs the photo upload
+	getPhotoUploadUrl(): string {
+		return this.evergreenUrl + "/upload";
+	}
+	getChildPhotoUrl(id: number): string {
+		return `${this.evergreenUrl}/static/photos/child${id}.jpeg`;
+	}
+
 	private handleError(error: any): Promise<any> {
 		console.error('An error occurred', error);
 		return Promise.reject(error.message || error);
 	}
 
-	private testUrl = 'http://127.0.0.1:5000';
-    private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
+	private evergreenUrl = 'http://127.0.0.1:5000';
+	// private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
 	private headers = new Headers({'Content-Type': 'application/json'});
 }

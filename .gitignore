@@ -13,3 +13,4 @@ npm-debug.log
 node_modules
 electron/dist/
 fss/package-lock.json
+backend/app/static

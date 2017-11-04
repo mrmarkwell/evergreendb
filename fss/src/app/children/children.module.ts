@@ -8,6 +8,8 @@ import { ChildDetails } from './child-details.component';
 import { ChildList } from './child-list.component';
 import { ChildTabs } from './child-tabs.component';
 
+import { FileUploadModule } from 'ng2-file-upload';
+
 import { FamilyTabComponent } from './tabs/family-info-tab.component';
 import { FamilyListComponent } from './tabs/family-list.component';
 import { MedicalTabComponent } from './tabs/medical-info-tab.component';
@@ -31,7 +33,8 @@ import { ProjectedPathwayTabComponent } from './tabs/projected-pathway-tab.compo
 	imports: [
 		BrowserModule,
 		MaterialModule,
-		FormsModule
+		FormsModule,
+		FileUploadModule
 	],
 	providers: [],
 	bootstrap: [ChildrenPage]
