@@ -22,6 +22,6 @@ export class AppComponent {
     }
 
     refresh(): void {
-        this.restService.changeEmitter.emit();
+        this.restService.refresh();
     }
 }
