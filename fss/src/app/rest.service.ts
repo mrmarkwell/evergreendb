@@ -13,27 +13,10 @@ export class RestService {
     changeEmitter: EventEmitter<any> = new EventEmitter();
     constructor(private http: Http) { }
 
-    private child_sem = require('semaphore')(1);
-
-    private child_refresh_in_progress = false;
-
-    // Spin until refresh is complete
-    private waitForRefresh() {
-        if (this.child_refresh_in_progress) {
-            console.log("Wait for refresh is true!")
-            setTimeout(this.waitForRefresh, 100);
-        } else {
-            console.log("Finally, wait for refresh is false!");
-        }
-    }
-
     // Cache of children Json objects mapped by child_id.
     private children_cache: Map<number, any> = new Map<number, any>();
 
-    private refresh_required: boolean = false;
-
     private refreshChildrenCache(): Promise<Child[]> {
-        console.log("REFRESHING");
         this.children_cache.clear();
         return this.getEntity('fss_child').then(results => {
             let ret = results.map(child => {
@@ -41,10 +24,6 @@ export class RestService {
                 this.children_cache.set(the_child.id, child);
                 return the_child;
             });
-            this.child_refresh_in_progress = false;
-
-            console.log("Done refreshing! Returning the semiphore!")
-            //this.child_sem.leave();
             return ret;
         });
     }
@@ -60,9 +39,7 @@ export class RestService {
     }
 
     private emit(): void {
-        // Backend data has changed. A refresh is required.
-        this.refresh_required = true;
-        this.changeEmitter.emit();
+        this.refreshChildrenCache().then(children => this.changeEmitter.emit());
     }
 
     // Generic functions
@@ -98,48 +75,19 @@ export class RestService {
             .catch(this.handleError);
     }
 
-    // If children are being refreshed, this method waits.
-    // It refreshes the children list if required.
-    private refreshChildrenIfRequired() {
-        console.log("In Refresh if required!")
-        //this.waitForRefresh();
-        if (this.child_refresh_in_progress) {
-            console.log("Wait for refresh is true!")
-            setTimeout(this.refreshChildrenIfRequired, 100);
-        } else {
-
-            //      this.child_sem.take(() => {
-            //         console.log("Got the semiphore!")
-            if (this.refresh_required || this.children_cache.size == 0) {
-                // Lock until refresh is complete.
-                this.child_refresh_in_progress = true;
-                console.log("Inside refresh required!!")
-                this.refresh_required = false;
-                let ret = this.refreshChildrenCache();
-                //this.child_sem.leave();
-                // Wait for sem to be available again
-                //return ret;
-            }
-            // });
-            console.log("Attempting to get the semiphore again...");
-            // this.child_sem.take(() => {
-            //     console.log("Got it, now letting it go");
-            //     this.child_sem.leave();
-            // });
-        }
-    }
     // Child functions
     getChildren(): Promise<Child[]> {
-        console.log("In get children! " + this.children_cache.size);
-        this.refreshChildrenIfRequired();
-        console.log("About to call wait for refresh..." + this.child_refresh_in_progress);
-        this.waitForRefresh();
-        console.log("In get children, after refresh!" + this.children_cache.size)
+        if (this.children_cache.size == 0) {
+            console.log("refreshing the children since they've never been refreshed");
+            return this.refreshChildrenCache();
+        }
         return this.getCachedChildren();
     }
 
     getChild(child_id: number): Promise<Child> {
-        this.refreshChildrenIfRequired();
+        if (this.children_cache.size == 0) {
+            return this.refreshChildrenCache().then(children => children.find(child => child.id == child_id));
+        }
         return this.getCachedChild(child_id);
     }
     addChild(child: Child): Promise<Child> {
