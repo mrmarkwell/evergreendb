@@ -9,7 +9,8 @@ import { MatFormFieldModule,
     MatSelectModule,
     MatTabsModule,
     MatCheckboxModule,
-    MatSnackBarModule } from '@angular/material';
+    MatSnackBarModule,
+    MatButtonModule } from '@angular/material';
 
 
 import { ChildrenPage } from './children-page.component';
@@ -49,6 +50,7 @@ import { ProjectedPathwayTabComponent } from './tabs/projected-pathway-tab.compo
         MatTabsModule,
         MatCheckboxModule,
         MatSnackBarModule,
+        MatButtonModule,
         BrowserModule,
         FormsModule,
         FileUploadModule

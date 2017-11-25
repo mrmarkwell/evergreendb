@@ -2,11 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatNativeDateModule,
     MatIconModule,
-    MatSidenavModule } from '@angular/material';
+    MatSidenavModule,
+    MatButtonModule } from '@angular/material';
+
 import { HttpClientModule } from '@angular/common/http'
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//import { HttpModule } from '@angular/http';
 import { DatePipe } from '@angular/common';
 
 import { RestService } from './rest.service';
@@ -24,11 +25,11 @@ import { SettingsModule } from './settings/settings.module';
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
-		//HttpModule,
         HttpClientModule,
 		MatNativeDateModule,
         MatIconModule,
         MatSidenavModule,
+        MatButtonModule,
 		BrowserAnimationsModule,
 		CalendarModule,
 		ChildrenModule,
