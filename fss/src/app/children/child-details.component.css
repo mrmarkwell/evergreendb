@@ -3,10 +3,10 @@ Have picture/save del first col
 next have name-col, then age-col, then medical-col
 then status col that can wrap to be wide and short under name/age/med cols
 */
-md-select {
+mat-select {
 	width: 100%;
 }
-md-input-container {
+mat-form-field {
 	width: 100%;
 	position: absolute;
 	bottom: 0;
