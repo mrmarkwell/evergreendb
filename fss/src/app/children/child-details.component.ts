@@ -2,9 +2,9 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild } 
 import { ParamMap } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MdIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material';
 import { FileUploader, FileItem, FileUploaderOptions, FileLikeObject } from 'ng2-file-upload';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 
 import { Child } from '../child';
@@ -28,11 +28,11 @@ export class ChildDetails implements OnInit, OnChanges {
 
     @Output() notifyDeleted = new EventEmitter<null>();
     constructor(
-        iconRegistry: MdIconRegistry,
+        iconRegistry: MatIconRegistry,
         sanitizer: DomSanitizer,
         private restService: RestService,
         private datePipe: DatePipe,
-        public snackBar: MdSnackBar
+        public snackBar: MatSnackBar
     ) {
         iconRegistry.addSvgIcon(
             'trash_icon',

@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+//import { HttpClient, Headers } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import 'rxjs/add/operator/toPromise';
 
 import { Child } from './child';
@@ -11,7 +12,7 @@ import { ProjectedPathway } from './projected-pathway';
 @Injectable()
 export class RestService {
     changeEmitter: EventEmitter<any> = new EventEmitter();
-    constructor(private http: Http) {
+    constructor(private http: HttpClient) {
         this.refreshOrResetAllCaches();
     }
 
@@ -84,21 +85,21 @@ export class RestService {
         let url = `${this.evergreenUrl}/entity/${type}`;
         if (query) { url = url + '?' + query };
         return this.http.get(url)
-            .toPromise().then(response => response.json())
+            .toPromise().then(response => response)
             .catch(this.handleError);
     }
 
     private addEntity(type: string, entity: any): Promise<any> {
         let url = `${this.evergreenUrl}/entity/${type}`;
         return this.http.post(url, JSON.stringify(entity), { headers: this.headers })
-            .toPromise().then(res => { this.refresh(); return res.json() })
+            .toPromise().then(res => { this.refresh(); return res; })
             .catch(this.handleError);
     }
 
     private updateEntity(type: string, entity: any): Promise<any> {
         const url = `${this.evergreenUrl}/entity/${type}?id=${entity.id}`;
         return this.http.put(url, JSON.stringify(entity), { headers: this.headers })
-            .toPromise().then(res => { this.refresh(); return res.json() })
+            .toPromise().then(res => { this.refresh(); return res; })
             .catch(this.handleError);
     }
 
@@ -111,7 +112,7 @@ export class RestService {
     getEnum(field: string): Promise<string[]> {
         let url = `${this.evergreenUrl}/enum/${field}`;
         return this.http.get(url)
-            .toPromise().then(response => response.json())
+            .toPromise().then(response => response )
             .catch(this.handleError);
     }
 
@@ -230,5 +231,5 @@ export class RestService {
 
     private evergreenUrl = 'http://127.0.0.1:5000';
     // private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
-    private headers = new Headers({ 'Content-Type': 'application/json' });
+    private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 }

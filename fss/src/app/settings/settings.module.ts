@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MaterialModule } from '@angular/material';
 
 import { SettingsTab } from './settings-tab.component';
 
@@ -10,7 +9,6 @@ import { SettingsTab } from './settings-tab.component';
 	],
 	imports: [
 		BrowserModule,
-		MaterialModule
 	],
 	providers: [],
 	bootstrap: [SettingsTab]

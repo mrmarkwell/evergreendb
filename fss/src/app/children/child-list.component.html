@@ -1,12 +1,12 @@
 <div id="new-child-div">
-  <button md-raised-button (click)="createNewChild()" id="new-child-btn">Create New</button>
+  <button mat-raised-button (click)="createNewChild()" id="new-child-btn">Create New</button>
 </div>
-<md-input-container mdBlock id="search-container">
-    <input mdInput placeholder="Search" id="search-bar" (keyup)="filterChildren($event)">
-</md-input-container>
+<mat-form-field mdBlock id="search-container">
+    <input matInput placeholder="Search" id="search-bar" (keyup)="filterChildren($event)">
+</mat-form-field>
 <ul class="children">
     <li *ngFor="let child of filteredChildren">
-        <button md-button (click)="onSelect(child)" [class.selected]="isSelected(child)">
+        <button mat-button (click)="onSelect(child)" [class.selected]="isSelected(child)">
           {{child.child_pinyin_name}}
         </button>
     </li>

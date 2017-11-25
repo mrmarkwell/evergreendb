@@ -1,11 +1,11 @@
 <ul>
     <li id="create-family-member">
-        <button md-raised-button (click)="createFamilyMember()" id="create-button">New Family Member</button>
+        <button mat-raised-button (click)="createFamilyMember()" id="create-button">New Family Member</button>
     </li>
 </ul>
 <ul>
     <li *ngFor="let family_member of this.family_members">
-        <button md-button [id]="family_member.id" (click)="onSelect(family_member)"
+        <button mat-button [id]="family_member.id" (click)="onSelect(family_member)"
             [class.selected]="isSelected(family_member)">
           {{family_member.relationship}}
         </button>
