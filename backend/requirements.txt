@@ -59,3 +59,4 @@ Werkzeug==0.12.1
 Whoosh==2.7.4
 wrapt==1.10.11
 WTForms==2.1
+pdfkit==0.6.1
