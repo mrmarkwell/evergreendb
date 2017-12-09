@@ -24,7 +24,9 @@
                         <mat-icon svgIcon="trash_icon" (click)="delete(pathway.id)"></mat-icon>
                     </button>
                     </td>
-                    <td class="align-middle">{{pathway.pathway_step_number}}</td>
+                        <div [class.active]="pathway.pathway_is_active">
+                            <td class="align-middle">{{pathway.pathway_step_number}}</td>
+                        </div>
                     <td>
                         <mat-form-field>
                             <textarea matInput [(ngModel)]="pathway.pathway_short_description" name="{{pathway.id}}_short_description"></textarea>
