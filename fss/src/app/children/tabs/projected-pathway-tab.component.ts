@@ -10,7 +10,7 @@ import { RestService } from '../../rest.service';
 @Component({
     selector: 'projected-pathway-tab',
     templateUrl: './projected-pathway-tab.component.html',
-    styleUrls: ['./projected-pathway-tab.component.css']
+    styleUrls: ['./projected-pathway-tab.component.scss']
 })
 
 
@@ -79,6 +79,7 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
             );
             this.projectedPathways = pathways;
             let step_number = 1;
+            let active_found = false;
             for (let pathway of this.projectedPathways) {
                 // Reset the pathway numbers to increment starting at 1.
                 // This ensures that the steps are numbered appropriately even if steps are deleted.
@@ -91,6 +92,11 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
                     pathway.pathway_completion_date_object = theDate;
                 }
                 else {
+                    // If this is the first pathway step with no pathway_completion_date_object then mark it as active
+                    if (!active_found) {
+                        active_found = true
+                        pathway.pathway_is_active = true
+                    }
                     pathway.pathway_completion_date_object = null;
                 }
             }
