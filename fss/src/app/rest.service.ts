@@ -6,6 +6,7 @@ import 'rxjs/add/operator/toPromise';
 import { Child } from './child';
 import { ChildPhoto } from './child-photo'
 import { Interaction } from './interaction';
+import { Reminder } from './reminder';
 import { FamilyMember } from './family-member';
 import { ProjectedPathway } from './projected-pathway';
 
@@ -147,6 +148,16 @@ export class RestService {
         } else {
             return this.getAndCacheInteractions(child_id);
         }
+    }
+    getAllReminders(): Promise<Reminder[]> {
+        let reminderList: Reminder[] = [];
+        return this.getChildren().then(children => {
+            return Promise.all(children.map((child, index, children) => {
+                this.getInteractions(child.id).then( interactions =>
+                    reminderList = reminderList.concat(interactions.map(interaction => new Reminder(interaction)))
+                )
+            })).then( () => Promise.resolve(reminderList) )
+        });
     }
     addInteraction(interaction: Interaction): Promise<Interaction> {
         return this.addEntity('fss_interaction', interaction).then(results => results as Interaction);
