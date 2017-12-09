@@ -1,0 +1,9 @@
+@import '../../theme.scss';
+
+.type {
+    color: $accent;
+}
+.mat-expansion-panel-header-description {
+    justify-content: space-between;
+    //align-items: center;
+}

@@ -36,12 +36,6 @@ export class ChildList implements OnInit, OnChanges {
 
     ngOnChanges(): void {
         this.getChildren();
-        // let the_new_child = this.allChildren.find(child => child.id == this.selectedChild.id);
-        // if (the_new_child === undefined) {
-        //     this.selectedChild = null;
-        // } else {
-        //     this.onSelect(the_new_child);
-        // }
     }
 
     constructor(private restService: RestService) { }
