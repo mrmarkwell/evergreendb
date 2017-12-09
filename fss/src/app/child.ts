@@ -19,6 +19,7 @@ export class Child {
 	child_chinese_name: string;
 	child_english_name: string;
 	child_pinyin_name: string;
+	family_dynamics: string;
 	further_diagnosis: string;
 	gender: string;
 	medical_history: string;
