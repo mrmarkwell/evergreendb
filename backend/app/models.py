@@ -50,6 +50,7 @@ class FSSFamilyMember(db.Model):
     family_member_wechat = db.Column(db.Unicode(255))
     family_member_address = db.Column(db.Unicode(255))
     family_member_notes = db.Column(db.Unicode(255))
+    family_member_is_primary = db.Column(db.Boolean)
 
 class FSSProjectedPathway(db.Model):
     __tablename__ = 'fss_projected_pathway'

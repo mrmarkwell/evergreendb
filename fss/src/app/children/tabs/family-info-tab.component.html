@@ -37,17 +37,15 @@
 				<mat-form-field>
 					<input matInput placeholder="WeChat" [(ngModel)]="family_member.family_member_wechat" name="family-member-wechat">
 				</mat-form-field>
-			</li>
+            </li>
 			<li>
 				<mat-form-field>
 					<input matInput placeholder="Address" [(ngModel)]="family_member.family_member_address" name="family-member-address">
 				</mat-form-field>
 			</li>
-			<li>
-				<mat-form-field>
-					<textarea matInput placeholder="Notes" [(ngModel)]="family_member.family_member_notes" name="family-member-notes"></textarea>
-				</mat-form-field>
-			</li>
+            <li>
+                <mat-checkbox [(ngModel)]="family_member.family_member_is_primary" name="primary_caregiver">Primary Caregiver</mat-checkbox>                
+            </li>
 		</ul>
 	</form>
 </td>

@@ -7,5 +7,6 @@ export class FamilyMember {
 	family_member_notes: string;
 	family_member_phone: string;
 	family_member_wechat: string;
-	relationship: string;
+    relationship: string;
+    
 }
