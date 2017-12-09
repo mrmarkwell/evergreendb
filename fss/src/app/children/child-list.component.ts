@@ -14,9 +14,9 @@ export class ChildList implements OnInit, OnChanges {
     filteredChildren: Child[];
     selectedChild: Child;
     filterActive: Boolean = true;
-    filterInSitu: Boolean = true;
-    filterResolved: Boolean = true;
-    filterCurrent: Boolean = true;
+    filterInSitu: Boolean = false;
+    filterResolved: Boolean = false;
+    filterCurrent: Boolean = false;
     searchText: string;
     currentSearchCategory: SearchCategory = new SearchCategory("child_pinyin_name", "Pinyin Name");
     searchCategories: SearchCategory[] = new Array<SearchCategory>(
@@ -87,7 +87,6 @@ export class ChildList implements OnInit, OnChanges {
     }
 
     filterChildren(event: any = null) {
-        console.log("Current Search Category: " + this.currentSearchCategory.viewValue);
         if (event) {
             this._filterChildrenWithString(event.target.value);
         } else {
@@ -97,10 +96,7 @@ export class ChildList implements OnInit, OnChanges {
     }
 
     private _filterChildrenWithString(searchstring: string) {
-        console.log("filter Children with string called on string: " + searchstring);
         this.filteredChildren = this.allChildren.filter(Child => {
-            console.log(this.buildStatusFilterArray());
-            console.log(this.buildStatusFilterArray().includes(Child.status));
             if (!this.buildStatusFilterArray().includes(Child.status)) {
                 return false;
             }
