@@ -26,7 +26,6 @@ li {
     width: 1em;
     height: 1em;
     margin-left: 0.15em;
-    background: $status_unknown;
     &.active {background: $status_active}
     &.current {background: $status_current}
     &.in_situ {background: $status_in_situ}
