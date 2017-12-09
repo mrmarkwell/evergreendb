@@ -1,30 +1,48 @@
 @import '../../theme.scss';
-
 li .selected {
   color: $accent;
   font-weight: bold;
 }
+
 #new-child-btn {
   background-color: $light;
 }
+
 #new-child-div {
   padding-bottom: 1em;
 }
-li button {
-  line-height: 1.5em;
-  color: white;
-  width: 100%;
-  text-align: left;
-  padding: 0;
+
+li {
+  button {
+    line-height: 1.5em;
+    color: white;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+    div {display: inline-block;}
+  }
+  .status {
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    margin-left: 0.15em;
+    background: $status_unknown;
+    &.active {background: $status_active}
+    &.current {background: $status_current}
+    &.in_situ {background: $status_in_situ}
+    &.resolved {background: $status_resolved}
+  }
 }
+
 #search-container {
-	width: 10em;
+  width: 10em;
 }
+
 
 /* Had to do weird stuff to make the padding not rediculously large on the input text boxes */
 /deep/ .mat-input-wrapper {
-	padding-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
 /deep/ .mat-input-underline {
-	bottom: 0 !important;
+  bottom: 0 !important;
 }

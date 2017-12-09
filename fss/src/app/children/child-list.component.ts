@@ -54,6 +54,23 @@ export class ChildList implements OnInit, OnChanges {
             return this.allChildren;
         });
     }
+
+    getChildStatusClass(child: Child): string {
+        let statusClass = "";
+        if(child.status === "Active") {
+            statusClass = "active";
+        } else if(child.status === "Current") {
+            statusClass = "current";
+        } else if (child.status === "In Situ") {
+            statusClass = "in_situ"
+        } else if (child.status === "Resolved") {
+            statusClass = "resolved"
+        } else {
+            statusClass = "unknown"
+        }
+        return "status " + statusClass
+    }
+
     filterChildren(event: any = null) {
         if (event) {
             this.filteredChildren = this.allChildren.filter(Child => Child.child_pinyin_name.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1)
