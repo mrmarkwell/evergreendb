@@ -115,7 +115,7 @@
                     <td></td>
                     <td>
                         <mat-form-field>
-                            <input matInput placeholder="Texture preferences" [(ngModel)]="interaction.texture_preferences" name="texture-preferences">
+                            <textarea matInput placeholder="Texture preferences" [(ngModel)]="interaction.texture_preferences" name="texture-preferences"></textarea>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -123,12 +123,12 @@
                     <th>Developmental<br>and behavioural:</th>
                     <td>
                         <mat-form-field>
-                            <input matInput placeholder="Notes" [(ngModel)]="interaction.developmental_notes" name="development-notes">
+                            <textarea matInput placeholder="Notes" [(ngModel)]="interaction.developmental_notes" name="development-notes"></textarea>
                         </mat-form-field>
                     </td>
                     <td>
                         <mat-form-field>
-                            <input matInput placeholder="Recommendations" [(ngModel)]="interaction.developmental_recommendations" name="development-recommendations">
+                            <textarea matInput placeholder="Recommendations" [(ngModel)]="interaction.developmental_recommendations" name="development-recommendations"></textarea>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -136,12 +136,12 @@
                     <th>OT:</th>
                     <td>
                         <mat-form-field>
-                            <input matInput placeholder="Notes" [(ngModel)]="interaction.ot_notes" name="ot-notes">
+                            <textarea matInput placeholder="Notes" [(ngModel)]="interaction.ot_notes" name="ot-notes"></textarea>
                         </mat-form-field>
                     </td>
                     <td>
                         <mat-form-field>
-                            <input matInput placeholder="Recommendations" [(ngModel)]="interaction.ot_recommendations" name="ot-recommendations">
+                            <textarea matInput placeholder="Recommendations" [(ngModel)]="interaction.ot_recommendations" name="ot-recommendations"></textarea>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -149,12 +149,12 @@
                     <th>Sensory issues:</th>
                     <td>
                         <mat-form-field>
-                            <input matInput placeholder="Notes" [(ngModel)]="interaction.sensory_notes" name="sensory-notes">
+                            <textarea matInput placeholder="Notes" [(ngModel)]="interaction.sensory_notes" name="sensory-notes"></textarea>
                         </mat-form-field>
                     </td>
                     <td>
                         <mat-form-field>
-                            <input matInput placeholder="Recommendations" [(ngModel)]="interaction.sensory_recommendations" name="sensory-recommendations">
+                            <textarea matInput placeholder="Recommendations" [(ngModel)]="interaction.sensory_recommendations" name="sensory-recommendations"></textarea>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -162,12 +162,12 @@
                     <th>Speech:</th>
                     <td>
                         <mat-form-field>
-                            <input matInput placeholder="Notes" [(ngModel)]="interaction.speech_notes" name="speech-notes">
+                            <textarea matInput placeholder="Notes" [(ngModel)]="interaction.speech_notes" name="speech-notes"></textarea>
                         </mat-form-field>
                     </td>
                     <td>
                         <mat-form-field>
-                            <input matInput placeholder="Recommendations" [(ngModel)]="interaction.speech_recommendations" name="speech-recommendations">
+                            <textarea matInput placeholder="Recommendations" [(ngModel)]="interaction.speech_recommendations" name="speech-recommendations"></textarea>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -212,25 +212,12 @@
                     <td></td>
                     <td>
                         <mat-form-field>
-                            <input matInput placeholder="Gross Motor Notes" [(ngModel)]="interaction.gross_motor_notes" name="gross-moter-notes">
+                            <textarea matInput placeholder="Gross Motor Notes" [(ngModel)]="interaction.gross_motor_notes" name="gross-moter-notes"></textarea>
                         </mat-form-field>
                     </td>
                     <td>
                         <mat-form-field>
-                            <input matInput placeholder="Gross Motor Recommendations" [(ngModel)]="interaction.gross_motor_recommendations" name="gross-motor-recommendations">
-                        </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <mat-form-field>
-                            <input matInput placeholder="Fine Motor Notes" [(ngModel)]="interaction.fine_motor_notes" name="fine-moter-notes">
-                        </mat-form-field>
-                    </td>
-                    <td>
-                        <mat-form-field>
-                            <input matInput placeholder="Fine Motor Recommendations" [(ngModel)]="interaction.fine_motor_recommendations" name="fine-motor-recommendations">
+                            <textarea matInput placeholder="Gross Motor Recommendations" [(ngModel)]="interaction.gross_motor_recommendations" name="gross-motor-recommendations"></textarea>
                         </mat-form-field>
                     </td>
                 </tr>
@@ -238,12 +225,25 @@
                     <td></td>
                     <td>
                         <mat-form-field>
-                            <input matInput placeholder="Weakness Notes" [(ngModel)]="interaction.weakness_notes" name="weakness-notes">
+                            <textarea matInput placeholder="Fine Motor Notes" [(ngModel)]="interaction.fine_motor_notes" name="fine-moter-notes"></textarea>
                         </mat-form-field>
                     </td>
                     <td>
                         <mat-form-field>
-                            <input matInput placeholder="Weakness Recommendations" [(ngModel)]="interaction.weakness_recommendations" name="weakness-recommendations">
+                            <textarea matInput placeholder="Fine Motor Recommendations" [(ngModel)]="interaction.fine_motor_recommendations" name="fine-motor-recommendations"></textarea>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Weakness Notes" [(ngModel)]="interaction.weakness_notes" name="weakness-notes"></textarea>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Weakness Recommendations" [(ngModel)]="interaction.weakness_recommendations" name="weakness-recommendations"></textarea>
                         </mat-form-field>
                     </td>
                 </tr>
