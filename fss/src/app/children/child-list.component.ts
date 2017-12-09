@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, EventEmitter, Output, Input } from '@angular/core';
 import { RestService } from '../rest.service';
 import { Child } from '../child';
+import { SearchCategory } from 'app/search-category';
 
 @Component({
     selector: 'child-list',
@@ -12,6 +13,20 @@ export class ChildList implements OnInit, OnChanges {
     allChildren: Child[];
     filteredChildren: Child[];
     selectedChild: Child;
+    filterActive: Boolean = true;
+    filterInSitu: Boolean = true;
+    filterResolved: Boolean = true;
+    filterCurrent: Boolean = true;
+    searchText: string;
+    currentSearchCategory: SearchCategory = new SearchCategory("child_pinyin_name", "Pinyin Name");
+    searchCategories: SearchCategory[] = new Array<SearchCategory>(
+        new SearchCategory("child_pinyin_name", "Pinyin Name"),
+        new SearchCategory("child_chinese_name", "Chinese Name"),
+        new SearchCategory("nickname", "Nickname"),
+        new SearchCategory("primary_diagnosis", "Primary Diagnosis"),
+        new SearchCategory("secondary_diagnosis", "Secondary Diagnosis")
+
+    );
     @Output() notifySelected = new EventEmitter<number>();
 
     ngOnInit(): void {
@@ -57,9 +72,9 @@ export class ChildList implements OnInit, OnChanges {
 
     getChildStatusClass(child: Child): string {
         let statusClass = "";
-        if(child.status === "Active") {
+        if (child.status === "Active") {
             statusClass = "active";
-        } else if(child.status === "Current") {
+        } else if (child.status === "Current") {
             statusClass = "current";
         } else if (child.status === "In Situ") {
             statusClass = "in_situ"
@@ -72,11 +87,44 @@ export class ChildList implements OnInit, OnChanges {
     }
 
     filterChildren(event: any = null) {
+        console.log("Current Search Category: " + this.currentSearchCategory.viewValue);
         if (event) {
-            this.filteredChildren = this.allChildren.filter(Child => Child.child_pinyin_name.toLowerCase().indexOf(event.target.value.toLowerCase()) !== -1)
+            this._filterChildrenWithString(event.target.value);
         } else {
-            this.filteredChildren = this.allChildren;
+            this._filterChildrenWithString(this.searchText);
+            //this.filteredChildren = this.allChildren;
         }
+    }
+
+    private _filterChildrenWithString(searchstring: string) {
+        console.log("filter Children with string called on string: " + searchstring);
+        this.filteredChildren = this.allChildren.filter(Child => {
+            console.log(this.buildStatusFilterArray());
+            console.log(this.buildStatusFilterArray().includes(Child.status));
+            if (!this.buildStatusFilterArray().includes(Child.status)) {
+                return false;
+            }
+            // Return false if the search category for the child is null
+            if (Child[this.currentSearchCategory.value] == null) {
+                return false;
+            }
+            // Return true if the search box is empty
+            if (!searchstring) {
+                return true;
+            }
+            // Standard filter
+            return Child[this.currentSearchCategory.value].toLowerCase().indexOf(searchstring.toLowerCase()) !== -1
+        })
+
+    }
+
+    buildStatusFilterArray(): String[] {
+        let statusFilterArray = new Array<String>();
+        if (this.filterActive) statusFilterArray.push("Active");
+        if (this.filterCurrent) statusFilterArray.push("Current");
+        if (this.filterInSitu) statusFilterArray.push("In Situ");
+        if (this.filterResolved) statusFilterArray.push("Resolved");
+        return statusFilterArray;
     }
 
 

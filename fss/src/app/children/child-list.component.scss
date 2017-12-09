@@ -1,8 +1,5 @@
 @import '../../theme.scss';
-li .selected {
-  color: $accent;
-  font-weight: bold;
-}
+
 
 #new-child-btn {
   background-color: $light;
@@ -13,6 +10,10 @@ li .selected {
 }
 
 li {
+    .selected {
+        color: $accent;
+        // font-weight: bold;
+      }
   button {
     line-height: 1.5em;
     color: white;
@@ -32,9 +33,31 @@ li {
     &.resolved {background: $status_resolved}
   }
 }
+ul {
+    border-top: solid 1px;
+    padding-top: 8px;
+    margin-top: 8px;
+}
 
 #search-container {
   width: 10em;
+}
+
+.status-toggle {
+    width: 10em;
+}
+
+.search{
+    display: flex;
+    flex-direction: column;
+    .flex-item {
+        color: white;
+        margin-bottom: 0.5em;
+    }
+}
+
+#select-category {
+    width: 10em;
 }
 
 
