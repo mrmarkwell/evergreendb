@@ -65,9 +65,10 @@
             </mat-form-field>
         </div>
         <div class="grid-item" id="status-cell">
-            <mat-form-field flex>
-                <textarea matInput placeholder="status" [(ngModel)]="child.status" name="child-status"></textarea>
-            </mat-form-field>
+            <mat-select placeholder="Status" [(ngModel)]="child.status" name="child-status">
+                <mat-option value=""></mat-option>
+                <mat-option *ngFor="let status of child_status" [value]="status">{{status}}</mat-option>
+            </mat-select>
         </div>
         <div class="grid-item" id="file-upload-button">
             <!-- File input for the file-upload plugin, with special ng2-file-upload directive called ng2FileSelect -->
