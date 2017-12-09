@@ -6,12 +6,36 @@
     <title>FSS Forms - {{ title }}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="static/styles/form_common.css">
 </head>
 
 <body>
     <div class="section-label">
         <h1>SOAR Family Support Services</h1>
         <h2>{{ title }}</h2>
+    </div>
+    <div class="info-row" id="child-info">
+        <div class="info-section">
+            <h3>Child's Name: {{ child.child_pinyin_name }}</h3>
+            <h4>Nickname: {{ child.nickname }}</h4>
+        </div>
+        <div class="info-section">
+            <h3>DOB: {{ child.birth_date.strftime('%Y-%m-%d') }}</h3>
+            <h4>Child's age at first visit:</h4>
+        </div>
+        <div class="info-section">
+            <h3>Referred by: {{ child.referred_by }}</h3>
+            <h4>Data of first visit:</h4>
+        </div>
+        <div class="info-section">
+            <img src="" alt={{ child.nickname }}>
+        </div>
+    </div>
+    <div class="info-row">
+        <div class="info-section">
+            <h3>Logcation:</h3>
+            <h4>Specialitsts Present:</h4>
+        </div>
     </div>
 </body>
 

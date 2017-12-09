@@ -5,13 +5,15 @@ from flask_login import LoginManager
 from flask_admin import Admin
 from flask_login import current_user
 
+
 app = Flask(__name__, static_url_path='/static')
-from app import views
 app.config.from_object('config')
 db = SQLAlchemy(app)
 rest_api = Api(app)
 login_manager = LoginManager(app)
 admin = Admin(app, name='evergreendb', template_mode='bootstrap3')
+
+import views
 
 from api.resources import QueryResource
 from api.resources import EntityResource
