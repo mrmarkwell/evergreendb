@@ -11,7 +11,11 @@ import { MatFormFieldModule,
     MatCheckboxModule,
     MatSnackBarModule,
     MatButtonModule,
-    MatTooltipModule } from '@angular/material';
+    MatTooltipModule,
+    MatSlideToggleModule,
+    MatListModule } from '@angular/material';
+
+     //import {MatSlideToggleModule} from '@angular/material/slide-toggle'
 
 
 import { ChildrenPage } from './children-page.component';
@@ -53,6 +57,8 @@ import { ProjectedPathwayTabComponent } from './tabs/projected-pathway-tab.compo
         MatSnackBarModule,
         MatButtonModule,
         MatTooltipModule,
+        MatListModule,
+        MatSlideToggleModule,
         BrowserModule,
         FormsModule,
         FileUploadModule
