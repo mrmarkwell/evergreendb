@@ -25,8 +25,8 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
     }
     ngOnChanges(): void {
         this.getChild();
-        if (this.child_id != null 
-            && this.expanded_interaction != null 
+        if (this.child_id != null
+            && this.expanded_interaction != null
             && this.child_id !== this.expanded_interaction.child_id) {
                 this.expanded_interaction = null;
             }
@@ -41,6 +41,7 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
                 for (let interaction of interactions) {
                     interaction.interaction_date_object = this.restService.getDateFromString(interaction.interaction_date);
                 }
+                interactions.sort((a,b) => b.interaction_date_object.getTime() - a.interaction_date_object.getTime())
                 return this.interactions = interactions;
             });
     }
@@ -61,7 +62,7 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
         let interaction = new Interaction();
         interaction.interaction_type = 'To Do';
         interaction.child_id = this.child_id;
-        interaction.interaction_date = '2017-09-04';
+        interaction.interaction_date = this.restService.getStringFromDate(new Date);
         this.restService.addInteraction(interaction).then(new_interaction => {
             this.getInteractions().then(interactions => this.selectInteraction(new_interaction.id));
         });

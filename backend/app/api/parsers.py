@@ -31,6 +31,7 @@ fss_child_parser.add_argument('further_diagnosis')
 fss_child_parser.add_argument('reason_for_referral')
 fss_child_parser.add_argument('birth_history')
 fss_child_parser.add_argument('medical_history')
+fss_child_parser.add_argument('family_dynamics')
 
 
 fss_family_member_parser = reqparse.RequestParser()
@@ -42,6 +43,7 @@ fss_family_member_parser.add_argument('family_member_email')
 fss_family_member_parser.add_argument('family_member_wechat')
 fss_family_member_parser.add_argument('family_member_address')
 fss_family_member_parser.add_argument('family_member_notes')
+fss_family_member_parser.add_argument('family_member_is_primary', type=bool)
 
 
 fss_projected_pathway_parser = reqparse.RequestParser()

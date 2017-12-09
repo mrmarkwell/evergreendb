@@ -22,7 +22,7 @@ class FSSChild(db.Model):
     birth_date = db.Column(db.DateTime)
     referred_by = db.Column(db.Unicode(255))
     # This can ONLY have values ACTIVE, CURRENT, IN SITU, or RESOLVED.
-    status = db.Column(db.Unicode(255))
+    status = db.Column(db.Unicode(255))  # Enum
 
     # Medical information tab
     primary_diagnosis = db.Column(db.Unicode(255)) # Enum
@@ -33,6 +33,7 @@ class FSSChild(db.Model):
     reason_for_referral = db.Column(db.Unicode(255))
     birth_history = db.Column(db.Unicode(255))
     medical_history = db.Column(db.Unicode(255))
+    family_dynamics = db.Column(db.Unicode(255))
 
     family_members = db.relationship('FSSFamilyMember', cascade="all, delete", backref='child')
     projected_pathway = db.relationship('FSSProjectedPathway', cascade="all, delete", backref='child')
@@ -50,6 +51,7 @@ class FSSFamilyMember(db.Model):
     family_member_wechat = db.Column(db.Unicode(255))
     family_member_address = db.Column(db.Unicode(255))
     family_member_notes = db.Column(db.Unicode(255))
+    family_member_is_primary = db.Column(db.Boolean)
 
 class FSSProjectedPathway(db.Model):
     __tablename__ = 'fss_projected_pathway'

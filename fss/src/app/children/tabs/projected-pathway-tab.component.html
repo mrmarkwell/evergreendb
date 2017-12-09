@@ -1,6 +1,6 @@
 <form *ngIf="child" id="projected-pathway-form">
-    <button md-raised-button (click)="save()">Save</button>
-    <button md-raised-button (click)="addNewStep()">Add Step</button>
+    <button mat-raised-button (click)="save()">Save</button>
+    <button mat-raised-button (click)="addNewStep()">Add Step</button>
     <div>
         <table *ngIf="projectedPathways != null && projectedPathways.length != 0">
             <colgroup>
@@ -20,27 +20,29 @@
                 </tr>
                 <tr *ngFor="let pathway of projectedPathways">
                     <td class="align-middle">
-                    <button md-icon-button>
-                        <md-icon svgIcon="trash_icon" (click)="delete(pathway.id)"></md-icon>
+                    <button mat-icon-button>
+                        <mat-icon svgIcon="trash_icon" (click)="delete(pathway.id)"></mat-icon>
                     </button>
                     </td>
-                    <td class="align-middle">{{pathway.pathway_step_number}}</td>
+                        <div [class.active]="pathway.pathway_is_active">
+                            <td class="align-middle">{{pathway.pathway_step_number}}</td>
+                        </div>
                     <td>
-                        <md-input-container>
-                            <textarea mdInput [(ngModel)]="pathway.pathway_short_description" name="{{pathway.id}}_short_description"></textarea>
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput [(ngModel)]="pathway.pathway_short_description" name="{{pathway.id}}_short_description"></textarea>
+                        </mat-form-field>
                     </td>
                     <td>
-                        <md-input-container>
-                            <textarea mdInput [(ngModel)]="pathway.pathway_details" name="{{pathway.id}}_details"></textarea>
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput [(ngModel)]="pathway.pathway_details" name="{{pathway.id}}_details"></textarea>
+                        </mat-form-field>
                     </td>
                     <td>
-                        <md-input-container>
-                            <input mdInput [mdDatepicker]="picker" [(ngModel)]="pathway.pathway_completion_date_object" name="{{pathway.id}}_datepicker">
-                            <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
-                        </md-input-container>
-                        <md-datepicker #picker></md-datepicker>
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker" [(ngModel)]="pathway.pathway_completion_date_object" name="{{pathway.id}}_datepicker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        </mat-form-field>
+                        <mat-datepicker #picker></mat-datepicker>
                     </td>
                 </tr>
             </tbody>

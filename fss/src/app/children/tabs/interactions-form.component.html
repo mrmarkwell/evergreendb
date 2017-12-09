@@ -1,77 +1,75 @@
 <div *ngIf="interaction">
     <div>
-        <button md-raised-button (click)="hideForm()">Hide</button>
-        <button md-icon-button>
-            <md-icon svgIcon="save_icon" (click)="saveInteraction()"></md-icon>
+        <button mat-raised-button (click)="hideForm()">Hide</button>
+        <button mat-icon-button>
+            <mat-icon svgIcon="save_icon" (click)="saveInteraction()"></mat-icon>
         </button>
-        <button md-icon-button>
-            <md-icon svgIcon="trash_icon" (click)="deleteInteraction()"></md-icon>
+        <button mat-icon-button>
+            <mat-icon svgIcon="trash_icon" (click)="deleteInteraction()"></mat-icon>
         </button>
     </div>
-    <table>
-        <tbody>
-            <tr>
-                <td>
-                    <md-input-container>
-                        <input mdInput [mdDatepicker]="picker" placeholder="date" name="interaction-date" [(ngModel)]="interaction.interaction_date_object">
-                        <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
-                    </md-input-container>
-                    <md-datepicker #picker></md-datepicker>
-                </td>
-                <td>
-                    <md-select placeholder="Type" [(ngModel)]="interaction.interaction_type" name="interaction-type">
-                        <md-option *ngFor="let interaction_type of interaction_types" [value]="interaction_type">{{interaction_type}}</md-option>
-                    </md-select>
-                </td>
-                <td>
-                    <md-select placeholder="Coordinator" [(ngModel)]="interaction.interaction_coordinator" name="interaction-type">
-                        <md-option *ngFor="let interaction_coordinator of interaction_coordinators" [value]="interaction_coordinator">{{interaction_coordinator}}</md-option>
-                    </md-select>
-                </td>
-                <td>
-                    <md-input-container>
-                        <input mdInput placeholder="People Present" [(ngModel)]="interaction.people_present" name="people-present">
-                    </md-input-container>
-                </td>
-                <td>
-                    <md-checkbox [(ngModel)]="interaction.is_initial_interaction">initial interaction</md-checkbox>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class='flex-row'>
+        <div class='flex-item'>
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="date" name="interaction-date" [(ngModel)]="interaction.interaction_date_object">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            </mat-form-field>
+            <mat-datepicker #picker></mat-datepicker>
+        </div>
+        <div class='flex-item'>
+            <mat-select placeholder="Type" [(ngModel)]="interaction.interaction_type" name="interaction-type">
+                <mat-option *ngFor="let interaction_type of interaction_types" [value]="interaction_type">{{interaction_type}}</mat-option>
+            </mat-select>
+        </div>
+        <div class='flex-item'>
+            <mat-select placeholder="Coordinator" [(ngModel)]="interaction.interaction_coordinator" name="interaction-type">
+                <mat-option *ngFor="let interaction_coordinator of interaction_coordinators" [value]="interaction_coordinator">{{interaction_coordinator}}</mat-option>
+            </mat-select>
+        </div>
+        <div class='flex-item'>
+            <mat-form-field>
+                <input matInput placeholder="People Present" [(ngModel)]="interaction.people_present" name="people-present">
+            </mat-form-field>
+        </div>
+        <div class='flex-item'>
+            <mat-checkbox [(ngModel)]="interaction.is_initial_interaction">initial interaction</mat-checkbox>
+        </div>
+    </div>
     <div *ngIf="!showDetails()">
-        <md-input-container>
-            <textarea mdInput placeholder="Notes" [(ngModel)]="interaction.follow_up" name="follow-up-notes"></textarea>
-        </md-input-container>
+        <ul><li>
+            <mat-form-field>
+                <textarea matInput placeholder="Notes" [(ngModel)]="interaction.follow_up" name="follow-up-notes"></textarea>
+            </mat-form-field>
+        </li></ul>
     </div>
     <div *ngIf="showDetails()">
         <ul *ngIf="interaction.is_initial_interaction">
             <li>
-                <md-input-container>
-                    <textarea mdInput placeholder="Current Concerns" [(ngModel)]="interaction.current_concerns" name="current-concerns"></textarea>
-                </md-input-container>
+                <mat-form-field>
+                    <textarea matInput placeholder="Current Concerns" [(ngModel)]="interaction.current_concerns" name="current-concerns"></textarea>
+                </mat-form-field>
             </li>
             <li>
-                <md-input-container>
-                    <textarea mdInput placeholder="Developmental history and current ability" [(ngModel)]="interaction.dev_history" name="developmental-history"></textarea>
-                </md-input-container>
+                <mat-form-field>
+                    <textarea matInput placeholder="Developmental history and current ability" [(ngModel)]="interaction.dev_history" name="developmental-history"></textarea>
+                </mat-form-field>
             </li>
         </ul>
         <ul *ngIf="!interaction.is_initial_interaction">
             <li>
-                <md-input-container>
-                    <textarea mdInput placeholder="Developments since last visit" [(ngModel)]="interaction.dev_since_last_visit" name="dev-since-last-visit"></textarea>
-                </md-input-container>
+                <mat-form-field>
+                    <textarea matInput placeholder="Developments since last visit" [(ngModel)]="interaction.dev_since_last_visit" name="dev-since-last-visit"></textarea>
+                </mat-form-field>
             </li>
             <li>
-                <md-input-container>
-                    <textarea mdInput placeholder="Follow up on last visit’s recommendations" [(ngModel)]="interaction.follow_up" name="follow-up"></textarea>
-                </md-input-container>
+                <mat-form-field>
+                    <textarea matInput placeholder="Follow up on last visit’s recommendations" [(ngModel)]="interaction.follow_up" name="follow-up"></textarea>
+                </mat-form-field>
             </li>
             <li>
-                <md-input-container>
-                    <textarea mdInput placeholder="Current Concerns" [(ngModel)]="interaction.current_concerns" name="current-concerns"></textarea>
-                </md-input-container>
+                <mat-form-field>
+                    <textarea matInput placeholder="Current Concerns" [(ngModel)]="interaction.current_concerns" name="current-concerns"></textarea>
+                </mat-form-field>
             </li>
         </ul>
         <table id="development-table">
@@ -89,162 +87,162 @@
                 <tr>
                     <th>Feeding:</th>
                     <td>
-                        <md-checkbox [(ngModel)]="interaction.milk_feeding">milk</md-checkbox>
+                        <mat-checkbox [(ngModel)]="interaction.milk_feeding">milk</mat-checkbox>
                     </td>
                     <td rowspan="4">
-                        <md-input-container>
-                            <textarea mdInput placeholder="Feeding recommendations" [(ngModel)]="interaction.feeding_recommendations" id="feeding-recommendations"
+                        <mat-form-field>
+                            <textarea matInput placeholder="Feeding recommendations" [(ngModel)]="interaction.feeding_recommendations" id="feeding-recommendations"
                                 name="feeding-recommendations">
                             </textarea>
-                        </md-input-container>
+                        </mat-form-field>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <md-checkbox [(ngModel)]="interaction.solid_feeding">solids</md-checkbox>
+                        <mat-checkbox [(ngModel)]="interaction.solid_feeding">solids</mat-checkbox>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <md-checkbox [(ngModel)]="interaction.self_feeding">self-feeding</md-checkbox>
+                        <mat-checkbox [(ngModel)]="interaction.self_feeding">self-feeding</mat-checkbox>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Texture preferences" [(ngModel)]="interaction.texture_preferences" name="texture-preferences">
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Texture preferences" [(ngModel)]="interaction.texture_preferences" name="texture-preferences"></textarea>
+                        </mat-form-field>
                     </td>
                 </tr>
                 <tr>
                     <th>Developmental<br>and behavioural:</th>
                     <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Notes" [(ngModel)]="interaction.developmental_notes" name="development-notes">
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Notes" [(ngModel)]="interaction.developmental_notes" name="development-notes"></textarea>
+                        </mat-form-field>
                     </td>
                     <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Recommendations" [(ngModel)]="interaction.developmental_recommendations" name="development-recommendations">
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Recommendations" [(ngModel)]="interaction.developmental_recommendations" name="development-recommendations"></textarea>
+                        </mat-form-field>
                     </td>
                 </tr>
                 <tr>
                     <th>OT:</th>
                     <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Notes" [(ngModel)]="interaction.ot_notes" name="ot-notes">
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Notes" [(ngModel)]="interaction.ot_notes" name="ot-notes"></textarea>
+                        </mat-form-field>
                     </td>
                     <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Recommendations" [(ngModel)]="interaction.ot_recommendations" name="ot-recommendations">
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Recommendations" [(ngModel)]="interaction.ot_recommendations" name="ot-recommendations"></textarea>
+                        </mat-form-field>
                     </td>
                 </tr>
                 <tr>
                     <th>Sensory issues:</th>
                     <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Notes" [(ngModel)]="interaction.sensory_notes" name="sensory-notes">
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Notes" [(ngModel)]="interaction.sensory_notes" name="sensory-notes"></textarea>
+                        </mat-form-field>
                     </td>
                     <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Recommendations" [(ngModel)]="interaction.sensory_recommendations" name="sensory-recommendations">
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Recommendations" [(ngModel)]="interaction.sensory_recommendations" name="sensory-recommendations"></textarea>
+                        </mat-form-field>
                     </td>
                 </tr>
                 <tr>
                     <th>Speech:</th>
                     <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Notes" [(ngModel)]="interaction.speech_notes" name="speech-notes">
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Notes" [(ngModel)]="interaction.speech_notes" name="speech-notes"></textarea>
+                        </mat-form-field>
                     </td>
                     <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Recommendations" [(ngModel)]="interaction.speech_recommendations" name="speech-recommendations">
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Recommendations" [(ngModel)]="interaction.speech_recommendations" name="speech-recommendations"></textarea>
+                        </mat-form-field>
                     </td>
                 </tr>
                 <tr>
                     <th>Physical:</th>
                     <td>
-                        <md-checkbox [(ngModel)]="interaction.head_control">Head control</md-checkbox>
+                        <mat-checkbox [(ngModel)]="interaction.head_control">Head control</mat-checkbox>
                     </td>
                     <td rowspan="5">
-                        <md-input-container>
-                            <textarea mdInput placeholder="Physical Recommendations" [(ngModel)]="interaction.physical_recommendations" id="physical-recommendations"
+                        <mat-form-field>
+                            <textarea matInput placeholder="Physical Recommendations" [(ngModel)]="interaction.physical_recommendations" id="physical-recommendations"
                                 name="physical-recommendations">
                             </textarea>
-                        </md-input-container>
+                        </mat-form-field>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <md-checkbox [(ngModel)]="interaction.rolling">Rolling</md-checkbox>
+                        <mat-checkbox [(ngModel)]="interaction.rolling">Rolling</mat-checkbox>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <md-checkbox [(ngModel)]="interaction.sitting">Sitting</md-checkbox>
+                        <mat-checkbox [(ngModel)]="interaction.sitting">Sitting</mat-checkbox>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <md-checkbox [(ngModel)]="interaction.standing">Standing</md-checkbox>
+                        <mat-checkbox [(ngModel)]="interaction.standing">Standing</mat-checkbox>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <md-checkbox [(ngModel)]="interaction.walking">Walking</md-checkbox>
+                        <mat-checkbox [(ngModel)]="interaction.walking">Walking</mat-checkbox>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Gross Motor Notes" [(ngModel)]="interaction.gross_motor_notes" name="gross-moter-notes">
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Gross Motor Notes" [(ngModel)]="interaction.gross_motor_notes" name="gross-moter-notes"></textarea>
+                        </mat-form-field>
                     </td>
                     <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Gross Motor Recommendations" [(ngModel)]="interaction.gross_motor_recommendations" name="gross-motor-recommendations">
-                        </md-input-container>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Fine Motor Notes" [(ngModel)]="interaction.fine_motor_notes" name="fine-moter-notes">
-                        </md-input-container>
-                    </td>
-                    <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Fine Motor Recommendations" [(ngModel)]="interaction.fine_motor_recommendations" name="fine-motor-recommendations">
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Gross Motor Recommendations" [(ngModel)]="interaction.gross_motor_recommendations" name="gross-motor-recommendations"></textarea>
+                        </mat-form-field>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Weakness Notes" [(ngModel)]="interaction.weakness_notes" name="weakness-notes">
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Fine Motor Notes" [(ngModel)]="interaction.fine_motor_notes" name="fine-moter-notes"></textarea>
+                        </mat-form-field>
                     </td>
                     <td>
-                        <md-input-container>
-                            <input mdInput placeholder="Weakness Recommendations" [(ngModel)]="interaction.weakness_recommendations" name="weakness-recommendations">
-                        </md-input-container>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Fine Motor Recommendations" [(ngModel)]="interaction.fine_motor_recommendations" name="fine-motor-recommendations"></textarea>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Weakness Notes" [(ngModel)]="interaction.weakness_notes" name="weakness-notes"></textarea>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Weakness Recommendations" [(ngModel)]="interaction.weakness_recommendations" name="weakness-recommendations"></textarea>
+                        </mat-form-field>
                     </td>
                 </tr>
             </tbody>

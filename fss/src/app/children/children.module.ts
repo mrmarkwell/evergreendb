@@ -1,7 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MaterialModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule, 
+    MatInputModule, 
+    MatIconModule,
+    MatDatepickerModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatTabsModule,
+    MatCheckboxModule,
+    MatSnackBarModule,
+    MatButtonModule,
+    MatTooltipModule } from '@angular/material';
+
 
 import { ChildrenPage } from './children-page.component';
 import { ChildDetails } from './child-details.component';
@@ -18,25 +29,35 @@ import { InteractionsFormComponent } from './tabs/interactions-form.component';
 import { ProjectedPathwayTabComponent } from './tabs/projected-pathway-tab.component';
 
 @NgModule({
-	declarations: [
-		ChildrenPage,
-		ChildList,
-		ChildDetails,
-		ChildTabs,
-		FamilyTabComponent,
-		FamilyListComponent,
-		MedicalTabComponent,
-		InteractionsTabComponent,
-		InteractionsFormComponent,
-		ProjectedPathwayTabComponent
-	],
-	imports: [
-		BrowserModule,
-		MaterialModule,
-		FormsModule,
-		FileUploadModule
-	],
-	providers: [],
-	bootstrap: [ChildrenPage]
+    declarations: [
+        ChildrenPage,
+        ChildList,
+        ChildDetails,
+        ChildTabs,
+        FamilyTabComponent,
+        FamilyListComponent,
+        MedicalTabComponent,
+        InteractionsTabComponent,
+        InteractionsFormComponent,
+        ProjectedPathwayTabComponent
+    ],
+    imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        MatDatepickerModule,
+        MatOptionModule,
+        MatSelectModule,
+        MatTabsModule,
+        MatCheckboxModule,
+        MatSnackBarModule,
+        MatButtonModule,
+        MatTooltipModule,
+        BrowserModule,
+        FormsModule,
+        FileUploadModule
+    ],
+    providers: [],
+    bootstrap: [ChildrenPage]
 })
 export class ChildrenModule { }

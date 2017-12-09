@@ -1,11 +1,11 @@
 <form id="child-details-form" *ngIf="child">
     <div class="grid">
         <div class="grid-item" id="save-del-cell">
-            <button md-icon-button>
-                <md-icon svgIcon="save_icon" (click)="saveChild()"></md-icon>
+            <button mat-icon-button>
+                <mat-icon svgIcon="save_icon" (click)="saveChild()"></mat-icon>
             </button><br />
-            <button md-icon-button>
-                <md-icon svgIcon="trash_icon" (click)="deleteChild()"></md-icon>
+            <button mat-icon-button>
+                <mat-icon svgIcon="trash_icon" (click)="deleteChild()"></mat-icon>
             </button>
         </div>
         <div class="grid-item" id="profile-pic-cell">
@@ -15,64 +15,65 @@
             </div>
         </div>
         <div class="grid-item" id="chinese-name-cell">
-            <md-input-container>
-                <input mdInput placeholder="Chinese Name" [(ngModel)]="child.child_chinese_name" name="child-chinese-name">
-            </md-input-container>
+            <mat-form-field>
+                <input matInput placeholder="Chinese Name" [(ngModel)]="child.child_chinese_name" name="child-chinese-name">
+            </mat-form-field>
         </div>
         <div class="grid-item" id="pinyin-name-cell">
-            <md-input-container>
-                <input mdInput placeholder="Pinyin Name" [(ngModel)]="child.child_pinyin_name" name="child-pinyin-name">
-            </md-input-container>
+            <mat-form-field>
+                <input matInput placeholder="Pinyin Name" [(ngModel)]="child.child_pinyin_name" name="child-pinyin-name">
+            </mat-form-field>
         </div>
         <div class="grid-item" id="nickname-cell">
-            <md-input-container>
-                <input mdInput placeholder="Nickname" [(ngModel)]="child.nickname" name="child-nickname">
-            </md-input-container>
+            <mat-form-field>
+                <input matInput placeholder="Nickname" [(ngModel)]="child.nickname" name="child-nickname">
+            </mat-form-field>
         </div>
         <div class="grid-item" id="dob-cell">
-            <md-input-container>
-                <input mdInput [mdDatepicker]="picker" placeholder="DOB" name="birth-date" [(ngModel)]="child.birth_date_object">
-                <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
-            </md-input-container>
-            <md-datepicker #picker></md-datepicker>
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="DOB" name="birth-date" [(ngModel)]="child.birth_date_object">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            </mat-form-field>
+            <mat-datepicker #picker></mat-datepicker>
         </div>
         <div class="grid-item" id="age-cell">
-            <md-input-container>
-                <input mdInput placeholder="Age" disabled [(ngModel)]="age" name="age">
-            </md-input-container>
+            <mat-form-field>
+                <input matInput placeholder="Age" disabled [(ngModel)]="age" name="age">
+            </mat-form-field>
         </div>
         <div class="grid-item" id="gender-cell">
-            <md-select placeholder="Sex" [(ngModel)]="child.gender" name="sex">
-                <md-option value="M">Male</md-option>
-                <md-option value="F">Female</md-option>
-            </md-select>
+            <mat-select placeholder="Sex" [(ngModel)]="child.gender" name="sex">
+                <mat-option value="M">Male</mat-option>
+                <mat-option value="F">Female</mat-option>
+            </mat-select>
         </div>
         <div class="grid-item" id="primary-diagnosis-cell">
-            <md-select placeholder="Primary Diagnosis" [(ngModel)]="child.primary_diagnosis" name="primary-diagnosis">
-                <md-option value=""></md-option>
-                <md-option *ngFor="let condition of medical_conditions" [value]="condition">{{condition}}</md-option>
-            </md-select>
+            <mat-select placeholder="Primary Diagnosis" [(ngModel)]="child.primary_diagnosis" name="primary-diagnosis">
+                <mat-option value=""></mat-option>
+                <mat-option *ngFor="let condition of medical_conditions" [value]="condition">{{condition}}</mat-option>
+            </mat-select>
         </div>
         <div class="grid-item" id="second-diagnosis-cell">
-            <md-select placeholder="Secondary Diagnosis" [(ngModel)]="child.secondary_diagnosis" name="secondary-diagnosis">
-                <md-option value=""></md-option>
-                <md-option *ngFor="let condition of medical_conditions" [value]="condition">{{condition}}</md-option>
-            </md-select>
+            <mat-select placeholder="Secondary Diagnosis" [(ngModel)]="child.secondary_diagnosis" name="secondary-diagnosis">
+                <mat-option value=""></mat-option>
+                <mat-option *ngFor="let condition of medical_conditions" [value]="condition">{{condition}}</mat-option>
+            </mat-select>
         </div>
         <div class="grid-item" id="referred-by-cell">
-            <md-input-container>
-                <input mdInput placeholder="Referred By" [(ngModel)]="child.referred_by" name="referred-by">
-            </md-input-container>
+            <mat-form-field>
+                <input matInput placeholder="Referred By" [(ngModel)]="child.referred_by" name="referred-by">
+            </mat-form-field>
         </div>
         <div class="grid-item" id="status-cell">
-            <md-input-container flex>
-                <textarea mdInput placeholder="status" [(ngModel)]="child.status" name="child-status"></textarea>
-            </md-input-container>
+            <mat-select placeholder="Status" [(ngModel)]="child.status" name="child-status">
+                <mat-option value=""></mat-option>
+                <mat-option *ngFor="let status of child_status" [value]="status">{{status}}</mat-option>
+            </mat-select>
         </div>
         <div class="grid-item" id="file-upload-button">
             <!-- File input for the file-upload plugin, with special ng2-file-upload directive called ng2FileSelect -->
             <input #fileInput id=profile-pic-file-select type="file" name="photo" ng2FileSelect [uploader]="uploader" [accept]="allowed_mime_type.toString()"/>
-            <button md-raised-button (click)="openFileSelect()">Upload...</button>
+            <button mat-raised-button (click)="openFileSelect()">Upload...</button>
         </div>
     </div>
 </form>

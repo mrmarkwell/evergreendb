@@ -30,7 +30,7 @@ For Windows terminal emulator:
 pip install virtualenv
 cd backend
 source virtualize.sh
-python db_create.py
+./create_prod_db.sh // Or create_test_db.sh to populate some test data
 python run.py
 ```
 
@@ -54,13 +54,22 @@ Windows: https://nodejs.org/en/download/
 
 Install dependencies and run app:  
 ```
-cd electron
+cd fss 
 npm install
-npm start
+
+// To test in browser and attach vscode debugger
+ng serve
+
+// To run in electron locally with source mapping
+npm run slowstart
+
+// To run in electron locally without source mapping (faster)
+npm run faststart
+
 ```
 
 Package app as executable:
 ```
-npm run build # for current OS
-npm run buildall # for all OSs
+npm run packagelocal # for current OS
+npm run packageall # for all OSs
 ```

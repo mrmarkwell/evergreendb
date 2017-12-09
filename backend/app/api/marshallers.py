@@ -28,6 +28,7 @@ fss_child_fields = {
     'reason_for_referral': fields.String,
     'birth_history': fields.String,
     'medical_history': fields.String,
+    'family_dynamics': fields.String,
 }
 
 fss_family_member_fields = {
@@ -39,7 +40,8 @@ fss_family_member_fields = {
     'family_member_email': fields.String,
     'family_member_wechat': fields.String,
     'family_member_address': fields.String,
-    'family_member_notes': fields.String
+    'family_member_notes': fields.String,
+    'family_member_is_primary': fields.Boolean,
 }
 
 fss_projected_pathway_fields = {

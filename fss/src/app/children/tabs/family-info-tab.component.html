@@ -1,54 +1,67 @@
-<table><tr>
-<td id='family-member-list'>
-	<family-list (notifySelected)="onSelect($event)" [child_id]="child_id"></family-list>
-</td>
-<td id='family-member-details'>
-	<form *ngIf="family_member" id='family-member-details-form'>
-		<ul>
-			<li>
-				<button md-icon-button>
-					<md-icon svgIcon="save_icon" (click)="save()"></md-icon>
-				</button>
-				<button md-icon-button>
-					<md-icon svgIcon="trash_icon" (click)="delete()"></md-icon>
-				</button>
-			</li>
-			<li>
-				<md-input-container>
-					<input mdInput placeholder="Name" [(ngModel)]="family_member.family_member_name" name="family-member-name">
-				</md-input-container>
-			</li>
-			<li>
-				<md-input-container>
-					<input mdInput placeholder="Relationship" [(ngModel)]="family_member.relationship" name="family-member-relationship">
-				</md-input-container>
-			</li>
-			<li>
-				<md-input-container>
-					<input mdInput placeholder="Phone" [(ngModel)]="family_member.family_member_phone" name="family-member-phone">
-				</md-input-container>
-			</li>
-			<li>
-				<md-input-container>
-					<input mdInput placeholder="Email" [(ngModel)]="family_member.family_member_email" name="family-member-email">
-				</md-input-container>
-			</li>
-			<li>
-				<md-input-container>
-					<input mdInput placeholder="WeChat" [(ngModel)]="family_member.family_member_wechat" name="family-member-wechat">
-				</md-input-container>
-			</li>
-			<li>
-				<md-input-container>
-					<input mdInput placeholder="Address" [(ngModel)]="family_member.family_member_address" name="family-member-address">
-				</md-input-container>
-			</li>
-			<li>
-				<md-input-container>
-					<textarea mdInput placeholder="Notes" [(ngModel)]="family_member.family_member_notes" name="family-member-notes"></textarea>
-				</md-input-container>
-			</li>
-		</ul>
-	</form>
-</td>
-</tr></table>
+<div class='flex-col'>
+	<div class='flex-item' id='family-dynamics-box' *ngIf='child' class='flex-row'>
+		<button mat-icon-button class='flex-item'>
+			<mat-icon svgIcon="save_icon" (click)="saveChild()"></mat-icon>
+		</button>
+		<mat-form-field id='family-dynamics-field' class='flex-item'>
+			<textarea matInput placeholder="Family Dynamics Observed" [(ngModel)]="child.family_dynamics" name="family-dynamics"></textarea>
+		</mat-form-field>
+	</div>
+	<div class='flex-item' id='family-members-box' class='flex-row'>
+		<div class='flex-item' id='family-member-list'>
+			<family-list (notifySelected)="onSelect($event)" [child_id]="child_id"></family-list>
+		</div>
+		<div class='flex-item' id='family-member-details'>
+			<form *ngIf="family_member" id='family-member-details-form'>
+				<ul>
+					<li>
+						<button mat-icon-button>
+							<mat-icon svgIcon="save_icon" (click)="saveFamilyMember()"></mat-icon>
+						</button>
+						<button mat-icon-button>
+							<mat-icon svgIcon="trash_icon" (click)="delete()"></mat-icon>
+						</button>
+					</li>
+					<li>
+						<mat-form-field>
+							<input matInput placeholder="Name" [(ngModel)]="family_member.family_member_name" name="family-member-name">
+						</mat-form-field>
+					</li>
+					<li>
+						<mat-form-field>
+							<input matInput placeholder="Relationship" [(ngModel)]="family_member.relationship" name="family-member-relationship">
+						</mat-form-field>
+					</li>
+					<li>
+						<mat-form-field>
+							<input matInput placeholder="Phone" [(ngModel)]="family_member.family_member_phone" name="family-member-phone">
+						</mat-form-field>
+					</li>
+					<li>
+						<mat-form-field>
+							<input matInput placeholder="Email" [(ngModel)]="family_member.family_member_email" name="family-member-email">
+						</mat-form-field>
+					</li>
+					<li>
+						<mat-form-field>
+							<input matInput placeholder="WeChat" [(ngModel)]="family_member.family_member_wechat" name="family-member-wechat">
+						</mat-form-field>
+					</li>
+					<li>
+						<mat-form-field>
+							<input matInput placeholder="Address" [(ngModel)]="family_member.family_member_address" name="family-member-address">
+						</mat-form-field>
+					</li>
+					<li>
+						<mat-form-field>
+							<textarea matInput placeholder="Notes" [(ngModel)]="family_member.family_member_notes" name="family-member-notes"></textarea>
+						</mat-form-field>
+					</li>
+					<li>
+						<mat-checkbox [(ngModel)]="family_member.family_member_is_primary" name="primary_caregiver">Primary Caregiver</mat-checkbox>
+					</li>
+				</ul>
+			</form>
+		</div>
+	</div>
+</div>

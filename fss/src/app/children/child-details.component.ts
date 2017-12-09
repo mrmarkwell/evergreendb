@@ -2,9 +2,9 @@ import { Component, OnInit, OnChanges, Input, Output, EventEmitter, ViewChild } 
 import { ParamMap } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MdIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material';
 import { FileUploader, FileItem, FileUploaderOptions, FileLikeObject } from 'ng2-file-upload';
-import { MdSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 
 
 import { Child } from '../child';
@@ -19,6 +19,7 @@ export class ChildDetails implements OnInit, OnChanges {
     private child: Child;
     private age: number;
     private medical_conditions: string[];
+    private child_status: string[];
     private child_photo_url: string;
     private on_changes_count = 0;
     private uploader: FileUploader;
@@ -28,11 +29,11 @@ export class ChildDetails implements OnInit, OnChanges {
 
     @Output() notifyDeleted = new EventEmitter<null>();
     constructor(
-        iconRegistry: MdIconRegistry,
+        iconRegistry: MatIconRegistry,
         sanitizer: DomSanitizer,
         private restService: RestService,
         private datePipe: DatePipe,
-        public snackBar: MdSnackBar
+        public snackBar: MatSnackBar
     ) {
         iconRegistry.addSvgIcon(
             'trash_icon',
@@ -40,6 +41,9 @@ export class ChildDetails implements OnInit, OnChanges {
         iconRegistry.addSvgIcon(
             'save_icon',
             sanitizer.bypassSecurityTrustResourceUrl('assets/save_icon.svg'));
+        iconRegistry.addSvgIcon(
+            'star_icon',
+            sanitizer.bypassSecurityTrustResourceUrl('assets/star_icon.svg'));
     }
     ngOnInit(): void {
         this.uploader = new FileUploader({
@@ -72,6 +76,7 @@ export class ChildDetails implements OnInit, OnChanges {
             this.ngOnChanges();
         }
         this.restService.getEnum("fss_medical_condition").then(conditions => this.medical_conditions = conditions);
+        this.restService.getEnum("fss_child_status").then(status => this.child_status = status);
         this.restService.changeEmitter.subscribe(() => this.ngOnChanges());
         this.child_photo_url = this.restService.getChildPhotoUrl(this.child_id);
     }
