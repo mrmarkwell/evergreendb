@@ -10,7 +10,7 @@ var template = [{
     submenu: [
         { label: "About Application", selector: "orderFrontStandardAboutPanel:" },
         { type: "separator" },
-        { label: "Quit", accelerator: "Command+Q", click: function() { app.quit(); }}
+        { label: "Quit", accelerator: "CmdOrCtrl+Q", click: function() { app.quit(); }}
     ]}, {
     label: "Edit",
     submenu: [
