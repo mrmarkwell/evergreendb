@@ -6,6 +6,7 @@ from flask_admin import Admin
 from flask_login import current_user
 
 app = Flask(__name__, static_url_path='/static')
+from app import views
 app.config.from_object('config')
 db = SQLAlchemy(app)
 rest_api = Api(app)
