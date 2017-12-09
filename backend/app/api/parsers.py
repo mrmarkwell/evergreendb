@@ -43,6 +43,7 @@ fss_family_member_parser.add_argument('family_member_email')
 fss_family_member_parser.add_argument('family_member_wechat')
 fss_family_member_parser.add_argument('family_member_address')
 fss_family_member_parser.add_argument('family_member_notes')
+fss_family_member_parser.add_argument('family_member_is_primary', type=bool)
 
 
 fss_projected_pathway_parser = reqparse.RequestParser()

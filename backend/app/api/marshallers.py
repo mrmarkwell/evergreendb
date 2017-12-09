@@ -40,7 +40,8 @@ fss_family_member_fields = {
     'family_member_email': fields.String,
     'family_member_wechat': fields.String,
     'family_member_address': fields.String,
-    'family_member_notes': fields.String
+    'family_member_notes': fields.String,
+    'family_member_is_primary': fields.Boolean,
 }
 
 fss_projected_pathway_fields = {

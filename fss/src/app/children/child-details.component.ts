@@ -41,6 +41,9 @@ export class ChildDetails implements OnInit, OnChanges {
         iconRegistry.addSvgIcon(
             'save_icon',
             sanitizer.bypassSecurityTrustResourceUrl('assets/save_icon.svg'));
+        iconRegistry.addSvgIcon(
+            'star_icon',
+            sanitizer.bypassSecurityTrustResourceUrl('assets/star_icon.svg'));
     }
     ngOnInit(): void {
         this.uploader = new FileUploader({

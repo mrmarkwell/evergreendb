@@ -57,6 +57,9 @@
 							<textarea matInput placeholder="Notes" [(ngModel)]="family_member.family_member_notes" name="family-member-notes"></textarea>
 						</mat-form-field>
 					</li>
+					<li>
+						<mat-checkbox [(ngModel)]="family_member.family_member_is_primary" name="primary_caregiver">Primary Caregiver</mat-checkbox>
+					</li>
 				</ul>
 			</form>
 		</div>
