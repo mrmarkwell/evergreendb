@@ -11,8 +11,7 @@
       "userDataDir": "${workspaceRoot}/.vscode/chrome",
       "runtimeArgs": [
         "--disable-session-crashed-bubble",
-        "--disable-web-security",
-        "--user-data-dir=/Users/Markwell/Desktop/chrome_data_dir"
+        "--disable-web-security"
       ]
     },
     {

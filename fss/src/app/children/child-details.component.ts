@@ -19,6 +19,7 @@ export class ChildDetails implements OnInit, OnChanges {
     private child: Child;
     private age: number;
     private medical_conditions: string[];
+    private child_status: string[];
     private child_photo_url: string;
     private on_changes_count = 0;
     private uploader: FileUploader;
@@ -72,6 +73,7 @@ export class ChildDetails implements OnInit, OnChanges {
             this.ngOnChanges();
         }
         this.restService.getEnum("fss_medical_condition").then(conditions => this.medical_conditions = conditions);
+        this.restService.getEnum("fss_child_status").then(status => this.child_status = status);
         this.restService.changeEmitter.subscribe(() => this.ngOnChanges());
         this.child_photo_url = this.restService.getChildPhotoUrl(this.child_id);
     }
