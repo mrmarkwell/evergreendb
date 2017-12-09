@@ -24,3 +24,14 @@ td {
 #physical-recommendations {
 	height: 7em;
 }
+
+.flex-row {
+	padding-top: 0.3em;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+}
+
+.flex-item {
+	margin-right: 3px;
+}

@@ -8,41 +8,39 @@
             <mat-icon svgIcon="trash_icon" (click)="deleteInteraction()"></mat-icon>
         </button>
     </div>
-    <table>
-        <tbody>
-            <tr>
-                <td>
-                    <mat-form-field>
-                        <input matInput [matDatepicker]="picker" placeholder="date" name="interaction-date" [(ngModel)]="interaction.interaction_date_object">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    </mat-form-field>
-                    <mat-datepicker #picker></mat-datepicker>
-                </td>
-                <td>
-                    <mat-select placeholder="Type" [(ngModel)]="interaction.interaction_type" name="interaction-type">
-                        <mat-option *ngFor="let interaction_type of interaction_types" [value]="interaction_type">{{interaction_type}}</mat-option>
-                    </mat-select>
-                </td>
-                <td>
-                    <mat-select placeholder="Coordinator" [(ngModel)]="interaction.interaction_coordinator" name="interaction-type">
-                        <mat-option *ngFor="let interaction_coordinator of interaction_coordinators" [value]="interaction_coordinator">{{interaction_coordinator}}</mat-option>
-                    </mat-select>
-                </td>
-                <td>
-                    <mat-form-field>
-                        <input matInput placeholder="People Present" [(ngModel)]="interaction.people_present" name="people-present">
-                    </mat-form-field>
-                </td>
-                <td>
-                    <mat-checkbox [(ngModel)]="interaction.is_initial_interaction">initial interaction</mat-checkbox>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class='flex-row'>
+        <div class='flex-item'>
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="date" name="interaction-date" [(ngModel)]="interaction.interaction_date_object">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            </mat-form-field>
+            <mat-datepicker #picker></mat-datepicker>
+        </div>
+        <div class='flex-item'>
+            <mat-select placeholder="Type" [(ngModel)]="interaction.interaction_type" name="interaction-type">
+                <mat-option *ngFor="let interaction_type of interaction_types" [value]="interaction_type">{{interaction_type}}</mat-option>
+            </mat-select>
+        </div>
+        <div class='flex-item'>
+            <mat-select placeholder="Coordinator" [(ngModel)]="interaction.interaction_coordinator" name="interaction-type">
+                <mat-option *ngFor="let interaction_coordinator of interaction_coordinators" [value]="interaction_coordinator">{{interaction_coordinator}}</mat-option>
+            </mat-select>
+        </div>
+        <div class='flex-item'>
+            <mat-form-field>
+                <input matInput placeholder="People Present" [(ngModel)]="interaction.people_present" name="people-present">
+            </mat-form-field>
+        </div>
+        <div class='flex-item'>
+            <mat-checkbox [(ngModel)]="interaction.is_initial_interaction">initial interaction</mat-checkbox>
+        </div>
+    </div>
     <div *ngIf="!showDetails()">
-        <mat-form-field>
-            <textarea matInput placeholder="Notes" [(ngModel)]="interaction.follow_up" name="follow-up-notes"></textarea>
-        </mat-form-field>
+        <ul><li>
+            <mat-form-field>
+                <textarea matInput placeholder="Notes" [(ngModel)]="interaction.follow_up" name="follow-up-notes"></textarea>
+            </mat-form-field>
+        </li></ul>
     </div>
     <div *ngIf="showDetails()">
         <ul *ngIf="interaction.is_initial_interaction">
