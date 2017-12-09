@@ -8,7 +8,9 @@
   <li *ngFor="let child of filteredChildren">
     <button mat-button (click)="onSelect(child)" [class.selected]="isSelected(child)">
       {{child.child_pinyin_name}}
-      <div [ngClass]="getChildStatusClass(child)"></div>
+      <div [matTooltip]="child.status" matTooltipPosition="after">
+        <div [ngClass]="getChildStatusClass(child)"></div>
+      </div>
     </button>
   </li>
 </ul>
