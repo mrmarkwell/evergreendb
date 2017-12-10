@@ -37,5 +37,8 @@ export class Interaction {
 	gross_motor_notes: string;
 	gross_motor_recommendations: string;
 	fine_motor_notes: string;
-	fine_motor_recommendations: string;
+    fine_motor_recommendations: string;
+
+    // This is not coming from the backend
+    has_attachments: boolean;
 }

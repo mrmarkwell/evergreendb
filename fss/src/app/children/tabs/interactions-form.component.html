@@ -249,6 +249,21 @@
         </table>
 
         <input #interactionFileInput [hidden]="true" id=interaction-file-select type="file" name="interactions" ng2FileSelect [uploader]="fileuploader"/>        
-        <button mat-raised-button (click)="openFileSelect()">Upload...</button>
+        <!-- <button mat-raised-button (click)="openFileSelect()">Upload...</button> -->
+        <mat-list dense>
+            <mat-list-item>Attachments
+                <button mat-icon-button>
+                    <mat-icon svgIcon="upload" (click)="openFileSelect()"></mat-icon>
+                </button>
+            </mat-list-item>
+            <mat-list-item *ngFor="let file of uploaded_files">{{file}}
+                <button mat-icon-button>
+                    <mat-icon svgIcon="download" (click)="deleteFile(file)"></mat-icon>
+                </button>
+                <button mat-icon-button>
+                    <mat-icon svgIcon="trash_icon" (click)="deleteFile(file)"></mat-icon>
+                </button>
+            </mat-list-item>
+        </mat-list>
     </div>
 </div>

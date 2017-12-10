@@ -3,7 +3,7 @@ import { ParamMap } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
-import { FileUploader, FileItem, FileUploaderOptions, FileLikeObject} from 'ng2-file-upload';
+import { FileUploader, FileItem, FileUploaderOptions, FileLikeObject } from 'ng2-file-upload';
 import { MatSnackBar } from '@angular/material';
 
 
@@ -44,6 +44,15 @@ export class ChildDetails implements OnInit, OnChanges {
         iconRegistry.addSvgIcon(
             'star_icon',
             sanitizer.bypassSecurityTrustResourceUrl('assets/star_icon.svg'));
+        iconRegistry.addSvgIcon(
+            'download',
+            sanitizer.bypassSecurityTrustResourceUrl('assets/download.svg'));
+        iconRegistry.addSvgIcon(
+            'upload',
+            sanitizer.bypassSecurityTrustResourceUrl('assets/upload.svg'));
+        iconRegistry.addSvgIcon(
+            'file_icon',
+            sanitizer.bypassSecurityTrustResourceUrl('assets/file_icon.svg'));
     }
     ngOnInit(): void {
         this.uploader = new FileUploader({

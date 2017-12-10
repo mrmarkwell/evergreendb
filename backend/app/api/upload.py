@@ -65,3 +65,12 @@ class Upload(Resource):
             msg = 'No file included in upload request'
             abort(400, message=msg)
         
+class InteractionFiles(Resource):
+    def get(self, id):
+        path = os.path.join(dest, interactions_sub, id)
+        if not os.path.exists(path):
+            filenames = []
+        else:
+            filenames = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
+        response = {"filenames": filenames}
+        return response, 200
