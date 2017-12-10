@@ -17,7 +17,7 @@ import { RestService } from '../rest.service';
 })
 export class ChildDetails implements OnInit, OnChanges {
     private child: Child;
-    private age: number;
+    private age: string;
     private medical_conditions: string[];
     private child_status: string[];
     private child_photo_url: string;
@@ -84,7 +84,7 @@ export class ChildDetails implements OnInit, OnChanges {
         this.restService.getChild(this.child_id).then(child => {
             if (child == undefined) return;
             this.child = child;
-            this.age = child.getAge()
+            this.age = this.getAgeStr()
             this.child.birth_date_object = this.restService.getDateFromString(this.child.birth_date)
         });
         this.child_photo_url = this.restService.getChildPhotoUrl(this.child_id) + "?" + this.on_changes_count++;
@@ -103,6 +103,10 @@ export class ChildDetails implements OnInit, OnChanges {
 
     @Input() child_id: number;
 
+    getAgeStr(): string {
+        let age = this.child.getAge()
+        return age === null? null: "Age: " + age
+    }
 
     public picOverBase(e: any): void {
         this.hasBaseDropZoneOver = e;
