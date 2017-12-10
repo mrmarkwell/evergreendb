@@ -5,7 +5,7 @@ import { RestService } from '../../rest.service';
 
 @Component({
     selector: 'medical-info-tab',
-    styleUrls: ['./medical-info-tab.component.css'],
+    styleUrls: ['./medical-info-tab.component.scss'],
     templateUrl: './medical-info-tab.component.html'
 })
 export class MedicalTabComponent implements OnInit, OnChanges {

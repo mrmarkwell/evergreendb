@@ -8,7 +8,7 @@ import { RestService } from '../../rest.service';
 @Component({
 	selector: 'interactions-form',
 	templateUrl: './interactions-form.component.html',
-	styleUrls: ['./interactions-form.component.css']
+	styleUrls: ['./interactions-form.component.scss']
 })
 export class InteractionsFormComponent implements OnInit, OnChanges {
 	@Input() child_id: number;

@@ -1,3 +1,4 @@
+@import '~@angular/material/theming';
 @import '../../theme.scss';
 
 .flex-row {
@@ -8,7 +9,7 @@
 
 #childsearchcolumn {
 	padding: 1em;
-	background-color: $medium;
+	background-color: mat-color($primary, 400);
 	min-height: 100vh;
 	max-width: 80em;
 }

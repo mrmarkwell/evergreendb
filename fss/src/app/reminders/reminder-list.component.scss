@@ -1,7 +1,8 @@
 @import '../../theme.scss';
+@import '~@angular/material/theming';
 
 .type {
-    color: $accent;
+    color: mat-color($accent);
 }
 .mat-expansion-panel-header-description {
     justify-content: space-between;

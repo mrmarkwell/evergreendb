@@ -1,7 +1,8 @@
 @import '../../../theme.scss';
+@import '~@angular/material/theming';
 
 .selected {
-	color: $accent;
+	color: mat-color($accent);
 }
 button {
 	width: 100%;
