@@ -44,6 +44,7 @@ export class ChildList implements OnInit, OnChanges {
         let new_child = new Child(null);
         new_child.child_pinyin_name = "New Child";
         this.restService.addChild(new_child).then(the_child => this.onSelect(the_child));
+        this.filterUnknown = true;
     }
 
     isSelected(child): boolean {
