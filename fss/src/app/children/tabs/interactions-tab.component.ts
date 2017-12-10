@@ -35,11 +35,15 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
     getChild(): void {
         this.restService.getChild(this.child_id).then(child => this.child = child);
     }
+    hasAttachments(id: number) : Promise<boolean> {
+        return this.restService.getInteractionFiles(id).then(files => files['filenames'].length != 0);       
+    }
     getInteractions(): Promise<Interaction[]> {
         return this.restService.getInteractions(this.child_id)
             .then(interactions => {
                 for (let interaction of interactions) {
                     interaction.interaction_date_object = this.restService.getDateFromString(interaction.interaction_date);
+                    this.hasAttachments(interaction.id).then(result => interaction.has_attachments = result);
                 }
                 interactions.sort((a,b) => b.interaction_date_object.getTime() - a.interaction_date_object.getTime())
                 return this.interactions = interactions;

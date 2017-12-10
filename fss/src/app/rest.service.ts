@@ -113,8 +113,13 @@ export class RestService {
     getEnum(field: string): Promise<string[]> {
         let url = `${this.evergreenUrl}/enum/${field}`;
         return this.http.get(url)
-            .toPromise().then(response => response )
+            .toPromise().then(response => response)
             .catch(this.handleError);
+    }
+
+    getInteractionFiles(interaction_id: number): Promise<String[]> {
+        let url = `${this.evergreenUrl}/interactionfiles/${interaction_id}`;
+        return this.http.get(url).toPromise().then(response => response).catch(this.handleError);
     }
 
     // Child functions
@@ -149,14 +154,15 @@ export class RestService {
             return this.getAndCacheInteractions(child_id);
         }
     }
+
     getAllReminders(): Promise<Reminder[]> {
         let reminderList: Reminder[] = [];
         return this.getChildren().then(children => {
             return Promise.all(children.map((child, index, children) => {
-                this.getInteractions(child.id).then( interactions =>
+                this.getInteractions(child.id).then(interactions =>
                     reminderList = reminderList.concat(interactions.map(interaction => new Reminder(interaction)))
                 )
-            })).then( () => Promise.resolve(reminderList) )
+            })).then(() => Promise.resolve(reminderList))
         });
     }
     addInteraction(interaction: Interaction): Promise<Interaction> {

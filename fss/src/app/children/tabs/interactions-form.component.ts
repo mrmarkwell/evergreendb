@@ -21,6 +21,8 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
     private child: Child;
     private interaction_coordinators: String[];
     private interaction_types: String[];
+    private uploaded_files: String[];
+
     constructor(
         private restService: RestService,
         private datePipe: DatePipe,
@@ -58,9 +60,13 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
     }
     ngOnChanges(changes: SimpleChanges): void {
         this.getChild();
+        this.getUploadedFiles();
     }
     getChild(): void {
         this.restService.getChild(this.child_id).then(child => this.child = child);
+    }
+    getUploadedFiles(): void {
+        this.restService.getInteractionFiles(this.interaction.id).then(files => this.uploaded_files = files['filenames']);
     }
     getInteractionCoordinators(): void {
         this.restService.getEnum('fss_interaction_coordinator').then(coordinators => this.interaction_coordinators = coordinators);
@@ -78,6 +84,9 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
             this.interaction = null;
             this.notifyDeletedOrHidden.emit("deleted");
         }
+    }
+    deleteFile(filename: String): void {
+        console.log("Create this!");
     }
     hideForm(): void {
         this.notifyDeletedOrHidden.emit("hidden");
