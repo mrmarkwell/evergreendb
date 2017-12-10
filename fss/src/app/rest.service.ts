@@ -16,7 +16,7 @@ export class RestService {
         this.refreshOrResetAllCaches();
     }
 
-    // Caches for performance improvement. 
+    // Caches for performance improvement.
     private children_cache: Map<number, any> = new Map<number, any>();
     private interactions_cache: Map<number, any> = new Map<number, any>();
     private family_members_cache: Map<number, any> = new Map<number, any>();
@@ -222,6 +222,10 @@ export class RestService {
     }
     getChildPhotoUrl(id: number): string {
         return `${this.evergreenUrl}/static/photos/child${id}.jpeg`;
+    }
+
+    downloadUrl(url:string): void {
+        window.location.href = `${this.evergreenUrl}/${url}`;
     }
 
     private handleError(error: any): Promise<any> {

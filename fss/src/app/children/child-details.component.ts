@@ -42,6 +42,9 @@ export class ChildDetails implements OnInit, OnChanges {
             'save_icon',
             sanitizer.bypassSecurityTrustResourceUrl('assets/save_icon.svg'));
         iconRegistry.addSvgIcon(
+            'print_icon',
+            sanitizer.bypassSecurityTrustResourceUrl('assets/print_icon.svg'));
+        iconRegistry.addSvgIcon(
             'star_icon',
             sanitizer.bypassSecurityTrustResourceUrl('assets/star_icon.svg'));
     }
@@ -99,6 +102,10 @@ export class ChildDetails implements OnInit, OnChanges {
             this.child = null;
             this.notifyDeleted.emit();
         }
+    }
+
+    printChild(): void {
+        this.restService.downloadUrl(`forms/cover_sheet/${this.child_id}`);
     }
 
     @Input() child_id: number;
