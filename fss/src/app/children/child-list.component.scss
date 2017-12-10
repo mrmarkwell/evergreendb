@@ -1,8 +1,14 @@
 @import '../../theme.scss';
+@import '~@angular/material/theming';
 
+$status_active: blue;
+$status_current: blue;
+$status_in_situ: blue;
+$status_resolved: blue;
 
 #new-child-btn {
-  background-color: $light;
+  background-color: mat-color($primary, 300);
+  color: white
 }
 
 #new-child-div {
@@ -11,7 +17,7 @@
 
 li {
     .selected {
-        color: $accent;
+        color: mat-color($accent, 100);
         // font-weight: bold;
       }
   button {
@@ -40,6 +46,7 @@ ul {
 }
 
 #search-container {
+  color: white;
   width: 10em;
 }
 
@@ -58,8 +65,12 @@ ul {
 
 #select-category {
     width: 10em;
+    color: white;
 }
 
+::ng-deep .mat-select-value {
+  color: white;
+}
 
 /* Had to do weird stuff to make the padding not rediculously large on the input text boxes */
 /deep/ .mat-input-wrapper {

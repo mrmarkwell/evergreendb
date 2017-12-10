@@ -1,7 +1,8 @@
 @import '../theme.scss';
+@import '~@angular/material/theming';
 
 .fss-sidenav {
-	background-color: $dark;
+	background-color: mat-color($primary);
 }
 
 mat-sidenav-container {
@@ -22,7 +23,7 @@ mat-sidenav a {
 
 mat-sidenav a.active {
 	color: white;
-	background-color: $accent;
+	background-color: mat-color($primary, 400);
 }
 
 mat-sidenav mat-icon {

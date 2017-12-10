@@ -13,7 +13,7 @@ import { RestService } from '../rest.service';
 @Component({
     selector: 'child-details',
     templateUrl: "./child-details.component.html",
-    styleUrls: ["./child-details.component.css"]
+    styleUrls: ["./child-details.component.scss"]
 })
 export class ChildDetails implements OnInit, OnChanges {
     private child: Child;

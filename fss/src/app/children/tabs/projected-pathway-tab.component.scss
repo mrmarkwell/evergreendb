@@ -1,4 +1,5 @@
 @import '../../../theme.scss';
+@import '~@angular/material/theming';
 
 table {
   width: 100%;
@@ -34,5 +35,5 @@ th, td {
 }
 
 .active {
-  background-color: $accent;
+  background-color: mat-color($accent);
 }

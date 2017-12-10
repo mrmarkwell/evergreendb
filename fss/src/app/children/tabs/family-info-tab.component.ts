@@ -10,7 +10,7 @@ import { FamilyListComponent } from './family-list.component';
 @Component({
     selector: 'family-info-tab',
     templateUrl: './family-info-tab.component.html',
-    styleUrls: ['./family-info-tab.component.css']
+    styleUrls: ['./family-info-tab.component.scss']
 })
 export class FamilyTabComponent implements OnChanges {
     constructor(
