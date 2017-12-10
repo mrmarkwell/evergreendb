@@ -17,14 +17,14 @@ export class ChildList implements OnInit, OnChanges {
     filterInSitu: Boolean = false;
     filterResolved: Boolean = false;
     filterCurrent: Boolean = false;
+    filterUnknown: Boolean = false;
     searchText: string;
     currentSearchCategory: SearchCategory = new SearchCategory("child_pinyin_name", "Pinyin Name");
     searchCategories: SearchCategory[] = new Array<SearchCategory>(
         new SearchCategory("child_pinyin_name", "Pinyin Name"),
         new SearchCategory("child_chinese_name", "Chinese Name"),
         new SearchCategory("nickname", "Nickname"),
-        new SearchCategory("primary_diagnosis", "Primary Diagnosis"),
-        new SearchCategory("secondary_diagnosis", "Secondary Diagnosis")
+        new SearchCategory("diagnosis", "Diagnosis")
 
     );
     @Output() notifySelected = new EventEmitter<number>();
@@ -85,27 +85,49 @@ export class ChildList implements OnInit, OnChanges {
             this._filterChildrenWithString(event.target.value);
         } else {
             this._filterChildrenWithString(this.searchText);
-            //this.filteredChildren = this.allChildren;
         }
     }
 
     private _filterChildrenWithString(searchstring: string) {
         this.filteredChildren = this.allChildren.filter(Child => {
-            if (!this.buildStatusFilterArray().includes(Child.status)) {
-                return false;
-            }
-            // Return false if the search category for the child is null
-            if (Child[this.currentSearchCategory.value] == null) {
+            // Case for unknown child status
+            if ((Child.status == null || Child.status == undefined || Child.status == "")) {
+                if (!this.filterUnknown) {
+                    // The child has no status, and the "unknown" toggle is off. Filter this child out.
+                    return false;
+                }
+            } else if (!this.buildStatusFilterArray().includes(Child.status)) {
                 return false;
             }
             // Return true if the search box is empty
             if (!searchstring) {
                 return true;
             }
-            // Standard filter
-            return Child[this.currentSearchCategory.value].toLowerCase().indexOf(searchstring.toLowerCase()) !== -1
+            // Diagnosis needs to filter on two different fields
+            if (this.currentSearchCategory.viewValue == "Diagnosis") {
+                let ret = false;
+                if (this.childHasValue(Child, "primary_diagnosis")) {
+                    ret = Child.primary_diagnosis.toLowerCase().indexOf(searchstring.toLowerCase()) !== -1;
+                }
+                if (this.childHasValue(Child, "secondary_diagnosis")) {
+                    ret = ret || Child.secondary_diagnosis.toLowerCase().indexOf(searchstring.toLowerCase()) !== -1;
+                }
+                return ret;
+            }
+            if (this.childHasValue(Child, this.currentSearchCategory.value)) {
+                console.log("Child has the right value");
+                return Child[this.currentSearchCategory.value].toLowerCase().indexOf(searchstring.toLowerCase()) !== -1
+            }
+            return false;
         })
 
+    }
+
+    childHasValue(child: Child, value: string) {
+        if (child[value] != null && child[value] != undefined && child[value] != "") {
+            return true;
+        }
+        return false;
     }
 
     buildStatusFilterArray(): String[] {

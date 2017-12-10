@@ -13,6 +13,7 @@
     <mat-slide-toggle class="flex-item" [(ngModel)]="filterCurrent" name="active-status-toggle" (ngModelChange)="filterChildren()">Current</mat-slide-toggle>
     <mat-slide-toggle class="flex-item" [(ngModel)]="filterInSitu" name="active-status-toggle" (ngModelChange)="filterChildren()">In Situ</mat-slide-toggle>
     <mat-slide-toggle class="flex-item" [(ngModel)]="filterResolved" name="active-status-toggle" (ngModelChange)="filterChildren()">Resolved</mat-slide-toggle>
+    <mat-slide-toggle class="flex-item" [(ngModel)]="filterUnknown" name="active-status-toggle" (ngModelChange)="filterChildren()">Unknown</mat-slide-toggle>
 </div>
 <mat-divider></mat-divider>
 <ul class="children">

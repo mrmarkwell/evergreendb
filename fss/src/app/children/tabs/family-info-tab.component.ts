@@ -28,7 +28,7 @@ export class FamilyTabComponent implements OnChanges {
         this.family_member = family_member;
     }
 
-    saveFamilyMenber(): void {
+    saveFamilyMember(): void {
         this.restService.updateFamilyMember(this.family_member);
     }
 

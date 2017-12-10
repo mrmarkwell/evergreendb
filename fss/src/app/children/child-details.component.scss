@@ -18,8 +18,8 @@ textarea {
 }
 .grid {
 	display: grid;
-	grid-template-columns: 2em 139px 3fr 8.5em 4fr 2fr; /* 139=128+2+2+0.5em */
-	grid-template-rows: 3.3em 3.3em 3.3em;
+	grid-template-columns: 2em 139px 3fr 8.5em 4fr; /* 139=128+2+2+0.5em */
+	grid-template-rows: 3.3em 3.3em 3.3em 3.3em;
 }
 .grid-item {
 	position: relative;
@@ -59,20 +59,20 @@ textarea {
 	grid-column: 4;
 }
 #primary-diagnosis-cell {
-	grid-row: 1;
-	grid-column: 5;
-}
-#second-diagnosis-cell {
 	grid-row: 2;
 	grid-column: 5;
 }
-#status-cell {
+#second-diagnosis-cell {
 	grid-row: 3;
+	grid-column: 5;
+}
+#status-cell {
+	grid-row: 1;
 	grid-column: 5;
 }
 #referred-by-cell {
 	grid-row: 4;
-	grid-column: 5 / 7;
+	grid-column: 5 / 6;
 }
 #file-upload-button {
     grid-row: 4;
