@@ -1,11 +1,6 @@
 @import '../../theme.scss';
 @import '~@angular/material/theming';
 
-$status_active: blue;
-$status_current: blue;
-$status_in_situ: blue;
-$status_resolved: blue;
-
 #new-child-btn {
   background-color: mat-color($primary, 300);
   color: white
