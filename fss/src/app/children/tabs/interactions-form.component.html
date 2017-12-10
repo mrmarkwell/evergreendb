@@ -247,5 +247,8 @@
                 </tr>
             </tbody>
         </table>
+
+        <input #interactionFileInput [hidden]="true" id=interaction-file-select type="file" name="interactions" ng2FileSelect [uploader]="fileuploader"/>        
+        <button mat-raised-button (click)="openFileSelect()">Upload...</button>
     </div>
 </div>

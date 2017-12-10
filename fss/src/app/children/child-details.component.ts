@@ -3,7 +3,7 @@ import { ParamMap } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material';
-import { FileUploader, FileItem, FileUploaderOptions, FileLikeObject } from 'ng2-file-upload';
+import { FileUploader, FileItem, FileUploaderOptions, FileLikeObject} from 'ng2-file-upload';
 import { MatSnackBar } from '@angular/material';
 
 
