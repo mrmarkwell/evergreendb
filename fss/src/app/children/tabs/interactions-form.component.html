@@ -257,9 +257,14 @@
                 </button>
             </mat-list-item>
             <mat-list-item *ngFor="let file of uploaded_files">{{file}}
-                <button mat-icon-button>
-                    <mat-icon svgIcon="download" (click)="deleteFile(file)"></mat-icon>
-                </button>
+                <!-- <button mat-icon-button>
+                    <mat-icon svgIcon="download" (click)="downloadFile(file)"></mat-icon>
+                </button> -->
+                <a [href]="this.restService.getInteractionFileDownloadUrl(interaction.id, file)" download>
+                    <button mat-icon-button>
+                        <mat-icon svgIcon="download"></mat-icon>
+                    </button>
+                </a>
                 <button mat-icon-button>
                     <mat-icon svgIcon="trash_icon" (click)="deleteFile(file)"></mat-icon>
                 </button>
