@@ -241,9 +241,17 @@ export class RestService {
         return `${this.evergreenUrl}/static/photos/child${id}.jpeg`;
     }
 
+    getInteractionFileDownloadUrl(id: number, filename: string): string {
+        return `${this.evergreenUrl}/static/interactions/${id}/${filename}`
+    }
+    
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
+    }
+
+    getBaseUrl(): String{
+        return this.evergreenUrl;
     }
 
     private evergreenUrl = 'http://127.0.0.1:5000';
