@@ -1,12 +1,24 @@
-.info-row {
-    display: flex;
-    flex-direction: row;
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
 }
+
+table {
+    width: 100%;
+}
+
+th {
+    text-align: left;
+}
+
+.section-label h1, h2, h3, h4, h5, h6 {
+    display: inline-block;
+}
+
 .info-section {
-    flex-grow: 1;
-    border: solid 0.01em;
-    padding: 0.25em;
+    border: solid 1px;
+    padding: 3px;
 }
 .needs-space-right {
-    margin-right: 5em;
+    margin-right: 50px;
 }

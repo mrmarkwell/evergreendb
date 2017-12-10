@@ -12,31 +12,28 @@
 <body>
     <div class="section-label">
         <h1>SOAR Family Support Services</h1>
-        <h2>{{ title }}</h2>
+        <h3>[{{ title }}]</h3>
     </div>
-    <div class="info-row" id="child-info">
-        <div class="info-section">
-            <h3>Child's Name: {{ child.child_pinyin_name }}</h3>
-            <h4 class="needs-space-right">Nickname: {{ child.nickname }}</h4>
-        </div>
-        <div class="info-section">
-            <h3>DOB: {{ child.birth_date.strftime('%Y-%m-%d') }}</h3>
-            <h4 class="needs-space-right">Child's age at first visit:</h4>
-        </div>
-        <div class="info-section">
-            <h3>Referred by: {{ child.referred_by }}</h3>
-            <h4 class="needs-space-right">Data of first visit:</h4>
-        </div>
-        <div class="info-section">
-            <img src="{{ url_for('static', filename='photos/' + child_photo) }}" alt={{ child.nickname }}>
-        </div>
-    </div>
-    <div class="info-row">
-        <div class="info-section">
-            <h3 class="needs-space-right">Logcation:</h3>
-            <h4 class="needs-space-right">Specialitsts Present:</h4>
-        </div>
-    </div>
+    <table id="child-info">
+        <tr class="info-row" id="child-info">
+            <th class="info-section">
+                <h3>Child's Name: {{ child.child_pinyin_name }}</h3>
+                <h4 class="subinfo">Nickname: {{ child.nickname }}</h4>
+            </th>
+            <th class="info-section">
+                <h3>DOB: {{ child.birth_date.strftime('%Y-%m-%d') }}</h3>
+                <h4 class="subinfo">Child's age at first visit:</h4>
+            </th>
+            <th class="info-section">
+                <h3>Referred by: {{ child.referred_by }}</h3>
+                <h4 class="subinfo">Data of first visit:</h4>
+            </th>
+            <th class="info-section">
+                <img src="{{ url_for('static', filename='photos/' + child_photo) }}" alt={{ child.nickname }}>
+            </th>
+        </tr>
+    </table>
+    </tr>
     {% block content %}{% endblock %}
 </body>
 

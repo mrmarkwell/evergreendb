@@ -18,7 +18,12 @@ def generate_forms(form_type, child_id):
     child = sesh.query(FSSChild).filter_by(id=child_id).first()
     child_photo = glob(join('app', 'static', 'photos', '*%d.*' % child.id))[0].split(os.sep)[-1]
 
-    rpt_html = render_template('form_common.html',
+    return render_template(form_type + '.html',
+                               title=form_type,
+                               child=child,
+                               child_photo=child_photo)
+
+    rpt_html = render_template(form_type + '.html',
                                title=form_type,
                                child=child,
                                child_photo=child_photo)

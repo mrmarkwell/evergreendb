@@ -1,3 +1,18 @@
-{% extends "form_common.html" %}
-{% block content %}
-{% end block %}
+{% extends "form_common.html" %} {% block content %}
+<table>
+    <tr class="info-row">
+        <th class="info-section contains-subsection">
+            <h3>Location:</h3>
+            <h4 class="subinfo">Specialitsts Present:</h4>
+        </th>
+    </tr>
+    <tr class="info-row">
+        <th class="info-section">
+            <h3>Parents</h3>
+        </th>
+        <th class="info-section">
+            <h4>Mother: {{ child.family_members[0].relationship }}</h4>
+        </th>
+    </tr>
+</table>
+{% endblock %}
