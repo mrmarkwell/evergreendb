@@ -67,10 +67,29 @@ class Upload(Resource):
         
 class InteractionFiles(Resource):
     def get(self, id):
+        filenames = self.getFileList(id);
+        response = {"filenames": filenames}
+        return response, 200
+    
+    # This will delete any files that are not in the posted list
+    def post(self, id):
+        path = os.path.join(dest, interactions_sub, id)
+        existing_files = self.getFileList(id)
+        posted_files = list(request.get_json())
+        files_to_delete = [x for x in existing_files if x not in posted_files]
+        for file in files_to_delete:
+            file_path = os.path.join(path, file)
+            if not os.path.exists(file_path):
+                msg = "File not found"
+                abort(401, message=msg)
+            else:
+                os.remove(file_path)
+        return 204
+
+    def getFileList(self, id):
         path = os.path.join(dest, interactions_sub, id)
         if not os.path.exists(path):
             filenames = []
         else:
             filenames = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
-        response = {"filenames": filenames}
-        return response, 200
+        return filenames
