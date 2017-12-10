@@ -1,0 +1,12 @@
+.info-row {
+    display: flex;
+    flex-direction: row;
+}
+.info-section {
+    flex-grow: 1;
+    border: solid 0.01em;
+    padding: 0.25em;
+}
+.needs-space-right {
+    margin-right: 5em;
+}
