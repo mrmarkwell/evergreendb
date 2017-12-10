@@ -21,7 +21,9 @@ def generate_forms(form_type, child_id):
     return render_template(form_type + '.html',
                                title=form_type,
                                child=child,
-                               child_photo=child_photo)
+                               child_photo=child_photo,
+                               get_initial_interaction=get_initial_interaction,
+                               get_relation=get_relation)
 
     rpt_html = render_template(form_type + '.html',
                                title=form_type,
@@ -30,3 +32,17 @@ def generate_forms(form_type, child_id):
 
     pdfkit.from_string(rpt_html, rpt_path, options={'quiet':''})
     return send_from_directory(temp_dir, rpt_name, mimetype='application/pdf')
+
+def get_initial_interaction(interactions):
+    for interaction in interactions:
+        if interaction.is_initial_interaction:
+            return interaction
+
+    return None
+
+def get_relation(relations, relationship):
+    for relation in relations:
+        if relation.relationship == relationship:
+            return relation
+
+    return None
