@@ -85,11 +85,17 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
             this.notifyDeletedOrHidden.emit("deleted");
         }
     }
-    downloadFile(file: string) : void {
-        window.location.href=this.restService.getInteractionFileDownloadUrl(this.interaction.id, file);
-    }
+    // downloadFile(file: string) : void {
+    //     window.location.href=this.restService.getInteractionFileDownloadUrl(this.interaction.id, file);
+    // }
     deleteFile(filename: String): void {
-        console.log("Create this!");
+        let index: number = this.uploaded_files.indexOf(filename, 0);
+        if (index > -1) {
+           this.uploaded_files.splice(index, 1);
+        }
+        if (confirm("Are you sure you want to delete file " + filename + "?")) {
+        this.restService.deleteInteractionFile(this.interaction.id, this.uploaded_files);
+        }
     }
     hideForm(): void {
         this.notifyDeletedOrHidden.emit("hidden");

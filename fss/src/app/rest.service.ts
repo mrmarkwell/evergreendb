@@ -122,6 +122,13 @@ export class RestService {
         return this.http.get(url).toPromise().then(response => response).catch(this.handleError);
     }
 
+    deleteInteractionFile(interaction_id: number, filenames: String []): Promise<any> {
+        let url = `${this.evergreenUrl}/interactionfiles/${interaction_id}`;
+        return this.http.post(url, JSON.stringify(filenames), { headers: this.headers })
+        .toPromise().then(res => { this.refresh(); return res; })
+        .catch(this.handleError);
+    }
+
     // Child functions
     getChildren(): Promise<Child[]> {
         if (this.children_cache.size == 0) {
