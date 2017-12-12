@@ -74,7 +74,22 @@ app.on('ready', function () {
 // Create window when launched
 app.on('activate', () => {
     if (win === null) {
-        createWindow()
+
+        // Initialize the window to our specified dimensions
+        win = new BrowserWindow({ width: 1000, height: 600 });
+        Menu.setApplicationMenu(menu)
+
+        // Specify entry point
+        win.loadURL(url.format({
+            pathname: path.join(__dirname, 'dist/index.html'),
+            protocol: 'file:',
+            slashes: true
+        }));
+
+        // Close window when x is clicked
+        win.on('closed', function () {
+            win = null;
+        });
     }
 });
 

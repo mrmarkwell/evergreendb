@@ -49,5 +49,5 @@ export class FamilyTabComponent implements OnChanges {
     @ViewChild(FamilyListComponent) family_list: FamilyListComponent;
 
     family_member: FamilyMember;
-    private child: Child;
+    child: Child;
 }

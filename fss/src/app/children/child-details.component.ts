@@ -16,13 +16,14 @@ import { RestService } from '../rest.service';
     styleUrls: ["./child-details.component.scss"]
 })
 export class ChildDetails implements OnInit, OnChanges {
-    private child: Child;
     private age: string;
     private medical_conditions: string[];
     private child_status: string[];
     private child_photo_url: string;
     private on_changes_count = 0;
     private uploader: FileUploader;
+    child: Child;
+
     @ViewChild('fileInput') fileInput: any;
     private allowed_mime_type = ['image/png', 'image/jpg', 'image/jpeg'];
     public hasBaseDropZoneOver: boolean = false;
