@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material';
 
 import { Child } from '../child';
 import { RestService } from '../rest.service';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+
 
 @Component({
     selector: 'child-details',
@@ -29,9 +31,11 @@ export class ChildDetails implements OnInit, OnChanges {
     public hasBaseDropZoneOver: boolean = false;
 
     @Output() notifyDeleted = new EventEmitter<null>();
+    
     constructor(
         iconRegistry: MatIconRegistry,
         sanitizer: DomSanitizer,
+        private adapter: DateAdapter<any>,
         private restService: RestService,
         private datePipe: DatePipe,
         public snackBar: MatSnackBar
