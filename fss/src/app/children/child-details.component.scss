@@ -31,7 +31,8 @@ textarea {
 	grid-column: 1;
 }
 #profile-pic-cell {
-	grid-row: 1 / 4; /* [2-4) so 2 & 3 */
+    grid-row: 1 / 4; /* [2-4) so 2 & 3 */
+    /* autoprefixer: off */
 	grid-column: 2;
 }
 #chinese-name-cell {
