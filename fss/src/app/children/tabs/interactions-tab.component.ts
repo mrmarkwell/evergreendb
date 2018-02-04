@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 import { Component, OnChanges, OnInit, Input } from '@angular/core';
 
 import { Child } from '../../child';
@@ -45,7 +47,7 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
                     interaction.interaction_date_object = this.restService.getDateFromString(interaction.interaction_date);
                     this.hasAttachments(interaction.id).then(result => interaction.has_attachments = result);
                 }
-                interactions.sort((a,b) => b.interaction_date_object.getTime() - a.interaction_date_object.getTime())
+                interactions.sort((a,b) => b.interaction_date_object.valueOf() - a.interaction_date_object.valueOf())
                 return this.interactions = interactions;
             });
     }
@@ -66,7 +68,7 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
         let interaction = new Interaction();
         interaction.interaction_type = 'To Do';
         interaction.child_id = this.child_id;
-        interaction.interaction_date = this.restService.getStringFromDate(new Date);
+        interaction.interaction_date = this.restService.getStringFromDate(moment());
         this.restService.addInteraction(interaction).then(new_interaction => {
             this.getInteractions().then(interactions => this.selectInteraction(new_interaction.id));
         });

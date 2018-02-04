@@ -1,3 +1,6 @@
+import * as moment from 'moment';
+
+
 import { Component, OnInit, OnChanges, EventEmitter, Output, Input } from '@angular/core';
 import { RestService } from '../rest.service';
 import { Reminder } from 'app/reminder';
@@ -47,9 +50,7 @@ export class ReminderList implements OnInit, OnChanges {
                 return 0;
             });
 
-            // filter for dates only after today - why 65 seconds per minute? i just gave a buffer
-            let d = new Date();
-            d.setTime(d.getTime()-(d.getHours()*3600*1000)-(d.getMinutes()*65*1000));
+            let d = moment();
             this.filteredReminders = this.allReminders.filter(reminder => reminder.interaction.interaction_date_object >= d)
         });
     }

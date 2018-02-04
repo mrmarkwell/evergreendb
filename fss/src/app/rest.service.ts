@@ -3,6 +3,8 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import 'rxjs/add/operator/toPromise';
 
+import * as moment from 'moment';
+
 import { Child } from './child';
 import { ChildPhoto } from './child-photo'
 import { Interaction } from './interaction';
@@ -122,11 +124,11 @@ export class RestService {
         return this.http.get(url).toPromise().then(response => response).catch(this.handleError);
     }
 
-    deleteInteractionFile(interaction_id: number, filenames: String []): Promise<any> {
+    deleteInteractionFile(interaction_id: number, filenames: String[]): Promise<any> {
         let url = `${this.evergreenUrl}/interactionfiles/${interaction_id}`;
         return this.http.post(url, JSON.stringify(filenames), { headers: this.headers })
-        .toPromise().then(res => { this.refresh(); return res; })
-        .catch(this.handleError);
+            .toPromise().then(res => { this.refresh(); return res; })
+            .catch(this.handleError);
     }
 
     // Child functions
@@ -220,20 +222,14 @@ export class RestService {
     }
 
     // Utility function for creating Date objects from strings for binding to datepickers.
-    getDateFromString(date_string: string): Date {
-        if (date_string == null || date_string.length == 0) return null;
-        return new Date(date_string.replace(/-/g, '\/').replace(/T.+/, ''));
+    getDateFromString(date_string: string): moment.Moment {
+        return moment(date_string, "YYYY-MM-DD");
     }
 
     // Utility function for creating a string from a Date object.
-    getStringFromDate(date_obj: Date): string {
+    getStringFromDate(date_obj: moment.Moment): string {
         if (date_obj) {
-            let day = date_obj.getDate();
-            let month = date_obj.getMonth() + 1;
-            let year = date_obj.getFullYear();
-            let date_string = year + "-" + month + "-" + day;
-
-            return date_string;
+            return date_obj.format("YYYY-MM-DD")
         }
         else {
             return "";
@@ -251,13 +247,13 @@ export class RestService {
     getInteractionFileDownloadUrl(id: number, filename: string): string {
         return `${this.evergreenUrl}/static/interactions/${id}/${filename}`
     }
-    
+
     private handleError(error: any): Promise<any> {
         console.error('An error occurred', error);
         return Promise.reject(error.message || error);
     }
 
-    getBaseUrl(): String{
+    getBaseUrl(): String {
         return this.evergreenUrl;
     }
 

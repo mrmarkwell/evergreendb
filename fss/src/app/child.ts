@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 export class Child {
 	constructor(jsondata){
 		for (let attr in jsondata) {
@@ -7,10 +8,7 @@ export class Child {
 
 	getAge(): number {
 		if (this.birth_date == null || this.birth_date.length == 0) return null;
-        let bdate_split = this.birth_date.split('-');
-		let today = new Date();
-		let no_bday_yet = Number( bdate_split[1] + bdate_split[2] ) > ( (today.getMonth()+1)*100 + today.getDate() ); // Not elegant, I know...
-		return today.getFullYear() - Number(bdate_split[0]) + (no_bday_yet ? -1 : 0);
+        return moment().diff(this.birth_date, 'years');
 	}
 
 	id: number;
@@ -31,5 +29,5 @@ export class Child {
 	secondary_diagnosis: string;
 	secondary_diagnosis_note: string;
 	status: string;
-	birth_date_object: Date;
+	birth_date_object: moment.Moment;
 }
