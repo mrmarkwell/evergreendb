@@ -223,13 +223,18 @@ export class RestService {
 
     // Utility function for creating Date objects from strings for binding to datepickers.
     getDateFromString(date_string: string): moment.Moment {
-        return moment(date_string, "YYYY-MM-DD");
+        let date = moment(date_string, "YYYY-MM-DD");
+        if (date.isValid()) {
+            return date;
+        } else {
+            return null;
+        }
     }
 
     // Utility function for creating a string from a Date object.
     getStringFromDate(date_obj: moment.Moment): string {
-        if (date_obj) {
-            return date_obj.format("YYYY-MM-DD")
+        if (date_obj && date_obj.isValid()) {
+            return date_obj.format("YYYY-MM-DD");
         }
         else {
             return "";
