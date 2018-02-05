@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, OnChanges, SimpleChanges} from '@angular/core';
+import { Component, Input, ViewChild, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { ParamMap } from '@angular/router';
 
 import { FamilyMember } from '../../family-member';
@@ -12,20 +12,38 @@ import { FamilyListComponent } from './family-list.component';
     templateUrl: './family-info-tab.component.html',
     styleUrls: ['./family-info-tab.component.scss']
 })
-export class FamilyTabComponent implements OnChanges {
+export class FamilyTabComponent implements OnInit, OnChanges {
     constructor(
         private restService: RestService
     ) {}
 
+    ngOnInit(): void {
+        setInterval(()=>this.autosave(), this.restService.autosave_frequency);
+    }
+
     ngOnChanges(changes: SimpleChanges): void {
         if ("child_id" in changes) {
             this.family_member = null;
-            this.restService.getChild(this.child_id).then(child => this.child = child);
+            this.restService.getChild(this.child_id).then(child => {
+                this.child = child;
+                this.orig_child = Object.assign(Object.create(child), child); // deep copy
+            });
         }
     }
 
     onSelect(family_member: FamilyMember): void {
         this.family_member = family_member;
+        this.orig_family_member = Object.assign(Object.create(family_member), family_member); // deep copy
+    }
+
+    autosave(): void {
+        if ( ! this.child.equals(this.orig_child) ) {
+            this.saveChild();
+        }
+        console.log(this.family_member);
+        if (this.family_member && ! this.family_member.equals(this.orig_family_member) ) {
+            this.saveFamilyMember();
+        }
     }
 
     saveFamilyMember(): void {
@@ -50,4 +68,6 @@ export class FamilyTabComponent implements OnChanges {
 
     family_member: FamilyMember;
     child: Child;
+    private orig_family_member: FamilyMember;
+    private orig_child: Child;
 }

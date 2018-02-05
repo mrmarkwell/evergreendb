@@ -8,7 +8,7 @@ export class Child {
 
 	getAge(): number {
 		if (this.birth_date == null || this.birth_date.length == 0) return null;
-        return moment().diff(this.birth_date, 'years');
+		return moment().diff(this.birth_date, 'years');
 	}
 
 	equals(c2: Child) : boolean {

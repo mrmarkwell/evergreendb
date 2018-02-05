@@ -45,24 +45,33 @@ export class RestService {
     // Opportunistic caching of retrieved data
     private getAndCacheProjectedPathways(child_id: number): Promise<ProjectedPathway[]> {
         return this.getEntity('fss_projected_pathway', `child_id=${child_id}`).then(results => {
-            this.projected_pathways_cache.set(child_id, results);
-            return results as ProjectedPathway[];
+						let projected_pathways = results.map(projected_pathway => {
+								return new ProjectedPathway(projected_pathway);
+						});
+            this.projected_pathways_cache.set(child_id, projected_pathways);
+            return projected_pathways;
         });
     }
 
     // Opportunistic caching of retrieved data
     private getAndCacheInteractions(child_id: number): Promise<Interaction[]> {
         return this.getEntity('fss_interaction', `child_id=${child_id}`).then(results => {
-            this.interactions_cache.set(child_id, results);
-            return results as Interaction[];
+						let interactions = results.map(interaction => {
+								return new Interaction(interaction);
+						});
+            this.interactions_cache.set(child_id, interactions);
+            return interactions;
         });
     }
 
     // Opportunistic caching of retrieved data
     private getAndCacheFamilyMembers(child_id: number): Promise<FamilyMember[]> {
         return this.getEntity('fss_family_member', `child_id=${child_id}`).then(results => {
-            this.family_members_cache.set(child_id, results);
-            return results as FamilyMember[]
+            let family_members = results.map(family_member => {
+                return new FamilyMember(family_member);
+            });
+            this.family_members_cache.set(child_id, family_members);
+            return family_members;
         });
     }
 

@@ -38,7 +38,7 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
         this.restService.getChild(this.child_id).then(child => this.child = child);
     }
     hasAttachments(id: number) : Promise<boolean> {
-        return this.restService.getInteractionFiles(id).then(files => files['filenames'].length != 0);       
+        return this.restService.getInteractionFiles(id).then(files => files['filenames'].length != 0);
     }
     getInteractions(): Promise<Interaction[]> {
         return this.restService.getInteractions(this.child_id)
@@ -65,10 +65,11 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
         return this.expanded_interaction && interaction.id === this.expanded_interaction.id;
     }
     createInteraction() : void {
-        let interaction = new Interaction();
-        interaction.interaction_type = 'To Do';
-        interaction.child_id = this.child_id;
-        interaction.interaction_date = this.restService.getStringFromDate(moment());
+        let interaction = new Interaction({
+            "interaction_type": "To Do",
+            "child_id": this.child_id,
+            "interaction_date": this.restService.getStringFromDate(moment())
+        });
         this.restService.addInteraction(interaction).then(new_interaction => {
             this.getInteractions().then(interactions => this.selectInteraction(new_interaction.id));
         });
