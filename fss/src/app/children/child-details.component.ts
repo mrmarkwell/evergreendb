@@ -24,6 +24,7 @@ export class ChildDetails implements OnInit, OnChanges {
     private child_photo_url: string;
     private on_changes_count = 0;
     private uploader: FileUploader;
+    private orig_child: Child;
     child: Child;
 
     @ViewChild('fileInput') fileInput: any;
@@ -31,7 +32,7 @@ export class ChildDetails implements OnInit, OnChanges {
     public hasBaseDropZoneOver: boolean = false;
 
     @Output() notifyDeleted = new EventEmitter<null>();
-    
+
     constructor(
         iconRegistry: MatIconRegistry,
         sanitizer: DomSanitizer,
@@ -93,15 +94,23 @@ export class ChildDetails implements OnInit, OnChanges {
         this.restService.getEnum("fss_child_status").then(status => this.child_status = status);
         this.restService.changeEmitter.subscribe(() => this.ngOnChanges());
         this.child_photo_url = this.restService.getChildPhotoUrl(this.child_id);
+        setInterval(()=>this.autosave(), this.restService.autosave_frequency);
     }
     ngOnChanges(): void {
         this.restService.getChild(this.child_id).then(child => {
             if (child == undefined) return;
             this.child = child;
+            this.orig_child = Object.assign(Object.create(child), child); // deep copy
             this.age = this.getAgeStr()
             this.child.birth_date_object = this.restService.getDateFromString(this.child.birth_date)
         });
         this.child_photo_url = this.restService.getChildPhotoUrl(this.child_id) + "?" + this.on_changes_count++;
+    }
+    autosave(): void {
+        this.child.birth_date = this.restService.getStringFromDate(this.child.birth_date_object);
+        if ( ! this.child.equals(this.orig_child) ) {
+            this.saveChild();
+        }
     }
     saveChild(): void {
         this.child.birth_date = this.restService.getStringFromDate(this.child.birth_date_object);

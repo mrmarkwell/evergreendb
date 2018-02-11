@@ -28,9 +28,10 @@ export class FamilyListComponent implements OnInit, OnChanges {
       this.notifySelected.emit(selected);
     }
     createFamilyMember() : void {
-        let family_member = new FamilyMember();
-        family_member.relationship = "Family Member";
-        family_member.child_id = this.child_id;
+        let family_member = new FamilyMember({
+            "relationship":"Family Member",
+            "child_id":this.child_id
+        });
         this.restService.addFamilyMember(family_member).then(new_family_member => {
             this.getFamilyMembers();
             this.onSelect(new_family_member);

@@ -17,6 +17,7 @@ import { RestService } from '../../rest.service';
 export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
     child: Child;
     projectedPathways: ProjectedPathway[];
+    private orig_projected_pathways: ProjectedPathway[];
 
     @Input() child_id: number;
 
@@ -28,11 +29,25 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
         this.getChild();
         this.getProjectedPathways();
         this.restService.changeEmitter.subscribe(() => this.ngOnChanges())
+        setInterval(()=>this.autosave(), this.restService.autosave_frequency);
     }
 
     ngOnChanges(): void {
         this.getChild();
         this.getProjectedPathways();
+    }
+
+    autosave(): void {
+        let save_needed = false;
+        this.projectedPathways.forEach((item,index) => {
+            item.pathway_completion_date = this.restService.getStringFromDate(item.pathway_completion_date_object);
+            if (! item.equals(this.orig_projected_pathways[index])) {
+                save_needed = true;
+            }
+        })
+        if (save_needed) {
+            this.save();
+        }
     }
 
     save(): void {
@@ -55,14 +70,12 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
         if (latest_pathway) {
             next_step = latest_pathway.pathway_step_number + 1;
         }
-        let new_pathway = new ProjectedPathway();
-        new_pathway.pathway_step_number = next_step;
-        new_pathway.child_id = this.child_id;
+        let new_pathway = new ProjectedPathway({
+            "pathway_step_number": next_step,
+            "child_id": this.child_id
+        });
         this.restService.addProjectedPathway(new_pathway);
-
     }
-
-
 
     getChild(): void {
         this.restService.getChild(this.child_id).then(child => this.child = child);
@@ -99,9 +112,12 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
                     }
                     pathway.pathway_completion_date_object = null;
                 }
+                pathway.pathway_completion_date = this.restService.getStringFromDate(pathway.pathway_completion_date_object)
             }
+            this.orig_projected_pathways = this.projectedPathways.map(pathway => {
+                return Object.assign(Object.create(pathway), pathway); // deep copy
+            })
         });
     }
-
 
 }
