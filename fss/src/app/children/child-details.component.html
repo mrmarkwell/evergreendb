@@ -2,7 +2,7 @@
     <div class="grid">
         <div class="grid-item" id="save-del-cell">
             <button mat-icon-button>
-                <mat-icon svgIcon="save_icon" (click)="saveChild()"></mat-icon>
+                <mat-icon svgIcon="save_icon" (click)="saveChild()" [class.unsaved]="unsaved"></mat-icon>
             </button><br />
             <button mat-icon-button>
                 <mat-icon svgIcon="trash_icon" (click)="deleteChild()"></mat-icon>
@@ -33,7 +33,7 @@
             <mat-form-field>
                 <input matInput [matDatepicker]="picker" placeholder="DOB" name="birth-date" [(ngModel)]="child.birth_date_object">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>            
+                <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </div>
         <div class="grid-item" id="age-cell">

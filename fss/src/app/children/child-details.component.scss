@@ -1,8 +1,9 @@
-/* Change to flexbox.
-Have picture/save del first col
-next have name-col, then age-col, then medical-col
-then status col that can wrap to be wide and short under name/age/med cols
-*/
+@import '../../theme.scss';
+@import '~@angular/material/theming';
+
+.unsaved {
+  color: mat-color($warn, 600);
+}
 mat-select {
 	width: 100%;
 }

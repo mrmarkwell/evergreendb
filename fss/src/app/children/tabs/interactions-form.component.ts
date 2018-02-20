@@ -15,11 +15,12 @@ import { RestService } from '../../rest.service';
 export class InteractionsFormComponent implements OnInit, OnChanges {
     @Input() child_id: number;
     @Input() interaction: Interaction;
+		private unsaved: boolean;
     private orig_interaction: Interaction;
+    private changed_interaction: Interaction;
     private fileuploader: FileUploader;
     // Send the string "deleted" or "hidden"
     @Output() notifyDeletedOrHidden = new EventEmitter<string>();
-    private child: Child;
     private interaction_coordinators: String[];
     private interaction_types: String[];
     private uploaded_files: String[];
@@ -54,19 +55,15 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
             this.ngOnChanges(null);
         }
 
-        this.getChild();
         this.getInteractionCoordinators();
         this.getInteractionTypes();
         this.restService.changeEmitter.subscribe(() => this.ngOnChanges(null));
         setInterval(()=>this.autosave(), this.restService.autosave_frequency);
     }
     ngOnChanges(changes: SimpleChanges): void {
-        this.getChild();
         this.getUploadedFiles();
         this.orig_interaction = Object.assign(Object.create(this.interaction), this.interaction); // deep copy
-    }
-    getChild(): void {
-        this.restService.getChild(this.child_id).then(child => this.child = child);
+        this.changed_interaction = Object.assign(Object.create(this.interaction), this.interaction); // deep copy
     }
     getUploadedFiles(): void {
         this.restService.getInteractionFiles(this.interaction.id).then(files => this.uploaded_files = files['filenames']);
@@ -80,8 +77,15 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
     autosave(): void {
         this.interaction.interaction_date = this.restService.getStringFromDate(this.interaction.interaction_date_object);
         if ( ! this.interaction.equals(this.orig_interaction)) {
-            this.saveInteraction();
-        }
+						if ( ! this.interaction.equals(this.changed_interaction)) {
+								this.unsaved = true;
+								this.changed_interaction = Object.assign(Object.create(this.interaction), this.interaction); // deep copy
+						} else {
+								this.saveInteraction();
+						}
+        } else {
+						this.unsaved = false;
+				}
     }
     saveInteraction(): void {
         this.interaction.interaction_date = this.restService.getStringFromDate(this.interaction.interaction_date_object);

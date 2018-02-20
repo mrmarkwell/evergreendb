@@ -18,6 +18,8 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
     child: Child;
     projectedPathways: ProjectedPathway[];
     private orig_projected_pathways: ProjectedPathway[];
+    private changed_projected_pathways: ProjectedPathway[];
+		private unsaved: boolean;
 
     @Input() child_id: number;
 
@@ -46,8 +48,24 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
             }
         })
         if (save_needed) {
-            this.save();
-        }
+						let idle = true;
+						this.projectedPathways.forEach((item,index) => {
+								item.pathway_completion_date = this.restService.getStringFromDate(item.pathway_completion_date_object);
+								if (! item.equals(this.changed_projected_pathways[index])) {
+										idle = false;
+								}
+						})
+						if (idle && this.unsaved) {
+								//this.save(); // Don't autosave, the focus loss is too distracting.
+						} else {
+								this.unsaved = true;
+								this.changed_projected_pathways = this.projectedPathways.map(pathway => {
+										return Object.assign(Object.create(pathway), pathway); // deep copy
+								})
+						}
+        } else {
+						this.unsaved = false;
+				}
     }
 
     save(): void {
@@ -65,6 +83,7 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
     }
 
     addNewStep(): void {
+				if (this.unsaved) this.save();
         let next_step = 1;
         let latest_pathway = this.projectedPathways.slice(-1)[0];
         if (latest_pathway) {
@@ -115,6 +134,9 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
                 pathway.pathway_completion_date = this.restService.getStringFromDate(pathway.pathway_completion_date_object)
             }
             this.orig_projected_pathways = this.projectedPathways.map(pathway => {
+                return Object.assign(Object.create(pathway), pathway); // deep copy
+            })
+            this.changed_projected_pathways = this.projectedPathways.map(pathway => {
                 return Object.assign(Object.create(pathway), pathway); // deep copy
             })
         });

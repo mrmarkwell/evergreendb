@@ -13,7 +13,6 @@ import { RestService } from '../../rest.service';
 })
 export class InteractionsTabComponent implements OnInit, OnChanges {
     @Input() child_id: number;
-    private child: Child;
     interactions: Interaction[];
     expanded_interaction: Interaction;
     constructor(
@@ -21,21 +20,16 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
     ) {}
 
     ngOnInit(): void {
-        this.getChild();
         this.getInteractions();
         this.restService.changeEmitter.subscribe(() => this.ngOnChanges())
     }
     ngOnChanges(): void {
-        this.getChild();
         if (this.child_id != null
             && this.expanded_interaction != null
             && this.child_id !== this.expanded_interaction.child_id) {
                 this.expanded_interaction = null;
             }
         this.getInteractions();
-    }
-    getChild(): void {
-        this.restService.getChild(this.child_id).then(child => this.child = child);
     }
     hasAttachments(id: number) : Promise<boolean> {
         return this.restService.getInteractionFiles(id).then(files => files['filenames'].length != 0);
