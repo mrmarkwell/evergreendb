@@ -24,7 +24,9 @@ export class ChildDetails implements OnInit, OnChanges {
     private child_photo_url: string;
     private on_changes_count = 0;
     private uploader: FileUploader;
+    private unsaved: boolean;
     private orig_child: Child;
+    private changed_child: Child;
     child: Child;
 
     @ViewChild('fileInput') fileInput: any;
@@ -101,6 +103,7 @@ export class ChildDetails implements OnInit, OnChanges {
             if (child == undefined) return;
             this.child = child;
             this.orig_child = Object.assign(Object.create(child), child); // deep copy
+            this.changed_child = Object.assign(Object.create(child), child); // deep copy
             this.age = this.getAgeStr()
             this.child.birth_date_object = this.restService.getDateFromString(this.child.birth_date)
         });
@@ -109,7 +112,14 @@ export class ChildDetails implements OnInit, OnChanges {
     autosave(): void {
         this.child.birth_date = this.restService.getStringFromDate(this.child.birth_date_object);
         if ( ! this.child.equals(this.orig_child) ) {
-            this.saveChild();
+            if (! this.child.equals(this.changed_child)) {
+                this.changed_child = Object.assign(Object.create(this.child), this.child); // deep copy
+                this.unsaved = true;
+            } else {
+                this.saveChild();
+            }
+        } else {
+            this.unsaved = false;
         }
     }
     saveChild(): void {

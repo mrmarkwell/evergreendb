@@ -11,6 +11,8 @@ import { RestService } from '../../rest.service';
 export class MedicalTabComponent implements OnInit, OnChanges {
     child: Child;
     private orig_child: Child;
+    private changed_child: Child;
+		private unsaved: boolean;
     private conditions: String[];
     constructor(
         private restService: RestService
@@ -26,8 +28,15 @@ export class MedicalTabComponent implements OnInit, OnChanges {
     }
     autosave(): void {
         if ( ! this.child.equals(this.orig_child) ) {
-            this.save();
-        }
+						if ( ! this.child.equals(this.changed_child)) {
+								this.unsaved = true;
+								this.changed_child = Object.assign(Object.create(this.child), this.child);
+						} else {
+								this.save();
+						}
+        } else {
+						this.unsaved = false;
+				}
     }
     save(): void {
         this.restService.updateChild(this.child)
@@ -36,6 +45,7 @@ export class MedicalTabComponent implements OnInit, OnChanges {
         this.restService.getChild(this.child_id).then(child => {
             this.child = child;
             this.orig_child = Object.assign(Object.create(child), child);
+            this.changed_child = Object.assign(Object.create(child), child);
         });
     }
     getMedicalConditions(): void {

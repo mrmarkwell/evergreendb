@@ -274,5 +274,5 @@ export class RestService {
     private evergreenUrl = 'http://127.0.0.1:5000';
     // private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
     private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    public autosave_frequency = 10000; // ms
+    public autosave_frequency = 1000; // ms
 }

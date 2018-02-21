@@ -2,7 +2,7 @@
     <div>
         <button mat-raised-button (click)="hideForm()">Hide</button>
         <button mat-icon-button>
-            <mat-icon svgIcon="save_icon" (click)="saveInteraction()"></mat-icon>
+            <mat-icon svgIcon="save_icon" (click)="saveInteraction()" [class.unsaved]="unsaved"></mat-icon>
         </button>
         <button mat-icon-button>
             <mat-icon svgIcon="trash_icon" (click)="deleteInteraction()"></mat-icon>
@@ -248,7 +248,7 @@
             </tbody>
         </table>
 
-        <input #interactionFileInput [hidden]="true" id=interaction-file-select type="file" name="interactions" ng2FileSelect [uploader]="fileuploader"/>        
+        <input #interactionFileInput [hidden]="true" id=interaction-file-select type="file" name="interactions" ng2FileSelect [uploader]="fileuploader"/>
         <!-- <button mat-raised-button (click)="openFileSelect()">Upload...</button> -->
         <mat-list dense>
             <mat-list-item>Attachments

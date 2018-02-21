@@ -1,5 +1,5 @@
 <form *ngIf="child" id="projected-pathway-form">
-    <button mat-raised-button (click)="save()">Save</button>
+    <button mat-raised-button (click)="save()" [class.unsaved]="unsaved">Save</button>
     <button mat-raised-button (click)="addNewStep()">Add Step</button>
     <div>
         <table *ngIf="projectedPathways != null && projectedPathways.length != 0">

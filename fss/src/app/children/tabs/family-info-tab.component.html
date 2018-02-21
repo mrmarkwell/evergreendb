@@ -1,7 +1,7 @@
 <div class='flex-col'>
 	<div class='flex-item' id='family-dynamics-box' *ngIf='child' class='flex-row'>
 		<button mat-icon-button class='flex-item'>
-			<mat-icon svgIcon="save_icon" (click)="saveChild()"></mat-icon>
+			<mat-icon svgIcon="save_icon" (click)="saveChild()" [class.unsaved]="unsaved_child"></mat-icon>
 		</button>
 		<mat-form-field id='family-dynamics-field' class='flex-item'>
 			<textarea matInput placeholder="Family Dynamics Observed" [(ngModel)]="child.family_dynamics" name="family-dynamics"></textarea>
@@ -16,7 +16,7 @@
 				<ul>
 					<li>
 						<button mat-icon-button>
-							<mat-icon svgIcon="save_icon" (click)="saveFamilyMember()"></mat-icon>
+							<mat-icon svgIcon="save_icon" (click)="saveFamilyMember()" [class.unsaved]="unsaved_family_member"></mat-icon>
 						</button>
 						<button mat-icon-button>
 							<mat-icon svgIcon="trash_icon" (click)="delete()"></mat-icon>
