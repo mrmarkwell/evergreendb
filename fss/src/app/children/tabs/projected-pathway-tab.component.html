@@ -4,29 +4,24 @@
     <div>
         <table *ngIf="projectedPathways != null && projectedPathways.length != 0">
             <colgroup>
-                <col id="delete-col">
                 <col id="step-no-col">
                 <col id="short-description-col">
                 <col id="details-col">
                 <col id="completion-col">
+                <col id="delete-col">
             </colgroup>
             <tbody>
                 <tr>
-                    <th></th>
-                    <th>Step No.</th>
+                    <th>Step</th>
                     <th>Short Description</th>
                     <th>Details</th>
                     <th>Completion Date</th>
+                    <th></th>
                 </tr>
                 <tr *ngFor="let pathway of projectedPathways">
-                    <td class="align-middle">
-                    <button mat-icon-button>
-                        <mat-icon svgIcon="trash_icon" (click)="delete(pathway.id)"></mat-icon>
-                    </button>
+                    <td class="align-middle" [class.active]="pathway.pathway_is_active">
+                        {{pathway.pathway_step_number}}
                     </td>
-                        <div [class.active]="pathway.pathway_is_active">
-                            <td class="align-middle">{{pathway.pathway_step_number}}</td>
-                        </div>
                     <td>
                         <mat-form-field>
                             <textarea matInput [(ngModel)]="pathway.pathway_short_description" name="{{pathway.id}}_short_description"></textarea>
@@ -43,6 +38,11 @@
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         </mat-form-field>
                         <mat-datepicker #picker></mat-datepicker>
+                    </td>
+                    <td>
+                        <button mat-icon-button>
+                            <mat-icon svgIcon="trash_icon" (click)="delete(pathway.id)"></mat-icon>
+                        </button>
                     </td>
                 </tr>
             </tbody>

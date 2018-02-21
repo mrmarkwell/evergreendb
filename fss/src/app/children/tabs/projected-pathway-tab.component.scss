@@ -14,30 +14,34 @@ textarea {
   box-sizing: border-box;
 }
 mat-form-field {
-	width: 100%;
+  width: 100%;
 }
 td {
   vertical-align: bottom;
 }
 th, td {
-	padding-left: 0.5em;
-	padding-right: 0.5em;
+  padding-left: 0.25em;
+  padding-right: 0.25em;
 }
 .align-middle {
   vertical-align: middle;
   text-align: center;
-  font-size: 2em;
+	font-size: 200%;
 }
 #completion-col {
   width: 8em;
 }
-#delete-col, #step-no-col {
-  width: 2em;
+#step-no-col {
+  width: 3em;
+}
+#delete-col {
+  width: 1em;
 }
 #short-description-col {
   width: 25%;
 }
 
 .active {
-  background-color: mat-color($accent);
+  color: mat-color($accent);
+	font-weight: bold;
 }
