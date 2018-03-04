@@ -52,7 +52,7 @@ export class FamilyTabComponent implements OnInit, OnChanges {
                 this.unsaved_child = true;
                 this.changed_child = Object.assign(Object.create(this.child), this.child); // deep copy
             } else {
-                this.saveChild();
+                //this.saveChild();
             }
         } else {
             this.unsaved_child = false;
@@ -62,7 +62,7 @@ export class FamilyTabComponent implements OnInit, OnChanges {
                 this.unsaved_family_member = true;
                 this.changed_family_member = Object.assign(Object.create(this.family_member), this.family_member); // deep copy
             } else {
-                this.saveFamilyMember();
+                //this.saveFamilyMember();
             }
         } else {
             this.unsaved_family_member = false;
@@ -72,11 +72,13 @@ export class FamilyTabComponent implements OnInit, OnChanges {
     saveFamilyMember(): void {
         this.restService.updateFamilyMember(this.family_member);
         this.setFamilyMember(this.family_member);
+        this.unsaved_family_member = false;
     }
 
     saveChild(): void {
         this.restService.updateChild(this.child);
         this.setChild(this.child);
+        this.unsaved_child = false;
     }
 
     delete(): void {

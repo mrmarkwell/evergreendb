@@ -32,7 +32,7 @@ export class MedicalTabComponent implements OnInit, OnChanges {
 								this.unsaved = true;
 								this.changed_child = Object.assign(Object.create(this.child), this.child);
 						} else {
-								this.save();
+								//this.save();
 						}
         } else {
 						this.unsaved = false;
@@ -40,6 +40,7 @@ export class MedicalTabComponent implements OnInit, OnChanges {
     }
     save(): void {
         this.restService.updateChild(this.child)
+        this.unsaved = false;
     }
     getChild(): void {
         this.restService.getChild(this.child_id).then(child => {

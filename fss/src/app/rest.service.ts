@@ -246,7 +246,7 @@ export class RestService {
             return date_obj.format("YYYY-MM-DD");
         }
         else {
-            return "";
+            return null;
         }
     }
 
@@ -272,7 +272,7 @@ export class RestService {
     }
 
     private evergreenUrl = 'http://127.0.0.1:5000';
-    // private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
+    //private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
     private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     public autosave_frequency = 1000; // ms
 }

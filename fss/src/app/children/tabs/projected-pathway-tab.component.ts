@@ -68,7 +68,8 @@ export class ProjectedPathwayTabComponent implements OnInit, OnChanges {
         }
     }
 
-    save(): void {
+save(): void {
+        this.unsaved = false;
         for (let pathway of this.projectedPathways) {
             // Update the pathway completion date with the object that is tied to the datepicker.
             pathway.pathway_completion_date = this.restService.getStringFromDate(pathway.pathway_completion_date_object);
