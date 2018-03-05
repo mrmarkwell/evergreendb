@@ -39,6 +39,7 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
             additionalParameter: { interaction_id: this.interaction.id }
         });
         this.fileuploader.onAfterAddingAll = (files: FileItem[]) => {
+            this.fileuploader.options.additionalParameter.interaction_id = this.interaction.id;
             this.fileuploader.uploadAll();
         }
         this.fileuploader.onCompleteItem = (file: FileItem, message: string, status: number) => {
