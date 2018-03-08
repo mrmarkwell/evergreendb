@@ -44,7 +44,7 @@ To set up Postman:
 - Run the backend run.py script on your local system (see Quick Start guide above)
 - Choose a Postman request from the EvergreenDB collection on the left side of Postman and click "Send" to execute the request.
 
-# Frontend Quick start Guide
+# Frontend Quick Start Guide
 
 To get started using the frontend follow these steps:
 
@@ -73,3 +73,39 @@ Package app as executable:
 npm run packagelocal # for current OS
 npm run packageall # for all OSs
 ```
+
+# Backend EC2 Deploy guide
+
+Taken roughly from this tutorial: https://www.matthealy.com.au/blog/post/deploying-flask-to-amazon-web-services-ec2/
+
+```
+ssh -i /path/to/your/keyfile ec2-user@your_public_dnsname_here
+```
+if you need any info for the command above... you are going to need more help than this guide
+
+Change to the apps user, and go to the evergreen dir that was already created:
+```
+[ec2-user@ip-172-31-14-180 ~]$ sudo su apps
+[apps@ip-172-31-14-180 ~]$ cd ~/evergreendb
+```
+Clone git repo or if already cloned just do a git pull to grab the latest version
+```
+[apps@ip-172-31-14-180 ~]$ git pull
+```
+Setup virtual env if its not already setup following directions in the link above then source the virtualenv and install any new python packages:
+```
+[apps@ip-172-31-14-180 evergreendb]$ cd backend/
+[apps@ip-172-31-14-180 backend]$ source virtualize.sh
+[apps@ip-172-31-14-180 evergreendb]$ pip install -r requirements.txt
+```
+At this point you can setup nginx as the web server following directions in the link but it should be done already.
+Finally kill any gunicorn processes and restart them:
+```
+[apps@ip-172-31-14-180 evergreendb]$ pkill gunicorn
+[apps@ip-172-31-14-180 evergreendb]$ gunicorn app:app -b localhost:8000 --error-logfile /home/apps/logs/error.log &
+```
+
+
+
+
+
