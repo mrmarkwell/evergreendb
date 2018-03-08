@@ -50,6 +50,12 @@ export class ChildDetails implements OnInit, OnChanges {
             'save_icon',
             sanitizer.bypassSecurityTrustResourceUrl('assets/save_icon.svg'));
         iconRegistry.addSvgIcon(
+            'attach_icon',
+            sanitizer.bypassSecurityTrustResourceUrl('assets/attach_icon.svg'));
+        iconRegistry.addSvgIcon(
+            'add_icon',
+            sanitizer.bypassSecurityTrustResourceUrl('assets/add_icon.svg'));
+        iconRegistry.addSvgIcon(
             'star_icon',
             sanitizer.bypassSecurityTrustResourceUrl('assets/star_icon.svg'));
         iconRegistry.addSvgIcon(
@@ -61,7 +67,8 @@ export class ChildDetails implements OnInit, OnChanges {
         iconRegistry.addSvgIcon(
             'file_icon',
             sanitizer.bypassSecurityTrustResourceUrl('assets/file_icon.svg'));
-    }
+    
+        }
     ngOnInit(): void {
         this.uploader = new FileUploader({
             url: this.restService.getPhotoUploadUrl(),
@@ -114,9 +121,10 @@ export class ChildDetails implements OnInit, OnChanges {
         if ( ! this.child.equals(this.orig_child) ) {
             if (! this.child.equals(this.changed_child)) {
                 this.changed_child = Object.assign(Object.create(this.child), this.child); // deep copy
+                this.changed_child.birth_date = this.child.birth_date; // deep copy didn't work for null/empty on this field.
                 this.unsaved = true;
             } else {
-                this.saveChild();
+                //this.saveChild();
             }
         } else {
             this.unsaved = false;
@@ -125,6 +133,7 @@ export class ChildDetails implements OnInit, OnChanges {
     saveChild(): void {
         this.child.birth_date = this.restService.getStringFromDate(this.child.birth_date_object);
         this.restService.updateChild(this.child);
+        this.unsaved = false;
     }
     deleteChild(): void {
         if (confirm("Are you sure you want to delete this child and all associated data?")) {

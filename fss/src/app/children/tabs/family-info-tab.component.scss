@@ -1,10 +1,6 @@
 @import '../../../theme.scss';
 @import '~@angular/material/theming';
 
-.unsaved {
-  color: mat-color($warn, 600);
-}
-
 .mat-form-field,#family-member-details {
 	width: 100%;
 }

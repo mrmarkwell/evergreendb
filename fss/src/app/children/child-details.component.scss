@@ -1,9 +1,6 @@
 @import '../../theme.scss';
 @import '~@angular/material/theming';
 
-.unsaved {
-  color: mat-color($warn, 600);
-}
 mat-select {
 	width: 100%;
 }

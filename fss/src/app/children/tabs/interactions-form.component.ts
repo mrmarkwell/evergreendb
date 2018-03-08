@@ -39,6 +39,7 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
             additionalParameter: { interaction_id: this.interaction.id }
         });
         this.fileuploader.onAfterAddingAll = (files: FileItem[]) => {
+            this.fileuploader.options.additionalParameter.interaction_id = this.interaction.id;
             this.fileuploader.uploadAll();
         }
         this.fileuploader.onCompleteItem = (file: FileItem, message: string, status: number) => {
@@ -81,7 +82,7 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
 								this.unsaved = true;
 								this.changed_interaction = Object.assign(Object.create(this.interaction), this.interaction); // deep copy
 						} else {
-								this.saveInteraction();
+								//this.saveInteraction();
 						}
         } else {
 						this.unsaved = false;
@@ -90,6 +91,7 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
     saveInteraction(): void {
         this.interaction.interaction_date = this.restService.getStringFromDate(this.interaction.interaction_date_object);
         this.restService.updateInteraction(this.interaction);
+        this.unsaved = false;
     }
     deleteInteraction(): void {
         if (confirm("Are you sure you want to delete this interaction?")) {

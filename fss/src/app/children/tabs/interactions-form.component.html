@@ -7,6 +7,29 @@
         <button mat-icon-button>
             <mat-icon svgIcon="trash_icon" (click)="deleteInteraction()"></mat-icon>
         </button>
+        <button mat-icon-button>
+            <mat-icon svgIcon="attach_icon" (click)="openFileSelect()"></mat-icon>
+        </button>
+    </div>
+    <div>
+        <input #interactionFileInput [hidden]="true" id=interaction-file-select type="file" name="interactions" ng2FileSelect [uploader]="fileuploader"/>
+        <!-- <button mat-raised-button (click)="openFileSelect()">Upload...</button> -->
+        <mat-list dense>
+            <mat-list-item *ngFor="let file of uploaded_files">
+                <!-- <button mat-icon-button>
+                    <mat-icon svgIcon="download" (click)="downloadFile(file)"></mat-icon>
+                </button> -->
+                <a [href]="this.restService.getInteractionFileDownloadUrl(interaction.id, file)" download>
+                    <button mat-icon-button>
+                        <mat-icon svgIcon="download"></mat-icon>
+                    </button>
+                </a>
+                <button mat-icon-button>
+                    <mat-icon svgIcon="trash_icon" (click)="deleteFile(file)"></mat-icon>
+                </button>
+                {{file}}
+            </mat-list-item>
+        </mat-list>
     </div>
     <div class='flex-row'>
         <div class='flex-item'>
@@ -247,28 +270,5 @@
                 </tr>
             </tbody>
         </table>
-
-        <input #interactionFileInput [hidden]="true" id=interaction-file-select type="file" name="interactions" ng2FileSelect [uploader]="fileuploader"/>
-        <!-- <button mat-raised-button (click)="openFileSelect()">Upload...</button> -->
-        <mat-list dense>
-            <mat-list-item>Attachments
-                <button mat-icon-button>
-                    <mat-icon svgIcon="upload" (click)="openFileSelect()"></mat-icon>
-                </button>
-            </mat-list-item>
-            <mat-list-item *ngFor="let file of uploaded_files">{{file}}
-                <!-- <button mat-icon-button>
-                    <mat-icon svgIcon="download" (click)="downloadFile(file)"></mat-icon>
-                </button> -->
-                <a [href]="this.restService.getInteractionFileDownloadUrl(interaction.id, file)" download>
-                    <button mat-icon-button>
-                        <mat-icon svgIcon="download"></mat-icon>
-                    </button>
-                </a>
-                <button mat-icon-button>
-                    <mat-icon svgIcon="trash_icon" (click)="deleteFile(file)"></mat-icon>
-                </button>
-            </mat-list-item>
-        </mat-list>
     </div>
 </div>
