@@ -1,14 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { SettingsTab } from './settings-tab.component';
+import { SettingsPage } from './settings-page.component';
 import { LoginPage } from '../login/login-page.component';
 import { RestService } from '../rest.service'
-import { MatFormFieldModule, MatInputModule, MatButtonModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatSlideToggleModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 @NgModule({
 	declarations: [
-        SettingsTab,
+        SettingsPage,
         LoginPage,
 	],
 	imports: [
@@ -16,11 +16,16 @@ import { FormsModule } from '@angular/forms';
         MatFormFieldModule,
         MatInputModule,
         MatButtonModule,
-        FormsModule
+        FormsModule,
+        MatSlideToggleModule
 	],
 	providers: [
         RestService
     ],
-	bootstrap: [SettingsTab]
+	bootstrap: [SettingsPage]
 })
-export class SettingsModule { }
+export class SettingsModule { 
+
+
+
+}

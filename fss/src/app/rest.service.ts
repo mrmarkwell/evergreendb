@@ -22,6 +22,7 @@ export class RestService {
         this.settings.save_notify_interval = 1000;
         this.settings.current_username = "";
         this.settings.current_password = "";
+        this.settings.setDevMode(false);
     }
 
     // Caches for performance improvement.
@@ -48,7 +49,7 @@ export class RestService {
     }
 
     public checkLogin(): Promise<boolean> {
-        let url = `${this.evergreenUrl}/authcheck`;
+        let url = `${this.getBaseUrl()}/authcheck`;
         return this.http.get(url, { headers: this.getHeaders() })
             .toPromise().then(response => { return true })
             .catch(error => { return false });
@@ -110,7 +111,7 @@ export class RestService {
 
     //***** Generic functions *****//
     private getEntity(type: string, query?: string): Promise<any> {
-        let url = `${this.evergreenUrl}/entity/${type}`;
+        let url = `${this.getBaseUrl()}/entity/${type}`;
         if (query) { url = url + '?' + query };
         return this.http.get(url, { headers: this.getHeaders() })
             .toPromise().then(response => response)
@@ -118,39 +119,39 @@ export class RestService {
     }
 
     private addEntity(type: string, entity: any): Promise<any> {
-        let url = `${this.evergreenUrl}/entity/${type}`;
+        let url = `${this.getBaseUrl()}/entity/${type}`;
         return this.http.post(url, JSON.stringify(entity), { headers: this.getHeaders() })
             .toPromise().then(res => { this.refresh(); return res; })
             .catch(this.handleError);
     }
 
     private updateEntity(type: string, entity: any): Promise<any> {
-        const url = `${this.evergreenUrl}/entity/${type}?id=${entity.id}`;
+        const url = `${this.getBaseUrl()}/entity/${type}?id=${entity.id}`;
         return this.http.put(url, JSON.stringify(entity), { headers: this.getHeaders() })
             .toPromise().then(res => { this.refresh(); return res; })
             .catch(this.handleError);
     }
 
     private deleteEntity(type: string, id: number): Promise<void> {
-        const url = `${this.evergreenUrl}/entity/${type}?id=${id}`;
+        const url = `${this.getBaseUrl()}/entity/${type}?id=${id}`;
         return this.http.delete(url, { headers: this.getHeaders() })
             .toPromise().then(() => { this.refresh(); return null }).catch(this.handleError);
     }
 
     getEnum(field: string): Promise<string[]> {
-        let url = `${this.evergreenUrl}/enum/${field}`;
+        let url = `${this.getBaseUrl()}/enum/${field}`;
         return this.http.get(url)
             .toPromise().then(response => response)
             .catch(this.handleError);
     }
 
     getInteractionFiles(interaction_id: number): Promise<String[]> {
-        let url = `${this.evergreenUrl}/interactionfiles/${interaction_id}`;
+        let url = `${this.getBaseUrl()}/interactionfiles/${interaction_id}`;
         return this.http.get(url).toPromise().then(response => response).catch(this.handleError);
     }
 
     deleteInteractionFile(interaction_id: number, filenames: String[]): Promise<any> {
-        let url = `${this.evergreenUrl}/interactionfiles/${interaction_id}`;
+        let url = `${this.getBaseUrl()}/interactionfiles/${interaction_id}`;
         return this.http.post(url, JSON.stringify(filenames), { headers: this.getHeaders() })
             .toPromise().then(res => { this.refresh(); return res; })
             .catch(this.handleError);
@@ -268,14 +269,14 @@ export class RestService {
 
     //File uploader needs the photo upload
     getPhotoUploadUrl(): string {
-        return this.evergreenUrl + "/upload";
+        return this.getBaseUrl() + "/upload";
     }
     getChildPhotoUrl(id: number): string {
-        return `${this.evergreenUrl}/static/photos/child${id}.jpeg`;
+        return `${this.getBaseUrl()}/static/photos/child${id}.jpeg`;
     }
 
     getInteractionFileDownloadUrl(id: number, filename: string): string {
-        return `${this.evergreenUrl}/static/interactions/${id}/${filename}`
+        return `${this.getBaseUrl()}/static/interactions/${id}/${filename}`
     }
 
     private handleError(error: any): Promise<any> {
@@ -284,11 +285,11 @@ export class RestService {
     }
 
     getBaseUrl(): String {
-        return this.evergreenUrl;
+        return this.settings.evergreen_url;
     }
 
-    private evergreenUrl = 'http://127.0.0.1:5000';
-    //private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
+    
+    
                                    
 
 
