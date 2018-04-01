@@ -11,12 +11,17 @@ import { Interaction } from './interaction';
 import { Reminder } from './reminder';
 import { FamilyMember } from './family-member';
 import { ProjectedPathway } from './projected-pathway';
+import { Settings } from './settings'
 
 @Injectable()
 export class RestService {
     changeEmitter: EventEmitter<any> = new EventEmitter();
+    settings: Settings = new Settings();
     constructor(private http: HttpClient) {
         this.refreshOrResetAllCaches();
+        this.settings.save_notify_interval = 1000;
+        this.settings.current_username = "";
+        this.settings.current_password = "";
     }
 
     // Caches for performance improvement.
@@ -42,6 +47,17 @@ export class RestService {
         });
     }
 
+    public checkLogin(): Promise<boolean> {
+        let url = `${this.evergreenUrl}/authcheck`;
+        return this.http.get(url, { headers: this.getHeaders() })
+            .toPromise().then(response => { return true })
+            .catch(error => { return false });
+    }
+
+    private getHeaders(): HttpHeaders {
+        return new HttpHeaders({ 'Content-Type': 'application/json',
+    "Authorization": "Basic " + btoa(this.settings.current_username + ":" + this.settings.current_password) });
+    }
     // Opportunistic caching of retrieved data
     private getAndCacheProjectedPathways(child_id: number): Promise<ProjectedPathway[]> {
         return this.getEntity('fss_projected_pathway', `child_id=${child_id}`).then(results => {
@@ -96,28 +112,28 @@ export class RestService {
     private getEntity(type: string, query?: string): Promise<any> {
         let url = `${this.evergreenUrl}/entity/${type}`;
         if (query) { url = url + '?' + query };
-        return this.http.get(url)
+        return this.http.get(url, { headers: this.getHeaders() })
             .toPromise().then(response => response)
             .catch(this.handleError);
     }
 
     private addEntity(type: string, entity: any): Promise<any> {
         let url = `${this.evergreenUrl}/entity/${type}`;
-        return this.http.post(url, JSON.stringify(entity), { headers: this.headers })
+        return this.http.post(url, JSON.stringify(entity), { headers: this.getHeaders() })
             .toPromise().then(res => { this.refresh(); return res; })
             .catch(this.handleError);
     }
 
     private updateEntity(type: string, entity: any): Promise<any> {
         const url = `${this.evergreenUrl}/entity/${type}?id=${entity.id}`;
-        return this.http.put(url, JSON.stringify(entity), { headers: this.headers })
+        return this.http.put(url, JSON.stringify(entity), { headers: this.getHeaders() })
             .toPromise().then(res => { this.refresh(); return res; })
             .catch(this.handleError);
     }
 
     private deleteEntity(type: string, id: number): Promise<void> {
         const url = `${this.evergreenUrl}/entity/${type}?id=${id}`;
-        return this.http.delete(url, { headers: this.headers })
+        return this.http.delete(url, { headers: this.getHeaders() })
             .toPromise().then(() => { this.refresh(); return null }).catch(this.handleError);
     }
 
@@ -135,7 +151,7 @@ export class RestService {
 
     deleteInteractionFile(interaction_id: number, filenames: String[]): Promise<any> {
         let url = `${this.evergreenUrl}/interactionfiles/${interaction_id}`;
-        return this.http.post(url, JSON.stringify(filenames), { headers: this.headers })
+        return this.http.post(url, JSON.stringify(filenames), { headers: this.getHeaders() })
             .toPromise().then(res => { this.refresh(); return res; })
             .catch(this.handleError);
     }
@@ -273,6 +289,8 @@ export class RestService {
 
     private evergreenUrl = 'http://127.0.0.1:5000';
     //private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
-    private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    public autosave_frequency = 1000; // ms
+                                   
+
+
+
 }

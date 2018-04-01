@@ -59,7 +59,7 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
         this.getInteractionCoordinators();
         this.getInteractionTypes();
         this.restService.changeEmitter.subscribe(() => this.ngOnChanges(null));
-        setInterval(()=>this.autosave(), this.restService.autosave_frequency);
+        setInterval(()=>this.autosave(), this.restService.settings.save_notify_interval);
     }
     ngOnChanges(changes: SimpleChanges): void {
         this.getUploadedFiles();

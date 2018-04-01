@@ -18,7 +18,7 @@ export class FamilyTabComponent implements OnInit, OnChanges {
     ) {}
 
     ngOnInit(): void {
-        setInterval(()=>this.autosave(), this.restService.autosave_frequency);
+        setInterval(()=>this.autosave(), this.restService.settings.save_notify_interval);
     }
 
     ngOnChanges(changes: SimpleChanges): void {

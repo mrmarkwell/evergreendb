@@ -356,6 +356,12 @@ class HeartbeatResource(Resource):
         response = {'message': 'beat'}
         return response, 200
 
+class AuthCheckResource(Resource):
+
+    @login_required
+    def get(self):
+        response = {'message': 'success'}
+        return response, 200
 
 class UserResource(ResourceBase):
     decorators = []

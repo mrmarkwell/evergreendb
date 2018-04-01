@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """Model the EvergreenDB"""
 
 from app import db
@@ -454,7 +456,7 @@ class User(UserMixin, db.Model):
     #created = db.Column(db.DateTime)
 
     def hash_password(self, password):
-        self.password_hash = pwd_context.hash(password)
+        self.password_hash = unicode(pwd_context.hash(password), "utf-8")
 
     def verify_password(self, password):
         return pwd_context.verify(password, self.password_hash)
