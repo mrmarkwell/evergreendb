@@ -6,6 +6,7 @@ import 'rxjs/add/operator/toPromise';
 import * as moment from 'moment';
 
 import { Child } from './child';
+import { User } from './user';
 import { ChildPhoto } from './child-photo'
 import { Interaction } from './interaction';
 import { Reminder } from './reminder';
@@ -48,16 +49,35 @@ export class RestService {
         });
     }
 
-    public checkLogin(): Promise<boolean> {
+    public checkLogin(password?: string): Promise<boolean> {
         let url = `${this.getBaseUrl()}/authcheck`;
-        return this.http.get(url, { headers: this.getHeaders() })
+        return this.http.get(url, { headers: this.getHeaders(password) })
             .toPromise().then(response => { return true })
             .catch(error => { return false });
     }
 
-    private getHeaders(): HttpHeaders {
+    public changePassword(new_password: string): Promise<boolean> {
+        return this.getCurrentUserId().then(id => {
+            let url = `${this.getBaseUrl()}/user?id=${id}`;
+            let user = new User();
+            user.username = this.settings.current_username;
+            user.password = new_password;
+            return this.http.put(url, JSON.stringify(user), {headers: this.getHeaders()})
+            .toPromise()
+            .then(response => { this.settings.current_password = new_password; return true; })
+            .catch(error => { return false });
+        })
+    }
+
+    public getCurrentUserId(): Promise<number> {
+        let url = `${this.getBaseUrl()}/user?username=${this.settings.current_username}`;
+        return this.http.get(url, { headers: this.getHeaders() })
+        .toPromise().then(response => { console.log(response); return response[0]["id"]; }).catch(this.handleError);
+    }
+
+    private getHeaders(password?: string): HttpHeaders {
         return new HttpHeaders({ 'Content-Type': 'application/json',
-    "Authorization": "Basic " + btoa(this.settings.current_username + ":" + this.settings.current_password) });
+    "Authorization": "Basic " + btoa(this.settings.current_username + ":" + (password ? password : this.settings.current_password)) });
     }
     // Opportunistic caching of retrieved data
     private getAndCacheProjectedPathways(child_id: number): Promise<ProjectedPathway[]> {
@@ -287,11 +307,5 @@ export class RestService {
     getBaseUrl(): String {
         return this.settings.evergreen_url;
     }
-
-    
-    
-                                   
-
-
 
 }
