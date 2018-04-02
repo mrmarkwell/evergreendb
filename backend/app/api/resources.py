@@ -363,6 +363,13 @@ class AuthCheckResource(Resource):
         response = {'message': 'success'}
         return response, 200
 
+class AdminAuthCheckResource(Resource):
+
+    @admin_required
+    def get(self):
+        response = {'message': 'success'}
+        return response, 200
+
 class UserResource(ResourceBase):
     decorators = []
 

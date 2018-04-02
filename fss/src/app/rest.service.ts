@@ -56,6 +56,20 @@ export class RestService {
             .catch(error => { return false });
     }
 
+    public addUser(user: User): Promise<boolean> {
+        let url = `${this.getBaseUrl()}/user`;
+        return this.http.post(url, JSON.stringify(user), { headers: this.getHeaders() })
+        .toPromise().then(response => { return true })
+        .catch(error => { return false });
+    }
+
+    public checkAdminLogin(): Promise<boolean> {
+        let url = `${this.getBaseUrl()}/adminauthcheck`;
+        return this.http.get(url, { headers: this.getHeaders() })
+            .toPromise().then(response => { return true })
+            .catch(error => { return false });
+    }
+
     public changePassword(new_password: string): Promise<boolean> {
         return this.getCurrentUserId().then(id => {
             let url = `${this.getBaseUrl()}/user?id=${id}`;

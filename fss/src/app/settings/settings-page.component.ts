@@ -40,10 +40,10 @@ export class SettingsPage {
 
 }
 
-
 @Component({
     selector: 'password-change-dialog',
     templateUrl: 'password-change-dialog.html',
+    styleUrls: ['./password-change-dialog.scss']
 })
 export class PasswordChangeDialog {
 

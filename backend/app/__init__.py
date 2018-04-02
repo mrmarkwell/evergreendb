@@ -18,6 +18,7 @@ from api.resources import EntityListResource
 from api.resources import FilterResource
 from api.resources import HeartbeatResource
 from api.resources import AuthCheckResource
+from api.resources import AdminAuthCheckResource
 from api.resources import RollbackResource
 from api.upload import Upload
 from api.resources import UserResource
@@ -42,6 +43,7 @@ rest_api.add_resource(UserResource, "/user")
 rest_api.add_resource(EnumResource, "/enum/<string:enum_name>", endpoint="enum")
 rest_api.add_resource(InteractionFiles, "/interactionfiles/<string:id>", endpoint="interactionsfiles")
 rest_api.add_resource(AuthCheckResource, "/authcheck", endpoint="authcheck")
+rest_api.add_resource(AdminAuthCheckResource, "/adminauthcheck", endpoint="adminauthcheck")
 
 from datetime import date
 from flask_admin.contrib.sqla import ModelView

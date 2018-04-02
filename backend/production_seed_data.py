@@ -3,9 +3,9 @@
 #Initial admin user
 # Not needed since an admin user is set up by flask-admin.
 # Default is username: admin, password: admin
-# users = [
-#     (u"administrator", u"evergreen", True, True)
-# ]
+users = [
+    (u"administrator", u"evergreen", True, True)
+]
 
 # FSS Data
 medical_conditions = [
