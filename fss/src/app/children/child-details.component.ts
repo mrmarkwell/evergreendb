@@ -103,7 +103,7 @@ export class ChildDetails implements OnInit, OnChanges {
         this.restService.getEnum("fss_child_status").then(status => this.child_status = status);
         this.restService.changeEmitter.subscribe(() => this.ngOnChanges());
         this.child_photo_url = this.restService.getChildPhotoUrl(this.child_id);
-        setInterval(()=>this.autosave(), this.restService.autosave_frequency);
+        setInterval(()=>this.autosave(), this.restService.settings.save_notify_interval);
     }
     ngOnChanges(): void {
         this.restService.getChild(this.child_id).then(child => {

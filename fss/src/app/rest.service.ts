@@ -6,17 +6,24 @@ import 'rxjs/add/operator/toPromise';
 import * as moment from 'moment';
 
 import { Child } from './child';
+import { User } from './user';
 import { ChildPhoto } from './child-photo'
 import { Interaction } from './interaction';
 import { Reminder } from './reminder';
 import { FamilyMember } from './family-member';
 import { ProjectedPathway } from './projected-pathway';
+import { Settings } from './settings'
 
 @Injectable()
 export class RestService {
     changeEmitter: EventEmitter<any> = new EventEmitter();
+    settings: Settings = new Settings();
     constructor(private http: HttpClient) {
         this.refreshOrResetAllCaches();
+        this.settings.save_notify_interval = 1000;
+        this.settings.current_username = "";
+        this.settings.current_password = "";
+        this.settings.setDevMode(false);
     }
 
     // Caches for performance improvement.
@@ -42,6 +49,50 @@ export class RestService {
         });
     }
 
+    public checkLogin(password?: string): Promise<boolean> {
+        let url = `${this.getBaseUrl()}/authcheck`;
+        return this.http.get(url, { headers: this.getHeaders(password) })
+            .toPromise().then(response => { return true })
+            .catch(error => { return false });
+    }
+
+    public addUser(user: User): Promise<boolean> {
+        let url = `${this.getBaseUrl()}/user`;
+        return this.http.post(url, JSON.stringify(user), { headers: this.getHeaders() })
+        .toPromise().then(response => { return true })
+        .catch(error => { return false });
+    }
+
+    public checkAdminLogin(): Promise<boolean> {
+        let url = `${this.getBaseUrl()}/adminauthcheck`;
+        return this.http.get(url, { headers: this.getHeaders() })
+            .toPromise().then(response => { return true })
+            .catch(error => { return false });
+    }
+
+    public changePassword(new_password: string): Promise<boolean> {
+        return this.getCurrentUserId().then(id => {
+            let url = `${this.getBaseUrl()}/user?id=${id}`;
+            let user = new User();
+            user.username = this.settings.current_username;
+            user.password = new_password;
+            return this.http.put(url, JSON.stringify(user), {headers: this.getHeaders()})
+            .toPromise()
+            .then(response => { this.settings.current_password = new_password; return true; })
+            .catch(error => { return false });
+        })
+    }
+
+    public getCurrentUserId(): Promise<number> {
+        let url = `${this.getBaseUrl()}/user?username=${this.settings.current_username}`;
+        return this.http.get(url, { headers: this.getHeaders() })
+        .toPromise().then(response => { console.log(response); return response[0]["id"]; }).catch(this.handleError);
+    }
+
+    private getHeaders(password?: string): HttpHeaders {
+        return new HttpHeaders({ 'Content-Type': 'application/json',
+    "Authorization": "Basic " + btoa(this.settings.current_username + ":" + (password ? password : this.settings.current_password)) });
+    }
     // Opportunistic caching of retrieved data
     private getAndCacheProjectedPathways(child_id: number): Promise<ProjectedPathway[]> {
         return this.getEntity('fss_projected_pathway', `child_id=${child_id}`).then(results => {
@@ -94,48 +145,48 @@ export class RestService {
 
     //***** Generic functions *****//
     private getEntity(type: string, query?: string): Promise<any> {
-        let url = `${this.evergreenUrl}/entity/${type}`;
+        let url = `${this.getBaseUrl()}/entity/${type}`;
         if (query) { url = url + '?' + query };
-        return this.http.get(url)
+        return this.http.get(url, { headers: this.getHeaders() })
             .toPromise().then(response => response)
             .catch(this.handleError);
     }
 
     private addEntity(type: string, entity: any): Promise<any> {
-        let url = `${this.evergreenUrl}/entity/${type}`;
-        return this.http.post(url, JSON.stringify(entity), { headers: this.headers })
+        let url = `${this.getBaseUrl()}/entity/${type}`;
+        return this.http.post(url, JSON.stringify(entity), { headers: this.getHeaders() })
             .toPromise().then(res => { this.refresh(); return res; })
             .catch(this.handleError);
     }
 
     private updateEntity(type: string, entity: any): Promise<any> {
-        const url = `${this.evergreenUrl}/entity/${type}?id=${entity.id}`;
-        return this.http.put(url, JSON.stringify(entity), { headers: this.headers })
+        const url = `${this.getBaseUrl()}/entity/${type}?id=${entity.id}`;
+        return this.http.put(url, JSON.stringify(entity), { headers: this.getHeaders() })
             .toPromise().then(res => { this.refresh(); return res; })
             .catch(this.handleError);
     }
 
     private deleteEntity(type: string, id: number): Promise<void> {
-        const url = `${this.evergreenUrl}/entity/${type}?id=${id}`;
-        return this.http.delete(url, { headers: this.headers })
+        const url = `${this.getBaseUrl()}/entity/${type}?id=${id}`;
+        return this.http.delete(url, { headers: this.getHeaders() })
             .toPromise().then(() => { this.refresh(); return null }).catch(this.handleError);
     }
 
     getEnum(field: string): Promise<string[]> {
-        let url = `${this.evergreenUrl}/enum/${field}`;
+        let url = `${this.getBaseUrl()}/enum/${field}`;
         return this.http.get(url)
             .toPromise().then(response => response)
             .catch(this.handleError);
     }
 
     getInteractionFiles(interaction_id: number): Promise<String[]> {
-        let url = `${this.evergreenUrl}/interactionfiles/${interaction_id}`;
+        let url = `${this.getBaseUrl()}/interactionfiles/${interaction_id}`;
         return this.http.get(url).toPromise().then(response => response).catch(this.handleError);
     }
 
     deleteInteractionFile(interaction_id: number, filenames: String[]): Promise<any> {
-        let url = `${this.evergreenUrl}/interactionfiles/${interaction_id}`;
-        return this.http.post(url, JSON.stringify(filenames), { headers: this.headers })
+        let url = `${this.getBaseUrl()}/interactionfiles/${interaction_id}`;
+        return this.http.post(url, JSON.stringify(filenames), { headers: this.getHeaders() })
             .toPromise().then(res => { this.refresh(); return res; })
             .catch(this.handleError);
     }
@@ -252,14 +303,14 @@ export class RestService {
 
     //File uploader needs the photo upload
     getPhotoUploadUrl(): string {
-        return this.evergreenUrl + "/upload";
+        return this.getBaseUrl() + "/upload";
     }
     getChildPhotoUrl(id: number): string {
-        return `${this.evergreenUrl}/static/photos/child${id}.jpeg`;
+        return `${this.getBaseUrl()}/static/photos/child${id}.jpeg`;
     }
 
     getInteractionFileDownloadUrl(id: number, filename: string): string {
-        return `${this.evergreenUrl}/static/interactions/${id}/${filename}`
+        return `${this.getBaseUrl()}/static/interactions/${id}/${filename}`
     }
 
     private handleError(error: any): Promise<any> {
@@ -268,11 +319,7 @@ export class RestService {
     }
 
     getBaseUrl(): String {
-        return this.evergreenUrl;
+        return this.settings.evergreen_url;
     }
 
-    private evergreenUrl = 'http://127.0.0.1:5000';
-    //private evergreenUrl = "http://ec2-54-193-44-138.us-west-1.compute.amazonaws.com";
-    private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    public autosave_frequency = 1000; // ms
 }

@@ -1,0 +1,26 @@
+<div>
+    <form>
+      <mat-form-field>
+        <input matInput placeholder="New Username" [(ngModel)]="user.username" name="new-username">
+      </mat-form-field>
+      <br>
+  
+      <mat-form-field>
+        <input matInput placeholder="Password" type="password" [(ngModel)]="user.password" name="new-password">
+      </mat-form-field>
+      <br>
+
+      <mat-form-field>
+        <input matInput placeholder="Confirm Password" type="password" [(ngModel)]="confirm_password" name="confirm-password">
+      </mat-form-field>
+      <br>
+
+      <mat-slide-toggle [(ngModel)]="user.is_editor" name="editor-toggle">Editor</mat-slide-toggle>
+      <br>
+
+      <mat-slide-toggle [(ngModel)]="user.is_admin" name="admin-toggle">Administrator</mat-slide-toggle>
+      <br>
+  
+      <button mat-raised-button (click)="attemptAddUser()">Submit!</button>
+    </form>
+  </div>

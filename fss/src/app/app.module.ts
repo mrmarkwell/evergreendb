@@ -39,7 +39,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
         CalendarModule,
         ChildrenModule,
         RemindersModule,
-        SettingsModule,
+        SettingsModule
     ],
     providers: [
         RestService,

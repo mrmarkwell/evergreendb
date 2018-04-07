@@ -21,7 +21,7 @@ export class MedicalTabComponent implements OnInit, OnChanges {
         this.getChild();
         this.getMedicalConditions();
         this.restService.changeEmitter.subscribe(() => this.ngOnChanges())
-        setInterval(()=>this.autosave(), this.restService.autosave_frequency);
+        setInterval(()=>this.autosave(), this.restService.settings.save_notify_interval);
     }
     ngOnChanges(): void {
         this.getChild();

@@ -1,16 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { SettingsTab } from './settings-tab.component';
-
+import { SettingsPage, PasswordChangeDialog } from './settings-page.component';
+import { AdminPage, AddUserDialog } from './admin-settings-page.component';
+import { LoginPage } from '../login/login-page.component';
+import { RestService } from '../rest.service'
+import { MatFormFieldModule, MatInputModule, MatButtonModule, MatSlideToggleModule, MatDialogModule } from '@angular/material';
+import { FormsModule } from '@angular/forms';
 @NgModule({
 	declarations: [
-		SettingsTab
+        SettingsPage,
+        LoginPage,
+        PasswordChangeDialog,
+        AdminPage,
+        AddUserDialog
 	],
 	imports: [
-		BrowserModule,
+        BrowserModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        FormsModule,
+        MatSlideToggleModule,
+        MatDialogModule
 	],
-	providers: [],
-	bootstrap: [SettingsTab]
+	providers: [
+        RestService
+    ],
+    bootstrap: [SettingsPage],
+    entryComponents: [PasswordChangeDialog, AddUserDialog]
 })
-export class SettingsModule { }
+export class SettingsModule { 
+
+
+
+}

@@ -3,7 +3,7 @@ from tests.rest_test_data import get_test_data
 from app import app, db
 from production_seed_data import * 
 from app.models import MedicalCondition, DoctorType, Medication, MeasurementType
-from app.models import MilestoneTypeCategory, MilestoneType, SpecialistType, Camp 
+from app.models import MilestoneTypeCategory, MilestoneType, SpecialistType, Camp, User
 import sys
 from pprint import pprint as pp
 
@@ -96,6 +96,16 @@ for camp in camps:
     c.camp_chinese_name = camp
     c.camp_pinyin_name = camp
     session.add(c)
+    session.commit()
+
+for user in users:
+    u = User()
+    print "adding " + u.__tablename__
+    u.username = user[0]
+    u.password = u.hash_password(user[1])
+    u.is_editor = user[2]
+    u.is_admin = user[3]
+    session.add(u)
     session.commit()
 
 # Auto seed with fake data
