@@ -11,3 +11,9 @@ th, td {
 tr.selected {
 	color: mat-color($accent);
 }
+td.reminder {
+	color: pink;
+}
+td.reminder.selected {
+	color: mix(pink, mat-color($accent), 60%);
+}
