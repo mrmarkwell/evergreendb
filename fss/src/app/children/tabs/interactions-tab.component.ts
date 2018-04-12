@@ -58,6 +58,10 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
     isSelected(interaction): boolean {
         return this.expanded_interaction && interaction.id === this.expanded_interaction.id;
     }
+    isFuture(interaction): boolean {
+        let d = moment();
+        return interaction.interaction_date_object >= d;
+    }
     createInteraction() : void {
         let interaction = new Interaction({
             "interaction_type": "To Do",
