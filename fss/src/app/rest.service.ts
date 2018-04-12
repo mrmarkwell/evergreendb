@@ -254,7 +254,7 @@ export class RestService {
     }
     addFamilyMember(family_member: FamilyMember): Promise<FamilyMember> {
         return this.addEntity('fss_family_member', family_member).then(results => {
-            return results as FamilyMember
+            return new FamilyMember(results)
         });
     }
     updateFamilyMember(family_member: FamilyMember): Promise<FamilyMember> {
