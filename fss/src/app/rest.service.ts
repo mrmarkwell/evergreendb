@@ -23,7 +23,7 @@ export class RestService {
         this.settings.save_notify_interval = 1000;
         this.settings.current_username = "";
         this.settings.current_password = "";
-        this.settings.setDevMode(false);
+        this.settings.setDevMode(true);
     }
 
     // Caches for performance improvement.
@@ -40,9 +40,10 @@ export class RestService {
         this.projected_pathways_cache.clear();
         // Fill the children cache immediately. The others will populate on demand.
         return this.getEntity('fss_child').then(results => {
+			console.log(this.children_cache);
             let ret = results.map(child => {
                 let the_child = new Child(child);
-                this.children_cache.set(the_child.id, child);
+                this.children_cache.set(the_child.id, the_child);
                 return the_child;
             });
             return ret;
@@ -129,13 +130,13 @@ export class RestService {
     // Retrieve the children from the cache.
     private getCachedChildren(): Promise<Child[]> {
         let children = new Array<Child>();
-        this.children_cache.forEach((value, key, map) => children.push(new Child(value)));
+        this.children_cache.forEach((value, key, map) => children.push(value));
         return Promise.resolve(children);
     }
 
     // Retrieve a single cached child.
     private getCachedChild(child_id: number): Promise<Child> {
-        return Promise.resolve(new Child(this.children_cache.get(child_id)));
+        return Promise.resolve(this.children_cache.get(child_id));
     }
 
     // Global refresh. Resets caches and then causes ngOnChanges to be called everywhere.
