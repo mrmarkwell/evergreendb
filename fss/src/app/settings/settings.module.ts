@@ -5,7 +5,12 @@ import { SettingsPage, PasswordChangeDialog } from './settings-page.component';
 import { AdminPage, AddUserDialog } from './admin-settings-page.component';
 import { LoginPage } from '../login/login-page.component';
 import { RestService } from '../rest.service'
-import { MatFormFieldModule, MatInputModule, MatButtonModule, MatSlideToggleModule, MatDialogModule } from '@angular/material';
+import { MatFormFieldModule, 
+    MatInputModule, 
+    MatButtonModule, 
+    MatSlideToggleModule, 
+    MatDialogModule, 
+    MatListModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 @NgModule({
 	declarations: [
@@ -22,7 +27,8 @@ import { FormsModule } from '@angular/forms';
         MatButtonModule,
         FormsModule,
         MatSlideToggleModule,
-        MatDialogModule
+        MatDialogModule,
+        MatListModule
 	],
 	providers: [
         RestService

@@ -174,9 +174,16 @@ export class RestService {
 
     getEnum(field: string): Promise<string[]> {
         let url = `${this.getBaseUrl()}/enum/${field}`;
-        return this.http.get(url)
+        return this.http.get(url, { headers: this.getHeaders() })
             .toPromise().then(response => response)
             .catch(this.handleError);
+    }
+
+    getUsers(): Promise<User[]> {
+        let url = `${this.getBaseUrl()}/user`
+        return this.http.get(url, { headers: this.getHeaders() })
+        .toPromise().then(response => response as User[])
+        .catch(this.handleError);
     }
 
     getInteractionFiles(interaction_id: number): Promise<String[]> {

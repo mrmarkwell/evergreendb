@@ -1,6 +1,12 @@
 <div>
-    <form>
-      <button mat-raised-button (click)="addUserDialog()">Add User</button>
-    </form>
-  </div>
-  
+  <form>
+    <button mat-raised-button (click)="addUserDialog()">Add User</button>
+  </form>
+</div>
+<div>
+  <mat-list dense *ngIf="users">
+    <mat-list-item *ngFor="let user of users">
+      {{user.username}}
+    </mat-list-item>
+  </mat-list>
+</div>
