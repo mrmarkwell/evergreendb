@@ -283,7 +283,8 @@ export class RestService {
 
     // Utility function for creating Date objects from strings for binding to datepickers.
     getDateFromString(date_string: string): moment.Moment {
-        let date = moment(date_string, "YYYY-MM-DD");
+		date_string += " 23:59" // DON'T DO THIS ONCE TIME IS IMPLEMENTED
+        let date = moment(date_string, "YYYY-MM-DD HH:mm");
         if (date.isValid()) {
             return date;
         } else {

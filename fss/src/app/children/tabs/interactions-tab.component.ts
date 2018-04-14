@@ -60,7 +60,7 @@ export class InteractionsTabComponent implements OnInit, OnChanges {
     }
     isFuture(interaction): boolean {
         let d = moment();
-        return interaction.interaction_date_object >= d;
+        return !interaction.interaction_date_object.isBefore(d,'minute');
     }
     createInteraction() : void {
         let interaction = new Interaction({
