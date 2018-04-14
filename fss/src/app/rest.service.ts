@@ -84,9 +84,15 @@ export class RestService {
     }
 
     public getCurrentUserId(): Promise<number> {
-        let url = `${this.getBaseUrl()}/user?username=${this.settings.current_username}`;
+        let url = `${this.getBaseUrl()}/user`;
         return this.http.get(url, { headers: this.getHeaders() })
-        .toPromise().then(response => { console.log(response); return response[0]["id"]; }).catch(this.handleError);
+        .toPromise().then(response => { 
+            console.log(response); 
+            let users = response as User[];
+            console.log(users);
+            let current_user = users.find(x => x.username === this.settings.current_username);
+            return current_user.id;
+        }).catch(this.handleError);
     }
 
     private getHeaders(password?: string): HttpHeaders {
