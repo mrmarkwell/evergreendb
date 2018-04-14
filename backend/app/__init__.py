@@ -21,6 +21,7 @@ from api.resources import AuthCheckResource
 from api.resources import AdminAuthCheckResource
 from api.resources import RollbackResource
 from api.upload import Upload
+from api.upload import Photos
 from api.resources import UserResource
 from api.resources import EnumResource
 from api.upload import InteractionFiles
@@ -39,6 +40,7 @@ rest_api.add_resource(EntityListResource, "/entity", endpoint="entities")
 rest_api.add_resource(HeartbeatResource, "/heartbeat", endpoint="heartbeat")
 rest_api.add_resource(RollbackResource, "/rollback", endpoint="rollback")
 rest_api.add_resource(Upload, "/upload")
+rest_api.add_resource(Photos, "/photos/<string:filename>", endpoint="photos")
 rest_api.add_resource(UserResource, "/user")
 rest_api.add_resource(EnumResource, "/enum/<string:enum_name>", endpoint="enum")
 rest_api.add_resource(InteractionFiles, "/interactionfiles/<string:id>", endpoint="interactionsfiles")
