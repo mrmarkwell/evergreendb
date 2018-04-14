@@ -191,6 +191,12 @@ export class RestService {
             .catch(this.handleError);
     }
 
+    deleteChildPhoto(child_id: number): Promise<any> {
+        let url = `${this.getBaseUrl()}/photos/child${child_id}.jpeg`;
+        return this.http.delete(url, { headers: this.getHeaders() }).toPromise()
+        .then(() => { return null }).catch(this.handleError);
+    }
+
     // Child functions
     getChildren(): Promise<Child[]> {
         if (this.children_cache.size == 0) {

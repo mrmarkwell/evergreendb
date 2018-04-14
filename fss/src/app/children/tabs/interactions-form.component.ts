@@ -96,6 +96,7 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
     deleteInteraction(): void {
         if (confirm("Are you sure you want to delete this interaction?")) {
             this.restService.deleteInteraction(this.interaction.id);
+            this.restService.deleteInteractionFile(this.interaction.id, []);
             this.interaction = null;
             this.notifyDeletedOrHidden.emit("deleted");
         }

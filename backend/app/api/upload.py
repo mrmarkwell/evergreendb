@@ -65,6 +65,18 @@ class Upload(Resource):
             msg = 'No file included in upload request'
             abort(400, message=msg)
         
+# This is just for deleting photos.
+class Photos(Resource):
+    def delete(self, filename):
+        path = os.path.join(dest, photos_sub, filename)
+
+        if os.path.exists(path):
+            os.remove(path)
+            return None, 204
+        else:
+            msg = "File not found"
+            abort(401, message=msg)
+
 class InteractionFiles(Resource):
     def get(self, id):
         filenames = self.getFileList(id);
@@ -84,7 +96,7 @@ class InteractionFiles(Resource):
                 abort(401, message=msg)
             else:
                 os.remove(file_path)
-        return 204
+        return None, 204
 
     def getFileList(self, id):
         path = os.path.join(dest, interactions_sub, id)
