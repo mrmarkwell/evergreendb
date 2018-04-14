@@ -18,7 +18,7 @@ export class SettingsPage {
         public dialog: MatDialog
     ) { }
 
-    private dev_mode: boolean = !this.restService.settings.evergreen_url.includes("matthewmarkwell");
+    dev_mode: boolean = !this.restService.settings.evergreen_url.includes("matthewmarkwell");
 
     public onSubmit(): void {
         this.restService.settings.setDevMode(this.dev_mode)
