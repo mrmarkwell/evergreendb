@@ -137,6 +137,7 @@ export class ChildDetails implements OnInit, OnChanges {
     }
     deleteChild(): void {
         if (confirm("Are you sure you want to delete this child and all associated data?")) {
+            this.restService.deleteChildPhoto(this.child.id);
             this.restService.deleteChild(this.child.id);
             this.child = null;
             this.notifyDeleted.emit();
