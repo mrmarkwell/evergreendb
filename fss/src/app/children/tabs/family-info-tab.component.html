@@ -64,4 +64,9 @@
 			</form>
 		</div>
 	</div>
+	<div class='flex-item' id='other-family-members-box' *ngIf='child' class='flex-row'>
+		<mat-form-field id='other-family-members' class='flex-item'>
+			<textarea matInput placeholder="Other Significant Family Members" [(ngModel)]="child.other_family_members" name="other-family-members"></textarea>
+		</mat-form-field>
+	</div>
 </div>

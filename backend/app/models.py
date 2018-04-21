@@ -15,7 +15,7 @@ class FSSChild(db.Model):
     __bind_key__ = 'fss'
 
     # General information
-    id = db.Column(db.Integer, primary_key=True)    
+    id = db.Column(db.Integer, primary_key=True)
     child_english_name = db.Column(db.Unicode(255))
     child_chinese_name = db.Column(db.Unicode(255))
     child_pinyin_name = db.Column(db.Unicode(255))
@@ -36,6 +36,7 @@ class FSSChild(db.Model):
     birth_history = db.Column(db.Unicode(255))
     medical_history = db.Column(db.Unicode(255))
     family_dynamics = db.Column(db.Unicode(255))
+    other_family_members = db.Column(db.Unicode(255))
 
     family_members = db.relationship('FSSFamilyMember', cascade="all, delete", backref='child')
     projected_pathway = db.relationship('FSSProjectedPathway', cascade="all, delete", backref='child')
@@ -476,4 +477,3 @@ class User(UserMixin, db.Model):
     @property
     def get_id(self):
         return unicode(self.id)
-
