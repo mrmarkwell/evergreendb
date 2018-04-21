@@ -42,7 +42,7 @@ export class RestService {
         return this.getEntity('fss_child').then(results => {
             let ret = results.map(child => {
                 let the_child = new Child(child);
-                this.children_cache.set(the_child.id, child);
+                this.children_cache.set(the_child.id, the_child);
                 return the_child;
             });
             return ret;
@@ -95,14 +95,15 @@ export class RestService {
 
     private getHeaders(password?: string): HttpHeaders {
         return new HttpHeaders({ 'Content-Type': 'application/json',
-    "Authorization": "Basic " + btoa(this.settings.current_username + ":" + (password ? password : this.settings.current_password)) });
+            "Authorization": "Basic " + btoa(this.settings.current_username + ":"
+            + (password ? password : this.settings.current_password)) });
     }
     // Opportunistic caching of retrieved data
     private getAndCacheProjectedPathways(child_id: number): Promise<ProjectedPathway[]> {
         return this.getEntity('fss_projected_pathway', `child_id=${child_id}`).then(results => {
-						let projected_pathways = results.map(projected_pathway => {
-								return new ProjectedPathway(projected_pathway);
-						});
+            let projected_pathways = results.map(projected_pathway => {
+                return new ProjectedPathway(projected_pathway);
+            });
             this.projected_pathways_cache.set(child_id, projected_pathways);
             return projected_pathways;
         });
@@ -111,9 +112,9 @@ export class RestService {
     // Opportunistic caching of retrieved data
     private getAndCacheInteractions(child_id: number): Promise<Interaction[]> {
         return this.getEntity('fss_interaction', `child_id=${child_id}`).then(results => {
-						let interactions = results.map(interaction => {
-								return new Interaction(interaction);
-						});
+            let interactions = results.map(interaction => {
+                return new Interaction(interaction);
+            });
             this.interactions_cache.set(child_id, interactions);
             return interactions;
         });
@@ -133,13 +134,13 @@ export class RestService {
     // Retrieve the children from the cache.
     private getCachedChildren(): Promise<Child[]> {
         let children = new Array<Child>();
-        this.children_cache.forEach((value, key, map) => children.push(new Child(value)));
+        this.children_cache.forEach((value, key, map) => children.push(value));
         return Promise.resolve(children);
     }
 
     // Retrieve a single cached child.
     private getCachedChild(child_id: number): Promise<Child> {
-        return Promise.resolve(new Child(this.children_cache.get(child_id)));
+        return Promise.resolve(this.children_cache.get(child_id));
     }
 
     // Global refresh. Resets caches and then causes ngOnChanges to be called everywhere.
@@ -293,7 +294,7 @@ export class RestService {
 
     // Utility function for creating Date objects from strings for binding to datepickers.
     getDateFromString(date_string: string): moment.Moment {
-		date_string += " 23:59" // DON'T DO THIS ONCE TIME IS IMPLEMENTED
+    date_string += " 23:59" // DON'T DO THIS ONCE TIME IS IMPLEMENTED
         let date = moment(date_string, "YYYY-MM-DD HH:mm");
         if (date.isValid()) {
             return date;

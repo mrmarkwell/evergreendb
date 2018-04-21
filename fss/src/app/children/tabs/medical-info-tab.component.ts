@@ -10,9 +10,6 @@ import { RestService } from '../../rest.service';
 })
 export class MedicalTabComponent implements OnInit, OnChanges {
     child: Child;
-    private orig_child: Child;
-    private changed_child: Child;
-		private unsaved: boolean;
     private conditions: String[];
     constructor(
         private restService: RestService
@@ -21,32 +18,13 @@ export class MedicalTabComponent implements OnInit, OnChanges {
         this.getChild();
         this.getMedicalConditions();
         this.restService.changeEmitter.subscribe(() => this.ngOnChanges())
-        setInterval(()=>this.autosave(), this.restService.settings.save_notify_interval);
     }
     ngOnChanges(): void {
         this.getChild();
     }
-    autosave(): void {
-        if ( ! this.child.equals(this.orig_child) ) {
-						if ( ! this.child.equals(this.changed_child)) {
-								this.unsaved = true;
-								this.changed_child = Object.assign(Object.create(this.child), this.child);
-						} else {
-								//this.save();
-						}
-        } else {
-						this.unsaved = false;
-				}
-    }
-    save(): void {
-        this.restService.updateChild(this.child)
-        this.unsaved = false;
-    }
     getChild(): void {
         this.restService.getChild(this.child_id).then(child => {
             this.child = child;
-            this.orig_child = Object.assign(Object.create(child), child);
-            this.changed_child = Object.assign(Object.create(child), child);
         });
     }
     getMedicalConditions(): void {
