@@ -5,12 +5,14 @@ import { SettingsPage, PasswordChangeDialog } from './settings-page.component';
 import { AdminPage, AddUserDialog } from './admin-settings-page.component';
 import { LoginPage } from '../login/login-page.component';
 import { RestService } from '../rest.service'
-import { MatFormFieldModule, 
-    MatInputModule, 
-    MatButtonModule, 
-    MatSlideToggleModule, 
-    MatDialogModule, 
-    MatListModule} from '@angular/material';
+import { MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSlideToggleModule,
+    MatDialogModule,
+    MatListModule,
+    MatTableModule,
+    MatCheckboxModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 @NgModule({
 	declarations: [
@@ -28,7 +30,9 @@ import { FormsModule } from '@angular/forms';
         FormsModule,
         MatSlideToggleModule,
         MatDialogModule,
-        MatListModule
+        MatListModule,
+        MatTableModule,
+        MatCheckboxModule
 	],
 	providers: [
         RestService
@@ -36,7 +40,7 @@ import { FormsModule } from '@angular/forms';
     bootstrap: [SettingsPage],
     entryComponents: [PasswordChangeDialog, AddUserDialog]
 })
-export class SettingsModule { 
+export class SettingsModule {
 
 
 

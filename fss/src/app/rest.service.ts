@@ -23,8 +23,10 @@ export class RestService {
         this.settings.save_notify_interval = 1000;
         this.settings.current_username = "";
         this.settings.current_password = "";
+
         this.settings.setDevMode(false);
     }
+    
 
     // Caches for performance improvement.
     private children_cache: Map<number, any> = new Map<number, any>();
@@ -188,6 +190,13 @@ export class RestService {
         let url = `${this.getBaseUrl()}/user`
         return this.http.get(url, { headers: this.getHeaders() })
         .toPromise().then(response => response as User[])
+        .catch(this.handleError);
+    }
+
+    updateUser(user): void {
+        let url = `${this.getBaseUrl()}/user?id=${user.id}`;
+        this.http.put(url, JSON.stringify(user), { headers: this.getHeaders() })
+        .toPromise().then(response => console.log(response))
         .catch(this.handleError);
     }
 

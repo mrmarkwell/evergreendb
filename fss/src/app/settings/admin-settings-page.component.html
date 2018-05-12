@@ -3,10 +3,27 @@
     <button mat-raised-button (click)="addUserDialog()">Add User</button>
   </form>
 </div>
-<div>
-  <mat-list dense *ngIf="users">
-    <mat-list-item *ngFor="let user of users">
-      {{user.username}}
-    </mat-list-item>
-  </mat-list>
+<br>
+<br>
+<div class="table-container mat-elevation-z8">
+  <mat-table #table [dataSource]="users">
+    <ng-container matColumnDef="username">
+      <mat-header-cell *matHeaderCellDef> Username </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{user.username}} </mat-cell>
+    </ng-container>
+    <ng-container class="center-div" matColumnDef="is_editor">
+      <mat-header-cell *matHeaderCellDef> Editor </mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <mat-checkbox [(ngModel)]="user.is_editor" (change)="updateUser(user)"></mat-checkbox>
+      </mat-cell>
+    </ng-container>
+    <ng-container class="center-div" matColumnDef="is_admin">
+      <mat-header-cell *matHeaderCellDef> Administrator </mat-header-cell>
+      <mat-cell *matCellDef="let user">
+        <mat-checkbox [(ngModel)]="user.is_admin" (change)="updateUser(user)" [disabled]="user.username==current_username"></mat-checkbox>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
+    <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
+  </mat-table>
 </div>

@@ -2,7 +2,8 @@ import { Component, Inject, OnInit, OnChanges } from '@angular/core';
 import { RestService } from '../rest.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
+import {SelectionModel} from '@angular/cdk/collections';
 
 import { User } from '../user'
 @Component({
@@ -23,14 +24,21 @@ export class AdminPage implements OnInit, OnChanges{
         //this.restService.settings.setDevMode(this.dev_mode)
     }
 
-    public users: User[];
-
+    public users: MatTableDataSource<User>;
+    public current_username = this.restService.settings.current_username;
+    columnsToDisplay = ['username', 'is_editor', 'is_admin'];
+    selection = new SelectionModel<User>(true, []);
+    
+    updateUser(user): void {
+        this.restService.updateUser(user);
+    }
+    
     ngOnInit(): void {
-        this.restService.getUsers().then(users => this.users = users);
+        this.restService.getUsers().then(users => this.users = new MatTableDataSource<User>(users));
     }
     
     ngOnChanges(): void {
-        this.restService.getUsers().then(users => this.users = users);
+        this.restService.getUsers().then(users => this.users = new MatTableDataSource<User>(users));
     }
 
     addUserDialog(): void {
@@ -39,7 +47,7 @@ export class AdminPage implements OnInit, OnChanges{
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
+            this.ngOnChanges();
         });
     }
 
