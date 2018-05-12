@@ -4,7 +4,9 @@ import {
     MatNativeDateModule,
     MatIconModule,
     MatSidenavModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,
+    MatChipsModule
 } from '@angular/material';
 
 import { HttpClientModule } from '@angular/common/http'
@@ -39,7 +41,9 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
         CalendarModule,
         ChildrenModule,
         RemindersModule,
-        SettingsModule
+        SettingsModule,
+        MatCardModule,
+        MatChipsModule
     ],
     providers: [
         RestService,

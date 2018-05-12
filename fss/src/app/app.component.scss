@@ -29,3 +29,20 @@ mat-sidenav a.active {
 mat-sidenav mat-icon {
 	color: white; // CSS can change .svg color!
 }
+
+.logout {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    // left: 1em;
+    // display: inline-block;
+	// text-align: center;
+}
+.logoutbutton {
+    width:100%;
+}
+.chipcontent {
+    margin: 0 auto;
+    text-align: center;
+}
+

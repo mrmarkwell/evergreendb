@@ -1,15 +1,37 @@
 <mat-sidenav-container class="mat-typography">
-    <mat-sidenav #sidenav class="fss-sidenav" mode="side" opened="true">
-        <h1>{{title}}</h1>
-        <div><a mat-button routerLink='/login' routerLinkActive="active">Login</a></div>        
-        <div><a mat-button routerLink='/children' routerLinkActive="active">Children</a></div>
-        <div><a mat-button routerLink='/reminders' routerLinkActive="active">Reminders</a></div>
-        <div><a mat-button routerLink='/calendar' routerLinkActive="active">Calendar</a></div>
-        <div><a mat-button routerLink='/settings' routerLinkActive="active">Settings</a></div>
-        <div><a mat-button routerLink='/admin' routerLinkActive="active">Admin</a></div>
-        <div><button mat-icon-button>
-            <mat-icon svgIcon="refresh_icon" (click)="refresh()"></mat-icon>
-        </button></div>
-    </mat-sidenav>
-    <router-outlet></router-outlet>
+  <mat-sidenav #sidenav class="fss-sidenav" mode="side" opened="true">
+    <h1>{{title}}</h1>
+    <div>
+      <a mat-button routerLink='/login' routerLinkActive="active">Login</a>
+    </div>
+    <div>
+      <a mat-button routerLink='/children' routerLinkActive="active">Children</a>
+    </div>
+    <div>
+      <a mat-button routerLink='/reminders' routerLinkActive="active">Reminders</a>
+    </div>
+    <div>
+      <a mat-button routerLink='/calendar' routerLinkActive="active">Calendar</a>
+    </div>
+    <div>
+      <a mat-button routerLink='/settings' routerLinkActive="active">Settings</a>
+    </div>
+    <div>
+      <a mat-button routerLink='/admin' routerLinkActive="active">Admin</a>
+    </div>
+    <div>
+      <button mat-icon-button>
+        <mat-icon svgIcon="refresh_icon" (click)="refresh()"></mat-icon>
+      </button>
+    </div>
+    <div *ngIf="restService.settings.current_username" class="logout">
+        <mat-chip-list >
+          <mat-chip class="chipcontent" color="accent" selected="true">{{restService.settings.current_username}}</mat-chip>
+        </mat-chip-list>
+      <button class="logoutbutton" (click)="logout()" mat-button>
+        Log Out
+      </button>
+    </div>
+  </mat-sidenav>
+  <router-outlet></router-outlet>
 </mat-sidenav-container>
