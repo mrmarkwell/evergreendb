@@ -26,7 +26,6 @@ export class ChildDetails implements OnInit, OnChanges {
     private uploader: FileUploader;
     private unsaved: boolean;
     private orig_child: Child;
-    private changed_child: Child;
     child: Child;
 
     @ViewChild('fileInput') fileInput: any;
@@ -67,7 +66,6 @@ export class ChildDetails implements OnInit, OnChanges {
         iconRegistry.addSvgIcon(
             'file_icon',
             sanitizer.bypassSecurityTrustResourceUrl('assets/file_icon.svg'));
-    
         }
     ngOnInit(): void {
         this.uploader = new FileUploader({
@@ -110,7 +108,6 @@ export class ChildDetails implements OnInit, OnChanges {
             if (child == undefined) return;
             this.child = child;
             this.orig_child = Object.assign(Object.create(child), child); // deep copy
-            this.changed_child = Object.assign(Object.create(child), child); // deep copy
             this.age = this.getAgeStr()
             this.child.birth_date_object = this.restService.getDateFromString(this.child.birth_date)
         });
@@ -119,13 +116,7 @@ export class ChildDetails implements OnInit, OnChanges {
     autosave(): void {
         this.child.birth_date = this.restService.getStringFromDate(this.child.birth_date_object);
         if ( ! this.child.equals(this.orig_child) ) {
-            if (! this.child.equals(this.changed_child)) {
-                this.changed_child = Object.assign(Object.create(this.child), this.child); // deep copy
-                this.changed_child.birth_date = this.child.birth_date; // deep copy didn't work for null/empty on this field.
-                this.unsaved = true;
-            } else {
-                //this.saveChild();
-            }
+            this.unsaved = true;
         } else {
             this.unsaved = false;
         }

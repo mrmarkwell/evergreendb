@@ -29,6 +29,7 @@ fss_child_fields = {
     'birth_history': fields.String,
     'medical_history': fields.String,
     'family_dynamics': fields.String,
+    'other_family_members': fields.String,
 }
 
 fss_family_member_fields = {
@@ -74,7 +75,7 @@ fss_interaction_fields = {
     'feeding_recommendations': fields.String,
     'developmental_notes': fields.String,
     'developmental_recommendations': fields.String,
-    'ot_notes': fields.String, 
+    'ot_notes': fields.String,
     'ot_recommendations': fields.String,
     'sensory_notes': fields.String,
     'sensory_recommendations': fields.String,

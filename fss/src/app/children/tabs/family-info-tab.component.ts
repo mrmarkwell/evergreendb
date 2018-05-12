@@ -18,16 +18,21 @@ export class FamilyTabComponent implements OnInit, OnChanges {
     ) {}
 
     ngOnInit(): void {
+        this.restService.changeEmitter.subscribe(() => this.ngOnChanges({} as SimpleChanges));
         setInterval(()=>this.autosave(), this.restService.settings.save_notify_interval);
     }
 
     ngOnChanges(changes: SimpleChanges): void {
+        this.getChild();
         if ("child_id" in changes) {
             this.family_member = null;
-            this.restService.getChild(this.child_id).then(child => {
-                this.setChild(child);
-            });
         }
+    }
+
+    getChild(): void {
+        this.restService.getChild(this.child_id).then(child => {
+            this.child = child;
+        });
     }
 
     onSelect(family_member: FamilyMember): void {
@@ -37,33 +42,11 @@ export class FamilyTabComponent implements OnInit, OnChanges {
     setFamilyMember(family_member: FamilyMember): void {
       this.family_member = family_member;
       this.orig_family_member = Object.assign(Object.create(family_member), family_member); // deep copy
-      this.changed_family_member = Object.assign(Object.create(family_member), family_member); // deep copy
-    }
-
-    setChild(child: Child): void {
-        this.child = child;
-        this.orig_child = Object.assign(Object.create(child), child); // deep copy
-        this.changed_child = Object.assign(Object.create(child), child); // deep copy
     }
 
     autosave(): void {
-        if ( ! this.child.equals(this.orig_child) ) {
-            if (! this.child.equals(this.changed_child)) {
-                this.unsaved_child = true;
-                this.changed_child = Object.assign(Object.create(this.child), this.child); // deep copy
-            } else {
-                //this.saveChild();
-            }
-        } else {
-            this.unsaved_child = false;
-        }
         if (this.family_member && ! this.family_member.equals(this.orig_family_member) ) {
-            if (! this.family_member.equals(this.changed_family_member)) {
-                this.unsaved_family_member = true;
-                this.changed_family_member = Object.assign(Object.create(this.family_member), this.family_member); // deep copy
-            } else {
-                //this.saveFamilyMember();
-            }
+            this.unsaved_family_member = true;
         } else {
             this.unsaved_family_member = false;
         }
@@ -73,12 +56,6 @@ export class FamilyTabComponent implements OnInit, OnChanges {
         this.restService.updateFamilyMember(this.family_member);
         this.setFamilyMember(this.family_member);
         this.unsaved_family_member = false;
-    }
-
-    saveChild(): void {
-        this.restService.updateChild(this.child);
-        this.setChild(this.child);
-        this.unsaved_child = false;
     }
 
     delete(): void {
@@ -96,9 +73,5 @@ export class FamilyTabComponent implements OnInit, OnChanges {
     family_member: FamilyMember;
     child: Child;
     private orig_family_member: FamilyMember;
-    private orig_child: Child;
-    private changed_family_member: FamilyMember;
-    private changed_child: Child;
     private unsaved_family_member: boolean;
-    private unsaved_child: boolean;
 }

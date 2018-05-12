@@ -1,8 +1,5 @@
 <div class='flex-col'>
 	<div class='flex-item' id='family-dynamics-box' *ngIf='child' class='flex-row'>
-		<button mat-icon-button class='flex-item'>
-			<mat-icon svgIcon="save_icon" (click)="saveChild()" [class.unsaved]="unsaved_child"></mat-icon>
-		</button>
 		<mat-form-field id='family-dynamics-field' class='flex-item'>
 			<textarea matInput placeholder="Family Dynamics Observed" [(ngModel)]="child.family_dynamics" name="family-dynamics"></textarea>
 		</mat-form-field>
@@ -63,5 +60,10 @@
 				</ul>
 			</form>
 		</div>
+	</div>
+	<div class='flex-item' id='other-family-members-box' *ngIf='child' class='flex-row'>
+		<mat-form-field id='other-family-members' class='flex-item'>
+			<textarea matInput placeholder="Other Significant Family Members" [(ngModel)]="child.other_family_members" name="other-family-members"></textarea>
+		</mat-form-field>
 	</div>
 </div>
