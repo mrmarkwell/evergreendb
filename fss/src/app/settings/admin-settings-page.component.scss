@@ -1,12 +1,36 @@
 form {
-    padding-top: 5em;
-    margin: auto;
-    display: inline-block;
+  padding-top: 5em;
+  margin: auto;
+  display: inline-block;
 }
+
 div {
-    width: 100%;
-    text-align:center;
+  width: 100%;
+  text-align: center;
 }
+
 form * {
-    margin-top: 1em;
+  margin-top: 1em;
+}
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  max-height: 500px;
+  overflow: auto;
+}
+
+.table-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+mat-cell {
+    overflow: visible;
+  }
+
+.center-div p {
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
 }

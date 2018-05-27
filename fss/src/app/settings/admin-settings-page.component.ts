@@ -1,8 +1,9 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit, OnChanges } from '@angular/core';
 import { RestService } from '../rest.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
+import {SelectionModel} from '@angular/cdk/collections';
 
 import { User } from '../user'
 @Component({
@@ -10,7 +11,7 @@ import { User } from '../user'
     templateUrl: './admin-settings-page.component.html',
     styleUrls: ['./admin-settings-page.component.scss']
 })
-export class AdminPage {
+export class AdminPage implements OnInit, OnChanges{
 
     constructor(
         private restService: RestService,
@@ -23,6 +24,22 @@ export class AdminPage {
         //this.restService.settings.setDevMode(this.dev_mode)
     }
 
+    public users: MatTableDataSource<User>;
+    public current_username = this.restService.settings.current_username;
+    columnsToDisplay = ['username', 'is_editor', 'is_admin'];
+    selection = new SelectionModel<User>(true, []);
+    
+    updateUser(user): void {
+        this.restService.updateUser(user);
+    }
+    
+    ngOnInit(): void {
+        this.restService.getUsers().then(users => this.users = new MatTableDataSource<User>(users));
+    }
+    
+    ngOnChanges(): void {
+        this.restService.getUsers().then(users => this.users = new MatTableDataSource<User>(users));
+    }
 
     addUserDialog(): void {
         let dialogRef = this.dialog.open(AddUserDialog, {
@@ -30,7 +47,7 @@ export class AdminPage {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
+            this.ngOnChanges();
         });
     }
 
