@@ -12,17 +12,18 @@ import { MatFormFieldModule,
     MatDialogModule,
     MatListModule,
     MatTableModule,
+    MatIconModule,
     MatCheckboxModule} from '@angular/material';
 import { FormsModule } from '@angular/forms';
 @NgModule({
-	declarations: [
+  declarations: [
         SettingsPage,
         LoginPage,
         PasswordChangeDialog,
         AdminPage,
         AddUserDialog
-	],
-	imports: [
+  ],
+  imports: [
         BrowserModule,
         MatFormFieldModule,
         MatInputModule,
@@ -32,9 +33,10 @@ import { FormsModule } from '@angular/forms';
         MatDialogModule,
         MatListModule,
         MatTableModule,
+        MatIconModule,
         MatCheckboxModule
-	],
-	providers: [
+  ],
+  providers: [
         RestService
     ],
     bootstrap: [SettingsPage],
