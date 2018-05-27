@@ -28,6 +28,8 @@ export class LoginPage {
             if (success) {
                 this.router.navigate(['/children'])
             } else {
+                this.restService.settings.current_username = "";
+                this.restService.settings.current_password = "";
                 this.snackBar.open("Login Failed!", "Close", {
                     duration: 5000,
                   });
