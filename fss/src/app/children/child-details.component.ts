@@ -127,12 +127,18 @@ export class ChildDetails implements OnInit, OnChanges {
         this.unsaved = false;
     }
     deleteChild(): void {
-        if (confirm("Are you sure you want to delete this child and all associated data?")) {
-            this.restService.deleteChildPhoto(this.child.id);
-            this.restService.deleteChild(this.child.id);
-            this.child = null;
-            this.notifyDeleted.emit();
-        }
+        this.restService.checkAdminLogin().then(is_admin => {
+						if (is_admin) {
+            		if (confirm("Are you sure you want to delete this child and all associated data?")) {
+                		this.restService.deleteChildPhoto(this.child.id);
+                		this.restService.deleteChild(this.child.id);
+                		this.child = null;
+                		this.notifyDeleted.emit();
+								}
+            } else {
+								this.snackBar.open("Only admins can delete children.", null, {duration:2000})
+						}
+        })
     }
 
     @Input() child_id: number;
