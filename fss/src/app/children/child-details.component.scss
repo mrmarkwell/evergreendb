@@ -78,8 +78,12 @@ textarea {
     grid-column: 2;
 }
 
-.my-drop-zone {	border: dotted 2px lightgray; }
-.nv-file-over { border: dotted 2px red; } /* Default class applied to drop zones on over */
+//.my-drop-zone {	border: dotted 2px lightgray; }
+.nv-file-over {
+		border-style: dotted;
+		border-width: 2px;
+		border-color: mat-color($accent);
+} /* Default class applied to drop zones on over */
 .another-file-over-class { border: dotted 2px green; }
 
 input[type="file"] {
