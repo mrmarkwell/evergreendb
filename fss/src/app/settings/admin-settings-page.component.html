@@ -23,6 +23,14 @@
         <mat-checkbox [(ngModel)]="user.is_admin" (change)="updateUser(user)" [disabled]="user.username==current_username"></mat-checkbox>
       </mat-cell>
     </ng-container>
+    <ng-container class="center-div" matColumnDef="delete_col">
+      <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+      <mat-cell *matCellDef="let user">
+          <button mat-icon-button (click)="deleteUser(user)" [disabled]="user.username==current_username">
+              <mat-icon svgIcon="trash_icon"></mat-icon>
+          </button>
+      </mat-cell>
+    </ng-container>
     <mat-header-row *matHeaderRowDef="columnsToDisplay"></mat-header-row>
     <mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></mat-row>
   </mat-table>

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material';
 
 import { User } from '../user'
 @Component({
@@ -14,11 +16,17 @@ import { User } from '../user'
 export class AdminPage implements OnInit, OnChanges{
 
     constructor(
+        iconRegistry: MatIconRegistry,
+        sanitizer: DomSanitizer,
         private restService: RestService,
         private router: Router,
         public snackBar: MatSnackBar,
         public dialog: MatDialog
-    ) { }
+    ) {
+        iconRegistry.addSvgIcon(
+            'trash_icon',
+            sanitizer.bypassSecurityTrustResourceUrl('assets/trash_icon.svg'));
+    }
 
     public onSubmit(): void {
         //this.restService.settings.setDevMode(this.dev_mode)
@@ -26,11 +34,20 @@ export class AdminPage implements OnInit, OnChanges{
 
     public users: MatTableDataSource<User>;
     public current_username = this.restService.settings.current_username;
-    columnsToDisplay = ['username', 'is_editor', 'is_admin'];
+    columnsToDisplay = ['username', 'is_editor', 'is_admin', 'delete_col'];
     selection = new SelectionModel<User>(true, []);
 
     updateUser(user): void {
         this.restService.updateUser(user);
+    }
+
+    deleteUser(user): void {
+        if (
+            this.current_username !== user.username &&
+            confirm(`Aure you sure you want to delete user "${user.username}"?`)
+        ) {
+            this.restService.deleteUser(user).then(res => this.ngOnChanges());
+        }
     }
 
     ngOnInit(): void {

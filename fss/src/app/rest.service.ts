@@ -200,6 +200,13 @@ export class RestService {
         .catch(this.handleError);
     }
 
+    deleteUser(user): Promise<any> {
+        let url = `${this.getBaseUrl()}/user?id=${user.id}`;
+        return this.http.delete(url, { headers: this.getHeaders() })
+        .toPromise()
+        .catch(this.handleError);
+    }
+
     getInteractionFiles(interaction_id: number): Promise<String[]> {
         let url = `${this.getBaseUrl()}/interactionfiles/${interaction_id}`;
         return this.http.get(url).toPromise().then(response => response).catch(this.handleError);
