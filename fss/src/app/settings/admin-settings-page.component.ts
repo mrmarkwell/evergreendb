@@ -28,15 +28,17 @@ export class AdminPage implements OnInit, OnChanges{
     public current_username = this.restService.settings.current_username;
     columnsToDisplay = ['username', 'is_editor', 'is_admin'];
     selection = new SelectionModel<User>(true, []);
-    
+
     updateUser(user): void {
         this.restService.updateUser(user);
     }
-    
+
     ngOnInit(): void {
-        this.restService.getUsers().then(users => this.users = new MatTableDataSource<User>(users));
+        this.restService.getUsers().then(users => {
+            this.users = new MatTableDataSource<User>(users.filter(usr => usr.username != "administrator"))
+        });
     }
-    
+
     ngOnChanges(): void {
         this.restService.getUsers().then(users => this.users = new MatTableDataSource<User>(users));
     }
