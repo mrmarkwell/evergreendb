@@ -25,6 +25,7 @@ export class ChildDetails implements OnInit, OnChanges {
     private on_changes_count = 0;
     private uploader: FileUploader;
     private unsaved: boolean;
+		private delete_enabled: boolean;
     private orig_child: Child;
     child: Child;
 
@@ -101,6 +102,7 @@ export class ChildDetails implements OnInit, OnChanges {
         this.restService.getEnum("fss_child_status").then(status => this.child_status = status);
         this.restService.changeEmitter.subscribe(() => this.ngOnChanges());
         this.child_photo_url = this.restService.getChildPhotoUrl(this.child_id);
+        this.restService.checkAdminLogin().then(is_admin => this.delete_enabled = is_admin);
         setInterval(()=>this.autosave(), this.restService.settings.save_notify_interval);
     }
     ngOnChanges(): void {

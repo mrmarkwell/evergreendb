@@ -5,12 +5,22 @@ mat-form-field {
 	width: 100%;
 	height: 100%;
 }
+mat-select {
+	width: 14em;
+}
 textarea {
 	width: 100%;
 }
 td {
 	vertical-align: bottom;
 }
+#people-present-div {
+	padding-top: 0.4em;
+}
+#interaction-date-picker-div {
+	width: 9em;
+}
+
 #category-col {
 	width: 9em;
 }
@@ -37,4 +47,8 @@ td {
 
 .flex-item {
 	margin-right: 3px;
+}
+a {
+	text-decoration: none;
+	color: white;
 }

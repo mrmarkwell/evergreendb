@@ -32,7 +32,7 @@
         </mat-list>
     </div>
     <div class='flex-row'>
-        <div class='flex-item'>
+        <div class='flex-item' id="interaction-date-picker-div">
             <mat-form-field>
                 <input matInput [matDatepicker]="picker" placeholder="date" name="interaction-date" [(ngModel)]="interaction.interaction_date_object">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -50,13 +50,13 @@
             </mat-select>
         </div>
         <div class='flex-item'>
-            <mat-form-field>
-                <input matInput placeholder="People Present" [(ngModel)]="interaction.people_present" name="people-present">
-            </mat-form-field>
-        </div>
-        <div class='flex-item'>
             <mat-checkbox [(ngModel)]="interaction.is_initial_interaction">initial interaction</mat-checkbox>
         </div>
+    </div>
+    <div class='flex-item' id="people-present-div">
+        <mat-form-field>
+            <input matInput placeholder="People Present" [(ngModel)]="interaction.people_present" name="people-present">
+        </mat-form-field>
     </div>
     <div *ngIf="!showDetails()">
         <ul><li>

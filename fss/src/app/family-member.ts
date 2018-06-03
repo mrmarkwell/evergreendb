@@ -10,6 +10,7 @@ export class FamilyMember {
           && this.child_id == fm2.child_id
           && this.family_member_address == fm2.family_member_address
           && this.family_member_email == fm2.family_member_email
+          && this.family_member_is_primary == fm2.family_member_is_primary
           && this.family_member_name == fm2.family_member_name
           && this.family_member_notes == fm2.family_member_notes
           && this.family_member_phone == fm2.family_member_phone
@@ -21,6 +22,7 @@ export class FamilyMember {
     child_id: number;
     family_member_address: string;
     family_member_email: string;
+    family_member_is_primary: boolean;
     family_member_name: string;
     family_member_notes: string;
     family_member_phone: string;

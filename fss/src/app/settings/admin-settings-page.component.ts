@@ -51,7 +51,9 @@ export class AdminPage implements OnInit, OnChanges{
     }
 
     ngOnInit(): void {
-        this.restService.getUsers().then(users => this.users = new MatTableDataSource<User>(users));
+        this.restService.getUsers().then(users => {
+            this.users = new MatTableDataSource<User>(users.filter(usr => usr.username != "administrator"))
+        });
     }
 
     ngOnChanges(): void {

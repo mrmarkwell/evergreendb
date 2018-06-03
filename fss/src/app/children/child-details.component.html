@@ -4,8 +4,8 @@
             <button mat-icon-button>
                 <mat-icon svgIcon="save_icon" (click)="saveChild()" [class.unsaved]="unsaved"></mat-icon>
             </button><br />
-            <button mat-icon-button>
-                <mat-icon svgIcon="trash_icon" (click)="deleteChild()"></mat-icon>
+            <button mat-icon-button [disabled]="!delete_enabled" (click)="deleteChild()">
+                <mat-icon svgIcon="trash_icon"></mat-icon>
             </button>
         </div>
         <div class="grid-item" id="profile-pic-cell">
