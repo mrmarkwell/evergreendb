@@ -16,7 +16,7 @@ export class AppComponent implements OnInit, OnChanges {
         iconRegistry: MatIconRegistry,
         sanitizer: DomSanitizer,
         private router: Router,
-        private restService: RestService
+        public restService: RestService
     ) {
         iconRegistry.addSvgIcon(
             'refresh_icon',
