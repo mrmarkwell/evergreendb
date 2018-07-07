@@ -58,10 +58,10 @@
             <input matInput placeholder="People Present" [(ngModel)]="interaction.people_present" name="people-present">
         </mat-form-field>
     </div>
-    <div *ngIf="!showDetails()">
+    <div>
         <ul><li>
             <mat-form-field>
-                <textarea matInput placeholder="Notes" [(ngModel)]="interaction.follow_up" name="follow-up-notes"></textarea>
+                <textarea matInput placeholder="Notes" [(ngModel)]="interaction.interaction_notes" name="interaction-notes"></textarea>
             </mat-form-field>
         </li></ul>
     </div>
