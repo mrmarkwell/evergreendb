@@ -17,6 +17,7 @@ export class Interaction {
 			&& this.interaction_coordinator == i2.interaction_coordinator
 			&& this.interaction_date == i2.interaction_date
 			&& this.interaction_notes == i2.interaction_notes
+			&& this.interaction_type == i2.interaction_type
 			&& this.is_initial_interaction == i2.is_initial_interaction
 			&& this.people_present == i2.people_present
 			&& this.milk_feeding == i2.milk_feeding

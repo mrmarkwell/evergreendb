@@ -26,7 +26,7 @@ export class RestService {
 
         this.settings.setDevMode(false);
     }
-    
+
 
     // Caches for performance improvement.
     private children_cache: Map<number, any> = new Map<number, any>();
@@ -88,7 +88,7 @@ export class RestService {
     public getCurrentUserId(): Promise<number> {
         let url = `${this.getBaseUrl()}/user`;
         return this.http.get(url, { headers: this.getHeaders() })
-        .toPromise().then(response => { 
+        .toPromise().then(response => {
             let users = response as User[];
             let current_user = users.find(x => x.username === this.settings.current_username);
             return current_user.id;
