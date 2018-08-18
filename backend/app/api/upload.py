@@ -10,16 +10,19 @@ from resizeimage import resizeimage
 
 uploads = UploadSet('uploads', AllExcept(SCRIPTS + EXECUTABLES))
 interactions_upload_set = UploadSet('interactions', AllExcept(SCRIPTS + EXECUTABLES))
+medical_upload_set = UploadSet('medical', AllExcept(SCRIPTS + EXECUTABLES))
 photos_sub = 'photos'
 photos = UploadSet(photos_sub, IMAGES)
 
 interactions_sub = 'interactions'
+medical_sub = 'medical'
 
 dest = os.path.join(basedir, 'app', 'static')
 
 app.config['UPLOADS_DEFAULT_DEST'] = dest
 configure_uploads(app, photos)
 configure_uploads(app, interactions_upload_set)
+configure_uploads(app, medical_upload_set)
 
 
 class Upload(Resource):
@@ -61,10 +64,20 @@ class Upload(Resource):
             filename = interactions_upload_set.save(request.files.get('interactions'), interaction_id)
             print filename
             return "Success", 201
+        elif 'medical' in request.files:
+            child_id = request.form.get('child_id')
+            dir_path = os.path.join(dest, medical_sub, child_id)
+            if not os.path.exists(dir_path):
+                os.makedirs(dir_path)
+            path = os.path.join(dir_path, request.files['medical'].filename)
+            if os.path.exists(path):
+                os.remove(path)
+            filename = medical_upload_set.save(request.files.get('medical'), child_id)
+            return "Success", 201
         else:
             msg = 'No file included in upload request'
             abort(400, message=msg)
-        
+
 # This is just for deleting photos.
 class Photos(Resource):
     def delete(self, filename):
@@ -77,15 +90,18 @@ class Photos(Resource):
             msg = "File not found"
             abort(401, message=msg)
 
-class InteractionFiles(Resource):
+class AllFiles(Resource):
+    def getPath(self, id):
+        raise NotImplementedError
+
     def get(self, id):
         filenames = self.getFileList(id);
         response = {"filenames": filenames}
         return response, 200
-    
+
     # This will delete any files that are not in the posted list
     def post(self, id):
-        path = os.path.join(dest, interactions_sub, id)
+        path = self.getPath(id)
         existing_files = self.getFileList(id)
         posted_files = list(request.get_json())
         files_to_delete = [x for x in existing_files if x not in posted_files]
@@ -99,9 +115,17 @@ class InteractionFiles(Resource):
         return None, 204
 
     def getFileList(self, id):
-        path = os.path.join(dest, interactions_sub, id)
+        path = self.getPath(id)
         if not os.path.exists(path):
             filenames = []
         else:
             filenames = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
         return filenames
+
+class InteractionFiles(AllFiles):
+    def getPath(self, id):
+        return os.path.join(dest, interactions_sub, id)
+
+class MedicalFiles(AllFiles):
+    def getPath(self, id):
+        return os.path.join(dest, medical_sub, id)

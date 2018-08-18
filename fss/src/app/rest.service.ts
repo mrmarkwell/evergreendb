@@ -219,6 +219,18 @@ export class RestService {
             .catch(this.handleError);
     }
 
+    getMedicalFiles(child_id: number): Promise<String[]> {
+        let url = `${this.getBaseUrl()}/medicalfiles/${child_id}`;
+        return this.http.get(url).toPromise().then(response => response).catch(this.handleError);
+    }
+
+    deleteMedicalFile(child_id: number, filenames: String[]): Promise<any> {
+        let url = `${this.getBaseUrl()}/medicalfiles/${child_id}`;
+        return this.http.post(url, JSON.stringify(filenames), { headers: this.getHeaders() })
+            .toPromise().then(res => { this.refresh(); return res; })
+            .catch(this.handleError);
+    }
+
     deleteChildPhoto(child_id: number): Promise<any> {
         let url = `${this.getBaseUrl()}/photos/child${child_id}.jpeg`;
         return this.http.delete(url, { headers: this.getHeaders() }).toPromise()
@@ -346,6 +358,10 @@ export class RestService {
 
     getInteractionFileDownloadUrl(id: number, filename: string): string {
         return `${this.getBaseUrl()}/static/interactions/${id}/${filename}`
+    }
+
+    getMedicalFileDownloadUrl(id: number, filename: string): string {
+        return `${this.getBaseUrl()}/static/medical/${id}/${filename}`
     }
 
     private handleError(error: any): Promise<any> {
