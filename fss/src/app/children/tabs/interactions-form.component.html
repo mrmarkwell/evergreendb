@@ -19,10 +19,8 @@
                 <!-- <button mat-icon-button>
                     <mat-icon svgIcon="download" (click)="downloadFile(file)"></mat-icon>
                 </button> -->
-                <a [href]="this.restService.getInteractionFileDownloadUrl(interaction.id, file)" download>
-                    <button mat-icon-button>
-                        <mat-icon svgIcon="download"></mat-icon>
-                    </button>
+                <a mat-icon-button [href]="this.restService.getInteractionFileDownloadUrl(interaction.id, file)" download>
+                    <mat-icon svgIcon="download"></mat-icon>
                 </a>
                 <button mat-icon-button>
                     <mat-icon svgIcon="trash_icon" (click)="deleteFile(file)"></mat-icon>

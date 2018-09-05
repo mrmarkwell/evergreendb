@@ -60,10 +60,8 @@
                 <input #medicalFileInput [hidden]="true" id=medical-file-select type="file" name="medical" ng2FileSelect [uploader]="fileuploader"/>
                 <mat-list dense>
                     <mat-list-item *ngFor="let file of uploaded_files">
-                        <a [href]="this.restService.getMedicalFileDownloadUrl(child_id, file)" download>
-                            <button mat-icon-button>
-                                <mat-icon svgIcon="download"></mat-icon>
-                            </button>
+                        <a mat-icon-button [href]="this.restService.getMedicalFileDownloadUrl(child_id, file)" download>
+                            <mat-icon svgIcon="download"></mat-icon>
                         </a>
                         <button mat-icon-button>
                             <mat-icon svgIcon="trash_icon" (click)="deleteFile(file)"></mat-icon>
