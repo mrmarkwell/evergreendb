@@ -1,5 +1,7 @@
 from datetime import datetime
 import json
+import csv
+from csvcols import child_column_names
 
 from flask import g
 from marshallers import DATE_FMT
@@ -32,7 +34,8 @@ from pprint import pprint as pp
 def admin_required(f):
     @wraps(f)
     def wrapped(*args, **kwargs):
-        if current_app.config.get("LOGIN_DISABLED"): return f(*args, **kwargs)
+        if current_app.config.get("LOGIN_DISABLED"):
+            return f(*args, **kwargs)
         if current_user.is_authenticated and current_user.is_admin:
             # invoke the wrapped function
             return f(*args, **kwargs)
@@ -44,7 +47,8 @@ def admin_required(f):
 def editor_required(f):
     @wraps(f)
     def wrapped(*args, **kwargs):
-        if current_app.config.get("LOGIN_DISABLED"): return f(*args, **kwargs)
+        if current_app.config.get("LOGIN_DISABLED"):
+            return f(*args, **kwargs)
         if current_user.is_authenticated and current_user.is_editor:
             # invoke the wrapped function
             return f(*args, **kwargs)
@@ -66,8 +70,11 @@ def load_user_from_request(request):
 ################ Resources ####################
 
 # Base resource class for resource data.
+
+
 class ResourceBase(Resource):
     decorators = [login_required]
+
     def __init__(self):
         self.ed = None
         self.ed_list = list()
@@ -77,12 +84,13 @@ class ResourceBase(Resource):
     # Call this right away to populate the entity data object.
     def get_entity_data(self, name):
         if name not in entity_names:
-            abort(404, message="Invalid entity name: '" + name + "'. Legal entity names are: " + ", ".join(entity_names))
+            abort(404, message="Invalid entity name: '" + name +
+                  "'. Legal entity names are: " + ", ".join(entity_names))
         if self.ed is None:
             self.ed = entity_data[name]
         self.ed_list.append(entity_data[name])
         self.query = self.session.query(self.ed.class_type)
- 
+
     # For operations that can only be performed on one entity, get that entity by id
     # Throw an error if 'id' was not specified in the request.
     def get_entity_by_id(self):
@@ -91,13 +99,16 @@ class ResourceBase(Resource):
             abort(404, message="This operation must be passed a specific entity ID!")
         entity = self.query.filter(self.ed.class_type.id == id).first()
         if not entity:
-            abort(404, message="Entity {}: {} doesn't exist".format(self.ed.class_type.__tablename__, id))
+            abort(404, message="Entity {}: {} doesn't exist".format(
+                self.ed.class_type.__tablename__, id))
         return entity
 
     def verify_filters(self):
         for attr in request.args.to_dict().keys():
             if not hasattr(self.ed.class_type, attr):
-                abort (404, message="Class {} does not have filter attribute {}!".format(self.ed.class_type.__name__, attr))
+                abort(404, message="Class {} does not have filter attribute {}!".format(
+                    self.ed.class_type.__name__, attr))
+
 
 class EntityResource(ResourceBase):
     # GET to get instances by filter arguments (e.g. ?english_name=Bobby&sex=M).
@@ -217,6 +228,7 @@ class EntityListResource(ResourceBase):
         response = {"entity_names": entity_names}
         return response, 200
 
+
 class FilterResource(ResourceBase):
     """Filter with format like,
         {
@@ -254,7 +266,8 @@ class FilterResource(ResourceBase):
                        " without specifying filter parameters\n"
                        "Exception:\n{}".format(e_class, e))
                 abort(400, message=msg)
-            results.append({e_class.__tablename__: [marshal(res, e_marshaller) for res in e_query.filter(and_(*filters)).all()]})
+            results.append({e_class.__tablename__: [marshal(
+                res, e_marshaller) for res in e_query.filter(and_(*filters)).all()]})
         return {"filtered_entityes": results}
 
     def _build_filter(self, e_class, attributes):
@@ -288,7 +301,8 @@ class FilterResource(ResourceBase):
         raw_json = request.get_json()
         for entity_name in raw_json.keys():
             self.get_entity_data(entity_name)
-            data.append((self.ed.class_type, self.ed.marshaller, raw_json[entity_name], self.query))
+            data.append((self.ed.class_type, self.ed.marshaller,
+                         raw_json[entity_name], self.query))
         return data
 
 
@@ -296,6 +310,8 @@ query_parser = reqparse.RequestParser()
 query_parser.add_argument('query', required=True)
 
 # A generic SQL query API
+
+
 class QueryResource(ResourceBase):
     def post(self):
         args = query_parser.parse_args()
@@ -305,11 +321,47 @@ class QueryResource(ResourceBase):
         if ";" in query:
             abort(400, message="Query messages must not contain semicolons!")
         sql = text(query)
+        print sql
         result = self.session.execute(sql)
         result_dict = []
         for row in result:
             result_dict.append(dict(zip(row.keys(), row)))
         return result_dict, 200
+
+
+class ReportResource(ResourceBase):
+    def get(self, format_name):
+        if (format_name == "csv"):
+            result = self.generate_csv_report()
+        else:
+            abort(404, message="Format " + format_name +
+                  " is not a valid report format")
+        return result, 200
+
+    def generate_csv_report(self):
+        fss_child = entity_data["fss_child"].class_type
+        fss_family_member = entity_data["fss_family_member"].class_type
+        fss_interaction = entity_data["fss_interaction"].class_type
+        fss_projected_pathway = entity_data["fss_projected_pathway"].class_type
+        #query = self.session.query(fss_child, fss_family_member, fss_interaction, fss_projected_pathway) \
+        #    .join(fss_family_member).join(fss_interaction).join(fss_projected_pathway)
+        query = self.session.query(fss_child)
+        result = self.session.execute(query)
+    
+        # Convert to a true list of dicts
+        result = [{child_column_names[k]:v for k,v in r.items()} for r in result]
+
+        keys = child_column_names.values()
+        
+        with open('child.csv', 'wb') as output_file:
+            dict_writer = csv.DictWriter(output_file, keys)
+            dict_writer.writeheader()
+            dict_writer.writerows(result)
+
+        for row in result:
+            print row
+            print
+        return None
 
 
 class EnumResource(Resource):
@@ -344,6 +396,8 @@ class EnumResource(Resource):
             return result
 
 # Resource for calling a session.rollback()
+
+
 class RollbackResource(ResourceBase):
     def post(self):
         self.session.rollback()
@@ -351,10 +405,13 @@ class RollbackResource(ResourceBase):
         return response, 200
 
 # Resource for checking online status
+
+
 class HeartbeatResource(Resource):
     def get(self):
         response = {'message': 'beat'}
         return response, 200
+
 
 class AuthCheckResource(Resource):
 
@@ -363,12 +420,14 @@ class AuthCheckResource(Resource):
         response = {'message': 'success'}
         return response, 200
 
+
 class AdminAuthCheckResource(Resource):
 
     @admin_required
     def get(self):
         response = {'message': 'success'}
         return response, 200
+
 
 class UserResource(ResourceBase):
     decorators = []
@@ -380,11 +439,13 @@ class UserResource(ResourceBase):
         if current_user.is_admin:
             entity = self.query.filter_by(**request.args.to_dict()).all()
             if not entity:
-                abort(404, message="Entity {}: {} doesn't exist".format("user", request.args.to_dict()))
+                abort(404, message="Entity {}: {} doesn't exist".format(
+                    "user", request.args.to_dict()))
             return marshal(entity, self.ed.marshaller), 200
         else:
             if request.args.to_dict():
-                abort(403, message="Permission denied, pass with no args to get your user data")
+                abort(
+                    403, message="Permission denied, pass with no args to get your user data")
             else:
                 return marshal([current_user], self.ed.marshaller), 200
 

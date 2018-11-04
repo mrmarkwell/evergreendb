@@ -24,6 +24,7 @@ from api.upload import Upload
 from api.upload import Photos
 from api.resources import UserResource
 from api.resources import EnumResource
+from api.resources import ReportResource
 from api.upload import InteractionFiles, MedicalFiles
 
 
@@ -47,6 +48,7 @@ rest_api.add_resource(InteractionFiles, "/interactionfiles/<string:id>", endpoin
 rest_api.add_resource(MedicalFiles, "/medicalfiles/<string:id>", endpoint="medicalfiles")
 rest_api.add_resource(AuthCheckResource, "/authcheck", endpoint="authcheck")
 rest_api.add_resource(AdminAuthCheckResource, "/adminauthcheck", endpoint="adminauthcheck")
+rest_api.add_resource(ReportResource, "/reports/<string:format_name>", endpoint="reports")
 
 from datetime import date
 from flask_admin.contrib.sqla import ModelView
