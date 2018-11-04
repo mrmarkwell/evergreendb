@@ -24,7 +24,7 @@ from api.upload import Upload
 from api.upload import Photos
 from api.resources import UserResource
 from api.resources import EnumResource
-from api.upload import InteractionFiles
+from api.upload import InteractionFiles, MedicalFiles
 
 
 @app.route('/photos/<path:path>')
@@ -44,6 +44,7 @@ rest_api.add_resource(Photos, "/photos/<string:filename>", endpoint="photos")
 rest_api.add_resource(UserResource, "/user")
 rest_api.add_resource(EnumResource, "/enum/<string:enum_name>", endpoint="enum")
 rest_api.add_resource(InteractionFiles, "/interactionfiles/<string:id>", endpoint="interactionsfiles")
+rest_api.add_resource(MedicalFiles, "/medicalfiles/<string:id>", endpoint="medicalfiles")
 rest_api.add_resource(AuthCheckResource, "/authcheck", endpoint="authcheck")
 rest_api.add_resource(AdminAuthCheckResource, "/adminauthcheck", endpoint="adminauthcheck")
 
@@ -83,7 +84,7 @@ class ChildView(MyBaseView):
     fields.remove('id')
     form_columns = fields
     column_searchable_list = ['child_english_name']
-    
+
     # Couldn't figure out how to get this one to work.
     #form_overrides = dict(sex=SelectField)
 class DoctorView(MyBaseView):

@@ -50,5 +50,26 @@
                 <textarea matInput placeholder="Medical History" [(ngModel)]="child.medical_history" name="medical-history-notes"></textarea>
             </mat-form-field>
         </div>
+        <div class="flex-item">
+            <div>
+                <button mat-icon-button>
+                    <mat-icon svgIcon="attach_icon" (click)="openFileSelect()"></mat-icon>
+                </button>
+            </div>
+            <div>
+                <input #medicalFileInput [hidden]="true" id=medical-file-select type="file" name="medical" ng2FileSelect [uploader]="fileuploader"/>
+                <mat-list dense>
+                    <mat-list-item *ngFor="let file of uploaded_files">
+                        <a mat-icon-button [href]="this.restService.getMedicalFileDownloadUrl(child_id, file)" download>
+                            <mat-icon svgIcon="download"></mat-icon>
+                        </a>
+                        <button mat-icon-button>
+                            <mat-icon svgIcon="trash_icon" (click)="deleteFile(file)"></mat-icon>
+                        </button>
+                        {{file}}
+                    </mat-list-item>
+                </mat-list>
+            </div>
+        </div>
     </div>
 </form>
