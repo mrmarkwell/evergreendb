@@ -3,6 +3,8 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import 'rxjs/add/operator/toPromise';
 
+import { saveAs } from 'file-saver';
+
 import * as moment from 'moment';
 
 import { Child } from './child';
@@ -184,6 +186,13 @@ export class RestService {
         return this.http.get(url, { headers: this.getHeaders() })
             .toPromise().then(response => response)
             .catch(this.handleError);
+    }
+
+    getReport(report: string): Promise<null> { // Find some download file lib from npm... this is too complicated
+        let url = `${this.getBaseUrl()}/reports/${report}`
+        return this.http.get(url, { headers: this.getHeaders() })
+        .toPromise().then(response => saveAs(`${this.getBaseUrl()}/${response}`, `fss.${report}`))
+        .catch(this.handleError);
     }
 
     getUsers(): Promise<User[]> {

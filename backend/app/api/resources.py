@@ -2,6 +2,7 @@ from datetime import datetime
 import json
 import csv
 from csvcols import child_column_names
+from config import basedir
 
 from flask import g
 from marshallers import DATE_FMT
@@ -343,25 +344,27 @@ class ReportResource(ResourceBase):
         fss_family_member = entity_data["fss_family_member"].class_type
         fss_interaction = entity_data["fss_interaction"].class_type
         fss_projected_pathway = entity_data["fss_projected_pathway"].class_type
+        dest_dir = os.path.join(basedir, 'app')
         #query = self.session.query(fss_child, fss_family_member, fss_interaction, fss_projected_pathway) \
         #    .join(fss_family_member).join(fss_interaction).join(fss_projected_pathway)
         query = self.session.query(fss_child)
         result = self.session.execute(query)
-    
+
         # Convert to a true list of dicts
-        result = [{child_column_names[k]:v for k,v in r.items()} for r in result]
+        child_result = [{child_column_names[k]:v for k,v in r.items()} for r in result]
+        child_file_name = os.path.join('static','child.csv')
 
         keys = child_column_names.values()
-        
-        with open('child.csv', 'wb') as output_file:
+
+        with open(os.path.join(dest_dir,child_file_name), 'wb') as output_file:
             dict_writer = csv.DictWriter(output_file, keys)
             dict_writer.writeheader()
-            dict_writer.writerows(result)
+            dict_writer.writerows(child_result)
 
-        for row in result:
+        for row in child_result:
             print row
             print
-        return None
+        return child_file_name
 
 
 class EnumResource(Resource):

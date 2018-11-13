@@ -1,5 +1,5 @@
 <div id="new-child-div">
-    <button mat-raised-button (click)="createNewChild()" id="new-child-btn">Create New</button>
+    <button class="child-list-button" mat-raised-button (click)="createNewChild()" id="new-child-btn">Create New</button>
 </div>
 <div class="search">
     <mat-select id="select-category" class="flex-item" *ngIf=searchCategories placeholder="Search Category" [(ngModel)]="currentSearchCategory"
@@ -26,3 +26,6 @@
         </button>
     </li>
 </ul>
+<div class="bottom">
+    <button class="child-list-button" mat-raised-button (click)="downloadAll()" id="download-all-btn">Download All</button>
+</div>
