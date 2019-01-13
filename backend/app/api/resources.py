@@ -1,7 +1,7 @@
 from datetime import datetime
 import json
 import csv
-from csvcols import child_column_names
+from csvcols import column_names_and_order
 from config import basedir
 
 from flask import g
@@ -332,39 +332,48 @@ class QueryResource(ResourceBase):
 
 class ReportResource(ResourceBase):
     def get(self, format_name):
-        if (format_name == "csv"):
-            result = self.generate_csv_report()
+        if (format_name == "child.csv" or format_name == "family.csv"):
+            result = self.generate_csv_report(format_name)
         else:
             abort(404, message="Format " + format_name +
                   " is not a valid report format")
         return result, 200
 
-    def generate_csv_report(self):
+    def generate_csv_report(self, report):
         fss_child = entity_data["fss_child"].class_type
         fss_family_member = entity_data["fss_family_member"].class_type
         fss_interaction = entity_data["fss_interaction"].class_type
         fss_projected_pathway = entity_data["fss_projected_pathway"].class_type
-        dest_dir = os.path.join(basedir, 'app')
         #query = self.session.query(fss_child, fss_family_member, fss_interaction, fss_projected_pathway) \
         #    .join(fss_family_member).join(fss_interaction).join(fss_projected_pathway)
-        query = self.session.query(fss_child)
+        if (report == "child.csv"):
+            query = self.session.query(fss_child)
+        elif (report == "family.csv"):
+            query = self.session.query(fss_child, fss_family_member).join(fss_family_member)
         result = self.session.execute(query)
 
+        return self.write_csv_report(report, result)
+
+    def write_csv_report(self, report, result):
         # Convert to a true list of dicts
-        child_result = [{child_column_names[k]:v for k,v in r.items()} for r in result]
-        child_file_name = os.path.join('static','child.csv')
-
-        keys = child_column_names.values()
-
-        with open(os.path.join(dest_dir,child_file_name), 'wb') as output_file:
+        converted_result = []
+        for r in result:
+            converted_result.append(dict())
+            for k,v in r.items():
+                try:
+                    converted_result[-1][column_names_and_order[k]] = v
+                except: pass
+        result = converted_result
+        keys = column_names_and_order.values()
+        # write out to file
+        dest_dir = os.path.join(basedir, 'app')
+        report_file_name = os.path.join('static',report)
+        with open(os.path.join(dest_dir,report_file_name), 'wb') as output_file:
             dict_writer = csv.DictWriter(output_file, keys)
             dict_writer.writeheader()
-            dict_writer.writerows(child_result)
+            dict_writer.writerows(result)
 
-        for row in child_result:
-            print row
-            print
-        return child_file_name
+        return report_file_name
 
 
 class EnumResource(Resource):

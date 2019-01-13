@@ -1,6 +1,5 @@
 from collections import OrderedDict
-child_column_names = OrderedDict([
-
+column_names_and_order = OrderedDict([
     ("fss_child_id", "ID"),
     ("fss_child_child_english_name", "English Name"),
     ("fss_child_child_chinese_name", "Chinese Name"),
@@ -21,6 +20,13 @@ child_column_names = OrderedDict([
     ("fss_child_family_dynamics", "Family Dynamics"),
     ("fss_child_other_family_members", "Other Family Members"),
 
+    ("fss_family_member_child_id", "ID"),
+    ("fss_family_member_relationship", "Relationship"),
+    ("fss_family_member_family_member_name", "Name"),
+    ("fss_family_member_family_member_phone", "Phone"),
+    ("fss_family_member_family_member_email", "Email"),
+    ("fss_family_member_family_member_wechat", "WeChat"),
+    ("fss_family_member_family_member_address", "Address"),
+    ("fss_family_member_family_member_notes", "Notes"),
+    ("fss_family_member_family_member_is_primary", "Primary Caregiver"),
 ])
-
-

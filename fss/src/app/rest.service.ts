@@ -188,10 +188,11 @@ export class RestService {
             .catch(this.handleError);
     }
 
-    getReport(report: string): Promise<null> { // Find some download file lib from npm... this is too complicated
+    getReport(report: string): Promise<null> {
+        // TODO: for some reason even though the csv is generated correctly, this just downloads a version with just the headers and no rows
         let url = `${this.getBaseUrl()}/reports/${report}`
         return this.http.get(url, { headers: this.getHeaders() })
-        .toPromise().then(response => saveAs(`${this.getBaseUrl()}/${response}`, `fss.${report}`))
+        .toPromise().then(response => saveAs(`${this.getBaseUrl()}/${response}`, `${report}`))
         .catch(this.handleError);
     }
 

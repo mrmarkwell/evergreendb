@@ -141,6 +141,6 @@ export class ChildList implements OnInit, OnChanges {
     }
 
     downloadAll(): void {
-        this.restService.getReport('csv')
+        this.restService.getReport('family.csv')
     }
 }
