@@ -332,7 +332,7 @@ class QueryResource(ResourceBase):
 
 class ReportResource(ResourceBase):
     def get(self, format_name):
-        if (format_name == "child.csv" or format_name == "family.csv"):
+        if (format_name in ("child.csv", "family.csv", "pathway.csv", "interaction.csv", "fss.csv")):
             result = self.generate_csv_report(format_name)
         else:
             abort(404, message="Format " + format_name +
@@ -350,21 +350,29 @@ class ReportResource(ResourceBase):
             query = self.session.query(fss_child)
         elif (report == "family.csv"):
             query = self.session.query(fss_child, fss_family_member).join(fss_family_member)
+        elif (report == "pathway.csv"):
+            query = self.session.query(fss_child, fss_projected_pathway).join(fss_projected_pathway)
+        elif (report == "interaction.csv"):
+            query = self.session.query(fss_child, fss_interaction).join(fss_interaction)
+        elif (report == "fss.csv"):
+            query = self.session.query(fss_child, fss_family_member, fss_interaction, fss_projected_pathway) \
+                .outerjoin(fss_family_member).outerjoin(fss_interaction).outerjoin(fss_projected_pathway)
         result = self.session.execute(query)
 
         return self.write_csv_report(report, result)
 
     def write_csv_report(self, report, result):
         # Convert to a true list of dicts
+        columns = column_names_and_order[report]
         converted_result = []
         for r in result:
             converted_result.append(dict())
             for k,v in r.items():
                 try:
-                    converted_result[-1][column_names_and_order[k]] = v
+                    converted_result[-1][columns[k]] = v
                 except: pass
         result = converted_result
-        keys = column_names_and_order.values()
+        keys = columns.values()
         # write out to file
         dest_dir = os.path.join(basedir, 'app')
         report_file_name = os.path.join('static',report)
