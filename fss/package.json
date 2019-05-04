@@ -70,7 +70,7 @@
     "tar": "^4.4.8",
     "ts-node": "^8.1.0",
     "tslint": "^5.16.0",
-    "typescript": "^3.2.2",
-    "zone.js": "^0.8.26"
+    "typescript": "~3.2.2",
+    "zone.js": "^0.8.29"
   }
 }
