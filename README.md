@@ -105,7 +105,24 @@ Finally kill any gunicorn processes and restart them:
 [apps@ip-172-31-14-180 evergreendb]$ gunicorn app:app -b localhost:8000 --error-logfile /home/apps/logs/error.log &
 ```
 
+# Developer Tips
 
+## Start the backend locally
 
+```bash
+cd backend
+source virtualize.sh
+./create_prod_db.sh // Or create_test_db.sh to populate some test data
+python run.py
+```
+
+## Update NPM
+
+```bash
+cd fss
+npm i -g npm
+```
+
+## Install all packages in package.json
 
 
