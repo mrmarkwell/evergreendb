@@ -19,7 +19,6 @@ export class RestService {
     changeEmitter: EventEmitter<any> = new EventEmitter();
     settings: Settings = new Settings();
     constructor(private http: HttpClient) {
-        this.refreshOrResetAllCaches();
         this.settings.save_notify_interval = 1000;
         this.settings.current_username = "";
         this.settings.current_password = "";
