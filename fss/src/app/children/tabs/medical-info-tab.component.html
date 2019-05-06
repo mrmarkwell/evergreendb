@@ -1,0 +1,75 @@
+<form *ngIf="child" id="meidcal-information-form">
+    <div class="flex-col">
+        <div class="flex-row">
+            <div class="flex-item select-fi">
+                <mat-select placeholder="Primary Diagnosis" [(ngModel)]="child.primary_diagnosis" name="primary-diagnosis">
+                    <mat-option value=""></mat-option>
+                    <mat-option *ngFor="let condition of conditions" [value]="condition">
+                        {{ condition }}
+                    </mat-option>
+                </mat-select>
+            </div>
+            <div class="flex-item">
+                <mat-form-field>
+                    <textarea matInput placeholder="Primary Diagnosis Notes" [(ngModel)]="child.primary_diagnosis_note" name="primary-diagnosis-notes"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-item select-fi">
+                <mat-select placeholder="Secondary Diagnosis" [(ngModel)]="child.secondary_diagnosis" name="secondary-diagnosis">
+                    <mat-option value=""></mat-option>
+                    <mat-option *ngFor="let condition of conditions" [value]="condition">
+                        {{ condition }}
+                    </mat-option>
+                </mat-select>
+            </div>
+            <div class="flex-item">
+                <mat-form-field>
+                    <textarea matInput placeholder="Secondary Diagnosis Notes" [(ngModel)]="child.secondary_diagnosis_note" name="secondary-diagnosis-notes"></textarea>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="flex-item">
+            <mat-form-field>
+                <textarea matInput placeholder="Further Diagnosis" [(ngModel)]="child.further_diagnosis" name="further-diagnosis-notes"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="flex-item">
+            <mat-form-field>
+                <textarea matInput placeholder="Reason For Referral" [(ngModel)]="child.reason_for_referral" name="reason-for-referral-notes"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="flex-item">
+            <mat-form-field>
+                <textarea matInput placeholder="Birth History" [(ngModel)]="child.birth_history" name="birth-history-notes"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="flex-item">
+            <mat-form-field>
+                <textarea matInput placeholder="Medical History" [(ngModel)]="child.medical_history" name="medical-history-notes"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="flex-item">
+            <div>
+                <button mat-icon-button>
+                    <mat-icon svgIcon="attach_icon" (click)="openFileSelect()"></mat-icon>
+                </button>
+            </div>
+            <div>
+                <input #medicalFileInput [hidden]="true" id=medical-file-select type="file" name="medical" ng2FileSelect [uploader]="fileuploader"/>
+                <mat-list dense>
+                    <mat-list-item *ngFor="let file of uploaded_files">
+                        <a mat-icon-button [href]="this.restService.getMedicalFileDownloadUrl(child_id, file)" download>
+                            <mat-icon svgIcon="download"></mat-icon>
+                        </a>
+                        <button mat-icon-button>
+                            <mat-icon svgIcon="trash_icon" (click)="deleteFile(file)"></mat-icon>
+                        </button>
+                        {{file}}
+                    </mat-list-item>
+                </mat-list>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,2 +1,16 @@
 .DS_Store
 ~$*
+*.pyc
+backend/venv/
+*.db
+backend/uploads/
+.vs/
+*.sln
+*.pyproj
+.hypothesis/
+.vscode/
+npm-debug.log
+node_modules
+electron/dist/
+fss/package-lock.json
+backend/app/static

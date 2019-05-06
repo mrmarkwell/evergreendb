@@ -1,0 +1,85 @@
+<!--
+	To add a dropdown preference, in a div with class "dropdown", make a dropdown button
+	with class "dropbtn" and id "name_of_pref_btn" where "name_of_pref" is the desired
+	preference name (just drop it in). Then add a select with id "name_of_pref" and name
+	"preference" and options where the value attribute is the name of the preference.
+
+	To add a user input form preference, inside a div make a form with id "name_of_pref_form"
+	where "name_of_pref" is the desired preference name (just drop it in). Then add an input
+	type text with id "name_of_pref_form_input". Finally, add an input type "submit", value
+	"Submit" and onclick="setSettingFromForm".
+
+	After each preference create a readonly form to display the current user selection. The
+	class of the form should be "current-pref", the input should be type "text", name
+	"name_of_pref" and input class of "currentSetting"
+-->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>EvMS</title>
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <!-- normal script imports etc  -->
+    <script src="scripts/settings.js"></script>
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+    <link rel="stylesheet" type="text/css" href="css/settings.css">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
+</head>
+<body>
+    <header>Evergreen Management System</header>
+    <nav>
+        <div class="main_nav">
+            <a href=index.html>Home</a>
+        </div>
+        <div class="main_nav">
+            <a href=login.html>Login</a>
+        </div>
+        <div class="main_nav">
+            <a href=query.html>Child Select</a>
+        </div>
+        <div class="main_nav">
+            <a class="active" href=settings.html>User Settings</a>
+        </div>
+        <div class="main_nav">
+            <a href="flagged_notes.html">Flagged Notes</a>
+        </div>
+        <div class="main_nav" style="float:right">
+            <a href="flask_admin.html">Admin</a>
+        </div>
+    </nav>
+    <h2>Settings</h2>
+
+    <div class="dropdown">
+        <button class="dropbtn" id="pref_lang_btn">Preferred Language</button>
+        <select name="preference" id="pref_lang" class="dropdown-content">
+            <option value="chinese">Chinese</option>
+            <option value="english">English</option>
+        </select>
+        <form class="current-pref">Current<input type="text" name="pref_lang" class="currentSetting" readonly></form>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn" id="debug_btn">Debug</button>
+        <select name="preference" id="debug" class="dropdown-content">
+            <option value="true">True</option>
+            <option value="false">False</option>
+        </select>
+        <form class="current-pref">Current<input type="text" name="debug" class="currentSetting" readonly></form>
+    </div>
+
+    <div class="dropdown">
+        <form id="url_form">
+            URL:<br>
+            <input type="text" id="url_form_input">
+            <input type="submit" value="Submit" onclick="setSettingFromForm()">
+        </form>
+        <form class="current-pref">Current<input type="text" name="url" class="currentSetting" readonly></form>
+    </div>
+
+
+    <footer>
+        <p></p>
+    </footer>
+</body>
+</html>

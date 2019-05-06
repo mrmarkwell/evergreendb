@@ -1,0 +1,13 @@
+<ul>
+    <li id="create-family-member">
+        <button mat-raised-button (click)="createFamilyMember()" id="create-button">New Family Member</button>
+    </li>
+</ul>
+<ul>
+    <li *ngFor="let family_member of this.family_members">
+        <button mat-button [id]="family_member.id" (click)="onSelect(family_member)" [class.selected]="isSelected(family_member)">
+            <mat-icon *ngIf=family_member.family_member_is_primary svgIcon="star_icon"></mat-icon>
+            {{family_member.relationship}}
+        </button>
+    </li>
+</ul>

@@ -1,0 +1,32 @@
+@import '../../../theme.scss';
+@import '~@angular/material/theming';
+
+.flex-col {
+	display: flex;
+	flex-direction: column;
+}
+
+.flex-row {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+}
+
+.flex-item {
+	width: 100%;
+	margin-right: 3px;
+}
+.select-fi {
+	width: auto;
+}
+.button-fi {
+	padding-top: 8px;
+}
+
+mat-select {
+	width: 200px;
+}
+mat-form-field {
+	width: 100%;
+	padding-top: 6px;
+}

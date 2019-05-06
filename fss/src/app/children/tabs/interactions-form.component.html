@@ -1,0 +1,272 @@
+<div *ngIf="interaction">
+    <div>
+        <button mat-raised-button (click)="hideForm()">Hide</button>
+        <button mat-icon-button>
+            <mat-icon svgIcon="save_icon" (click)="saveInteraction()" [class.unsaved]="unsaved"></mat-icon>
+        </button>
+        <button mat-icon-button>
+            <mat-icon svgIcon="trash_icon" (click)="deleteInteraction()"></mat-icon>
+        </button>
+        <button mat-icon-button>
+            <mat-icon svgIcon="attach_icon" (click)="openFileSelect()"></mat-icon>
+        </button>
+    </div>
+    <div>
+        <input #interactionFileInput [hidden]="true" id=interaction-file-select type="file" name="interactions" ng2FileSelect [uploader]="fileuploader"/>
+        <!-- <button mat-raised-button (click)="openFileSelect()">Upload...</button> -->
+        <mat-list dense>
+            <mat-list-item *ngFor="let file of uploaded_files">
+                <!-- <button mat-icon-button>
+                    <mat-icon svgIcon="download" (click)="downloadFile(file)"></mat-icon>
+                </button> -->
+                <a mat-icon-button [href]="this.restService.getInteractionFileDownloadUrl(interaction.id, file)" download>
+                    <mat-icon svgIcon="download"></mat-icon>
+                </a>
+                <button mat-icon-button>
+                    <mat-icon svgIcon="trash_icon" (click)="deleteFile(file)"></mat-icon>
+                </button>
+                {{file}}
+            </mat-list-item>
+        </mat-list>
+    </div>
+    <div class='flex-row'>
+        <div class='flex-item' id="interaction-date-picker-div">
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="date" name="interaction-date" [(ngModel)]="interaction.interaction_date_object">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            </mat-form-field>
+            <mat-datepicker #picker></mat-datepicker>
+        </div>
+        <div class='flex-item'>
+            <mat-select placeholder="Type" [(ngModel)]="interaction.interaction_type" name="interaction-type">
+                <mat-option *ngFor="let interaction_type of interaction_types" [value]="interaction_type">{{interaction_type}}</mat-option>
+            </mat-select>
+        </div>
+        <div class='flex-item'>
+            <mat-select placeholder="Coordinator" [(ngModel)]="interaction.interaction_coordinator" name="interaction-type">
+                <mat-option *ngFor="let interaction_coordinator of interaction_coordinators" [value]="interaction_coordinator">{{interaction_coordinator}}</mat-option>
+            </mat-select>
+        </div>
+        <div class='flex-item'>
+            <mat-checkbox [(ngModel)]="interaction.is_initial_interaction">initial interaction</mat-checkbox>
+        </div>
+    </div>
+    <div class='flex-item' id="people-present-div">
+        <mat-form-field>
+            <input matInput placeholder="People Present" [(ngModel)]="interaction.people_present" name="people-present">
+        </mat-form-field>
+    </div>
+    <div>
+        <ul><li>
+            <mat-form-field>
+                <textarea matInput placeholder="Notes" [(ngModel)]="interaction.interaction_notes" name="interaction-notes"></textarea>
+            </mat-form-field>
+        </li></ul>
+    </div>
+    <div *ngIf="showDetails()">
+        <ul *ngIf="interaction.is_initial_interaction">
+            <li>
+                <mat-form-field>
+                    <textarea matInput placeholder="Current Concerns" [(ngModel)]="interaction.current_concerns" name="current-concerns"></textarea>
+                </mat-form-field>
+            </li>
+            <li>
+                <mat-form-field>
+                    <textarea matInput placeholder="Developmental history and current ability" [(ngModel)]="interaction.dev_history" name="developmental-history"></textarea>
+                </mat-form-field>
+            </li>
+        </ul>
+        <ul *ngIf="!interaction.is_initial_interaction">
+            <li>
+                <mat-form-field>
+                    <textarea matInput placeholder="Developments since last visit" [(ngModel)]="interaction.dev_since_last_visit" name="dev-since-last-visit"></textarea>
+                </mat-form-field>
+            </li>
+            <li>
+                <mat-form-field>
+                    <textarea matInput placeholder="Follow up on last visit’s recommendations" [(ngModel)]="interaction.follow_up" name="follow-up"></textarea>
+                </mat-form-field>
+            </li>
+            <li>
+                <mat-form-field>
+                    <textarea matInput placeholder="Current Concerns" [(ngModel)]="interaction.current_concerns" name="current-concerns"></textarea>
+                </mat-form-field>
+            </li>
+        </ul>
+        <table id="development-table">
+            <colgroup>
+                <col id="category-col">
+                <col id="notes-col">
+                <col id="recommendations-col">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th>Notes</th>
+                    <th>Recommendations</th>
+                </tr>
+                <tr>
+                    <th>Feeding:</th>
+                    <td>
+                        <mat-checkbox [(ngModel)]="interaction.milk_feeding">milk</mat-checkbox>
+                    </td>
+                    <td rowspan="4">
+                        <mat-form-field>
+                            <textarea matInput placeholder="Feeding recommendations" [(ngModel)]="interaction.feeding_recommendations" id="feeding-recommendations"
+                                name="feeding-recommendations">
+                            </textarea>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <mat-checkbox [(ngModel)]="interaction.solid_feeding">solids</mat-checkbox>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <mat-checkbox [(ngModel)]="interaction.self_feeding">self-feeding</mat-checkbox>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Texture preferences" [(ngModel)]="interaction.texture_preferences" name="texture-preferences"></textarea>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Developmental<br>and behavioural:</th>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Notes" [(ngModel)]="interaction.developmental_notes" name="development-notes"></textarea>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Recommendations" [(ngModel)]="interaction.developmental_recommendations" name="development-recommendations"></textarea>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th>OT:</th>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Notes" [(ngModel)]="interaction.ot_notes" name="ot-notes"></textarea>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Recommendations" [(ngModel)]="interaction.ot_recommendations" name="ot-recommendations"></textarea>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Sensory issues:</th>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Notes" [(ngModel)]="interaction.sensory_notes" name="sensory-notes"></textarea>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Recommendations" [(ngModel)]="interaction.sensory_recommendations" name="sensory-recommendations"></textarea>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Speech:</th>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Notes" [(ngModel)]="interaction.speech_notes" name="speech-notes"></textarea>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Recommendations" [(ngModel)]="interaction.speech_recommendations" name="speech-recommendations"></textarea>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Physical:</th>
+                    <td>
+                        <mat-checkbox [(ngModel)]="interaction.head_control">Head control</mat-checkbox>
+                    </td>
+                    <td rowspan="5">
+                        <mat-form-field>
+                            <textarea matInput placeholder="Physical Recommendations" [(ngModel)]="interaction.physical_recommendations" id="physical-recommendations"
+                                name="physical-recommendations">
+                            </textarea>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <mat-checkbox [(ngModel)]="interaction.rolling">Rolling</mat-checkbox>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <mat-checkbox [(ngModel)]="interaction.sitting">Sitting</mat-checkbox>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <mat-checkbox [(ngModel)]="interaction.standing">Standing</mat-checkbox>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <mat-checkbox [(ngModel)]="interaction.walking">Walking</mat-checkbox>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Gross Motor Notes" [(ngModel)]="interaction.gross_motor_notes" name="gross-moter-notes"></textarea>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Gross Motor Recommendations" [(ngModel)]="interaction.gross_motor_recommendations" name="gross-motor-recommendations"></textarea>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Fine Motor Notes" [(ngModel)]="interaction.fine_motor_notes" name="fine-moter-notes"></textarea>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Fine Motor Recommendations" [(ngModel)]="interaction.fine_motor_recommendations" name="fine-motor-recommendations"></textarea>
+                        </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Weakness Notes" [(ngModel)]="interaction.weakness_notes" name="weakness-notes"></textarea>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Weakness Recommendations" [(ngModel)]="interaction.weakness_recommendations" name="weakness-recommendations"></textarea>
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+<form id="child-details-form" *ngIf="child">
+    <div class="grid">
+        <div class="grid-item" id="save-del-cell">
+            <button mat-icon-button>
+                <mat-icon svgIcon="save_icon" (click)="saveChild()" [class.unsaved]="unsaved"></mat-icon>
+            </button><br />
+            <button mat-icon-button [disabled]="!delete_enabled" (click)="deleteChild()">
+                <mat-icon svgIcon="trash_icon"></mat-icon>
+            </button>
+        </div>
+        <div class="grid-item" id="profile-pic-cell">
+            <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="picOverBase($event)" (onFileDrop)="fileDropped($event)"
+                [uploader]="uploader" class="well my-drop-zone">
+                <img src={{child_photo_url}} onerror="this.src='assets/person.svg'" height="128" width="128">
+            </div>
+        </div>
+        <div class="grid-item" id="chinese-name-cell">
+            <mat-form-field>
+                <input matInput placeholder="Chinese Name" [(ngModel)]="child.child_chinese_name" name="child-chinese-name">
+            </mat-form-field>
+        </div>
+        <div class="grid-item" id="pinyin-name-cell">
+            <mat-form-field>
+                <input matInput placeholder="Pinyin Name" [(ngModel)]="child.child_pinyin_name" name="child-pinyin-name">
+            </mat-form-field>
+        </div>
+        <div class="grid-item" id="nickname-cell">
+            <mat-form-field>
+                <input matInput placeholder="Nickname" [(ngModel)]="child.nickname" name="child-nickname">
+            </mat-form-field>
+        </div>
+        <div class="grid-item" id="dob-cell">
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="DOB" name="birth-date" [(ngModel)]="child.birth_date_object">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div class="grid-item" id="age-cell">
+            <mat-form-field>
+                <input matInput placeholder="" disabled [(ngModel)]="age" name="age">
+            </mat-form-field>
+        </div>
+        <div class="grid-item" id="gender-cell">
+            <mat-form-field>
+                <mat-select placeholder="Sex" [(ngModel)]="child.gender" name="sex">
+                    <mat-option value="M">Male</mat-option>
+                    <mat-option value="F">Female</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="grid-item" id="primary-diagnosis-cell">
+            <mat-form-field>
+	            <mat-select placeholder="Primary Diagnosis" [(ngModel)]="child.primary_diagnosis" name="primary-diagnosis">
+	                <mat-option value=""></mat-option>
+	                <mat-option *ngFor="let condition of medical_conditions" [value]="condition">{{condition}}</mat-option>
+	            </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="grid-item" id="second-diagnosis-cell">
+            <mat-form-field>
+	            <mat-select placeholder="Secondary Diagnosis" [(ngModel)]="child.secondary_diagnosis" name="secondary-diagnosis">
+	                <mat-option value=""></mat-option>
+	                <mat-option *ngFor="let condition of medical_conditions" [value]="condition">{{condition}}</mat-option>
+	            </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="grid-item" id="referred-by-cell">
+            <mat-form-field>
+                <input matInput placeholder="Referred By" [(ngModel)]="child.referred_by" name="referred-by">
+            </mat-form-field>
+        </div>
+        <div class="grid-item" id="status-cell">
+            <mat-form-field>
+	            <mat-select placeholder="Status" [(ngModel)]="child.status" name="child-status">
+	                <mat-option value=""></mat-option>
+	                <mat-option *ngFor="let status of child_status" [value]="status">{{status}}</mat-option>
+	            </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="grid-item" id="file-upload-button">
+            <!-- File input for the file-upload plugin, with special ng2-file-upload directive called ng2FileSelect -->
+            <input #fileInput id=profile-pic-file-select type="file" name="photo" ng2FileSelect [uploader]="uploader" [accept]="allowed_mime_type.toString()"/>
+            <button mat-raised-button (click)="openFileSelect()">Upload...</button>
+        </div>
+    </div>
+</form>

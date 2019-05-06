@@ -1,0 +1,14 @@
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let reminder of filteredReminders">
+        <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{reminder.interaction.interaction_date}}
+        </mat-panel-title>
+        <mat-panel-description>
+            {{reminder.child_pinyin_name}} - {{reminder.child_chinese_name}}
+            <div class="type">{{reminder.interaction.interaction_type}}</div>
+        </mat-panel-description>
+        </mat-expansion-panel-header>
+        {{reminder.interaction.interaction_notes}}
+    </mat-expansion-panel>
+</mat-accordion>

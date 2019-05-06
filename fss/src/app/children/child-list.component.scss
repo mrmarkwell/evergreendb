@@ -1,0 +1,76 @@
+@import '../../theme.scss';
+@import '~@angular/material/theming';
+
+#new-child-btn {
+  background-color: mat-color($primary, 300);
+  color: white
+}
+
+#new-child-div {
+  padding-bottom: 1em;
+}
+
+li {
+    .selected {
+        color: mat-color($accent, 100);
+        // font-weight: bold;
+      }
+  button {
+    line-height: 1.5em;
+    color: white;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+    div {display: inline-block;}
+  }
+  .status {
+    border-radius: 50%;
+    width: 1em;
+    height: 1em;
+    margin-left: 0.15em;
+    &.active {background: $status_active}
+    &.current {background: $status_current}
+    &.in_situ {background: $status_in_situ}
+    &.resolved {background: $status_resolved}
+  }
+}
+ul {
+    border-top: solid 1px;
+    padding-top: 8px;
+    margin-top: 8px;
+}
+
+#search-container {
+  color: white;
+  width: 10em;
+}
+
+.status-toggle {
+    width: 10em;
+}
+
+.search{
+    display: flex;
+    flex-direction: column;
+    .flex-item {
+        color: white;
+        margin-bottom: 0.5em;
+    }
+}
+
+#select-category {
+    width: 10em;
+    color: white;
+}
+
+::ng-deep .mat-select-value {
+  color: white;
+}
+
+/* Had to do weird stuff to make the padding not rediculously large on the input text boxes */
+/deep/ .mat-input-wrapper {
+  padding-bottom: 0 !important;
+}
+/deep/ .mat-input-underline {
+  bottom: 0 !important;
+}

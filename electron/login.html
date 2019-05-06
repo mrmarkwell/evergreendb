@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <script src="scripts/lib.js"></script>
+    <script src="login.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/home.css">
+</head>
+<body>
+    <header>Evergreen Management System</header>
+    <nav>
+        <div class="main_nav">
+            <a href=index.html>Home</a>
+        </div>
+        <div class="main_nav">
+            <a class="active" href=login.html>Login</a>
+        </div>
+        <div class="main_nav">
+            <a href=query.html>Child Select</a>
+        </div>
+        <div class="main_nav">
+            <a href=settings.html>User Settings</a>
+        </div>
+        <div class="main_nav">
+            <a href="flagged_notes.html">Flagged Notes</a>
+        </div>
+        <div class="main_nav" style="float:right">
+            <a href="flask_admin.html">Admin</a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="main">
+            <h2>Login</h2>
+            <form id="form_id" method="post" name="myform">
+                <label>User Name :</label>
+                <input type="text" name="username" id="username"/>
+                <label>Password :</label>
+                <input type="password" name="password" id="password"/>
+                <input type="button" value="Login" id="submit" onclick="validate()"/>
+            </form>
+            <span><b class="note">Note : </b>For this demo use following username and password. <br/><b class="valid">User Name : admin<br/>Password : admin</b></span>
+        </div>
+    </div>
+</body>
+</html>

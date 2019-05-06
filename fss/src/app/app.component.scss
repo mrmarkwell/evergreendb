@@ -1,0 +1,48 @@
+@import '../theme.scss';
+@import '~@angular/material/theming';
+
+.fss-sidenav {
+	background-color: mat-color($primary);
+}
+
+mat-sidenav-container {
+	min-height: 100vh;
+
+}
+mat-sidenav h1 {
+	color: white;
+	text-align: center;
+	padding-top: 1em;
+}
+
+mat-sidenav a {
+	color: white;
+	width: 100%;
+	text-align: left;
+}
+
+mat-sidenav a.active {
+	color: white;
+	background-color: mat-color($primary, 400);
+}
+
+mat-sidenav mat-icon {
+	color: white; // CSS can change .svg color!
+}
+
+.logout {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    // left: 1em;
+    // display: inline-block;
+	// text-align: center;
+}
+.logoutbutton {
+    width:100%;
+}
+.chipcontent {
+    margin: 0 auto;
+    text-align: center;
+}
+

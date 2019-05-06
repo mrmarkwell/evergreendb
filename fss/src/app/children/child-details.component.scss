@@ -1,0 +1,91 @@
+@import '../../theme.scss';
+@import '~@angular/material/theming';
+
+mat-select {
+	width: 100%;
+}
+mat-form-field {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+}
+textarea {
+	width: 100%;
+	height: 5em;
+	resize: none;
+}
+.grid {
+	display: grid;
+	grid-template-columns: 2em 139px 3fr 8.5em 4fr; /* 139=128+2+2+0.5em */
+	grid-template-rows: 3.3em 3.3em 3.3em 3.3em;
+}
+.grid-item {
+	position: relative;
+	margin-left: 0.5em;
+}
+#save-del-cell {
+	margin-left: 0;
+	grid-row: 1;
+	grid-column: 1;
+}
+#profile-pic-cell {
+    grid-row: 1 / 4; /* [2-4) so 2 & 3 */
+    /* autoprefixer: off */
+	grid-column: 2;
+}
+#chinese-name-cell {
+	grid-row: 1;
+	grid-column: 3;
+}
+#pinyin-name-cell {
+	grid-row: 2;
+	grid-column: 3;
+}
+#nickname-cell {
+	grid-row: 3;
+	grid-column: 3;
+}
+#dob-cell {
+	grid-row: 1;
+	grid-column: 4;
+}
+#age-cell {
+	grid-row: 2;
+	grid-column: 4;
+}
+#gender-cell {
+	grid-row: 3;
+	grid-column: 4;
+}
+#primary-diagnosis-cell {
+	grid-row: 2;
+	grid-column: 5;
+}
+#second-diagnosis-cell {
+	grid-row: 3;
+	grid-column: 5;
+}
+#status-cell {
+	grid-row: 1;
+	grid-column: 5;
+}
+#referred-by-cell {
+	grid-row: 4;
+	grid-column: 5 / 6;
+}
+#file-upload-button {
+    grid-row: 4;
+    grid-column: 2;
+}
+
+//.my-drop-zone {	border: dotted 2px lightgray; }
+.nv-file-over {
+		border-style: dotted;
+		border-width: 2px;
+		border-color: mat-color($accent);
+} /* Default class applied to drop zones on over */
+.another-file-over-class { border: dotted 2px green; }
+
+input[type="file"] {
+    display: none;
+}

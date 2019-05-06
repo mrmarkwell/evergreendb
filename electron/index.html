@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>EvMS</title>
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+    <!-- normal script imports etc  -->
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/jquery-ui.min.js"></script>
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+    <link rel="stylesheet" type="text/css" href="css/home.css">
+</head>
+<body>
+    <script>require('./index.js')</script>
+    <header>Evergreen Management System</header>
+    <nav>
+        <div class="main_nav">
+            <a class="active" href=index.html>Home</a>
+        </div>
+        <div class="main_nav">
+            <a href=login.html>Login</a>
+        </div>
+        <div class="main_nav">
+            <a href=query.html>Child Select</a>
+        </div>
+        <div class="main_nav">
+            <a href=settings.html>User Settings</a>
+        </div>
+        <div class="main_nav">
+            <a href="flagged_notes.html">Flagged Notes</a>
+        </div>
+        <div class="main_nav" style="float:right">
+            <a href="flask_admin.html">Admin</a>
+        </div>
+    </nav>
+</body>
+</html>

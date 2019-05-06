@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Flagged Notes</title>
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+    <!-- normal script imports etc  -->
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/jquery-ui.min.js"></script>
+    <script src="scripts/lib.js"></script>
+    <script src="scripts/flagged_notes.js"></script>
+    <script src="scripts/tablesort.min.js"></script>
+    <script src="scripts/tablesort.number.min.js"></script>
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+    <link rel="stylesheet" type="text/css" href="css/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="css/table.css" />
+    <link rel="stylesheet" type="text/css" href="css/home.css" />
+    <script>
+        $(document).ready(function () {
+            new Tablesort(document.getElementById("flagged_notes_table"));
+            initializeTable();
+        });
+    </script>
+</head>
+<body>
+    <header>Evergreen Management System</header>
+    <nav>
+        <div class="main_nav">
+            <a href=index.html>Home</a>
+        </div>
+        <div class="main_nav">
+            <a href=login.html>Login</a>
+        </div>
+        <div class="main_nav">
+            <a href=query.html>Child Select</a>
+        </div>
+        <div class="main_nav">
+            <a href=settings.html>User Settings</a>
+        </div>
+        <div class="main_nav">
+            <a class="active" href="flagged_notes.html">Flagged Notes</a>
+        </div>
+        <div class="main_nav" style="float:right">
+            <a href="flask_admin.html">Admin</a>
+        </div>
+    </nav>
+    <h2>Settings</h2>
+    <h2>Flagged Notes</h2>
+    <select id="child_select">
+        <option selected>All Children</option>
+    </select>
+    <select id="caregiver_select">
+        <option selected>All Caregivers</option>
+    </select>
+    <button type="button" onclick="filterTable()">Apply Filter</button>
+    <table id="flagged_notes_table"></table>
+    <footer>
+        <p>©Copyright 2017. All rights reserved.</p>
+    </footer>
+</body>
+</html>

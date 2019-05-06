@@ -1,0 +1,14 @@
+table,th,td {
+  border : 1px solid black;
+  border-collapse: collapse;
+}
+th,td {
+  padding: 1px 3px;
+}
+input[type=number] {
+  width: 99%;
+}
+.highlight {
+  color: #ffffff;
+  background-color: #444444;
+}

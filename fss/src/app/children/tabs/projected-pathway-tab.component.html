@@ -1,0 +1,55 @@
+<form *ngIf="child" id="projected-pathway-form">
+    <button mat-icon-button>
+        <mat-icon svgIcon="save_icon" (click)="save()" [class.unsaved]="unsaved"></mat-icon>
+    </button>
+    <button mat-icon-button>
+        <mat-icon svgIcon="add_icon" (click)="addNewStep()"></mat-icon>
+    </button>
+    <div>
+        <table *ngIf="projectedPathways != null && projectedPathways.length != 0">
+            <colgroup>
+                <col id="step-no-col">
+                <col id="short-description-col">
+                <col id="details-col">
+                <col id="completion-col">
+                <col id="delete-col">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>Step</th>
+                    <th>Short Description</th>
+                    <th>Details</th>
+                    <th>Completion Date</th>
+                    <th></th>
+                </tr>
+                <tr *ngFor="let pathway of projectedPathways">
+                    <td class="align-middle" [class.active]="pathway.pathway_is_active">
+                        {{pathway.pathway_step_number}}
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput [(ngModel)]="pathway.pathway_short_description" name="{{pathway.id}}_short_description"></textarea>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <textarea matInput [(ngModel)]="pathway.pathway_details" name="{{pathway.id}}_details"></textarea>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker" [(ngModel)]="pathway.pathway_completion_date_object" name="{{pathway.id}}_datepicker">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        </mat-form-field>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </td>
+                    <td>
+                        <button mat-icon-button>
+                            <mat-icon svgIcon="trash_icon" (click)="delete(pathway.id)"></mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>

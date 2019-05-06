@@ -1,0 +1,43 @@
+@import '../../../theme.scss';
+@import '~@angular/material/theming';
+
+table {
+  width: 100%;
+}
+textarea {
+  height: 3em;
+  width: 100%;
+  box-sizing: border-box;
+}
+mat-form-field {
+  width: 100%;
+}
+td {
+  vertical-align: bottom;
+}
+th, td {
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+}
+.align-middle {
+  vertical-align: middle;
+  text-align: center;
+  font-size: 200%;
+}
+#completion-col {
+  width: 8em;
+}
+#step-no-col {
+  width: 3em;
+}
+#delete-col {
+  width: 1em;
+}
+#short-description-col {
+  width: 25%;
+}
+
+.active {
+  color: mat-color($accent);
+  font-weight: bold;
+}

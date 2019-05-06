@@ -1,0 +1,20 @@
+@import '../../../theme.scss';
+@import '~@angular/material/theming';
+
+th {
+	text-align: left;
+}
+th, td {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	max-width: 35em;
+}
+tr.selected {
+	color: mat-color($accent);
+}
+td.reminder {
+	color: pink;
+}
+td.reminder.selected {
+	color: mix(pink, mat-color($accent), 60%);
+}

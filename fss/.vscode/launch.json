@@ -1,0 +1,43 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Launch Chrome",
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceRoot}",
+            "sourceMaps": true,
+            "userDataDir": "${workspaceRoot}/.vscode/chrome",
+            "runtimeArgs": [
+                "--disable-session-crashed-bubble",
+                "--disable-web-security"
+            ]
+        },
+        {
+            "name": "Attach Chrome",
+            "type": "chrome",
+            "request": "attach",
+            "url": "http://localhost:4200",
+            "port": 9222,
+            "webRoot": "${workspaceRoot}",
+            "sourceMaps": true
+        }
+        // {
+        //     "name": "Debug Main Electron Process",
+        //     "type": "chrome",
+        //     "request": "launch",
+        //     "sourceMaps": true,
+        //     "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd",
+        //     "runtimeArgs": [
+        //         "${workspaceRoot}/.",
+        //         "--remote-debugging-port=9222"
+        //     ],
+        //     "webRoot": "${workspaceRoot}/dist",
+        //     "skipFiles": [
+        //         "node_modules/**/*.js"
+        //     ],
+        //     "preLaunchTask": "build"
+        // }
+    ]
+}

@@ -1,0 +1,13 @@
+@import '../../../theme.scss';
+@import '~@angular/material/theming';
+
+.selected {
+	color: mat-color($accent);
+}
+button {
+	width: 100%;
+	text-align: left;
+}
+ul {
+	margin-right: 1em;
+}

@@ -1,0 +1,70 @@
+//$accent: #CDA34F;
+//$light: #E9E7DA;
+//$medium: #636B46;
+//$dark: #373F27;
+
+$status_active: lightgreen;
+$status_current: orange;
+$status_in_situ: aqua;
+$status_resolved: palevioletred;
+
+//mat-dark-theme
+//mat-light-theme
+@import '~@angular/material/theming';
+@include mat-core();
+$primary: mat-palette($mat-teal, 800);
+$accent:  mat-palette($mat-light-blue, 600, 100, 800);
+$warn:    mat-palette($mat-red, 600);
+$theme: mat-dark-theme($primary, $accent, $warn);
+@include angular-material-theme($theme);
+
+body {
+	margin: 0 0 0 0;
+}
+
+ul {
+	list-style-type: none;
+	padding-left: 0px;
+}
+table {
+	border-collapse: collapse;
+}
+td {
+	vertical-align: top;
+}
+th {
+	text-align: left;
+}
+
+// unsaved button theme
+.unsaved {
+    color: mat-color($warn, 600);
+//	background:red;
+//	padding:5px 10px;
+//	color:#fff;
+	border:none;
+	border-radius:5px;
+	
+	animation-name: flash;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+
+	// //Firefox 1+
+	// -webkit-animation-name: flash;
+	// -webkit-animation-duration: 1s;
+	// -webkit-animation-timing-function: linear;
+	// -webkit-animation-iteration-count: infinite;
+
+	// //Safari 3-4
+	// -moz-animation-name: flash;
+	// -moz-animation-duration: 1s;
+	// -moz-animation-timing-function: linear;
+	// -moz-animation-iteration-count: infinite;
+  }
+
+  @keyframes flash {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1.0; }
+}
