@@ -125,4 +125,22 @@ npm i -g npm
 
 ## Install all packages in package.json
 
+```bash
+cd fss
+npm install
+```
 
+## Update the version of the product
+
+```bash
+# Edit VERSION file with correct version
+./update_version.sh
+```
+
+### Check the version of the front end
+
+Navigate to the Settings page of the app to see it.
+
+### Check the version of the back end
+
+Navigate to the /version endpoint to see it.

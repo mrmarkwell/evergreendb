@@ -17,6 +17,7 @@ from api.resources import EntityResource
 from api.resources import EntityListResource
 from api.resources import FilterResource
 from api.resources import HeartbeatResource
+from api.resources import VersionResource
 from api.resources import AuthCheckResource
 from api.resources import AdminAuthCheckResource
 from api.resources import RollbackResource
@@ -38,6 +39,7 @@ rest_api.add_resource(EntityResource, "/entity/<string:entity_name>", endpoint="
 rest_api.add_resource(FilterResource, "/filter")
 rest_api.add_resource(EntityListResource, "/entity", endpoint="entities")
 rest_api.add_resource(HeartbeatResource, "/heartbeat", endpoint="heartbeat")
+rest_api.add_resource(VersionResource, "/version", endpoint="version")
 rest_api.add_resource(RollbackResource, "/rollback", endpoint="rollback")
 rest_api.add_resource(Upload, "/upload")
 rest_api.add_resource(Photos, "/photos/<string:filename>", endpoint="photos")
