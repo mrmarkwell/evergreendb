@@ -274,9 +274,12 @@ export class RestService {
         return this.getChildren().then(children => {
             return Promise.all(children.map((child, index, children) => {
                 this.getInteractions(child.id).then(interactions =>
-                    reminderList = reminderList.concat(interactions.map(interaction => new Reminder(interaction)))
-                )
-            })).then(() => Promise.resolve(reminderList))
+                    reminderList = reminderList.concat(interactions.map(interaction => Reminder.fromInteraction(interaction)))
+                );
+                this.getProjectedPathway(child.id).then(projected_pathways =>
+                    reminderList = reminderList.concat(projected_pathways.map(projected_pathway => Reminder.fromProjectedPathway(projected_pathway)))
+                );
+                })).then(() => Promise.resolve(reminderList))
         });
     }
     addInteraction(interaction: Interaction): Promise<Interaction> {
