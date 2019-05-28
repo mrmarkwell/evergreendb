@@ -94,6 +94,7 @@ fss_interaction_parser.add_argument('fine_motor_notes')
 fss_interaction_parser.add_argument('fine_motor_recommendations')
 fss_interaction_parser.add_argument('weakness_notes')
 fss_interaction_parser.add_argument('weakness_recommendations')
+fss_interaction_parser.add_argument('other_notes')
 
 #============== SOAR Parsers ================#
 

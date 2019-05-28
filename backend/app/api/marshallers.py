@@ -94,6 +94,7 @@ fss_interaction_fields = {
     'fine_motor_recommendations': fields.String,
     'weakness_notes': fields.String,
     'weakness_recommendations': fields.String,
+    'other_notes': fields.String,
 }
 
 
