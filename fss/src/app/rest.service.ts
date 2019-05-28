@@ -7,7 +7,6 @@ import * as moment from 'moment';
 
 import { Child } from './child';
 import { User } from './user';
-import { ChildPhoto } from './child-photo'
 import { Interaction } from './interaction';
 import { Reminder } from './reminder';
 import { FamilyMember } from './family-member';
