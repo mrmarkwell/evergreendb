@@ -10,6 +10,19 @@
   padding-bottom: 1em;
 }
 
+.statusdot {
+	float: right;
+	border-radius: 50%;
+	width: 1em;
+	height: 1em;
+	margin-left: 0.5em;
+	margin-top: 0.35em;
+	&.active {background: $status_active}
+	&.current {background: $status_current}
+	&.in_situ {background: $status_in_situ}
+	&.resolved {background: $status_resolved}
+}
+
 li {
     .selected {
         color: mat-color($accent, 100);
