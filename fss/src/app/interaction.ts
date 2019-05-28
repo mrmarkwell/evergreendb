@@ -39,6 +39,7 @@ export class Interaction {
 			&& this.standing == i2.standing
 			&& this.walking == i2.walking
 			&& this.weakness_notes == i2.weakness_notes
+			&& this.other_notes == i2.other_notes
 			&& this.weakness_recommendations == i2.weakness_recommendations
 			&& this.physical_recommendations == i2.physical_recommendations
 			&& this.gross_motor_notes == i2.gross_motor_notes
@@ -79,6 +80,7 @@ export class Interaction {
 	standing: boolean;
 	walking: boolean;
 	weakness_notes: string;
+	other_notes: string;
 	weakness_recommendations: string;
 	physical_recommendations: string;
 	gross_motor_notes: string;

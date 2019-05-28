@@ -108,6 +108,7 @@ class FSSInteraction(db.Model):
     fine_motor_recommendations = db.Column(db.Unicode(255))
     weakness_notes = db.Column(db.Unicode(255))
     weakness_recommendations = db.Column(db.Unicode(255))
+    other_notes = db.Column(db.Unicode(255))
 
 ########## SOAR Tables #############
 
