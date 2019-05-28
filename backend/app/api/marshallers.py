@@ -28,6 +28,7 @@ fss_child_fields = {
     'reason_for_referral': fields.String,
     'birth_history': fields.String,
     'medical_history': fields.String,
+    'current_medical_status': fields.String,
     'family_dynamics': fields.String,
     'other_family_members': fields.String,
 }

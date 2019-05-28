@@ -23,6 +23,7 @@ export class Child {
 			&& this.gender == c2.gender
 			&& this.other_family_members == c2.other_family_members
 			&& this.medical_history == c2.medical_history
+			&& this.current_medical_status == c2.current_medical_status
 			&& this.nickname == c2.nickname
 			&& this.primary_diagnosis == c2.primary_diagnosis
 			&& this.primary_diagnosis_note == c2.primary_diagnosis_note
@@ -44,6 +45,7 @@ export class Child {
 	gender: string;
 	other_family_members: string;
 	medical_history: string;
+	current_medical_status: string;
 	nickname: string;
 	primary_diagnosis: string;
 	primary_diagnosis_note: string;
