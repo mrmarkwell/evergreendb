@@ -23,7 +23,6 @@
   },
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
     "@angular/animations": "^5.0.3",
     "@angular/cdk": "^5.0.0-rc.1",
     "@angular/common": "^5.0.3",
@@ -37,15 +36,12 @@
     "@angular/router": "^5.0.3",
     "core-js": "^2.4.1",
     "file-saver": "^2.0.0-rc.4",
-=======
     "@angular/compiler": "^7.2.14",
->>>>>>> develop
     "ng2-file-upload": "^1.2.1",
     "rxjs-compat": "^6.5.1",
     "tslib": "^1.9.0"
   },
   "devDependencies": {
-<<<<<<< HEAD
     "@angular/cli": "^1.5.4",
     "@angular/compiler-cli": "^5.0.3",
     "@angular/language-service": "^5.0.3",
@@ -55,7 +51,6 @@
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~8.0.26",
     "codelyzer": "~4.0.1",
-=======
     "@angular-devkit/build-angular": "~0.13.0",
     "@angular/animations": "^7.2.14",
     "@angular/cdk": "^7.3.7",
@@ -76,7 +71,6 @@
     "@types/node": "^12.0.0",
     "codelyzer": "^5.0.1",
     "core-js": "^3.0.1",
->>>>>>> develop
     "devtron": "^1.4.0",
     "electron": "^5.0.1",
     "electron-debug": "^2.2.0",
