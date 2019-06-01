@@ -31,6 +31,7 @@ import os
 
 from pprint import pprint as pp
 
+current_version = 0.1
 
 def admin_required(f):
     @wraps(f)
@@ -432,6 +433,11 @@ class HeartbeatResource(Resource):
         response = {'message': 'beat'}
         return response, 200
 
+# Resource for checking version
+class VersionResource(Resource):
+    def get(self):
+        response = current_version
+        return response, 200
 
 class AuthCheckResource(Resource):
 

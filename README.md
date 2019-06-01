@@ -26,7 +26,7 @@ python run.py
 ```
 
 For Windows terminal emulator:
-```
+```bash
 pip install virtualenv
 cd backend
 source virtualize.sh
@@ -48,28 +48,29 @@ To set up Postman:
 
 To get started using the frontend follow these steps:
 
-Install node.js:  
+## Install node.js
 Ubuntu: https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions  
 Windows: https://nodejs.org/en/download/
 
-Install dependencies and run app:  
-```
+## Install dependencies and run app:  
+```bash
 cd fss 
 npm install
 
-// To test in browser and attach vscode debugger
+# To test in browser and attach vscode debugger
 ng serve
 
-// To run in electron locally with source mapping
+# To run in electron locally with source mapping
 npm run slowstart
 
-// To run in electron locally without source mapping (faster)
+# To run in electron locally without source mapping (faster)
 npm run faststart
 
 ```
 
-Package app as executable:
-```
+## Package app as executable:
+
+```bash
 npm run packagelocal # for current OS
 npm run packageall # for all OSs
 ```
@@ -78,34 +79,75 @@ npm run packageall # for all OSs
 
 Taken roughly from this tutorial: https://www.matthealy.com.au/blog/post/deploying-flask-to-amazon-web-services-ec2/
 
-```
+```bash
 ssh -i /path/to/your/keyfile ec2-user@your_public_dnsname_here
 ```
 if you need any info for the command above... you are going to need more help than this guide
 
 Change to the apps user, and go to the evergreen dir that was already created:
-```
+```bash
 [ec2-user@ip-172-31-14-180 ~]$ sudo su apps
 [apps@ip-172-31-14-180 ~]$ cd ~/evergreendb
 ```
 Clone git repo or if already cloned just do a git pull to grab the latest version
-```
+```bash
 [apps@ip-172-31-14-180 ~]$ git pull
 ```
 Setup virtual env if its not already setup following directions in the link above then source the virtualenv and install any new python packages:
-```
+```bash
 [apps@ip-172-31-14-180 evergreendb]$ cd backend/
 [apps@ip-172-31-14-180 backend]$ source virtualize.sh
 [apps@ip-172-31-14-180 evergreendb]$ pip install -r requirements.txt
 ```
 At this point you can setup nginx as the web server following directions in the link but it should be done already.
 Finally kill any gunicorn processes and restart them:
-```
+```bash
 [apps@ip-172-31-14-180 evergreendb]$ pkill gunicorn
-[apps@ip-172-31-14-180 evergreendb]$ gunicorn app:app -b localhost:8000 --error-logfile /home/apps/logs/error.log &
+[apps@ip-172-31-14-180 evergreendb]$ ./run_prod_backend.sh
 ```
 
+# Developer Tips
 
+## Start the backend locally
 
+```bash
+cd backend
+source virtualize.sh
+./create_prod_db.sh // Or create_test_db.sh to populate some test data
+python run.py
+```
 
+## Observe errors and backend print messages in the prod backend
 
+```bash
+sudo tail -f /var/log/nginx/error.log
+```
+
+## Update NPM
+
+```bash
+cd fss
+npm i -g npm
+```
+
+## Install all packages in package.json
+
+```bash
+cd fss
+npm install
+```
+
+## Update the version of the product
+
+```bash
+# Edit VERSION file with correct version
+./update_version.sh
+```
+
+### Check the version of the front end
+
+Navigate to the Settings page of the app to see it.
+
+### Check the version of the back end
+
+Navigate to the /version endpoint to see it.

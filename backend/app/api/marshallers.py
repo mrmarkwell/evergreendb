@@ -28,6 +28,7 @@ fss_child_fields = {
     'reason_for_referral': fields.String,
     'birth_history': fields.String,
     'medical_history': fields.String,
+    'current_medical_status': fields.String,
     'family_dynamics': fields.String,
     'other_family_members': fields.String,
 }
@@ -93,6 +94,7 @@ fss_interaction_fields = {
     'fine_motor_recommendations': fields.String,
     'weakness_notes': fields.String,
     'weakness_recommendations': fields.String,
+    'other_notes': fields.String,
 }
 
 

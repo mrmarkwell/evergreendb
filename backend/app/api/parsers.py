@@ -31,6 +31,7 @@ fss_child_parser.add_argument('further_diagnosis')
 fss_child_parser.add_argument('reason_for_referral')
 fss_child_parser.add_argument('birth_history')
 fss_child_parser.add_argument('medical_history')
+fss_child_parser.add_argument('current_medical_status')
 fss_child_parser.add_argument('family_dynamics')
 fss_child_parser.add_argument('other_family_members')
 
@@ -93,6 +94,7 @@ fss_interaction_parser.add_argument('fine_motor_notes')
 fss_interaction_parser.add_argument('fine_motor_recommendations')
 fss_interaction_parser.add_argument('weakness_notes')
 fss_interaction_parser.add_argument('weakness_recommendations')
+fss_interaction_parser.add_argument('other_notes')
 
 #============== SOAR Parsers ================#
 

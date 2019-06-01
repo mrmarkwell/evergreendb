@@ -35,6 +35,7 @@ class FSSChild(db.Model):
     reason_for_referral = db.Column(db.Unicode(255))
     birth_history = db.Column(db.Unicode(255))
     medical_history = db.Column(db.Unicode(255))
+    current_medical_status = db.Column(db.Unicode(255))
     family_dynamics = db.Column(db.Unicode(255))
     other_family_members = db.Column(db.Unicode(255))
 
@@ -107,6 +108,7 @@ class FSSInteraction(db.Model):
     fine_motor_recommendations = db.Column(db.Unicode(255))
     weakness_notes = db.Column(db.Unicode(255))
     weakness_recommendations = db.Column(db.Unicode(255))
+    other_notes = db.Column(db.Unicode(255))
 
 ########## SOAR Tables #############
 

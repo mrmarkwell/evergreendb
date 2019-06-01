@@ -9,11 +9,21 @@
     <mat-form-field mdBlock class="flex-item" id="search-container">
         <input matInput placeholder="Search" id="search-bar" [(ngModel)]="searchText" (keyup)="filterChildren($event)" name="child-search-bar">
     </mat-form-field>
-    <mat-slide-toggle class="flex-item" [(ngModel)]="filterActive" name="active-status-toggle" (ngModelChange)="filterChildren()">Active</mat-slide-toggle>
-    <mat-slide-toggle class="flex-item" [(ngModel)]="filterCurrent" name="active-status-toggle" (ngModelChange)="filterChildren()">Current</mat-slide-toggle>
-    <mat-slide-toggle class="flex-item" [(ngModel)]="filterInSitu" name="active-status-toggle" (ngModelChange)="filterChildren()">In Situ</mat-slide-toggle>
-    <mat-slide-toggle class="flex-item" [(ngModel)]="filterResolved" name="active-status-toggle" (ngModelChange)="filterChildren()">Resolved</mat-slide-toggle>
-    <mat-slide-toggle class="flex-item" [(ngModel)]="filterUnknown" name="active-status-toggle" (ngModelChange)="filterChildren()">Unknown</mat-slide-toggle>
+    <mat-slide-toggle class="flex-item" [(ngModel)]="filterActive" name="active-status-toggle" (ngModelChange)="filterChildren()">
+        Active<span class="statusdot active"></span>
+    </mat-slide-toggle>
+    <mat-slide-toggle class="flex-item" [(ngModel)]="filterCurrent" name="current-status-toggle" (ngModelChange)="filterChildren()">
+				Current<span class="statusdot current"></span>
+		</mat-slide-toggle>
+    <mat-slide-toggle class="flex-item" [(ngModel)]="filterInSitu" name="insitu-status-toggle" (ngModelChange)="filterChildren()">
+				In Situ<span class="statusdot in_situ"></span>
+		</mat-slide-toggle>
+    <mat-slide-toggle class="flex-item" [(ngModel)]="filterResolved" name="resolved-status-toggle" (ngModelChange)="filterChildren()">
+				Resolved<span class="statusdot resolved"></span>
+		</mat-slide-toggle>
+    <mat-slide-toggle class="flex-item" [(ngModel)]="filterUnknown" name="unknown-status-toggle" (ngModelChange)="filterChildren()">
+				Unknown<span class="statusdot unknown"></span>
+		</mat-slide-toggle>
 </div>
 <mat-divider></mat-divider>
 <ul class="children">

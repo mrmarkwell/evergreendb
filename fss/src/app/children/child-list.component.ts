@@ -14,10 +14,10 @@ export class ChildList implements OnInit, OnChanges {
     filteredChildren: Child[];
     selectedChild: Child;
     filterActive: Boolean = true;
-    filterInSitu: Boolean = false;
-    filterResolved: Boolean = false;
-    filterCurrent: Boolean = false;
-    filterUnknown: Boolean = false;
+    filterInSitu: Boolean = true;
+    filterResolved: Boolean = true;
+    filterCurrent: Boolean = true;
+    filterUnknown: Boolean = true;
     searchText: string;
     currentSearchCategory: SearchCategory = new SearchCategory("child_pinyin_name", "Pinyin Name");
     searchCategories: SearchCategory[] = new Array<SearchCategory>(
@@ -43,6 +43,7 @@ export class ChildList implements OnInit, OnChanges {
     createNewChild(): void {
         let new_child = new Child(null);
         new_child.child_pinyin_name = "New Child";
+        new_child.status = "Active";
         this.restService.addChild(new_child).then(the_child => this.onSelect(the_child));
         this.filterUnknown = true;
     }
