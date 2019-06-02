@@ -24,6 +24,7 @@ from api.resources import RollbackResource
 from api.upload import Upload
 from api.upload import Photos
 from api.resources import UserResource
+from api.resources import ReminderResource
 from api.resources import EnumResource
 from api.upload import InteractionFiles, MedicalFiles
 
@@ -45,6 +46,7 @@ rest_api.add_resource(Upload, "/upload")
 rest_api.add_resource(Photos, "/photos/<string:filename>", endpoint="photos")
 rest_api.add_resource(UserResource, "/user")
 rest_api.add_resource(EnumResource, "/enum/<string:enum_name>", endpoint="enum")
+rest_api.add_resource(ReminderResource, "/reminder", endpoint="reminder")
 rest_api.add_resource(InteractionFiles, "/interactionfiles/<string:id>", endpoint="interactionsfiles")
 rest_api.add_resource(MedicalFiles, "/medicalfiles/<string:id>", endpoint="medicalfiles")
 rest_api.add_resource(AuthCheckResource, "/authcheck", endpoint="authcheck")

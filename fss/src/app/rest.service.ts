@@ -269,18 +269,12 @@ export class RestService {
     }
 
     getAllReminders(): Promise<Reminder[]> {
-        let reminderList: Reminder[] = [];
-        return this.getChildren().then(children => {
-            return Promise.all(children.map((child, index, children) => {
-                this.getInteractions(child.id).then(interactions =>
-                    reminderList = reminderList.concat(interactions.map(interaction => Reminder.fromInteraction(interaction)))
-                );
-                this.getProjectedPathway(child.id).then(projected_pathways =>
-                    reminderList = reminderList.concat(projected_pathways.map(projected_pathway => Reminder.fromProjectedPathway(projected_pathway)))
-                );
-                })).then(() => Promise.resolve(reminderList))
-        });
+        let url = `${this.getBaseUrl()}/reminder`
+        return this.http.get(url, { headers: this.getHeaders() })
+            .toPromise().then(response => response as Reminder[])
+            .catch(this.handleError);
     }
+
     addInteraction(interaction: Interaction): Promise<Interaction> {
         return this.addEntity('fss_interaction', interaction).then(results => results as Interaction);
     }
