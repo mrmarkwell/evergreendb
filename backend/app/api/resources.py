@@ -28,7 +28,7 @@ import os
 
 from pprint import pprint as pp
 
-current_version = 0.1
+current_version = 0.2
 
 def admin_required(f):
     @wraps(f)
