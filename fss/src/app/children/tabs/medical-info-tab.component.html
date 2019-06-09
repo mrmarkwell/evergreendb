@@ -51,6 +51,11 @@
             </mat-form-field>
         </div>
         <div class="flex-item">
+            <mat-form-field>
+                <textarea matInput placeholder="Current Medical Status" [(ngModel)]="child.current_medical_status" name="current-medical-status-notes"></textarea>
+            </mat-form-field>
+        </div>
+        <div class="flex-item">
             <div>
                 <button mat-icon-button>
                     <mat-icon svgIcon="attach_icon" (click)="openFileSelect()"></mat-icon>
