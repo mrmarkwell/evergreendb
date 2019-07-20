@@ -25,7 +25,7 @@ export class ChildDetails implements OnInit, OnChanges {
     private on_changes_count = 0;
     private uploader: FileUploader;
     private unsaved: boolean;
-		private delete_enabled: boolean;
+    private delete_enabled: boolean;
     private orig_child: Child;
     child: Child;
 
@@ -127,6 +127,13 @@ export class ChildDetails implements OnInit, OnChanges {
         this.child.birth_date = this.restService.getStringFromDate(this.child.birth_date_object);
         this.restService.updateChild(this.child);
         this.unsaved = false;
+    }
+    downloadCoverSheet(): void {
+        if (this.unsaved) {
+            window.alert("Save child before downloading cover sheet report");
+            return;
+        }
+        this.restService.getReport(`${this.child.id}.cover_sheet.docx`)
     }
     deleteChild(): void {
         if (confirm("Are you sure you want to delete this child and all associated data?")) {

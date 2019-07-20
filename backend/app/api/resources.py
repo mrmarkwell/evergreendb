@@ -1,6 +1,7 @@
 from datetime import datetime
 import json
 import csv
+import shutil
 from csvcols import column_names_and_order
 from config import basedir
 
@@ -335,10 +336,27 @@ class ReportResource(ResourceBase):
     def get(self, format_name):
         if (format_name in ("child.csv", "family.csv", "pathway.csv", "interaction.csv", "fss.csv")):
             result = self.generate_csv_report(format_name)
+        elif (format_name.endswith(".docx")):
+            result = self.generate_docx_report(format_name)
         else:
             abort(404, message="Format " + format_name +
                   " is not a valid report format")
         return result, 200
+
+    def generate_docx_report(self, report):
+        splitted = report.split('.')
+        child_id = int(splitted[0])
+        report_type = splitted[1]
+        template = os.path.join(basedir,'docx-templates',report_type)
+        dest_dir = os.path.join(basedir, 'app')
+        report_file_name = os.path.join('static',report) # should be with child name not id
+        report_file_path = os.path.join(dest_dir,report_file_name)
+        tmp_file = os.path.join(dest_dir,'static','tempdir')
+        shutil.copytree(template,tmp_file)
+        shutil.make_archive(report_file_path,'zip',tmp_file)
+        os.rename(report_file_path+'.zip',report_file_path)
+        shutil.rmtree(tmp_file)
+        return report_file_name
 
     def generate_csv_report(self, report):
         fss_child = entity_data["fss_child"].class_type
