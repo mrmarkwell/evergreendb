@@ -416,6 +416,55 @@ class EnumResource(Resource):
             result = lines[-1].strip().split(",")
             return result
 
+class ReminderResource(ResourceBase):
+    def get(self):
+        response = self.gen_reminder_list()
+        return response, 200
+
+    def gen_reminder_list(self):
+        fss_child = entity_data["fss_child"].class_type
+        fss_interaction = entity_data["fss_interaction"].class_type
+        fss_projected_pathway = entity_data["fss_projected_pathway"].class_type
+
+        query = self.session.query(fss_child, fss_interaction).join(fss_interaction)
+        interactions = self.session.execute(query)
+        reminders = self.reminders_from_interactions(interactions)
+        query = self.session.query(fss_child, fss_projected_pathway).join(fss_projected_pathway)
+        projected_pathways = self.session.execute(query)
+        reminders.extend(self.reminders_from_projected_pathways(projected_pathways))
+
+        reminders.sort(key=lambda rem: rem["date"])
+        reminders = [ r for r in reminders if r["date"] >= datetime.today().strftime(DATE_FMT)]
+        return reminders
+
+    def reminders_from_interactions(self, interactions):
+        reminders = []
+        for interaction in interactions:
+            reminders.append({
+                "child_id":interaction["fss_child_id"],
+                "child_pinyin_name":interaction["fss_child_child_pinyin_name"],
+                "child_chinese_name":interaction["fss_child_child_chinese_name"],
+                "child_nickname":interaction["fss_child_nickname"],
+                "date":interaction["fss_interaction_interaction_date"].strftime(DATE_FMT),
+                "type":interaction["fss_interaction_interaction_type"],
+                "notes":interaction["fss_interaction_interaction_notes"]
+            })
+        return reminders
+
+    def reminders_from_projected_pathways(self, projected_pathways):
+        reminders = []
+        for projected_pathway in projected_pathways:
+            reminders.append({
+                "child_id":projected_pathway["fss_child_id"],
+                "child_pinyin_name":projected_pathway["fss_child_child_pinyin_name"],
+                "child_chinese_name":projected_pathway["fss_child_child_chinese_name"],
+                "child_nickname":projected_pathway["fss_child_nickname"],
+                "date":projected_pathway["fss_projected_pathway_pathway_completion_date"].strftime(DATE_FMT),
+                "type":"Projected Pathway",
+                "notes":projected_pathway["fss_projected_pathway_pathway_short_description"]
+            })
+        return reminders
+
 # Resource for calling a session.rollback()
 
 
