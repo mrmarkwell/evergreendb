@@ -19,42 +19,42 @@
         </div>
         <div class="grid-item" id="chinese-name-cell">
             <mat-form-field>
-                <input matInput placeholder="Chinese Name" [(ngModel)]="child.child_chinese_name" name="child-chinese-name">
+                <input matInput i18n-placeholder placeholder="Chinese Name" [(ngModel)]="child.child_chinese_name" name="child-chinese-name">
             </mat-form-field>
         </div>
         <div class="grid-item" id="pinyin-name-cell">
             <mat-form-field>
-                <input matInput placeholder="Pinyin Name" [(ngModel)]="child.child_pinyin_name" name="child-pinyin-name">
+                <input matInput i18n-placeholder placeholder="Pinyin Name" [(ngModel)]="child.child_pinyin_name" name="child-pinyin-name">
             </mat-form-field>
         </div>
         <div class="grid-item" id="nickname-cell">
             <mat-form-field>
-                <input matInput placeholder="Nickname" [(ngModel)]="child.nickname" name="child-nickname">
+                <input matInput i18n-placeholder placeholder="Nickname" [(ngModel)]="child.nickname" name="child-nickname">
             </mat-form-field>
         </div>
         <div class="grid-item" id="dob-cell">
             <mat-form-field>
-                <input matInput [matDatepicker]="picker" placeholder="DOB" name="birth-date" [(ngModel)]="child.birth_date_object">
+                <input matInput [matDatepicker]="picker" i18n-placeholder placeholder="DOB" name="birth-date" [(ngModel)]="child.birth_date_object">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </div>
         <div class="grid-item" id="age-cell">
             <mat-form-field>
-                <input matInput placeholder="" disabled [(ngModel)]="age" name="age">
+                <input matInput i18n-placeholder placeholder="" disabled [(ngModel)]="age" name="age">
             </mat-form-field>
         </div>
         <div class="grid-item" id="gender-cell">
             <mat-form-field>
-                <mat-select placeholder="Sex" [(ngModel)]="child.gender" name="sex">
-                    <mat-option value="M">Male</mat-option>
-                    <mat-option value="F">Female</mat-option>
+                <mat-select i18n-placeholder placeholder="Sex" [(ngModel)]="child.gender" name="sex">
+                    <mat-option i18n value="M">Male</mat-option>
+                    <mat-option i18n value="F">Female</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="grid-item" id="primary-diagnosis-cell">
             <mat-form-field>
-	            <mat-select placeholder="Primary Diagnosis" [(ngModel)]="child.primary_diagnosis" name="primary-diagnosis">
+	            <mat-select i18n-placeholder placeholder="Primary Diagnosis" [(ngModel)]="child.primary_diagnosis" name="primary-diagnosis">
 	                <mat-option value=""></mat-option>
 	                <mat-option *ngFor="let condition of medical_conditions" [value]="condition">{{condition}}</mat-option>
 	            </mat-select>
@@ -62,7 +62,7 @@
         </div>
         <div class="grid-item" id="second-diagnosis-cell">
             <mat-form-field>
-	            <mat-select placeholder="Secondary Diagnosis" [(ngModel)]="child.secondary_diagnosis" name="secondary-diagnosis">
+	            <mat-select i18n-placeholder placeholder="Secondary Diagnosis" [(ngModel)]="child.secondary_diagnosis" name="secondary-diagnosis">
 	                <mat-option value=""></mat-option>
 	                <mat-option *ngFor="let condition of medical_conditions" [value]="condition">{{condition}}</mat-option>
 	            </mat-select>
@@ -70,12 +70,12 @@
         </div>
         <div class="grid-item" id="referred-by-cell">
             <mat-form-field>
-                <input matInput placeholder="Referred By" [(ngModel)]="child.referred_by" name="referred-by">
+                <input matInput i18n-placeholder placeholder="Referred By" [(ngModel)]="child.referred_by" name="referred-by">
             </mat-form-field>
         </div>
         <div class="grid-item" id="status-cell">
             <mat-form-field>
-	            <mat-select placeholder="Status" [(ngModel)]="child.status" name="child-status">
+	            <mat-select i18n-placeholder placeholder="Status" [(ngModel)]="child.status" name="child-status">
 	                <mat-option value=""></mat-option>
 	                <mat-option *ngFor="let status of child_status" [value]="status">{{status}}</mat-option>
 	            </mat-select>
@@ -84,7 +84,7 @@
         <div class="grid-item" id="file-upload-button">
             <!-- File input for the file-upload plugin, with special ng2-file-upload directive called ng2FileSelect -->
             <input #fileInput id=profile-pic-file-select type="file" name="photo" ng2FileSelect [uploader]="uploader" [accept]="allowed_mime_type.toString()"/>
-            <button mat-raised-button (click)="openFileSelect()">Upload...</button>
+            <button i18n mat-raised-button (click)="openFileSelect()">Upload...</button>
         </div>
     </div>
 </form>

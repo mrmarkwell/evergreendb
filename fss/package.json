@@ -19,7 +19,8 @@
     "electron": "electron .",
     "superslowstart": "npm run prodbuild && npm run electron",
     "slowstart": "npm run build && npm run electron",
-    "faststart": "npm run fastbuild && npm run electron"
+    "faststart": "npm run fastbuild && npm run electron",
+    "i18n": "ng xi18n"
   },
   "private": true,
   "dependencies": {

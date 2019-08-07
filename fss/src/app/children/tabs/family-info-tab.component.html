@@ -1,7 +1,7 @@
 <div class='flex-col'>
 	<div class='flex-item' id='family-dynamics-box' *ngIf='child' class='flex-row'>
 		<mat-form-field id='family-dynamics-field' class='flex-item'>
-			<textarea matInput placeholder="Family Dynamics Observed" [(ngModel)]="child.family_dynamics" name="family-dynamics"></textarea>
+			<textarea matInput i18n-placeholder placeholder="Family Dynamics Observed" [(ngModel)]="child.family_dynamics" name="family-dynamics"></textarea>
 		</mat-form-field>
 	</div>
 	<div class='flex-item' id='family-members-box' class='flex-row'>
@@ -21,41 +21,41 @@
 					</li>
 					<li>
 						<mat-form-field>
-							<input matInput placeholder="Name" [(ngModel)]="family_member.family_member_name" name="family-member-name">
+							<input matInput i18n-placeholder placeholder="Name" [(ngModel)]="family_member.family_member_name" name="family-member-name">
 						</mat-form-field>
 					</li>
 					<li>
 						<mat-form-field>
-							<input matInput placeholder="Relationship" [(ngModel)]="family_member.relationship" name="family-member-relationship">
+							<input matInput i18n-placeholder placeholder="Relationship" [(ngModel)]="family_member.relationship" name="family-member-relationship">
 						</mat-form-field>
 					</li>
 					<li>
 						<mat-form-field>
-							<input matInput placeholder="Phone" [(ngModel)]="family_member.family_member_phone" name="family-member-phone">
+							<input matInput i18n-placeholder placeholder="Phone" [(ngModel)]="family_member.family_member_phone" name="family-member-phone">
 						</mat-form-field>
 					</li>
 					<li>
 						<mat-form-field>
-							<input matInput placeholder="Email" [(ngModel)]="family_member.family_member_email" name="family-member-email">
+							<input matInput i18n-placeholder placeholder="Email" [(ngModel)]="family_member.family_member_email" name="family-member-email">
 						</mat-form-field>
 					</li>
 					<li>
 						<mat-form-field>
-							<input matInput placeholder="WeChat" [(ngModel)]="family_member.family_member_wechat" name="family-member-wechat">
+							<input matInput i18n-placeholder placeholder="WeChat" [(ngModel)]="family_member.family_member_wechat" name="family-member-wechat">
 						</mat-form-field>
 					</li>
 					<li>
 						<mat-form-field>
-							<input matInput placeholder="Address" [(ngModel)]="family_member.family_member_address" name="family-member-address">
+							<input matInput i18n-placeholder placeholder="Address" [(ngModel)]="family_member.family_member_address" name="family-member-address">
 						</mat-form-field>
 					</li>
 					<li>
 						<mat-form-field>
-							<textarea matInput placeholder="Notes" [(ngModel)]="family_member.family_member_notes" name="family-member-notes"></textarea>
+							<textarea matInput i18n-placeholder placeholder="Notes" [(ngModel)]="family_member.family_member_notes" name="family-member-notes"></textarea>
 						</mat-form-field>
 					</li>
 					<li>
-						<mat-checkbox [(ngModel)]="family_member.family_member_is_primary" name="primary_caregiver">Primary Caregiver</mat-checkbox>
+						<mat-checkbox i18n [(ngModel)]="family_member.family_member_is_primary" name="primary_caregiver">Primary Caregiver</mat-checkbox>
 					</li>
 				</ul>
 			</form>
@@ -63,7 +63,7 @@
 	</div>
 	<div class='flex-item' id='other-family-members-box' *ngIf='child' class='flex-row'>
 		<mat-form-field id='other-family-members' class='flex-item'>
-			<textarea matInput placeholder="Other Significant Family Members" [(ngModel)]="child.other_family_members" name="other-family-members"></textarea>
+			<textarea matInput i18n-placeholder placeholder="Other Significant Family Members" [(ngModel)]="child.other_family_members" name="other-family-members"></textarea>
 		</mat-form-field>
 	</div>
 </div>
