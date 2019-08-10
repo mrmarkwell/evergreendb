@@ -1,7 +1,6 @@
 from datetime import datetime
 import json
 import csv
-import shutil
 from csvcols import column_names_and_order
 from config import basedir
 
@@ -29,6 +28,7 @@ from functools import wraps
 from flask_login import current_user, login_required
 import os
 
+from mailmerge import MailMerge
 
 from pprint import pprint as pp
 
@@ -346,17 +346,20 @@ class ReportResource(ResourceBase):
     def generate_docx_report(self, report):
         splitted = report.split('.')
         child_id = int(splitted[0])
-        report_type = splitted[1]
+        report_type = '.'.join(splitted[1:])
         template = os.path.join(basedir,'docx-templates',report_type)
-        dest_dir = os.path.join(basedir, 'app')
+        root_dir = os.path.join(basedir, 'app')
         report_file_name = os.path.join('static',report) # should be with child name not id
-        report_file_path = os.path.join(dest_dir,report_file_name)
-        tmp_file = os.path.join(dest_dir,'static','tempdir')
-        shutil.copytree(template,tmp_file)
-        shutil.make_archive(report_file_path,'zip',tmp_file)
-        os.rename(report_file_path+'.zip',report_file_path)
-        shutil.rmtree(tmp_file)
+        report_file_path = os.path.join(root_dir,report_file_name)
+        doc = MailMerge(template)
+        doc.merge(**self.get_docx_template_fields(child_id))
+        doc.write(report_file_path)
         return report_file_name
+
+    def get_docx_template_fields(self,child_id):
+        fss_child = entity_data["fss_child"].class_type
+        result = self.session.query(fss_child).get(child_id)
+        return result.__dict__
 
     def generate_csv_report(self, report):
         fss_child = entity_data["fss_child"].class_type
