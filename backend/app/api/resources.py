@@ -352,14 +352,24 @@ class ReportResource(ResourceBase):
         report_file_name = os.path.join('static',report) # should be with child name not id
         report_file_path = os.path.join(root_dir,report_file_name)
         doc = MailMerge(template)
-        doc.merge(**self.get_docx_template_fields(child_id))
+        print(child_id)
+        print(doc.get_merge_fields())
+        doc.merge_rows('relationship',self.get_docx_template_fields_family(child_id))
+        doc.merge(**self.get_docx_template_fields_child(child_id))
         doc.write(report_file_path)
         return report_file_name
 
-    def get_docx_template_fields(self,child_id):
+    def get_docx_template_fields_child(self,child_id):
         fss_child = entity_data["fss_child"].class_type
         result = self.session.query(fss_child).get(child_id)
-        return result.__dict__
+        print({k:v for k,v in result.__dict__.items() if v and not k.startswith('_')})
+        return {k:str(v) for k,v in result.__dict__.items() if v and not k.startswith('_')}
+
+    def get_docx_template_fields_family(self,child_id):
+        fss_family_member = entity_data["fss_family_member"].class_type
+        result = self.session.query(fss_family_member).filter(fss_family_member.child_id==child_id).all()
+        print([r.__dict__ for r in result])
+        return [r.__dict__ for r in result]
 
     def generate_csv_report(self, report):
         fss_child = entity_data["fss_child"].class_type
