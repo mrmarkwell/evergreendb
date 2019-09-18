@@ -43,6 +43,28 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "zh": {
+              "outputPath": "dist/",
+              "i18nFile": "src/locale/messages.zh.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "zh",
+              "i18nMissingTranslation": "error",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
             }
           }
         },
@@ -54,6 +76,9 @@
           "configurations": {
             "production": {
               "browserTarget": "fss:build:production"
+            },
+            "zh": {
+              "browserTarget": "fss:build:zh"
             }
           }
         },

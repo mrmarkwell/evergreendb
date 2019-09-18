@@ -1,0 +1,104 @@
+﻿Login,登录
+Children,孩子
+Reminders,提醒
+Calendar,日历
+Settings,设置
+Admin,管理员
+Log Out,退出
+Username,用户名
+Password,账户密码
+Submit!,提交
+Change Password,更换密码
+Old Password,旧密码
+Confirm Password,确认密码
+Add User,新增用户
+Username,用户名
+Editor,编辑人员
+Administrator,管理人员
+Delete,删除
+New Username,新用户名
+Editor,编辑人员
+Administrator,管理人员
+Create New,新增档案
+Search Category,搜索类别
+Search,搜索
+Active,活跃
+Ongoing,跟进中
+Temporary,暂存
+Resolved,已解决
+Unknown,不知道
+Chinese Name,儿童姓名
+Pinyin Name,拼音姓名
+Nickname,小名
+DOB,出生日期
+Male,男
+Female,女
+Sex,性别
+Primary Diagnosis,主要诊断
+Secondary Diagnosis,次要诊断
+Referred By,转介人
+Status,状况
+Upload...,上传
+Family Information,家庭状况
+Medical Information,医疗状况
+Projected Pathway,跟进计划
+Interactions,接触方式
+New Family Member,新增家庭成员
+Family Dynamics Observed,互动动态模式
+Name,姓名
+Relationship,亲戚关系
+Phone,电话
+Email,电邮
+WeChat,微信
+Address,地址
+Notes,备忘
+Primary Caregiver,主要照顾者
+Other Significant Family Members,其他重要家庭成员
+Primary Diagnosis Notes,主要诊断备忘
+Secondary Diagnosis Notes,次要诊断备忘
+Further Diagnosis,其他诊断
+Reason For Referral,转介原因
+Birth History,产历
+Medical History,病历
+Current Medical Status,目前医疗状况
+New Interaction,新增接触方式
+Date,日期
+Type,类别
+Coordinator,协调员
+People Present,在场人员
+Initial Interaction,初次接触
+Hide,隐藏
+date,日期
+initial interaction,初次接触
+Current Concerns,目前关注事情
+Developmental history and current ability,发展历史与目前能力
+Developments since last visit,上次面见后的改变
+Follow up on last visit’s recommendations,上次面见建议的更进
+Recommendations,建议
+Feeding:,喂食
+Feeding recommendations,喂食建议
+solids,固体
+self-feeding,自我喂食
+Developmental,发展的
+and behavioural:,和行为
+OT:,职能治疗
+Sensory issues:,感觉问题
+Speech:,言语
+Physical:,体能
+Head control,头部控制
+Physical Recommendations,体能建议
+Rolling,翻身
+Sitting,坐立
+Standing,站立
+Walking,行走
+Gross Motor Notes,大动作备忘
+Gross Motor Recommendations,大动作建议
+Fine Motor Notes,精细动作备忘
+Fine Motor Recommendations,精细动作建议
+Weakness Notes,弱项备忘
+Weakness Recommendations,弱项建议
+Other,其他
+Step,步骤
+Short Description,简短说明
+Details,详述
+Completion Date,完成日期

@@ -12,11 +12,11 @@
     <mat-slide-toggle class="flex-item" [(ngModel)]="filterActive" name="active-status-toggle" (ngModelChange)="filterChildren()">
         <ng-container i18n>Active</ng-container><span class="statusdot active"></span>
     </mat-slide-toggle>
-    <mat-slide-toggle class="flex-item" [(ngModel)]="filterCurrent" name="current-status-toggle" (ngModelChange)="filterChildren()">
-				<ng-container i18n>Current</ng-container><span class="statusdot current"></span>
+    <mat-slide-toggle class="flex-item" [(ngModel)]="filterOngoing" name="ongoing-status-toggle" (ngModelChange)="filterChildren()">
+				<ng-container i18n>Ongoing</ng-container><span class="statusdot ongoing"></span>
 		</mat-slide-toggle>
-    <mat-slide-toggle class="flex-item" [(ngModel)]="filterInSitu" name="insitu-status-toggle" (ngModelChange)="filterChildren()">
-				<ng-container i18n>In Situ</ng-container><span class="statusdot in_situ"></span>
+    <mat-slide-toggle class="flex-item" [(ngModel)]="filterTemporary" name="temporary-status-toggle" (ngModelChange)="filterChildren()">
+				<ng-container i18n>Temporary</ng-container><span class="statusdot temporary"></span>
 		</mat-slide-toggle>
     <mat-slide-toggle class="flex-item" [(ngModel)]="filterResolved" name="resolved-status-toggle" (ngModelChange)="filterChildren()">
 				<ng-container i18n>Resolved</ng-container><span class="statusdot resolved"></span>
