@@ -355,6 +355,7 @@ class ReportResource(ResourceBase):
         print(child_id)
         print(doc.get_merge_fields())
         doc.merge_rows('relationship',self.get_docx_template_fields_family(child_id))
+        doc.merge_rows('pathway_step_number',self.get_docx_template_fields_pathway(child_id))
         doc.merge(**self.get_docx_template_fields_child(child_id))
         doc.write(report_file_path)
         return report_file_name
@@ -370,6 +371,12 @@ class ReportResource(ResourceBase):
         result = self.session.query(fss_family_member).filter(fss_family_member.child_id==child_id).all()
         print([r.__dict__ for r in result])
         return [r.__dict__ for r in result]
+
+    def get_docx_template_fields_pathway(self,child_id):
+        fss_projected_pathway = entity_data["fss_projected_pathway"].class_type
+        result = self.session.query(fss_projected_pathway).filter(fss_projected_pathway.child_id==child_id).all()
+        print([r.__dict__ for r in result])
+        return [{k:str(v) for k,v in r.__dict__.items() if v and not k.startswith('_')} for r in result]
 
     def generate_csv_report(self, report):
         fss_child = entity_data["fss_child"].class_type
