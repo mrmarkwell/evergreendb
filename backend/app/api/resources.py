@@ -357,26 +357,31 @@ class ReportResource(ResourceBase):
         doc.merge_rows('relationship',self.get_docx_template_fields_family(child_id))
         doc.merge_rows('pathway_step_number',self.get_docx_template_fields_pathway(child_id))
         doc.merge(**self.get_docx_template_fields_child(child_id))
+        doc.merge(**self.get_docx_template_fields_interaction(child_id))
         doc.write(report_file_path)
         return report_file_name
 
     def get_docx_template_fields_child(self,child_id):
         fss_child = entity_data["fss_child"].class_type
         result = self.session.query(fss_child).get(child_id)
-        print({k:v for k,v in result.__dict__.items() if v and not k.startswith('_')})
         return {k:str(v) for k,v in result.__dict__.items() if v and not k.startswith('_')}
 
     def get_docx_template_fields_family(self,child_id):
         fss_family_member = entity_data["fss_family_member"].class_type
         result = self.session.query(fss_family_member).filter(fss_family_member.child_id==child_id).all()
-        print([r.__dict__ for r in result])
         return [r.__dict__ for r in result]
 
     def get_docx_template_fields_pathway(self,child_id):
         fss_projected_pathway = entity_data["fss_projected_pathway"].class_type
         result = self.session.query(fss_projected_pathway).filter(fss_projected_pathway.child_id==child_id).all()
-        print([r.__dict__ for r in result])
         return [{k:str(v) for k,v in r.__dict__.items() if v and not k.startswith('_')} for r in result]
+
+    def get_docx_template_fields_interaction(self,child_id):
+        fss_projected_pathway = entity_data["fss_interaction"].class_type
+        result = self.session.query(fss_projected_pathway).filter(fss_projected_pathway.child_id==child_id)\
+            .filter(fss_projected_pathway.interaction_type.in_(["Home visit","Consultation FSS Centre","Consultation SOAR Village"]))\
+            .order_by(fss_projected_pathway.interaction_date.desc()).first()
+        return {k:str(v) for k,v in result.__dict__.items() if v and not k.startswith('_')}
 
     def generate_csv_report(self, report):
         fss_child = entity_data["fss_child"].class_type
