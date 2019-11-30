@@ -15,7 +15,7 @@ import { RestService } from '../../rest.service';
 export class InteractionsFormComponent implements OnInit, OnChanges {
     @Input() child_id: number;
     @Input() interaction: Interaction;
-		private unsaved: boolean;
+    private unsaved: boolean;
     private orig_interaction: Interaction;
     private changed_interaction: Interaction;
     private fileuploader: FileUploader;
@@ -75,18 +75,25 @@ export class InteractionsFormComponent implements OnInit, OnChanges {
     getInteractionTypes(): void {
         this.restService.getEnum('fss_interaction_type').then(types => this.interaction_types = types);
     }
+    downloadInteractionCoverSheet(): void {
+        if (this.unsaved) {
+            window.alert("Save interaction before downloading cover sheet report");
+            return;
+        }
+        this.restService.getReport(`${this.child_id}.${this.interaction.id}.cover_sheet.docx`)
+    }
     autosave(): void {
         this.interaction.interaction_date = this.restService.getStringFromDate(this.interaction.interaction_date_object);
         if ( ! this.interaction.equals(this.orig_interaction)) {
-						if ( ! this.interaction.equals(this.changed_interaction)) {
-								this.unsaved = true;
-								this.changed_interaction = Object.assign(Object.create(this.interaction), this.interaction); // deep copy
-						} else {
-								//this.saveInteraction();
-						}
+            if ( ! this.interaction.equals(this.changed_interaction)) {
+                this.unsaved = true;
+                this.changed_interaction = Object.assign(Object.create(this.interaction), this.interaction); // deep copy
+            } else {
+                //this.saveInteraction();
+            }
         } else {
-						this.unsaved = false;
-				}
+            this.unsaved = false;
+        }
     }
     saveInteraction(): void {
         this.interaction.interaction_date = this.restService.getStringFromDate(this.interaction.interaction_date_object);

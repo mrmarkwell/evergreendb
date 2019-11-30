@@ -346,10 +346,15 @@ class ReportResource(ResourceBase):
     def generate_docx_report(self, report):
         splitted = report.split('.')
         child_id = int(splitted[0])
-        report_type = '.'.join(splitted[1:])
+        interaction_id = None
+        try:
+            interaction_id = int(splitted[1])
+            report_type = '.'.join(splitted[2:])
+        except ValueError:
+            report_type = '.'.join(splitted[1:])
         template = os.path.join(basedir,'docx-templates',report_type)
         root_dir = os.path.join(basedir, 'app')
-        report_file_name = os.path.join('static',report) # should be with child name not id
+        report_file_name = os.path.join('static','tmp',report) # should be with child name not id
         report_file_path = os.path.join(root_dir,report_file_name)
         doc = MailMerge(template)
         print(child_id)
@@ -357,7 +362,7 @@ class ReportResource(ResourceBase):
         doc.merge_rows('relationship',self.get_docx_template_fields_family(child_id))
         doc.merge_rows('pathway_step_number',self.get_docx_template_fields_pathway(child_id))
         doc.merge(**self.get_docx_template_fields_child(child_id))
-        doc.merge(**self.get_docx_template_fields_interaction(child_id))
+        doc.merge(**self.get_docx_template_fields_interaction(child_id,interaction_id))
         doc.write(report_file_path)
         return report_file_name
 
@@ -376,11 +381,13 @@ class ReportResource(ResourceBase):
         result = self.session.query(fss_projected_pathway).filter(fss_projected_pathway.child_id==child_id).all()
         return [{k:str(v) for k,v in r.__dict__.items() if v and not k.startswith('_')} for r in result]
 
-    def get_docx_template_fields_interaction(self,child_id):
-        fss_projected_pathway = entity_data["fss_interaction"].class_type
-        result = self.session.query(fss_projected_pathway).filter(fss_projected_pathway.child_id==child_id)\
-            .filter(fss_projected_pathway.interaction_type.in_(["Home visit","Consultation FSS Centre","Consultation SOAR Village"]))\
-            .order_by(fss_projected_pathway.interaction_date.desc()).first()
+    def get_docx_template_fields_interaction(self,child_id, interaction_id):
+        fss_interaction = entity_data["fss_interaction"].class_type
+        result = self.session.query(fss_interaction).filter(fss_interaction.child_id==child_id)
+        if interaction_id != None:
+            result = result.filter(fss_interaction.id==interaction_id)
+        result = result.filter(fss_interaction.interaction_type.in_(["Home visit","Consultation FSS Centre","Consultation SOAR Village"]))\
+            .order_by(fss_interaction.interaction_date.desc()).first()
         return {k:str(v) for k,v in result.__dict__.items() if v and not k.startswith('_')}
 
     def generate_csv_report(self, report):
@@ -419,7 +426,7 @@ class ReportResource(ResourceBase):
         keys = columns.values()
         # write out to file
         dest_dir = os.path.join(basedir, 'app')
-        report_file_name = os.path.join('static',report)
+        report_file_name = os.path.join('static','tmp',report)
         with open(os.path.join(dest_dir,report_file_name), 'wb') as output_file:
             dict_writer = csv.DictWriter(output_file, keys)
             dict_writer.writeheader()
