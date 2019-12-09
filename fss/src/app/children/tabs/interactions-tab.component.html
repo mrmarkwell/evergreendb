@@ -1,10 +1,10 @@
-<button mat-raised-button (click)="createInteraction()">New Interaction</button>
+<button i18n mat-raised-button (click)="createInteraction()">New Interaction</button>
 <table *ngIf="interactions != null && interactions.length != 0">
     <tr>
-        <th>Date</th>
-        <th>Type</th>
-        <th>Coordinator</th>
-        <th>People Present</th>
+        <th i18n>Date</th>
+        <th i18n>Type</th>
+        <th i18n>Coordinator</th>
+        <th i18n>People Present</th>
         <th></th>
         <th></th>
     </tr>
@@ -18,7 +18,8 @@
         <td>{{interaction.interaction_type}}</td>
         <td>{{interaction.interaction_coordinator}}</td>
         <td>{{interaction.people_present}}</td>
-        <td>{{interaction.is_initial_interaction ? "Initial Interaction" : ""}}</td>
+        <td *ngIf="interaction.is_initial_interaction; else elseBlock" i18n>Initial Interaction</td>
+        <ng-template #elseBlock></ng-template>
         <td><mat-icon *ngIf="interaction.has_attachments" svgIcon="file_icon"></mat-icon></td>
     </tr>
 </table>

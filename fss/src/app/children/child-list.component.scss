@@ -18,8 +18,8 @@
 	margin-left: 0.5em;
 	margin-top: 0.35em;
 	&.active {background: $status_active}
-	&.current {background: $status_current}
-	&.in_situ {background: $status_in_situ}
+	&.ongoing {background: $status_ongoing}
+	&.temporary {background: $status_temporary}
 	&.resolved {background: $status_resolved}
 }
 
@@ -42,8 +42,8 @@ li {
     height: 1em;
     margin-left: 0.15em;
     &.active {background: $status_active}
-    &.current {background: $status_current}
-    &.in_situ {background: $status_in_situ}
+    &.ongoing {background: $status_ongoing}
+    &.temporary {background: $status_temporary}
     &.resolved {background: $status_resolved}
   }
 }

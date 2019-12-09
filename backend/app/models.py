@@ -23,7 +23,7 @@ class FSSChild(db.Model):
     gender = db.Column(db.Unicode(1))
     birth_date = db.Column(db.DateTime)
     referred_by = db.Column(db.Unicode(255))
-    # This can ONLY have values ACTIVE, CURRENT, IN SITU, or RESOLVED.
+    # This can ONLY have values ACTIVE, ONGOING, TEMPORARY, or RESOLVED.
     status = db.Column(db.Unicode(255))  # Enum
 
     # Medical information tab

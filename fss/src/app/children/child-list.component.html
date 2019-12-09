@@ -1,28 +1,28 @@
 <div id="new-child-div">
-    <button class="child-list-button" mat-raised-button (click)="createNewChild()" id="new-child-btn">Create New</button>
+    <button i18n class="child-list-button" mat-raised-button (click)="createNewChild()" id="new-child-btn">Create New</button>
 </div>
 <div class="search">
-    <mat-select id="select-category" class="flex-item" *ngIf=searchCategories placeholder="Search Category" [(ngModel)]="currentSearchCategory"
+    <mat-select id="select-category" class="flex-item" *ngIf=searchCategories i18n-placeholder placeholder="Search Category" [(ngModel)]="currentSearchCategory"
         name="search-category">
         <mat-option *ngFor="let category of searchCategories" [value]="category">{{category.viewValue}}</mat-option>
     </mat-select>
     <mat-form-field mdBlock class="flex-item" id="search-container">
-        <input matInput placeholder="Search" id="search-bar" [(ngModel)]="searchText" (keyup)="filterChildren($event)" name="child-search-bar">
+        <input matInput i18n-placeholder placeholder="Search" id="search-bar" [(ngModel)]="searchText" (keyup)="filterChildren($event)" name="child-search-bar">
     </mat-form-field>
     <mat-slide-toggle class="flex-item" [(ngModel)]="filterActive" name="active-status-toggle" (ngModelChange)="filterChildren()">
-        Active<span class="statusdot active"></span>
+        <ng-container i18n>Active</ng-container><span class="statusdot active"></span>
     </mat-slide-toggle>
-    <mat-slide-toggle class="flex-item" [(ngModel)]="filterCurrent" name="current-status-toggle" (ngModelChange)="filterChildren()">
-				Current<span class="statusdot current"></span>
+    <mat-slide-toggle class="flex-item" [(ngModel)]="filterOngoing" name="ongoing-status-toggle" (ngModelChange)="filterChildren()">
+				<ng-container i18n>Ongoing</ng-container><span class="statusdot ongoing"></span>
 		</mat-slide-toggle>
-    <mat-slide-toggle class="flex-item" [(ngModel)]="filterInSitu" name="insitu-status-toggle" (ngModelChange)="filterChildren()">
-				In Situ<span class="statusdot in_situ"></span>
+    <mat-slide-toggle class="flex-item" [(ngModel)]="filterTemporary" name="temporary-status-toggle" (ngModelChange)="filterChildren()">
+				<ng-container i18n>Temporary</ng-container><span class="statusdot temporary"></span>
 		</mat-slide-toggle>
     <mat-slide-toggle class="flex-item" [(ngModel)]="filterResolved" name="resolved-status-toggle" (ngModelChange)="filterChildren()">
-				Resolved<span class="statusdot resolved"></span>
+				<ng-container i18n>Resolved</ng-container><span class="statusdot resolved"></span>
 		</mat-slide-toggle>
     <mat-slide-toggle class="flex-item" [(ngModel)]="filterUnknown" name="unknown-status-toggle" (ngModelChange)="filterChildren()">
-				Unknown<span class="statusdot unknown"></span>
+				<ng-container i18n>Unknown</ng-container><span class="statusdot unknown"></span>
 		</mat-slide-toggle>
 </div>
 <mat-divider></mat-divider>
@@ -37,5 +37,5 @@
     </li>
 </ul>
 <div class="bottom">
-    <button class="child-list-button" mat-raised-button (click)="downloadAll()" id="download-all-btn">Download All</button>
+    <button i18n class="child-list-button" mat-raised-button (click)="downloadAll()" id="download-all-btn">Download All</button>
 </div>

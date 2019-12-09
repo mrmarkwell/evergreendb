@@ -151,3 +151,12 @@ Navigate to the Settings page of the app to see it.
 ### Check the version of the back end
 
 Navigate to the /version endpoint to see it.
+
+### Generate Chinese translation
+
+- Navigate to fss
+- run 'npm run i18n'
+- Navigate to fss/src
+- run 'generate_translation_csv.py'
+- Fill in Chinese translations in the translations.csv as the second column
+- TODO(markwell) finish these instructions

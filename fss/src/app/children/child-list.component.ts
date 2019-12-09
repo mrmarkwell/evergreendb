@@ -14,9 +14,9 @@ export class ChildList implements OnInit, OnChanges {
     filteredChildren: Child[];
     selectedChild: Child;
     filterActive: Boolean = true;
-    filterInSitu: Boolean = true;
+    filterTemporary: Boolean = true;
     filterResolved: Boolean = true;
-    filterCurrent: Boolean = true;
+    filterOngoing: Boolean = true;
     filterUnknown: Boolean = true;
     searchText: string;
     currentSearchCategory: SearchCategory = new SearchCategory("child_pinyin_name", "Pinyin Name");
@@ -70,10 +70,10 @@ export class ChildList implements OnInit, OnChanges {
         let statusClass = "";
         if (child.status === "Active") {
             statusClass = "active";
-        } else if (child.status === "Current") {
-            statusClass = "current";
-        } else if (child.status === "In Situ") {
-            statusClass = "in_situ"
+        } else if (child.status === "Ongoing") {
+            statusClass = "ongoing";
+        } else if (child.status === "Temporary") {
+            statusClass = "temporary"
         } else if (child.status === "Resolved") {
             statusClass = "resolved"
         } else {
@@ -135,8 +135,8 @@ export class ChildList implements OnInit, OnChanges {
     buildStatusFilterArray(): String[] {
         let statusFilterArray = new Array<String>();
         if (this.filterActive) statusFilterArray.push("Active");
-        if (this.filterCurrent) statusFilterArray.push("Current");
-        if (this.filterInSitu) statusFilterArray.push("In Situ");
+        if (this.filterOngoing) statusFilterArray.push("Ongoing");
+        if (this.filterTemporary) statusFilterArray.push("Temporary");
         if (this.filterResolved) statusFilterArray.push("Resolved");
         return statusFilterArray;
     }

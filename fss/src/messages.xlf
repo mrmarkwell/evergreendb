@@ -1,0 +1,811 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="6765b4c916060f6bc42d9bb69e80377dbcb5e4e9" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="80a7795888bbfdf26055b0e1db9b12c6ae67df9d" datatype="html">
+        <source>Children</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b61136b26078814a836ce072cfcbfe6d6562c007" datatype="html">
+        <source>Reminders</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="33629999fd41361c48d5a60a5783dfdbd09276b7" datatype="html">
+        <source>Calendar</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="121cc5391cd2a5115bc2b3160379ee5b36cd7716" datatype="html">
+        <source>Settings</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="408cb6073e60c5d966296a3207fc596adca75e01" datatype="html">
+        <source>Admin</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d0227a069d21cc5c6951d829cbf135be5b5bc767" datatype="html">
+        <source>Log Out</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/app.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="08c74dc9762957593b91f6eb5d65efdfc975bf48" datatype="html">
+        <source>Username</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login-page.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c32ef07f8803a223a83ed17024b38e8d82292407" datatype="html">
+        <source>Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login-page.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/password-change-dialog.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/add-user-dialog.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="06aff55ceb6d8ef79dcc942a1f6b6ceb704b2e9e" datatype="html">
+        <source>Submit!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/login/login-page.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/password-change-dialog.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/add-user-dialog.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5edf054f14aa57bc25a28cb7db01956fee53dac8" datatype="html">
+        <source>Change Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/settings-page.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4ad47fba753bd89ce442197653ce65004eff1e6d" datatype="html">
+        <source>Old Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/password-change-dialog.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c1b7e6d75ff4285c7636c67e5ef259629b81725b" datatype="html">
+        <source>Confirm Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/password-change-dialog.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/add-user-dialog.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="94be6ae6ec1f87bedc67020629343b27fdbece0a" datatype="html">
+        <source>Add User</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/admin-settings-page.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fec8de042d9645af8886e515b9c4e6334d4ab2c8" datatype="html">
+        <source> Username </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/admin-settings-page.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d291889e000810b669ba49840c471d1ed40e4886" datatype="html">
+        <source> Editor </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/admin-settings-page.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5e4b7f8343c76b97faf7a15e8e1fc574360f30a7" datatype="html">
+        <source> Administrator </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/admin-settings-page.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="daa52b3eb35d393bd15ae121c96b502ef4011163" datatype="html">
+        <source> Delete </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/admin-settings-page.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0060130cb16fdd1940e84862927ae65b72398b21" datatype="html">
+        <source>New Username</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/add-user-dialog.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="91444811128782dee281d41b12cd7e8f60df4673" datatype="html">
+        <source>Editor</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/add-user-dialog.html</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ca2283fc765b9f44b69f0175d685dc2443da6011" datatype="html">
+        <source>Administrator</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/settings/add-user-dialog.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fb8c3bdc1fa9d7ab1f70d4e9e57046cbf11b0401" datatype="html">
+        <source>Create New</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-list.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8149fb102e89881bf52a282d826ee8532d9e52df" datatype="html">
+        <source>Search Category</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-list.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7e892ba15f2c6c17e83510e273b3e10fc32ea016" datatype="html">
+        <source>Search</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-list.component.html</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b36e1450940b7f6028d8587568c7d669b53f7a06" datatype="html">
+        <source>Active</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-list.component.html</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b7e4a206c2d9ad0f0268bb54d91aa4851eb445b9" datatype="html">
+        <source>Ongoing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-list.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4403dbe3994fa6f24417bde5777060fd6a0d1990" datatype="html">
+        <source>Temporary</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-list.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="05958bf81fcab81651013c1aad1a594240ef923e" datatype="html">
+        <source>Resolved</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-list.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e5d8bb389c702588877f039d72178f219453a72d" datatype="html">
+        <source>Unknown</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-list.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="a336cbbf98a5f311a0c7a77540386ab88df9546f" datatype="html">
+        <source>Chinese Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-details.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8aacd22e788c1858abe6e228ea95dbbbf67f978b" datatype="html">
+        <source>Pinyin Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-details.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ad40282684357d3d79d14d036fcf26d3cef8278d" datatype="html">
+        <source>Nickname</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-details.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2fe8e67fe8c2d66bad95533f4283d15809c23dad" datatype="html">
+        <source>DOB</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-details.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="097b5dfee5665aa0f7daba8b696acecde6445474" datatype="html">
+        <source>Male</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-details.component.html</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="18f3bafdc69b800737e303bc1cb0753bd9dd3f32" datatype="html">
+        <source>Female</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-details.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="256496314c3fb7fd88a41c838c37a380a28c7415" datatype="html">
+        <source>Sex</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-details.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="423944a7b079bd210348a3b65c34e1ccc9d56f1f" datatype="html">
+        <source>Primary Diagnosis</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-details.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/medical-info-tab.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="345918c69ee97cf91e4ea3b3d1a4a183e6db36b1" datatype="html">
+        <source>Secondary Diagnosis</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-details.component.html</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/medical-info-tab.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="64d63b9f8e6b63e829c6918d3ae96762b32292ce" datatype="html">
+        <source>Referred By</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-details.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="81b97b8ea996ad1e4f9fca8415021850214884b1" datatype="html">
+        <source>Status</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-details.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="791b2e044443bc79176526a1c4e5a832427b75be" datatype="html">
+        <source>Upload...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-details.component.html</context>
+          <context context-type="linenumber">84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3698c607c98ebfbee9d45188c5bcc1ebc823576d" datatype="html">
+        <source>Family Information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-tabs.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f3610c817643389795bea11cbcc4e8ee36eb4548" datatype="html">
+        <source>Medical Information</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-tabs.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="26c4f494cd159b945da3d28567891a40c6232789" datatype="html">
+        <source>Projected Pathway</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-tabs.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7d3570f4aa65fab53ee1fa341917f30b9094edcd" datatype="html">
+        <source>Interactions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/child-tabs.component.html</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="186e60f1faa2cb1b64e170b562c69bcb36f928c5" datatype="html">
+        <source>New Family Member</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/family-list.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ec7f1d9de552ac9ca4aa8a9420393cd39b0b3296" datatype="html">
+        <source>Family Dynamics Observed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/family-info-tab.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="cff1428d10d59d14e45edec3c735a27b5482db59" datatype="html">
+        <source>Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/family-info-tab.component.html</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="0f9790eb79f6eb72b2aa42ed75472da5d8431ecd" datatype="html">
+        <source>Relationship</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/family-info-tab.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6934d8edd276d59e050006fe91b695ebad0218f8" datatype="html">
+        <source>Phone</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/family-info-tab.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="244aae9346da82b0922506c2d2581373a15641cc" datatype="html">
+        <source>Email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/family-info-tab.component.html</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="27c10b4cbfefae96b6b16db91c0fe520efb393f9" datatype="html">
+        <source>WeChat</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/family-info-tab.component.html</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="729754dd19eb9ce0670b0aeb5a6ae60574c2c563" datatype="html">
+        <source>Address</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/family-info-tab.component.html</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fcde58253a4cfd52c228eebdae74e1be7a1ab714" datatype="html">
+        <source>Notes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/family-info-tab.component.html</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">62</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">105</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">145</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">158</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5c6fda00f5c401b2f2540b756f3946ed8ee5411e" datatype="html">
+        <source>Primary Caregiver</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/family-info-tab.component.html</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3dbbb7ee25180cb52ec94a3bf8116e1769ce0cb8" datatype="html">
+        <source>Other Significant Family Members</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/family-info-tab.component.html</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="593d0bc5ee20dbb063a3aae1f4048bb4f0bb8717" datatype="html">
+        <source>Primary Diagnosis Notes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/medical-info-tab.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4ff4b42153af4295a92d7d25be866dad8d6f8285" datatype="html">
+        <source>Secondary Diagnosis Notes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/medical-info-tab.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="270685994cc294957e78a639433399515f2ed1e9" datatype="html">
+        <source>Further Diagnosis</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/medical-info-tab.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="55d3379c90f561e3a677874eb5e0cc4b4cc77920" datatype="html">
+        <source>Reason For Referral</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/medical-info-tab.component.html</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6c80d3378bcb558d2d887a68555fb65a67d26cbf" datatype="html">
+        <source>Birth History</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/medical-info-tab.component.html</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1809733409e2e4a85c28b07a94e93c999cd75338" datatype="html">
+        <source>Medical History</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/medical-info-tab.component.html</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b480d2c5d678a2dd40c4baecfb942497ae1a7394" datatype="html">
+        <source>Current Medical Status</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/medical-info-tab.component.html</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="688fb78c266f320a2d92ec5c9dbd82ff081654ac" datatype="html">
+        <source>New Interaction</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-tab.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2f933b826a570836cab04f683970a2d22068458c" datatype="html">
+        <source>Date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-tab.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f61c6867295f3b53d23557021f2f4e0aa1d0b8fc" datatype="html">
+        <source>Type</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-tab.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="561d8808c6caffb28803825612bd08ec7e95b45e" datatype="html">
+        <source>Coordinator</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-tab.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8f818dc9d6276014eeb4f1a07162af34c1fba062" datatype="html">
+        <source>People Present</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-tab.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">56</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8dd313dd5ccd2b3afd197cf1e0ccddcc85d79628" datatype="html">
+        <source>Initial Interaction</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-tab.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1eede69e18c5ac9c0b0295b72cabb7e64e029e74" datatype="html">
+        <source>Hide</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1feb210f447e10eb214f2e184264d6e05b282959" datatype="html">
+        <source>date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="b542de96598a4cf65911fd31648df1d6412c556c" datatype="html">
+        <source>initial interaction</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="51b5babe9f5a7288c1072a0dbb0c3b7219884eb6" datatype="html">
+        <source>Current Concerns</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">70</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">92</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9f82ec8a032f08bd8ce01d66e855d59826cebd9d" datatype="html">
+        <source>Developmental history and current ability</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="ef13db035d6bb35a2d97621ab594666d22310cc3" datatype="html">
+        <source>Developments since last visit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2d57c1d8e7b2ca9c62c6bbd5327511dbb639ba43" datatype="html">
+        <source>Follow up on last visit’s recommendations</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="13b999a2fcec2117611e71910766fee83e030d23" datatype="html">
+        <source>Recommendations</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">106</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">150</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">163</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">176</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="249ba4270546a25ddba7bb9daa86ace42387169b" datatype="html">
+        <source>Feeding:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">109</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="352b0f8e2cc67e5116b3996b19cce7cbc3079aa7" datatype="html">
+        <source>Feeding recommendations</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">115</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="172c1888f6b55adcb56b0d86ea929d89ff7dcd23" datatype="html">
+        <source>solids</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">124</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f7a32d43e5d8e5ed0fa2b1b7151824d80982c427" datatype="html">
+        <source>self-feeding</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">130</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c8181a350f9ef415115380415e841fb19640a780" datatype="html">
+        <source>Developmental</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">142</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e3cec36da53de8ab53f476e3c5a6a77d5d1770cc" datatype="html">
+        <source>and behavioural:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">142</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="06174a45a2b23c5fd885e1c7a2238164362c2b47" datatype="html">
+        <source>OT:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">155</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2b2c834fcd52df1b66c35517dc8f346b6738a97e" datatype="html">
+        <source>Sensory issues:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">168</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c7e152125b9bbdb5c47a3912ca7593efb6e25aaa" datatype="html">
+        <source>Speech:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">181</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="603ce72333ba832ebbbf169e7669923ccb811778" datatype="html">
+        <source>Physical:</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">194</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2389d9e3a110134c4e0c2e17d6ba5ce6ff994a4e" datatype="html">
+        <source>Head control</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">196</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8617cd8eba7a3d15f5cf31ef1e4319a896ce61f9" datatype="html">
+        <source>Physical Recommendations</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">200</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8402ddbe2aed1fdc603e4475e384db2a3ccc3947" datatype="html">
+        <source>Rolling</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">209</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="79b318078226d8593e2d74c2e51a3db718ab8687" datatype="html">
+        <source>Sitting</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">215</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="daf64d2090a749a5a905a1f8885f14acd9127ef5" datatype="html">
+        <source>Standing</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">221</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e611d20d81de83cb1b9eb80c3e0b310e07a066b9" datatype="html">
+        <source>Walking</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">227</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9279b40bc1056688473fe85a5e850b775afe59e2" datatype="html">
+        <source>Gross Motor Notes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">234</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5596d6d7e7d2c997ab62f84b443aa2d54e29257a" datatype="html">
+        <source>Gross Motor Recommendations</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">239</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="f1ed4b697b73e30517d54e9b1f509c526c6e71af" datatype="html">
+        <source>Fine Motor Notes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">247</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="340efd7f8a493438096c15fd2bf54b31a1ec8472" datatype="html">
+        <source>Fine Motor Recommendations</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">252</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="850bcb396708282ca9e6ed702a05016ad2f3586e" datatype="html">
+        <source>Weakness Notes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">260</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="d7ff093d8987f87f245f5b9ab96cf91eed323816" datatype="html">
+        <source>Weakness Recommendations</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">265</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="c2a9de3714f5767b174d0424bc8abe2dc37acc41" datatype="html">
+        <source>Other</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/interactions-form.component.html</context>
+          <context context-type="linenumber">273</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="041620337eaebda87971d345d05697639dfe78e4" datatype="html">
+        <source>Step</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/projected-pathway-tab.component.html</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="191c251fc6191f828d031695ec209cfc9ea15d0c" datatype="html">
+        <source>Short Description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/projected-pathway-tab.component.html</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4f8b2bb476981727ab34ed40fde1218361f92c45" datatype="html">
+        <source>Details</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/projected-pathway-tab.component.html</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="e84cc548c018141d04508c938bb23e29f6becb25" datatype="html">
+        <source>Completion Date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">app/children/tabs/projected-pathway-tab.component.html</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
