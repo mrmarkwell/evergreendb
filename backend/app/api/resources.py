@@ -1,5 +1,8 @@
 from datetime import datetime
 import json
+import csv
+from csvcols import column_names_and_order
+from config import basedir
 
 from flask import g
 from marshallers import DATE_FMT
@@ -25,6 +28,7 @@ from functools import wraps
 from flask_login import current_user, login_required
 import os
 
+from mailmerge import MailMerge
 
 from pprint import pprint as pp
 
@@ -33,7 +37,8 @@ current_version = 0.1
 def admin_required(f):
     @wraps(f)
     def wrapped(*args, **kwargs):
-        if current_app.config.get("LOGIN_DISABLED"): return f(*args, **kwargs)
+        if current_app.config.get("LOGIN_DISABLED"):
+            return f(*args, **kwargs)
         if current_user.is_authenticated and current_user.is_admin:
             # invoke the wrapped function
             return f(*args, **kwargs)
@@ -45,7 +50,8 @@ def admin_required(f):
 def editor_required(f):
     @wraps(f)
     def wrapped(*args, **kwargs):
-        if current_app.config.get("LOGIN_DISABLED"): return f(*args, **kwargs)
+        if current_app.config.get("LOGIN_DISABLED"):
+            return f(*args, **kwargs)
         if current_user.is_authenticated and current_user.is_editor:
             # invoke the wrapped function
             return f(*args, **kwargs)
@@ -67,8 +73,11 @@ def load_user_from_request(request):
 ################ Resources ####################
 
 # Base resource class for resource data.
+
+
 class ResourceBase(Resource):
     decorators = [login_required]
+
     def __init__(self):
         self.ed = None
         self.ed_list = list()
@@ -78,12 +87,13 @@ class ResourceBase(Resource):
     # Call this right away to populate the entity data object.
     def get_entity_data(self, name):
         if name not in entity_names:
-            abort(404, message="Invalid entity name: '" + name + "'. Legal entity names are: " + ", ".join(entity_names))
+            abort(404, message="Invalid entity name: '" + name +
+                  "'. Legal entity names are: " + ", ".join(entity_names))
         if self.ed is None:
             self.ed = entity_data[name]
         self.ed_list.append(entity_data[name])
         self.query = self.session.query(self.ed.class_type)
- 
+
     # For operations that can only be performed on one entity, get that entity by id
     # Throw an error if 'id' was not specified in the request.
     def get_entity_by_id(self):
@@ -92,13 +102,16 @@ class ResourceBase(Resource):
             abort(404, message="This operation must be passed a specific entity ID!")
         entity = self.query.filter(self.ed.class_type.id == id).first()
         if not entity:
-            abort(404, message="Entity {}: {} doesn't exist".format(self.ed.class_type.__tablename__, id))
+            abort(404, message="Entity {}: {} doesn't exist".format(
+                self.ed.class_type.__tablename__, id))
         return entity
 
     def verify_filters(self):
         for attr in request.args.to_dict().keys():
             if not hasattr(self.ed.class_type, attr):
-                abort (404, message="Class {} does not have filter attribute {}!".format(self.ed.class_type.__name__, attr))
+                abort(404, message="Class {} does not have filter attribute {}!".format(
+                    self.ed.class_type.__name__, attr))
+
 
 class EntityResource(ResourceBase):
     # GET to get instances by filter arguments (e.g. ?english_name=Bobby&sex=M).
@@ -218,6 +231,7 @@ class EntityListResource(ResourceBase):
         response = {"entity_names": entity_names}
         return response, 200
 
+
 class FilterResource(ResourceBase):
     """Filter with format like,
         {
@@ -255,7 +269,8 @@ class FilterResource(ResourceBase):
                        " without specifying filter parameters\n"
                        "Exception:\n{}".format(e_class, e))
                 abort(400, message=msg)
-            results.append({e_class.__tablename__: [marshal(res, e_marshaller) for res in e_query.filter(and_(*filters)).all()]})
+            results.append({e_class.__tablename__: [marshal(
+                res, e_marshaller) for res in e_query.filter(and_(*filters)).all()]})
         return {"filtered_entityes": results}
 
     def _build_filter(self, e_class, attributes):
@@ -289,7 +304,8 @@ class FilterResource(ResourceBase):
         raw_json = request.get_json()
         for entity_name in raw_json.keys():
             self.get_entity_data(entity_name)
-            data.append((self.ed.class_type, self.ed.marshaller, raw_json[entity_name], self.query))
+            data.append((self.ed.class_type, self.ed.marshaller,
+                         raw_json[entity_name], self.query))
         return data
 
 
@@ -297,6 +313,8 @@ query_parser = reqparse.RequestParser()
 query_parser.add_argument('query', required=True)
 
 # A generic SQL query API
+
+
 class QueryResource(ResourceBase):
     def post(self):
         args = query_parser.parse_args()
@@ -306,11 +324,115 @@ class QueryResource(ResourceBase):
         if ";" in query:
             abort(400, message="Query messages must not contain semicolons!")
         sql = text(query)
+        print sql
         result = self.session.execute(sql)
         result_dict = []
         for row in result:
             result_dict.append(dict(zip(row.keys(), row)))
         return result_dict, 200
+
+
+class ReportResource(ResourceBase):
+    def get(self, format_name):
+        if (format_name in ("child.csv", "family.csv", "pathway.csv", "interaction.csv", "fss.csv")):
+            result = self.generate_csv_report(format_name)
+        elif (format_name.endswith(".docx")):
+            result = self.generate_docx_report(format_name)
+        else:
+            abort(404, message="Format " + format_name +
+                  " is not a valid report format")
+        return result, 200
+
+    def generate_docx_report(self, report):
+        splitted = report.split('.')
+        child_id = int(splitted[0])
+        interaction_id = None
+        try:
+            interaction_id = int(splitted[1])
+            report_type = '.'.join(splitted[2:])
+        except ValueError:
+            report_type = '.'.join(splitted[1:])
+        template = os.path.join(basedir,'docx-templates',report_type)
+        root_dir = os.path.join(basedir, 'app')
+        report_file_name = os.path.join('static','tmp',report) # should be with child name not id
+        report_file_path = os.path.join(root_dir,report_file_name)
+        doc = MailMerge(template)
+        print(child_id)
+        print(doc.get_merge_fields())
+        doc.merge_rows('relationship',self.get_docx_template_fields_family(child_id))
+        doc.merge_rows('pathway_step_number',self.get_docx_template_fields_pathway(child_id))
+        doc.merge(**self.get_docx_template_fields_child(child_id))
+        doc.merge(**self.get_docx_template_fields_interaction(child_id,interaction_id))
+        doc.write(report_file_path)
+        return report_file_name
+
+    def get_docx_template_fields_child(self,child_id):
+        fss_child = entity_data["fss_child"].class_type
+        result = self.session.query(fss_child).get(child_id)
+        return {k:str(v) for k,v in result.__dict__.items() if v and not k.startswith('_')}
+
+    def get_docx_template_fields_family(self,child_id):
+        fss_family_member = entity_data["fss_family_member"].class_type
+        result = self.session.query(fss_family_member).filter(fss_family_member.child_id==child_id).all()
+        return [r.__dict__ for r in result]
+
+    def get_docx_template_fields_pathway(self,child_id):
+        fss_projected_pathway = entity_data["fss_projected_pathway"].class_type
+        result = self.session.query(fss_projected_pathway).filter(fss_projected_pathway.child_id==child_id).all()
+        return [{k:str(v) for k,v in r.__dict__.items() if v and not k.startswith('_')} for r in result]
+
+    def get_docx_template_fields_interaction(self,child_id, interaction_id):
+        fss_interaction = entity_data["fss_interaction"].class_type
+        result = self.session.query(fss_interaction).filter(fss_interaction.child_id==child_id)
+        if interaction_id != None:
+            result = result.filter(fss_interaction.id==interaction_id)
+        result = result.filter(fss_interaction.interaction_type.in_(["Home visit","Consultation FSS Centre","Consultation SOAR Village"]))\
+            .order_by(fss_interaction.interaction_date.desc()).first()
+        return {k:str(v) for k,v in result.__dict__.items() if v and not k.startswith('_')}
+
+    def generate_csv_report(self, report):
+        fss_child = entity_data["fss_child"].class_type
+        fss_family_member = entity_data["fss_family_member"].class_type
+        fss_interaction = entity_data["fss_interaction"].class_type
+        fss_projected_pathway = entity_data["fss_projected_pathway"].class_type
+        #query = self.session.query(fss_child, fss_family_member, fss_interaction, fss_projected_pathway) \
+        #    .join(fss_family_member).join(fss_interaction).join(fss_projected_pathway)
+        if (report == "child.csv"):
+            query = self.session.query(fss_child)
+        elif (report == "family.csv"):
+            query = self.session.query(fss_child, fss_family_member).join(fss_family_member)
+        elif (report == "pathway.csv"):
+            query = self.session.query(fss_child, fss_projected_pathway).join(fss_projected_pathway)
+        elif (report == "interaction.csv"):
+            query = self.session.query(fss_child, fss_interaction).join(fss_interaction)
+        elif (report == "fss.csv"):
+            query = self.session.query(fss_child, fss_family_member, fss_interaction, fss_projected_pathway) \
+                .outerjoin(fss_family_member).outerjoin(fss_interaction).outerjoin(fss_projected_pathway)
+        result = self.session.execute(query)
+
+        return self.write_csv_report(report, result)
+
+    def write_csv_report(self, report, result):
+        # Convert to a true list of dicts
+        columns = column_names_and_order[report]
+        converted_result = []
+        for r in result:
+            converted_result.append(dict())
+            for k,v in r.items():
+                try:
+                    converted_result[-1][columns[k]] = v
+                except: pass
+        result = converted_result
+        keys = columns.values()
+        # write out to file
+        dest_dir = os.path.join(basedir, 'app')
+        report_file_name = os.path.join('static','tmp',report)
+        with open(os.path.join(dest_dir,report_file_name), 'wb') as output_file:
+            dict_writer = csv.DictWriter(output_file, keys)
+            dict_writer.writeheader()
+            dict_writer.writerows(result)
+
+        return report_file_name
 
 
 class EnumResource(Resource):
@@ -394,6 +516,8 @@ class ReminderResource(ResourceBase):
         return reminders
 
 # Resource for calling a session.rollback()
+
+
 class RollbackResource(ResourceBase):
     def post(self):
         self.session.rollback()
@@ -401,6 +525,8 @@ class RollbackResource(ResourceBase):
         return response, 200
 
 # Resource for checking online status
+
+
 class HeartbeatResource(Resource):
     def get(self):
         response = {'message': 'beat'}
@@ -419,12 +545,14 @@ class AuthCheckResource(Resource):
         response = {'message': 'success'}
         return response, 200
 
+
 class AdminAuthCheckResource(Resource):
 
     @admin_required
     def get(self):
         response = {'message': 'success'}
         return response, 200
+
 
 class UserResource(ResourceBase):
     decorators = []
@@ -436,11 +564,13 @@ class UserResource(ResourceBase):
         if current_user.is_admin:
             entity = self.query.filter_by(**request.args.to_dict()).all()
             if not entity:
-                abort(404, message="Entity {}: {} doesn't exist".format("user", request.args.to_dict()))
+                abort(404, message="Entity {}: {} doesn't exist".format(
+                    "user", request.args.to_dict()))
             return marshal(entity, self.ed.marshaller), 200
         else:
             if request.args.to_dict():
-                abort(403, message="Permission denied, pass with no args to get your user data")
+                abort(
+                    403, message="Permission denied, pass with no args to get your user data")
             else:
                 return marshal([current_user], self.ed.marshaller), 200
 

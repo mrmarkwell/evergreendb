@@ -10,6 +10,9 @@
         <button mat-icon-button>
             <mat-icon svgIcon="attach_icon" (click)="openFileSelect()"></mat-icon>
         </button>
+        <button mat-icon-button>
+            <mat-icon svgIcon="download" (click)="downloadInteractionCoverSheet()"></mat-icon>
+        </button>
     </div>
     <div>
         <input #interactionFileInput [hidden]="true" id=interaction-file-select type="file" name="interactions" ng2FileSelect [uploader]="fileuploader"/>

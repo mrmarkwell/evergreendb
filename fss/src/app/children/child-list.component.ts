@@ -141,5 +141,7 @@ export class ChildList implements OnInit, OnChanges {
         return statusFilterArray;
     }
 
-
+    downloadAll(): void {
+        this.restService.getReport('fss.csv')
+    }
 }
