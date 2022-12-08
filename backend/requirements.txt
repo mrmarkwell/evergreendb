@@ -6,7 +6,7 @@ autopep8==1.4.4
 Babel==2.6.0
 backports.functools-lru-cache==1.5
 blinker==1.4
-certifi==2019.3.9
+certifi==2022.12.7
 chardet==3.0.4
 Click==7.0
 configparser==3.7.4
